@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/alert_detected_Heading1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/alert_detected_Heading1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/alert_detected_Heading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/alert_detected_Heading1"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/alert_detected_Heading2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/alert_detected_OkayQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/alert_detected_Heading2"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/alert_detected_OkayQuestion"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/alert_detected_BtnOkay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alert_detected_OkayQuestion"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:height="80dp"
+        android:minWidth="80dp"
+        android:text="@string/alert_detected_BtnOkay"
+        android:textColor="@color/alert_detected_btn_textColour_okay"
+        android:width="180dp" />
+
+    <Button
+        android:id="@+id/alert_detected_BtnNotOkay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alert_detected_BtnOkay"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:height="80dp"
+        android:text="@string/alert_detected_BtnNotOkay"
+        android:textColor="@color/alert_detected_btn_textColour_notokay"
+        android:width="180dp" />
+
+</RelativeLayout>
