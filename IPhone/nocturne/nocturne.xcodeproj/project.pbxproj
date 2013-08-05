@@ -26,6 +26,9 @@
 		47B0600317A0DE8B00FF84EB /* empty_bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B0600217A0DE8B00FF84EB /* empty_bed.png */; };
 		47B0600717A0E47A00FF84EB /* Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B0600617A0E47A00FF84EB /* Client.m */; };
 		47B0600A17A0E49300FF84EB /* Caregiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B0600917A0E49300FF84EB /* Caregiver.m */; };
+		47CA140C17B051D30012A5AE /* empty_bed_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 47CA140917B051D30012A5AE /* empty_bed_alert.png */; };
+		47CA140D17B051D30012A5AE /* inbed_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 47CA140A17B051D30012A5AE /* inbed_alert.png */; };
+		47CA140E17B051D30012A5AE /* nostatus_bed_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 47CA140B17B051D30012A5AE /* nostatus_bed_alert.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		47B0600617A0E47A00FF84EB /* Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Client.m; sourceTree = "<group>"; };
 		47B0600817A0E49300FF84EB /* Caregiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Caregiver.h; sourceTree = "<group>"; };
 		47B0600917A0E49300FF84EB /* Caregiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Caregiver.m; sourceTree = "<group>"; };
+		47CA140917B051D30012A5AE /* empty_bed_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty_bed_alert.png; sourceTree = "<group>"; };
+		47CA140A17B051D30012A5AE /* inbed_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inbed_alert.png; sourceTree = "<group>"; };
+		47CA140B17B051D30012A5AE /* nostatus_bed_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nostatus_bed_alert.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,9 @@
 				47B05FFD17A0DCC100FF84EB /* nostatus_bed.png */,
 				47B05FFE17A0DCC100FF84EB /* inbed.png */,
 				47B0600217A0DE8B00FF84EB /* empty_bed.png */,
+				47CA140917B051D30012A5AE /* empty_bed_alert.png */,
+				47CA140A17B051D30012A5AE /* inbed_alert.png */,
+				47CA140B17B051D30012A5AE /* nostatus_bed_alert.png */,
 				47B05FD517A0C95700FF84EB /* Supporting Files */,
 			);
 			path = nocturne;
@@ -206,6 +215,9 @@
 				47B0600017A0DCC100FF84EB /* nostatus_bed.png in Resources */,
 				47B0600117A0DCC100FF84EB /* inbed.png in Resources */,
 				47B0600317A0DE8B00FF84EB /* empty_bed.png in Resources */,
+				47CA140C17B051D30012A5AE /* empty_bed_alert.png in Resources */,
+				47CA140D17B051D30012A5AE /* inbed_alert.png in Resources */,
+				47CA140E17B051D30012A5AE /* nostatus_bed_alert.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +364,7 @@
 				47B05FF617A0C95800FF84EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

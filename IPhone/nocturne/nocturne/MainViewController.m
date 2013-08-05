@@ -15,6 +15,7 @@
 @implementation MainViewController
 
 static NSArray *_bedStatusImages;
+static NSArray *_bedStatusAlertImages;
 
 - (NSArray *)bedStatusImages {
     
@@ -23,6 +24,15 @@ static NSArray *_bedStatusImages;
     }
     
     return _bedStatusImages;
+}
+
+- (NSArray *)bedStatusAlertImages {
+    
+    if (_bedStatusAlertImages == nil) {
+        _bedStatusAlertImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"inbed_alert.png"], [UIImage imageNamed:@"empty_bed_alert.png"], [UIImage imageNamed:@"nostatus_bed_alert.png"], nil];
+    }
+    
+    return _bedStatusAlertImages;
 }
 
 - (void)viewDidLoad
@@ -61,7 +71,7 @@ static NSArray *_bedStatusImages;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,7 +87,12 @@ static NSArray *_bedStatusImages;
     cell.textLabel.text = [NSString stringWithFormat:@"Client #%d", indexPath.row + 1];
     cell.detailTextLabel.text = @"7 minutes ago.";
     
-    cell.imageView.image = self.bedStatusImages[indexPath.row];
+    if (indexPath.row < 3) {
+        cell.imageView.image = self.bedStatusImages[indexPath.row];
+    }
+    else {
+        cell.imageView.image = self.bedStatusAlertImages[2];
+    }
     
     return cell;
 }
