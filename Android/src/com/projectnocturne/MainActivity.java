@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.projectnocturne.datamodel.Users;
+import com.projectnocturne.datamodel.User;
 
 public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener {
 
@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 			btnSubscribe.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(final View v) {
-					final Users usr = new Users();
+					final User usr = new User();
 					usr.name_first = txtWelcomeScr1PersonNameFirst.getText().toString();
 					usr.name_last = txtWelcomeScr1PersonNameLast.getText().toString();
 					usr.phone_mbl = txtWelcomeScr1MobilePhoneNbr.getText().toString();
@@ -89,7 +89,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 			return v;
 		}
 
-		protected void sendSubscriptionMessage(final Users usr) {
+		protected void sendSubscriptionMessage(final User usr) {
 			// TODO Auto-generated method stub
 
 		}
@@ -106,6 +106,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
 	WelcomeScreen1Fragment welcomeScreen1Fragment = new WelcomeScreen1Fragment();
 
+	private NocturneApplication myApp;
 	public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
 	/**
@@ -118,6 +119,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		myApp = (NocturneApplication) getApplication();
 
 		// Set up the action bar to show a dropdown list.
 		final ActionBar actionBar = getActionBar();

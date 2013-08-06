@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.projectnocturne;
+package com.projectnocturne.services;
 
 import java.util.List;
 import java.util.UUID;
+
+import com.projectnocturne.SampleGattAttributes;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;

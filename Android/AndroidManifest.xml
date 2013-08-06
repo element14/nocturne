@@ -41,7 +41,7 @@
             android:label="@string/pref_activity_title" >
         </activity>
         <activity
-            android:name=".DeviceScanActivity"
+            android:name="com.projectnocturne.services.DeviceScanActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,16 +52,16 @@
         <activity android:name=".DeviceControlActivity" />
 
         <!-- sets up the scheduled alarm at boot -->
-        <receiver android:name="com.projectnocturne.BootReceiver" >
+        <receiver android:name="com.projectnocturne.services.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".BluetoothLeService"
+            android:name="com.projectnocturne.services.BluetoothLeService"
             android:enabled="true" />
-        <service android:name="com.projectnocturne.PollingService" />
+        <service android:name="com.projectnocturne.services.PollingService" />
         <service android:name="com.projectnocturne.StoreToDbService" />
         <service android:name="com.projectnocturne.SendToServerService" />
     </application>

@@ -1,7 +1,64 @@
 package com.projectnocturne.datamodel;
 
-public final class UserConnect {
+import java.util.ArrayList;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.util.SparseArray;
+
+public final class UserConnect extends AbstractDataObj {
 
 	public long patient_user_id;
 	public long caregiver_user_id;
+
+	public static final String DATABASE_TABLE_NAME = "UserConnect";
+	public static final String FIELD_NAME_patient_user_id = "patient_user_id";
+	public static final String FIELD_NAME_caregiver_user_id = "caregiver_user_id";
+
+	public UserConnect() {
+	}
+
+	public UserConnect(final Cursor results) {
+		super(results);
+		patient_user_id = results.getLong(results.getColumnIndex(FIELD_NAME_patient_user_id));
+		caregiver_user_id = results.getLong(results.getColumnIndex(FIELD_NAME_caregiver_user_id));
+	}
+
+	@Override
+	public ContentValues getContentValues() {
+		final ContentValues cv = super.getContentValues();
+		cv.put(FIELD_NAME_patient_user_id, patient_user_id);
+		cv.put(FIELD_NAME_caregiver_user_id, caregiver_user_id);
+		return cv;
+	}
+
+	@Override
+	public SparseArray<ArrayList<String>> getFields() {
+		final SparseArray<ArrayList<String>> fldList = super.getFields();
+		fldList.put(1, getArrayList(FIELD_NAME_patient_user_id, "LONG"));
+		fldList.put(1, getArrayList(FIELD_NAME_caregiver_user_id, "LONG"));
+		return fldList;
+	}
+
+	@Override
+	public String getSqlUpdateFromV001() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSqlUpdateFromV002() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getTableName() {
+		return DATABASE_TABLE_NAME;
+	}
+
+	@Override
+	public String toString() {
+		return null;
+	}
 }

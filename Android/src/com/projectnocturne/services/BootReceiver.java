@@ -1,4 +1,4 @@
-package com.projectnocturne;
+package com.projectnocturne.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

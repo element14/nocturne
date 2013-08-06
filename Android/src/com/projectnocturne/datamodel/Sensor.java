@@ -6,36 +6,37 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.SparseArray;
 
-public final class UserCondition extends AbstractDataObj {
-	public long user_id;
-	public long condition_id;
+public final class Sensor extends AbstractDataObj {
 
-	public static final String DATABASE_TABLE_NAME = "UserCondition";
-	public static final String FIELD_NAME_USER_ID = "user_id";
-	public static final String FIELD_NAME_CONDITION_ID = "condition_id";
+	private static final String DATABASE_TABLE_NAME = "Sensors";
+	private static final String FIELD_NAME_SENSOR_NAME = "SENSOR_NAME";
+	private static final String FIELD_NAME_SENSOR_DESC = "SENSOR_DESC";
 
-	public UserCondition() {
+	public String sensor_name;
+	public String sensor_desc;
+
+	public Sensor() {
 	}
 
-	public UserCondition(final Cursor results) {
+	public Sensor(final Cursor results) {
 		super(results);
-		user_id = results.getLong(results.getColumnIndex(FIELD_NAME_USER_ID));
-		condition_id = results.getLong(results.getColumnIndex(FIELD_NAME_CONDITION_ID));
+		sensor_name = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_NAME));
+		sensor_desc = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_DESC));
 	}
 
 	@Override
 	public ContentValues getContentValues() {
 		final ContentValues cv = super.getContentValues();
-		cv.put(FIELD_NAME_USER_ID, user_id);
-		cv.put(FIELD_NAME_CONDITION_ID, condition_id);
+		cv.put(FIELD_NAME_SENSOR_NAME, sensor_name);
+		cv.put(FIELD_NAME_SENSOR_DESC, sensor_desc);
 		return cv;
 	}
 
 	@Override
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fldList = super.getFields();
-		fldList.put(1, getArrayList(FIELD_NAME_USER_ID, "LONG"));
-		fldList.put(1, getArrayList(FIELD_NAME_CONDITION_ID, "LONG"));
+		fldList.put(1, getArrayList(FIELD_NAME_SENSOR_NAME, "VARCHAR(255) NOT NULL"));
+		fldList.put(1, getArrayList(FIELD_NAME_SENSOR_DESC, "VARCHAR(255) NOT NULL"));
 		return fldList;
 	}
 
