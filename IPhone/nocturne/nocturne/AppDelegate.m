@@ -74,7 +74,7 @@
     RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
     
     // Setup our object mappings
-    RKObjectMapping *clientMapping = [RKObjectMapping mappingForClass:[client class]];
+    RKObjectMapping *clientMapping = [RKObjectMapping mappingForClass:[Client class]];
     [clientMapping addAttributeMappingsFromDictionary:@{
      @"userid" : @"userid",
      @"username" : @"username",
