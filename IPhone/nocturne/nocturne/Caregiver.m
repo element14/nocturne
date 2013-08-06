@@ -10,4 +10,14 @@
 
 @implementation Caregiver
 
+@synthesize userid;
+@synthesize username;
+@synthesize lastname;
+@synthesize firstname;
+@synthesize email;
+@synthesize phone_home;
+@synthesize phone_cell;
+@synthesize address;
+@synthesize description;
+
 @end
