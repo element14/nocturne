@@ -107,21 +107,21 @@
     [RKObjectMapping addDefaultDateFormatterForString:@"E MMM d HH:mm:ss Z y" inTimeZone:nil];
     
     // Register our mappings with the provider using a response descriptor
-    RKResponseDescriptor *loginResponseDescriptor =
+    RKResponseDescriptor *clientResponseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:clientMapping
                                             pathPattern:@"/Clients"
                                                 keyPath:nil
                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
-    [objectManager addResponseDescriptor:loginResponseDescriptor];
+    [objectManager addResponseDescriptor:clientResponseDescriptor];
     
-    RKResponseDescriptor *fileInfoResponseDescriptor =
+    RKResponseDescriptor *caregiverResponseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:caregiverMapping
                                             pathPattern:@"/Caregivers"
                                                 keyPath:nil
                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
-    [objectManager addResponseDescriptor:fileInfoResponseDescriptor];
+    [objectManager addResponseDescriptor:caregiverResponseDescriptor];
     
 }
 
