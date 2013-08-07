@@ -18,8 +18,13 @@
 
 @property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;
 
-@property (weak, nonatomic) IBOutlet UIWebView *creditsView;
+@property (weak, nonatomic) IBOutlet UILabel *_greetingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *_connectBedPadButton;
+@property (weak, nonatomic) IBOutlet UITableView *_connectionsView;
 
 - (IBAction)done:(id)sender;
+- (IBAction)connectBedpad:(UIButton *)sender;
+- (IBAction)addClient:(UIButton *)sender;
+- (IBAction)addCaregiver:(UIButton *)sender;
 
 @end

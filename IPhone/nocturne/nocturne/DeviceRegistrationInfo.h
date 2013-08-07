@@ -18,6 +18,8 @@
 //   when created or updated, this information should also be sent to the Server.
 
 
+// TODO: Store bedpad connection info in here too
+
 +(void)setApiKey:(NSString *)apiKey;
 +(NSString *)apiKey;
 

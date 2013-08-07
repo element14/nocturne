@@ -14,7 +14,9 @@
 
 @implementation FlipsideViewController
 
-@synthesize creditsView;
+@synthesize _greetingLabel;
+@synthesize _connectBedPadButton;
+@synthesize _connectionsView;
 
 - (void)viewDidLoad
 {
@@ -103,5 +105,24 @@
     
     NSLog(@"cell was selected: %d", indexPath.row);
 }
+
+#pragma mark - button actions
+- (IBAction)connectBedpad:(UIButton *)sender {
+    // TODO: needs a connection object? See TI SensorPad example
+    // This might also need a new popup view
+    // When connected, change button title text to show connection info
+    // button could use some custom graphics
+    
+    // TODO: Store bedpad connection information into DeviceRegistrationInfo
+}
+
+- (IBAction)addClient:(UIButton *)sender {
+    // TODO: needs server side work
+}
+
+- (IBAction)addCaregiver:(UIButton *)sender {
+    // TODO: needs server side work
+}
+
 
 @end
