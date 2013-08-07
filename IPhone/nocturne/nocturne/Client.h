@@ -34,4 +34,11 @@
 @property (strong, nonatomic) NSString *lastknownstatus;
 @property (strong, nonatomic) NSDate   *laststatusupdate;
 
++(void) getClientsWithCallback:(void (^)(NSArray *clients, NSString *error))theCallback;
+
+// The client list is stored as part of this Client class
+// The views can then ask this class for the required bits of data
++(NSInteger)numberOfClients;
++(Client *)clientAtIndex:(NSInteger)index;
+
 @end

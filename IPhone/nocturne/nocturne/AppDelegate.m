@@ -13,6 +13,7 @@
 
 #import "Client.h"
 #import "Caregiver.h"
+#import "DeviceRegistrationInfo.h"
 
 @implementation AppDelegate
 
@@ -20,6 +21,13 @@
 {
     [self configureRestKit];
 
+// TODO: User Registration
+    // if no apiKey is set, that means user is not registered
+    // Need to have a popup to enter registration information
+    // also need to handle URL that is provided in the registration email
+    // temporarily:
+    [DeviceRegistrationInfo setApiKey:@"sRvxDuZNExJdNa70H92c:1"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
@@ -57,48 +65,50 @@
 
 - (void)configureRestKit {
     //  "RestKit is configured to show info messages and above in DEBUG builds. In non-DEBUG builds, only warnings, errors, and critical messages are logged. This is defined via RKLogLevelDefault in RKLog.h."
-    //    RKLogConfigureByName("RestKit", RKLogLevelWarning);
-    //    RKLogConfigureByName("RestKit/Network*", RKLogLevelWarning);
-    //    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/Network*", RKLogLevelWarning);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelWarning);
     
     //let AFNetworking manage the activity indicator
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     // Initialize HTTPClient
-    NSURL *baseURL = [NSURL URLWithString:@"https://eval.espressologic.com/rest/ntewinkel/demo/v1"];
+    NSURL *baseURL = [NSURL URLWithString:@"https://eval.espressologic.com"];
     AFHTTPClient* client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+
     //we want to work with JSON-Data
     [client setDefaultHeader:@"Accept" value:RKMIMETypeJSON];
     
     // Initialize RestKit
-    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:baseURL];
     
     // Setup our object mappings
+    // the keys represent the source key path and the values represent the names of the target attributes on the destination object
     RKObjectMapping *clientMapping = [RKObjectMapping mappingForClass:[Client class]];
     [clientMapping addAttributeMappingsFromDictionary:@{
-     @"userid" : @"userid",
-     @"username" : @"username",
-     @"lastname" : @"lastname",
-     @"firstname" : @"firstname",
-     @"email" : @"email",
-     @"phone_home" : @"phone_home",
-     @"phone_cell" : @"phone_cell",
-     @"address" : @"address",
+     @"User.userid" : @"userid",
      @"description" : @"description",
-     @"lastknownstatus" : @"lastknownstatus",
-     @"laststatusupdate" : @"laststatusupdate"
+     @"User.username" : @"username",
+     @"User.lastname" : @"lastname",
+     @"User.firstname" : @"firstname",
+     @"User.email" : @"email",
+     @"User.phone_home" : @"phone_home",
+     @"User.phone_cell" : @"phone_cell",
+     @"User.address" : @"address",
+     @"User.BedStatus.status" : @"lastknownstatus",
+     @"User.BedStatus.datetime" : @"laststatusupdate"
      }];
     
     RKObjectMapping *caregiverMapping = [RKObjectMapping mappingForClass:[Caregiver class]];
     [caregiverMapping addAttributeMappingsFromDictionary:@{
-     @"userid" : @"userid",
-     @"username" : @"username",
-     @"lastname" : @"lastname",
-     @"firstname" : @"firstname",
-     @"email" : @"email",
-     @"phone_home" : @"phone_home",
-     @"phone_cell" : @"phone_cell",
-     @"address" : @"address",
+     @"User.userid" : @"userid",
+     @"User.username" : @"username",
+     @"User.lastname" : @"lastname",
+     @"User.firstname" : @"firstname",
+     @"User.email" : @"email",
+     @"User.phone_home" : @"phone_home",
+     @"User.phone_cell" : @"phone_cell",
+     @"User.address" : @"address",
      @"description" : @"description"
      }];
     
@@ -106,10 +116,12 @@
     // Wed Sep 29 15:31:08 +0000 2010
     [RKObjectMapping addDefaultDateFormatterForString:@"E MMM d HH:mm:ss Z y" inTimeZone:nil];
     
+// TODO: Use the new methods to get rid of these deprecation warnings
+    
     // Register our mappings with the provider using a response descriptor
     RKResponseDescriptor *clientResponseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:clientMapping
-                                            pathPattern:@"/Clients"
+                                            pathPattern:@"/rest/ntewinkel/demo/v1/Clients"
                                                 keyPath:nil
                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
@@ -117,7 +129,7 @@
     
     RKResponseDescriptor *caregiverResponseDescriptor =
     [RKResponseDescriptor responseDescriptorWithMapping:caregiverMapping
-                                            pathPattern:@"/Caregivers"
+                                            pathPattern:@"/rest/ntewinkel/demo/v1/Caregivers"
                                                 keyPath:nil
                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     

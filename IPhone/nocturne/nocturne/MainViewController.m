@@ -39,6 +39,26 @@ static NSArray *_bedStatusAlertImages;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSLog(@"About to do server call...");
+
+    [Client getClientsWithCallback:^(NSArray *clients, NSString *error) {
+        if (error == nil) {
+        NSLog(@"clients = %@", clients);
+        
+        // This client list is stored as part of the Client object
+        // The views can then ask the Client object for the required bits of data
+        NSLog(@"Client list from Client class:");
+        for (int i=0; i<[Client numberOfClients]; i++) {
+            NSLog(@"     %@", [Client clientAtIndex:i]);
+        }
+        }
+        else {
+            NSLog(@"getClientsWithCallback returned error: %@", error);
+        }
+    }];
+    
+    // TODO: Server side needs Caregiver list
 }
 
 - (void)didReceiveMemoryWarning

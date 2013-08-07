@@ -37,6 +37,9 @@
 		47CA142B17B099530012A5AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CA142A17B099530012A5AE /* QuartzCore.framework */; };
 		47CA142D17B099590012A5AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CA142C17B099590012A5AE /* Security.framework */; };
 		47CA142F17B0996B0012A5AE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CA142E17B0996B0012A5AE /* SystemConfiguration.framework */; };
+		47CA144317B2BB440012A5AE /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 47CA144217B2BB440012A5AE /* icon114x114.png */; };
+		47CA144517B2BB480012A5AE /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 47CA144417B2BB480012A5AE /* icon57x57.png */; };
+		47CA144917B2CAAF0012A5AE /* DeviceRegistrationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CA144817B2CAAF0012A5AE /* DeviceRegistrationInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +119,10 @@
 		47CA142A17B099530012A5AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		47CA142C17B099590012A5AE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		47CA142E17B0996B0012A5AE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		47CA144217B2BB440012A5AE /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon114x114.png; path = ../icon114x114.png; sourceTree = "<group>"; };
+		47CA144417B2BB480012A5AE /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon57x57.png; path = ../icon57x57.png; sourceTree = "<group>"; };
+		47CA144717B2CAAF0012A5AE /* DeviceRegistrationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceRegistrationInfo.h; sourceTree = "<group>"; };
+		47CA144817B2CAAF0012A5AE /* DeviceRegistrationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceRegistrationInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +185,7 @@
 		47B05FD417A0C95700FF84EB /* nocturne */ = {
 			isa = PBXGroup;
 			children = (
+				47CA144617B2BB710012A5AE /* Images */,
 				47B0600417A0E45C00FF84EB /* Data */,
 				47B05FDD17A0C95800FF84EB /* AppDelegate.h */,
 				47B05FDE17A0C95800FF84EB /* AppDelegate.m */,
@@ -188,12 +196,6 @@
 				47B05FEA17A0C95800FF84EB /* FlipsideViewController.m */,
 				47B05FEF17A0C95800FF84EB /* FlipsideViewController.xib */,
 				47B05FF717A0CB4100FF84EB /* Credits.html */,
-				47B05FFD17A0DCC100FF84EB /* nostatus_bed.png */,
-				47B05FFE17A0DCC100FF84EB /* inbed.png */,
-				47B0600217A0DE8B00FF84EB /* empty_bed.png */,
-				47CA140917B051D30012A5AE /* empty_bed_alert.png */,
-				47CA140A17B051D30012A5AE /* inbed_alert.png */,
-				47CA140B17B051D30012A5AE /* nostatus_bed_alert.png */,
 				47B05FD517A0C95700FF84EB /* Supporting Files */,
 			);
 			path = nocturne;
@@ -220,6 +222,8 @@
 				47B0600617A0E47A00FF84EB /* Client.m */,
 				47B0600817A0E49300FF84EB /* Caregiver.h */,
 				47B0600917A0E49300FF84EB /* Caregiver.m */,
+				47CA144717B2CAAF0012A5AE /* DeviceRegistrationInfo.h */,
+				47CA144817B2CAAF0012A5AE /* DeviceRegistrationInfo.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -233,6 +237,21 @@
 				47CA141D17B053590012A5AE /* RestKitFrameworkTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		47CA144617B2BB710012A5AE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				47CA144417B2BB480012A5AE /* icon57x57.png */,
+				47CA144217B2BB440012A5AE /* icon114x114.png */,
+				47B05FFE17A0DCC100FF84EB /* inbed.png */,
+				47CA140A17B051D30012A5AE /* inbed_alert.png */,
+				47B0600217A0DE8B00FF84EB /* empty_bed.png */,
+				47CA140917B051D30012A5AE /* empty_bed_alert.png */,
+				47B05FFD17A0DCC100FF84EB /* nostatus_bed.png */,
+				47CA140B17B051D30012A5AE /* nostatus_bed_alert.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +356,8 @@
 				47CA140C17B051D30012A5AE /* empty_bed_alert.png in Resources */,
 				47CA140D17B051D30012A5AE /* inbed_alert.png in Resources */,
 				47CA140E17B051D30012A5AE /* nostatus_bed_alert.png in Resources */,
+				47CA144317B2BB440012A5AE /* icon114x114.png in Resources */,
+				47CA144517B2BB480012A5AE /* icon57x57.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +374,7 @@
 				47B05FEB17A0C95800FF84EB /* FlipsideViewController.m in Sources */,
 				47B0600717A0E47A00FF84EB /* Client.m in Sources */,
 				47B0600A17A0E49300FF84EB /* Caregiver.m in Sources */,
+				47CA144917B2CAAF0012A5AE /* DeviceRegistrationInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,7 +461,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -449,6 +472,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -460,6 +485,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "nocturne/nocturne-Prefix.pch";
 				INFOPLIST_FILE = "nocturne/nocturne-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -471,6 +497,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "nocturne/nocturne-Prefix.pch";
 				INFOPLIST_FILE = "nocturne/nocturne-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

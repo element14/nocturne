@@ -30,4 +30,11 @@
 @property (strong, nonatomic) NSString *address;
 @property (strong, nonatomic) NSString *description;
 
++(void) getCaregiversWithCallback:(void (^)(NSArray *caregivers, NSString *error))theCallback;
+
+// The caregiver list is stored as part of this Caregiver class
+// The views can then ask this class for the required bits of data
++(NSInteger)numberOfCaregivers;
++(Caregiver *)caregiverAtIndex:(NSInteger)index;
+
 @end

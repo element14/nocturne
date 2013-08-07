@@ -7,6 +7,8 @@
 //
 
 #import "FlipsideViewController.h"
+#import "Client.h"
+#import "Caregiver.h"
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate> {
     
