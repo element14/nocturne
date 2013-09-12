@@ -7,9 +7,11 @@ Todo:
 
  - [x] create project skeleton
  - [x] create sample screen layouts
- - [ ] create data model classes
+ - [x] create data model classes
+ - [x] create screen layouts
+ - [x] create screen handler classes
  - [ ] get CRUD working for data model classes
- - [ ] create on boot handler (to start the SensorTag service)
+ - [ ] create on boot handler (to start the SensorTag polling service)
  - [ ] create settings activity
  - [ ] create background SensorTag service
  - [ ] 'Discover' the SensorTag device
