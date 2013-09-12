@@ -88,7 +88,7 @@ public class BleCharacteristics {
 	}
 
 	public static int unsignedBytesToInt(final byte hb, final byte lb) {
-		return ((hb << 8) & 0xff00) | (lb & 0xFF);
+		return hb << 8 & 0xff00 | lb & 0xFF;
 	}
 
 	public static int unsignedByteToInt(final byte b) {

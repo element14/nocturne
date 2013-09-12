@@ -77,6 +77,7 @@
     <string name="connect_req_BtnNotOkay">No</string>
 
     <!-- BLE example code strings -->
+    <string name="ble_please_enable">Please Enable Bluetooth</string>
     <string name="ble_not_supported">BLE is not supported</string>
     <string name="label_data">Data:</string>
     <string name="label_device_address">Device address:</string>
@@ -95,5 +96,7 @@
     <string name="menu_disconnect">Disconnect</string>
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
+    <string name="title_activity_welcome1">Welcome1Activity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

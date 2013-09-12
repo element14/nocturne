@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.util.SparseArray;
 
+import com.projectnocturne.NocturneApplication;
+
 /**
  * this is the base class of all objects that are stored in a database.
  * 
@@ -45,7 +47,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	 * Simple default constructor for data objects
 	 */
 	public AbstractDataObj() {
-		lastUpdated = new DateTime().toString(com.projectnocturne.AbstractApplication.simpleDateFmtStrDb);
+		lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 	}
 
 	public AbstractDataObj(final Cursor results) {
@@ -177,7 +179,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	 *            the lastUpdated to set
 	 */
 	public void setLastUpdated(final DateTime lastUpdatedStr) {
-		lastUpdated = lastUpdatedStr.toString(com.projectnocturne.AbstractApplication.simpleDateFmtStrDb);
+		lastUpdated = lastUpdatedStr.toString(NocturneApplication.simpleDateFmtStrDb);
 	}
 
 	public void setLastUpdated(final long time) {

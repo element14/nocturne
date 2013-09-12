@@ -3,7 +3,14 @@ package com.projectnocturne;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -12,10 +19,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
+import android.util.Patterns;
 
 import com.projectnocturne.datamodel.DataModel;
 
-public final class NocturneApplication extends AbstractApplication {
+public final class NocturneApplication extends Application {
 	private static final String LOG_TAG = NocturneApplication.class.getSimpleName();
 
 	public final static String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -25,13 +33,20 @@ public final class NocturneApplication extends AbstractApplication {
 	public static final DecimalFormat decFmt = new DecimalFormat("#0.00");
 	public static final DecimalFormat gbp = new DecimalFormat("£#0.00");
 
+	public static final int ONE_SECOND = 1000;
+	public static final int ONE_MINUTE = 60000;
+	public static final long BLE_DEVICE_SCAN_PERIOD = 10000;
+
 	private static NocturneApplication singleton;
+	public static final String simpleDateFmtStrView = "dd-MMM-yyyy";
 
 	public static NocturneApplication getInstance() {
 		return NocturneApplication.singleton;
 	}
 
 	public DataModel model;
+	public static final String simpleDateFmtStrDb = "yyyyMMdd";
+	public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
 
 	protected Drawable getAppImage(final String packageName) {
 		try {
@@ -55,6 +70,17 @@ public final class NocturneApplication extends AbstractApplication {
 		return extDir.getPath() + File.separator + getApplicationName() + File.separator;
 	}
 
+	public String getAppVersion(final String packageName) {
+		String verName = "unknown";
+		try {
+			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+			verName = pInfo.versionName;
+		} catch (final NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return verName;
+	}
+
 	public int getAppVersionNbr() {
 		return this.getAppVersionNbr("com.projectnocturne");
 	}
@@ -68,6 +94,18 @@ public final class NocturneApplication extends AbstractApplication {
 			e.printStackTrace();
 		}
 		return verName;
+	}
+
+	public String getEmailAddr() {
+		final Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+		final Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+		for (final Account account : accounts) {
+			if (emailPattern.matcher(account.name).matches()) {
+				final String possibleEmail = account.name;
+				if (possibleEmail.endsWith("googlemail.com") || possibleEmail.endsWith("gmail.com")) { return possibleEmail; }
+			}
+		}
+		return null;
 	}
 
 	/*
