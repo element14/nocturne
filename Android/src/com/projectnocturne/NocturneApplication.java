@@ -1,6 +1,25 @@
+/**
+ * 
+ * Copyright Notice
+ *  ----------------
+ *
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ *
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ * 
+ *  Copyright 2013-2014 Bath Institute of Medical Engineering.
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
@@ -22,9 +41,10 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.projectnocturne.datamodel.DataModel;
+import com.projectnocturne.services.ServerCommsService;
 
 public final class NocturneApplication extends Application {
-	private static final String LOG_TAG = NocturneApplication.class.getSimpleName();
+	public static final String LOG_TAG = "ProjectNocturne";
 
 	public final static String LINE_SEPARATOR = System.getProperty("line.separator");
 	public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -37,16 +57,18 @@ public final class NocturneApplication extends Application {
 	public static final int ONE_MINUTE = 60000;
 	public static final long BLE_DEVICE_SCAN_PERIOD = 10000;
 
+	private DataModel dataModel = null;
+
+	private ServerCommsService svrCommsService;
 	private static NocturneApplication singleton;
+
 	public static final String simpleDateFmtStrView = "dd-MMM-yyyy";
+	public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
+	public static final String simpleDateFmtStrDb = "yyyyMMdd";
 
 	public static NocturneApplication getInstance() {
 		return NocturneApplication.singleton;
 	}
-
-	public DataModel model;
-	public static final String simpleDateFmtStrDb = "yyyyMMdd";
-	public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
 
 	protected Drawable getAppImage(final String packageName) {
 		try {
@@ -96,6 +118,10 @@ public final class NocturneApplication extends Application {
 		return verName;
 	}
 
+	public DataModel getDataModel() {
+		return dataModel;
+	}
+
 	public String getEmailAddr() {
 		final Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
 		final Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
@@ -108,6 +134,10 @@ public final class NocturneApplication extends Application {
 		return null;
 	}
 
+	public ServerCommsService getServerComms() {
+		return svrCommsService;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -118,8 +148,13 @@ public final class NocturneApplication extends Application {
 		super.onCreate();
 		Log.d(LOG_TAG, "onCreate(); application being created.");
 		NocturneApplication.singleton = this;
-		model = new DataModel(getApplicationContext());
-		model.initialise(this);
+		svrCommsService = new ServerCommsService();
+		dataModel = DataModel.getInstance();
+		try {
+			dataModel.initialise(this);
+		} catch (final SQLException ex) {
+			Log.wtf(LOG_TAG, "Exception initialising DB: ", ex);
+		}
 	}
 
 	/*
@@ -130,7 +165,7 @@ public final class NocturneApplication extends Application {
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
-		model.shutdown();
-		model = null;
+		dataModel.shutdown();
+		dataModel = null;
 	}
 }

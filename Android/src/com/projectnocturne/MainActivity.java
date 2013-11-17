@@ -1,11 +1,33 @@
+/**
+ * 
+ * Copyright Notice
+ *  ----------------
+ *
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ *
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ * 
+ *  Copyright 2013-2014 Bath Institute of Medical Engineering.
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 
+import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
+import com.projectnocturne.services.PollingService;
 import com.projectnocturne.views.AlertDetectedFragment;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
@@ -13,7 +35,7 @@ import com.projectnocturne.views.Welcome2Fragment;
 
 /**
  * <p>
- * This activity is the main activity that is launched.
+ * This is the main activity for the android app.
  * </p>
  * it is launched in response to the following:<br/>
  * <ul>
@@ -25,14 +47,14 @@ import com.projectnocturne.views.Welcome2Fragment;
  */
 public class MainActivity extends Activity implements ActionBar.OnNavigationListener {
 
-	Welcome1Fragment welcome1Fragment = new Welcome1Fragment();
-	Welcome2Fragment welcome2Fragment = new Welcome2Fragment();
-	Status1Fragment status1Fragment = new Status1Fragment();
-	AlertDetectedFragment alertDetectedFragment = new AlertDetectedFragment();
+	Welcome1Fragment welcome1Fragment = null;
+	Welcome2Fragment welcome2Fragment = null;
+	Status1Fragment status1Fragment = null;
+	AlertDetectedFragment alertDetectedFragment = null;
 
 	private NocturneApplication myApp = null;
 
-	public static final String LOG_TAG = MainActivity.class.getSimpleName();
+	public static final String LOG_TAG = MainActivity.class.getSimpleName() + ":";
 
 	/**
 	 * The serialisation (saved instance state) Bundle key representing the
@@ -59,10 +81,13 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 		// Set up the dropdown list navigation in the action bar.
 		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown list.
+				// Specify a SpinnerAdapter to populate the dropdown list.
 				new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
-						android.R.id.text1, new String[] { getString(R.string.title_section1),
-								getString(R.string.title_section2), getString(R.string.title_section3), }), this);
+						android.R.id.text1, new String[] { getString(R.string.title_status),
+								getString(R.string.title_connect), getString(R.string.title_connection_requests) }),
+				this);
+
+		startSensorTagService();
 
 		showScreen();
 	}
@@ -93,6 +118,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 		switch (itemPosition) {
 		case 0:
+			welcome1Fragment = new Welcome1Fragment();
 			getFragmentManager().beginTransaction().replace(R.id.container, welcome1Fragment).commit();
 			break;
 		case 1:
@@ -104,6 +130,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 			// wrkoutHistryFrgmnt).commit();
 			// break;
 		default:
+			status1Fragment = new Status1Fragment();
 			getFragmentManager().beginTransaction().replace(R.id.container, status1Fragment).commit();
 		}
 
@@ -138,8 +165,31 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	 * 
 	 */
 	private void showScreen() {
-		// TODO Auto-generated method stub
+		final RegistrationStatus currentRegStatus = NocturneApplication.getInstance().getDataModel()
+				.getRegistrationStatus();
+		switch (currentRegStatus) {
+		case NOT_STARTED:
+			welcome1Fragment = new Welcome1Fragment();
+			getFragmentManager().beginTransaction().replace(R.id.container, welcome1Fragment).commit();
+			break;
+		case REQUEST_SENT:
+			welcome2Fragment = new Welcome2Fragment();
+			getFragmentManager().beginTransaction().replace(R.id.container, welcome2Fragment).commit();
+			break;
+		case REQUEST_ACCEPTED:
+			status1Fragment = new Status1Fragment();
+			getFragmentManager().beginTransaction().replace(R.id.container, status1Fragment).commit();
+			break;
+		case REQUEST_DENIED:
+			break;
+		}
 
+	}
+
+	private void startSensorTagService() {
+		Log.d(LOG_TAG, "MainActivity::startSensorTagService() starting sensor tag polling service.");
+		final Intent longSvc = new Intent(this, PollingService.class);
+		startService(longSvc);
 	}
 
 }

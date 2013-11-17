@@ -35,20 +35,19 @@ public final class Sensor extends AbstractDataObj {
 	@Override
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fldList = super.getFields();
-		fldList.put(1, getArrayList(FIELD_NAME_SENSOR_NAME, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_SENSOR_DESC, "VARCHAR(255) NOT NULL"));
+		int x = fldList.size();
+		fldList.put(x++, getArrayList(FIELD_NAME_SENSOR_NAME, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_SENSOR_DESC, "VARCHAR(255) NOT NULL"));
 		return fldList;
 	}
 
 	@Override
 	public String getSqlUpdateFromV001() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getSqlUpdateFromV002() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

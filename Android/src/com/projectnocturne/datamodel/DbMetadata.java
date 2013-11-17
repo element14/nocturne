@@ -71,7 +71,6 @@ public class DbMetadata extends AbstractDataObj {
 	@Override
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fields = super.getFields();
-
 		int x = fields.size();
 		fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, "VARCHAR(255) NOT NULL"));
 		fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP, "LONG"));
@@ -111,6 +110,10 @@ public class DbMetadata extends AbstractDataObj {
 		default:
 			registrationStatus = RegistrationStatus.NOT_STARTED;
 		}
+	}
+
+	public void setRegistrationStatus(final RegistrationStatus aRegStatus) {
+		registrationStatus = aRegStatus;
 	}
 
 	private void setRegistrationStatus(final String newValueStr) {

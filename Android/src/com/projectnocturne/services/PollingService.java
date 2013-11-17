@@ -1,3 +1,21 @@
+/**
+ * 
+ * Copyright Notice
+ *  ----------------
+ *
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ *
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ * 
+ *  Copyright 2013-2014 Bath Institute of Medical Engineering.
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.services;
 
 import java.util.ArrayList;
@@ -100,9 +118,7 @@ public final class PollingService extends Service {
 			Log.i(LOG_TAG, "PollingService :: Found device [" + mBtDevice.getName() + "]");
 
 			if (mBtDevice.getName().equalsIgnoreCase("SensorTag")) {
-
 				scanLeDevice(false);
-
 				mBluetoothGatt = device.connectGatt(getApplication(), false, mGattCallback);
 			}
 		}
@@ -146,9 +162,10 @@ public final class PollingService extends Service {
 
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId) {
-
+		if (mHandler == null) {
+			mHandler = new Handler();
+		}
 		scanLeDevice(true);
-
 		return super.onStartCommand(intent, flags, startId);
 	}
 

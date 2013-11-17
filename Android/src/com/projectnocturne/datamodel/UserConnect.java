@@ -35,21 +35,10 @@ public final class UserConnect extends AbstractDataObj {
 	@Override
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fldList = super.getFields();
-		fldList.put(1, getArrayList(FIELD_NAME_patient_user_id, "LONG"));
-		fldList.put(1, getArrayList(FIELD_NAME_caregiver_user_id, "LONG"));
+		int x = fldList.size();
+		fldList.put(x++, getArrayList(FIELD_NAME_patient_user_id, "LONG"));
+		fldList.put(x++, getArrayList(FIELD_NAME_caregiver_user_id, "LONG"));
 		return fldList;
-	}
-
-	@Override
-	public String getSqlUpdateFromV001() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getSqlUpdateFromV002() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

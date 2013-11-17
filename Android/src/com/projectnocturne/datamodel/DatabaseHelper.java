@@ -13,11 +13,15 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private boolean firstTimeThrough = true;
-	private final DbConstants dbConstants;
+	private static final String DATABASE_EXT = ".db";
+	private static final String DATABASE_NAME = "NocturneDb";
 
-	public DatabaseHelper(final Context context, final DbConstants dbCnstants) {
-		super(context, dbCnstants.getDbPath() + dbCnstants.getDbName(), null, dbCnstants.getDbVersion());
-		dbConstants = dbCnstants;
+	// any time you make changes to your database objects, you may have to
+	// increase the database version
+	private static final int DATABASE_VERSION = 1;
+
+	public DatabaseHelper(final Context context) {
+		super(context, DATABASE_NAME + DATABASE_EXT, null, DATABASE_VERSION);
 	}
 
 	private void createTables(final SQLiteDatabase db) {
@@ -70,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(final SQLiteDatabase db) {
-		Log.w("DatabaseHelper", "Creating database version " + dbConstants.getDbVersion());
+		Log.w("DatabaseHelper", "Creating database version " + DATABASE_VERSION);
 		createTables(db);
 	}
 

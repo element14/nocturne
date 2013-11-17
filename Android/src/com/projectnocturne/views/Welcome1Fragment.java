@@ -1,6 +1,8 @@
 package com.projectnocturne.views;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.User;
 
 public class Welcome1Fragment extends NocturneFragment {
-	public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName();
+	public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + ":";
 
 	private boolean readyFragment;
 	private Button btnSubscribe;
@@ -21,6 +25,33 @@ public class Welcome1Fragment extends NocturneFragment {
 	private TextView txtWelcomeScr1MobilePhoneNbr;
 	private TextView txtWelcomeScr1HomePhoneNbr;
 	private TextView txtWelcomeScr1EmailAddress;
+
+	TextWatcher textChangedWtchr = new TextWatcher() {
+		@Override
+		public void afterTextChanged(final Editable s) {
+			enableSubscribeButton();
+		}
+
+		@Override
+		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+		}
+	};
+
+	private void enableSubscribeButton() {
+		if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0
+				&& txtWelcomeScr1MobilePhoneNbr.getText().length() > 0
+				&& txtWelcomeScr1HomePhoneNbr.getText().length() > 0
+				&& txtWelcomeScr1EmailAddress.getText().length() > 0) {
+			btnSubscribe.setEnabled(true);
+		} else {
+			btnSubscribe.setEnabled(false);
+		}
+	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
@@ -39,6 +70,12 @@ public class Welcome1Fragment extends NocturneFragment {
 		txtWelcomeScr1EmailAddress = (TextView) v.findViewById(R.id.welcomeScr1EmailAddress);
 		btnSubscribe = (Button) v.findViewById(R.id.welcomeScr1BtnSubscribe);
 
+		txtWelcomeScr1PersonNameFirst.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1PersonNameLast.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1MobilePhoneNbr.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1HomePhoneNbr.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1EmailAddress.addTextChangedListener(textChangedWtchr);
+
 		btnSubscribe.setEnabled(false);
 		btnSubscribe.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -49,10 +86,10 @@ public class Welcome1Fragment extends NocturneFragment {
 				usr.phone_mbl = txtWelcomeScr1MobilePhoneNbr.getText().toString();
 				usr.phone_home = txtWelcomeScr1HomePhoneNbr.getText().toString();
 				usr.email1 = txtWelcomeScr1EmailAddress.getText().toString();
+				usr.username = usr.email1;
 				sendSubscriptionMessage(usr);
 			}
 		});
-
 		readyFragment = true;
 
 		update();
@@ -60,16 +97,17 @@ public class Welcome1Fragment extends NocturneFragment {
 	}
 
 	protected void sendSubscriptionMessage(final User usr) {
-		// TODO Auto-generated method stub
-
+		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(usr);
+		NocturneApplication.getInstance().getDataModel().addUser(usr);
+		NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
 	}
 
 	public void update() {
 		if (!readyFragment) {
-			Log.i(LOG_TAG, "update() not ready");
+			Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() not ready");
 			return;
 		}
-		Log.i(LOG_TAG, "update() ready");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() ready");
 
 	}
 }

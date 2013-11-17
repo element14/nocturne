@@ -6,11 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 import com.projectnocturne.datamodel.User;
 
 public class AlertCarerFragment extends NocturneFragment {
-	public static final String LOG_TAG = AlertCarerFragment.class.getSimpleName();
+	public static final String LOG_TAG = AlertCarerFragment.class.getSimpleName() + ":";
 
 	private boolean readyFragment;
 
@@ -37,10 +38,11 @@ public class AlertCarerFragment extends NocturneFragment {
 
 	public void update() {
 		if (!readyFragment) {
-			Log.i(LOG_TAG, "update() not ready");
+			Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() not ready");
 			return;
 		}
-		Log.i(LOG_TAG, "update() ready");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() ready");
 
 	}
+
 }

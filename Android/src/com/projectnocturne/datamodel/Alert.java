@@ -60,18 +60,6 @@ public final class Alert extends AbstractDataObj {
 	}
 
 	@Override
-	public String getSqlUpdateFromV001() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getSqlUpdateFromV002() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getTableName() {
 		return DATABASE_TABLE_NAME;
 	}

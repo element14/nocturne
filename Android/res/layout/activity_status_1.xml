@@ -59,7 +59,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/statusScr1Instructions"
         android:layout_centerVertical="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:checked="true"
         android:paddingLeft="15dp"
         android:text="@string/statusScr1StatusItem1" />
@@ -117,12 +117,37 @@
         android:layout_marginRight="30dp"
         android:text="@string/statusScr1StatusItem3_value" />
 
-    <Button
-        android:id="@+id/statusScr1BtnContinue"
+    <TextView
+        android:id="@+id/statusScr1StatusItem4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/statusScr1StatusItem3"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:checked="true"
+        android:paddingLeft="15dp"
+        android:text="@string/statusScr1StatusItem4" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem4_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/statusScr1StatusItem4"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/statusScr1StatusItem4_value" />
+
+    <ExpandableListView
+        android:id="@+id/statusScr1Status_clientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/statusScr1BtnContinue" />
+        android:layout_below="@+id/statusScr1StatusItem4"
+        android:layout_marginTop="14dp" >
+    </ExpandableListView>
 
 </RelativeLayout>

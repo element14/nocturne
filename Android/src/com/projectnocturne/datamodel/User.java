@@ -67,33 +67,22 @@ public final class User extends AbstractDataObj {
 	@Override
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fldList = super.getFields();
-		fldList.put(1, getArrayList(FIELD_NAME_USERNAME, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_name_first, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_name_last, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_email1, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_phone_mbl, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_phone_home, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_addr_line1, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_addr_line2, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_addr_line3, "VARCHAR(255) NOT NULL"));
-		fldList.put(1, getArrayList(FIELD_NAME_postcode, "VARCHAR(255) NOT NULL"));
+		int x = fldList.size();
+		fldList.put(x++, getArrayList(FIELD_NAME_USERNAME, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_name_first, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_name_last, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_email1, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_phone_mbl, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_phone_home, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(FIELD_NAME_addr_line1, "VARCHAR(255)"));
+		fldList.put(x++, getArrayList(FIELD_NAME_addr_line2, "VARCHAR(255)"));
+		fldList.put(x++, getArrayList(FIELD_NAME_addr_line3, "VARCHAR(255)"));
+		fldList.put(x++, getArrayList(FIELD_NAME_postcode, "VARCHAR(255)"));
 		return fldList;
 	}
 
 	public String getSelectByUsername() {
 		return "select * from " + getTableName() + " where " + FIELD_NAME_USERNAME + "=?";
-	}
-
-	@Override
-	public String getSqlUpdateFromV001() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getSqlUpdateFromV002() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	 */
 	public static final String dateFormatString = "yyyy MM dd HH:mm:ss";
 	public static final String FIELD_NAME_LAST_UPDATED = "lastUpdated";
+	public static final String FIELD_NAME_LAST_SYNCED = "lastSynced";
 	private static final String LOG_TAG = AbstractDataObj.class.getSimpleName();
 
 	/**
@@ -41,7 +42,9 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	private static final long serialVersionUID = 1L;
 
 	public String lastUpdated;
+	public String lastSynced = null;
 	public long uniqueIdentifier = -1;
+	public boolean localUpdates;
 
 	/**
 	 * Simple default constructor for data objects
@@ -53,6 +56,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	public AbstractDataObj(final Cursor results) {
 		uniqueIdentifier = results.getInt(results.getColumnIndex(BaseColumns._ID));
 		lastUpdated = results.getString(results.getColumnIndex(FIELD_NAME_LAST_UPDATED));
+		lastSynced = results.getString(results.getColumnIndex(FIELD_NAME_LAST_SYNCED));
 	}
 
 	/**
@@ -68,6 +72,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 		} catch (final Exception e) {
 		}
 		this.setLastUpdated(aRow.get(AbstractDataObj.FIELD_NAME_LAST_UPDATED));
+		this.setLastSynced(aRow.get(AbstractDataObj.FIELD_NAME_LAST_SYNCED));
 	}
 
 	public final ArrayList<String> getArrayList(final String val1, final String val2) {
@@ -88,9 +93,15 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 
 	public SparseArray<ArrayList<String>> getFields() {
 		final SparseArray<ArrayList<String>> fields = new SparseArray<ArrayList<String>>();
-		fields.put(0, getArrayList(BaseColumns._ID, "Integer PRIMARY KEY"));
-		fields.put(1, getArrayList(AbstractDataObj.FIELD_NAME_LAST_UPDATED, "VARCHAR(255) NOT NULL"));
+		int x = 0;
+		fields.put(x++, getArrayList(BaseColumns._ID, "Integer PRIMARY KEY"));
+		fields.put(x++, getArrayList(AbstractDataObj.FIELD_NAME_LAST_UPDATED, "VARCHAR(255) NOT NULL"));
+		fields.put(x++, getArrayList(AbstractDataObj.FIELD_NAME_LAST_SYNCED, "VARCHAR(255)"));
 		return fields;
+	}
+
+	public String getLastSync() {
+		return lastSynced;
 	}
 
 	/**
@@ -108,6 +119,10 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 		return "select * from " + getTableName() + " where " + BaseColumns._ID + "=?";
 	}
 
+	public String getSelectByLastSynced() {
+		return "select * from " + getTableName() + " where " + AbstractDataObj.FIELD_NAME_LAST_SYNCED + "=?";
+	}
+
 	public String getSelectByLastUpdate() {
 		return "select * from " + getTableName() + " where " + AbstractDataObj.FIELD_NAME_LAST_UPDATED + "=?";
 	}
@@ -122,13 +137,9 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 		final StringBuilder sb = new StringBuilder("CREATE TABLE ").append(getTableName()).append(" ( ");
 		for (int x = 0; x < fields.size(); x++) {
 			final ArrayList<String> fieldInfo = fields.get(x);
-			// if
-			// (!fieldInfo.get(0).equals(AbstractDataObj.FIELD_NAME_UNIQUE_IDENTIFIER))
-			// {
 			sb.append(fieldInfo.get(0)).append(" ");
 			sb.append(fieldInfo.get(1));
 			sb.append(",");
-			// }
 		}
 		final String sqlStr = sb.substring(0, sb.length() - 1) + ");";
 		return sqlStr;
@@ -138,9 +149,13 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 		return "delete from " + getTableName();
 	}
 
-	public abstract String getSqlUpdateFromV001();
+	public String getSqlUpdateFromV001() {
+		return null;
+	}
 
-	public abstract String getSqlUpdateFromV002();
+	public String getSqlUpdateFromV002() {
+		return null;
+	}
 
 	public abstract String getTableName();
 
@@ -175,11 +190,24 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	}
 
 	/**
+	 * @param dateStr
+	 *            the datetime that shows when this object's data was last
+	 *            synchronised with the server db
+	 */
+	public void setLastSynced(final DateTime dateStr) {
+		lastSynced = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
+	}
+
+	public void setLastSynced(final String dateStr) {
+		lastSynced = dateStr;
+	}
+
+	/**
 	 * @param lastUpdated
 	 *            the lastUpdated to set
 	 */
-	public void setLastUpdated(final DateTime lastUpdatedStr) {
-		lastUpdated = lastUpdatedStr.toString(NocturneApplication.simpleDateFmtStrDb);
+	public void setLastUpdated(final DateTime dateStr) {
+		lastUpdated = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
 	}
 
 	public void setLastUpdated(final long time) {

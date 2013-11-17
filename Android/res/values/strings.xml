@@ -3,9 +3,9 @@
 
     <string name="app_name">ProjectNocturne</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_status">Status</string>
+    <string name="title_connect">Connect</string>
+    <string name="title_connection_requests">Connection Requests</string>
 
     <!-- Preferences -->
     <string name="pref_activity_title">Preferences</string>
@@ -31,7 +31,7 @@
     <string name="welcomeScr2BtnContinue">Continue</string>
 
     <!-- Status Screen 1 -->
-    <string name="statusScr1Heading1"></string>
+    <string name="statusScr1Heading1">Hello %1$s</string>
     <string name="statusScr1Heading2">Status</string>
     <string name="statusScr1Instructions">If any of the items below are red, please contact your caregiver for advise</string>
     <string name="statusScr1StatusItem1">Cloud Connection</string>
@@ -40,6 +40,8 @@
     <string name="statusScr1StatusItem2_value">Good/Bad</string>
     <string name="statusScr1StatusItem3">Details Entered</string>
     <string name="statusScr1StatusItem3_value">Good/Bad</string>
+    <string name="statusScr1StatusItem4">Bed Sensor Connection</string>
+    <string name="statusScr1StatusItem4_value">Good/Bad</string>
     <string name="statusScr1BtnContinue">Continue</string>
 
     <!-- Patient Screen 1 -->
