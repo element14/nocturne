@@ -1,20 +1,21 @@
-/*
- * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ /**
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
  */
-
-package com.projectnocturne.sensortag.constants;
+ package com.projectnocturne.sensortag.constants;
 
 import java.util.HashMap;
 

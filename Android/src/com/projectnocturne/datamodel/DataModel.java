@@ -1,3 +1,20 @@
+/**
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.datamodel;
 
 import java.sql.SQLException;
@@ -13,7 +30,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-import com.projectnocturne.MainActivity;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.views.NocturneFragment;
@@ -39,7 +55,7 @@ public final class DataModel extends Observable {
 		itm.localUpdates = true;
 		final long newId = db.insert(SensorReading.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
-		Log.d(DataModel.LOG_TAG, "addSensorReading() item id is now [" + newId + "]");
+		Log.d(NocturneApplication.LOG_TAG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
 		return itm;
 	}
 
@@ -48,12 +64,12 @@ public final class DataModel extends Observable {
 		itm.localUpdates = true;
 		final long newId = db.insert(User.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
-		Log.d(DataModel.LOG_TAG, "addUser() item id is now [" + newId + "]");
+		Log.d(NocturneApplication.LOG_TAG, LOG_TAG + "addUser() item id is now [" + newId + "]");
 		return itm;
 	}
 
 	public void destroy() {
-		Log.v(LOG_TAG, "destroy() running");
+		Log.v(NocturneApplication.LOG_TAG, LOG_TAG + "destroy() running");
 		if (databaseHelper != null) {
 			databaseHelper.close();
 			databaseHelper = null;
@@ -80,7 +96,7 @@ public final class DataModel extends Observable {
 			dbMetaDta = new DbMetadata();
 			dbMetaDta.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 			db.insert(DbMetadata.DATABASE_TABLE_NAME, null, dbMetaDta.getContentValues());
-			Log.i(MainActivity.LOG_TAG, "DataModel::getDbMetadata() new metadata object created");
+			Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "getDbMetadata() new metadata object created");
 		}
 		return dbMetaDta;
 	}
@@ -134,22 +150,23 @@ public final class DataModel extends Observable {
 
 	public List<User> getUsers() {
 		final List<User> users = null;
-		Log.i(MainActivity.LOG_TAG, "DataModel::getUsers() found [" + users.size() + "] users");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "getUsers() found [" + users.size() + "] users");
 		return users;
 	}
 
 	public void initialise(final Context ctx) throws SQLException {
-		Log.i(MainActivity.LOG_TAG, "DataModel::initialise()");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "initialise()");
 		if (databaseHelper == null) {
 			databaseHelper = new DatabaseHelper(ctx);
 		}
 		db = databaseHelper.getWritableDatabase();
-		Log.i(MainActivity.LOG_TAG, "DataModel::initialise() db object " + db == null ? "NOT" : "" + " created");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "initialise() db object " + db == null ? "NOT" : "" + " created");
 	}
 
 	@Override
 	public void notifyObservers() {
-		// Log.v(LOG_TAG, "notifyObservers() notifying [" + myObservers.size() +
+		// Log.v(NocturneApplication.LOG_TAG,LOG_TAG+
+		// "notifyObservers() notifying [" + myObservers.size() +
 		// "] observers");
 		for (final NocturneFragment a : myObservers) {
 			a.update(instance, a);
@@ -157,7 +174,7 @@ public final class DataModel extends Observable {
 	}
 
 	public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
-		Log.v(LOG_TAG, "updateItem()");
+		Log.v(NocturneApplication.LOG_TAG, LOG_TAG + "updateItem()");
 		final DbMetadata metadata = getDbMetadata();
 		metadata.setRegistrationStatus(aRequestSent);
 		try {
@@ -173,7 +190,7 @@ public final class DataModel extends Observable {
 	}
 
 	public void shutdown() {
-		Log.i(MainActivity.LOG_TAG, "DataModel::shutdown()");
+		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "shutdown()");
 	}
 
 }

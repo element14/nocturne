@@ -1,21 +1,19 @@
-/*<p>
- * Copyright 2012 Andy Aspell-Clark
- *</p><p>
- * This file is part of eBookLauncher.
+ /**
+ * <p>
+ * <u><b>Copyright Notice</b></u>
  * </p><p>
- * eBookLauncher is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
  * </p><p>
- * eBookLauncher is distributed in the hope that it will be useful, but
- *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- *  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
- *  for more details.
- * </p><p>
- * You should have received a copy of the GNU General Public License along
- * with eBookLauncher. If not, see http://www.gnu.org/licenses/.
- *</p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
  */
 package com.projectnocturne.file;
 
