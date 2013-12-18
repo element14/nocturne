@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "UserGuide.ent">
+%BOOK_ENTITIES;
+]>
+<chapter id="chap-Documentation-UserGuide-Using">
+    <title>Introduction</title>
+    
+    <para>
+    </para>
+    
+    <section id="sect-Documentation-UserGuide-Using-Start-Up">
+        <title>Start-Up</title>
+        <para>
+        To start the application you must first move into the directory containing the
+        MIPN CDR Graph Demo Application (as per the install guide).
+        </para>
+        <para>
+        Then execute the run.sh shell script by typing the following command:
+        </para>
+        <para>
+            <programlisting> ./run.sh </programlisting>
+        </para>
+        <para>
+        The application will then display the following window:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="images/Screenshot-startup.png" format="PNG" scale="70"/>
+            </imageobject>
+        </mediaobject>
+        <para>
+            If this is not the first time that the application has been executed it will
+            try to connect to the IPNode that it had discovered the last time it was executed.
+            If this connection fails, then it will fall into multicast discovery mode.
+        </para>
+        <para>
+            If this is the first time that the application has been executed (or it has
+            not found a node on previous executions) the application will enter multicast discovery mode.
+        </para>
+    </section>
+
+    <section id="sect-Documentation-UserGuide-Using-MulticastDiscoveryMode">
+        <title>Multicast Discovery Mode</title>
+        <para>
+        In this mode the application joins a multicast group (specified in the settings dialog window) and
+        listens for an <emphasis>IPNode discovery</emphasis> message.
+        It will also periodically send out a <emphasis>I am looking for IPNodes</emphasis> message.
+        </para>
+    </section>
+
+    <section id="sect-Documentation-UserGuide-Using-ConnectingToAnIPNode">
+        <title>Connecting to an IP Node</title>
+        <para>
+        Once the application has received an <emphasis>IPNode discovery</emphasis> message it will parse
+        the message to retrieve the ip address and port that will be used for subscription connections.
+        </para>
+        <para>
+        FIXME
+        </para>
+    </section>
+
+    <section id="sect-Documentation-UserGuide-Using-ChangingTheDiscoveryMulticastGroup">
+        <title>Changing the Discovery Multicast Group</title>
+        <para>
+        </para>
+
+        <para>
+        FIXME
+        </para>
+    </section>
+
+</chapter>
