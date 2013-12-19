@@ -1,22 +1,21 @@
- /**
- * <p>
- * <u><b>Copyright Notice</b></u>
- * </p><p>
- * The copyright in this document is the property of 
- * Bath Institute of Medical Engineering.
- * </p><p>
- * Without the written consent of Bath Institute of Medical Engineering
- * given by Contract or otherwise the document must not be copied, reprinted or
- * reproduced in any material form, either wholly or in part, and the contents
- * of the document or any method or technique available there from, must not be
- * disclosed to any other person whomsoever.
- *  </p><p>
- *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
- * --------------------------------------------------------------------------
- * 
- */
- package com.projectnocturne.datamodel;
-
+/**
+* <p>
+* <u><b>Copyright Notice</b></u>
+* </p><p>
+* The copyright in this document is the property of 
+* Bath Institute of Medical Engineering.
+* </p><p>
+* Without the written consent of Bath Institute of Medical Engineering
+* given by Contract or otherwise the document must not be copied, reprinted or
+* reproduced in any material form, either wholly or in part, and the contents
+* of the document or any method or technique available there from, must not be
+* disclosed to any other person whomsoever.
+*  </p><p>
+*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+* --------------------------------------------------------------------------
+* 
+*/
+package com.projectnocturne.datamodel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,14 +46,7 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	public static final String dateFormatString = "yyyy MM dd HH:mm:ss";
 	public static final String FIELD_NAME_LAST_UPDATED = "lastUpdated";
 	public static final String FIELD_NAME_LAST_SYNCED = "lastSynced";
-	private static final String LOG_TAG = AbstractDataObj.class.getSimpleName();
-
-	/**
-	 * this number denotes the version of this class. so that we can decide if
-	 * the structure of this class is the same as the one being deserialized
-	 * into it
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final String LOG_TAG = AbstractDataObj.class.getSimpleName() + "::";
 
 	public String lastUpdated;
 	public String lastSynced = null;
@@ -70,8 +62,8 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 
 	public AbstractDataObj(final Cursor results) {
 		uniqueIdentifier = results.getInt(results.getColumnIndex(BaseColumns._ID));
-		lastUpdated = results.getString(results.getColumnIndex(FIELD_NAME_LAST_UPDATED));
-		lastSynced = results.getString(results.getColumnIndex(FIELD_NAME_LAST_SYNCED));
+		lastUpdated = results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED));
+		lastSynced = results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_SYNCED));
 	}
 
 	/**

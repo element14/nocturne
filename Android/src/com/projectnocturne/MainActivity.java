@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 	private NocturneApplication myApp = null;
 
-	public static final String LOG_TAG = MainActivity.class.getSimpleName() + ":";
+	public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
 
 	/**
 	 * The serialisation (saved instance state) Bundle key representing the
@@ -144,8 +144,9 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	@Override
 	public void onRestoreInstanceState(final Bundle savedInstanceState) {
 		// Restore the previously serialised current dropdown position.
-		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+		if (savedInstanceState.containsKey(MainActivity.STATE_SELECTED_NAVIGATION_ITEM)) {
+			getActionBar().setSelectedNavigationItem(
+					savedInstanceState.getInt(MainActivity.STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
 
@@ -157,7 +158,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	@Override
 	public void onSaveInstanceState(final Bundle outState) {
 		// Serialise the current dropdown position.
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
+		outState.putInt(MainActivity.STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
 	}
 
 	/**
@@ -186,7 +187,8 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	}
 
 	private void startSensorTagService() {
-		Log.d(NocturneApplication.LOG_TAG, LOG_TAG + "startSensorTagService() starting sensor tag polling service.");
+		Log.d(NocturneApplication.LOG_TAG, MainActivity.LOG_TAG
+				+ "startSensorTagService() starting sensor tag polling service.");
 		final Intent longSvc = new Intent(this, PollingService.class);
 		startService(longSvc);
 	}

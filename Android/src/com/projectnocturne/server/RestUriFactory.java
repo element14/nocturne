@@ -17,6 +17,13 @@
  */
 package com.projectnocturne.server;
 
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import com.projectnocturne.datamodel.Alert;
 import com.projectnocturne.datamodel.Sensor;
 import com.projectnocturne.datamodel.User;
@@ -37,7 +44,8 @@ public final class RestUriFactory {
 	 * @param obj
 	 * @return
 	 */
-	public static String getUri(final RestUriType uriType, final Alert obj) {
+	public static List<NameValuePair> getUri(final RestUriType uriType, final Alert obj) {
+		new ArrayList<NameValuePair>();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -47,7 +55,8 @@ public final class RestUriFactory {
 	 * @param obj
 	 * @return
 	 */
-	public static String getUri(final RestUriType uriType, final Sensor obj) {
+	public static List<NameValuePair> getUri(final RestUriType uriType, final Sensor obj) {
+		new ArrayList<NameValuePair>();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,10 +65,30 @@ public final class RestUriFactory {
 	 * @param uriType
 	 * @param obj
 	 * @return
+	 * @throws MalformedURLException 
 	 */
-	public static String getUri(final RestUriType uriType, final User obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public static List<NameValuePair> getUri(final RestUriType uriType, final User obj) {
+		final List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+		switch (uriType) {
+		case SUBSCRIBETO_SERVICE:
+			pairs.add(new BasicNameValuePair("name_first", obj.name_first));
+			pairs.add(new BasicNameValuePair("name_last", obj.name_last));
+			pairs.add(new BasicNameValuePair("username", obj.username));
+
+			pairs.add(new BasicNameValuePair("addr1", obj.addr_line1));
+			pairs.add(new BasicNameValuePair("addr2", obj.addr_line2));
+			pairs.add(new BasicNameValuePair("addr3", obj.addr_line3));
+			pairs.add(new BasicNameValuePair("postcode", obj.postcode));
+
+			pairs.add(new BasicNameValuePair("phone_mobile", obj.phone_mbl));
+			pairs.add(new BasicNameValuePair("phone_mobile", obj.phone_home));
+
+			pairs.add(new BasicNameValuePair("email_addr", obj.email1));
+			break;
+		}
+
+		return pairs;
 	}
 
 }

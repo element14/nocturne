@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -49,20 +49,17 @@ import com.projectnocturne.R;
 public final class PollingService extends Service {
 
 	/**
+	 * This is the name that the sensor tag broadcasts for BLE GATT discovery
+	 */
+	private static final String BLE_DEVICE_NAME_SENSOR_TAG = "SensorTag";
+	/**
 	 * Tag used on log messages.
 	 */
-	private static final String LOG_TAG = PollingService.class.getSimpleName();
-	private static final String REQUEST_ENABLE_BT = "REQUEST_ENABLE_BT";
+	private static final String LOG_TAG = PollingService.class.getSimpleName() + "::";
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothDevice mBtDevice;
-	private boolean mScanning;
 	private Handler mHandler;
 	private BluetoothGatt mBluetoothGatt;
-	private int mConnectionState = STATE_DISCONNECTED;
-	private static final int STATE_DISCONNECTED = 0;
-	private static final int STATE_CONNECTING = 1;
-	private static final int STATE_CONNECTED = 2;
-
 	private List<BluetoothGattService> mServiceList = null;
 	private final List<BluetoothGattCharacteristic> mCharacteristicList = new ArrayList<BluetoothGattCharacteristic>();
 
@@ -85,14 +82,15 @@ public final class PollingService extends Service {
 		@Override
 		public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
 			if (newState == BluetoothProfile.STATE_CONNECTED) {
-				mConnectionState = STATE_CONNECTED;
-				Log.i(LOG_TAG, "PollingService :: Connected to GATT server.");
-				Log.i(LOG_TAG,
-						"PollingService :: Attempting to start service discovery:" + mBluetoothGatt.discoverServices());
+				Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+						+ "PollingService :: Connected to GATT server.");
+				Log.i(NocturneApplication.LOG_TAG,
+						PollingService.LOG_TAG + "PollingService :: Attempting to start service discovery:"
+								+ mBluetoothGatt.discoverServices());
 
 			} else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-				mConnectionState = STATE_DISCONNECTED;
-				Log.i(LOG_TAG, "PollingService :: Disconnected from GATT server.");
+				Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+						+ "PollingService :: Disconnected from GATT server.");
 			}
 		}
 
@@ -102,21 +100,22 @@ public final class PollingService extends Service {
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				mServiceList = mBluetoothGatt.getServices();
 			} else {
-				Log.w(LOG_TAG, "PollingService :: onServicesDiscovered received: " + status);
+				Log.w(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+						+ "PollingService :: onServicesDiscovered received: " + status);
 			}
 		}
 	};
 
 	// Device scan callback.
 	private final BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-
 		@Override
 		public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
 			mBtDevice = device;
 
-			Log.i(LOG_TAG, "PollingService :: Found device [" + mBtDevice.getName() + "]");
+			Log.i(NocturneApplication.LOG_TAG,
+					PollingService.LOG_TAG + "PollingService :: Found device [" + mBtDevice.getName() + "]");
 
-			if (mBtDevice.getName().equalsIgnoreCase("SensorTag")) {
+			if (mBtDevice.getName().equalsIgnoreCase(PollingService.BLE_DEVICE_NAME_SENSOR_TAG)) {
 				scanLeDevice(false);
 				mBluetoothGatt = device.connectGatt(getApplication(), false, mGattCallback);
 			}
@@ -169,20 +168,19 @@ public final class PollingService extends Service {
 	}
 
 	private void scanLeDevice(final boolean enable) {
+		Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "PollingService :: scanLeDevice: "
+				+ (enable ? "True" : "False"));
 		if (enable) {
 			// Stops scanning after a pre-defined scan period.
 			mHandler.postDelayed(new Runnable() {
 				@Override
 				public void run() {
-					mScanning = false;
 					mBluetoothAdapter.stopLeScan(mLeScanCallback);
 				}
 			}, NocturneApplication.BLE_DEVICE_SCAN_PERIOD);
 
-			mScanning = true;
 			mBluetoothAdapter.startLeScan(mLeScanCallback);
 		} else {
-			mScanning = false;
 			mBluetoothAdapter.stopLeScan(mLeScanCallback);
 		}
 	}

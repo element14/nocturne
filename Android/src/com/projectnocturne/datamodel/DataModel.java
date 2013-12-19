@@ -35,10 +35,10 @@ import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.views.NocturneFragment;
 
 public final class DataModel extends Observable {
-	private static final String LOG_TAG = DataModel.class.getSimpleName();
+	private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
 
 	public static DataModel getInstance() {
-		return instance;
+		return DataModel.instance;
 	}
 
 	private DatabaseHelper databaseHelper = null;
@@ -55,7 +55,7 @@ public final class DataModel extends Observable {
 		itm.localUpdates = true;
 		final long newId = db.insert(SensorReading.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
-		Log.d(NocturneApplication.LOG_TAG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
+		Log.d(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
 		return itm;
 	}
 
@@ -64,12 +64,12 @@ public final class DataModel extends Observable {
 		itm.localUpdates = true;
 		final long newId = db.insert(User.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
-		Log.d(NocturneApplication.LOG_TAG, LOG_TAG + "addUser() item id is now [" + newId + "]");
+		Log.d(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "addUser() item id is now [" + newId + "]");
 		return itm;
 	}
 
 	public void destroy() {
-		Log.v(NocturneApplication.LOG_TAG, LOG_TAG + "destroy() running");
+		Log.v(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "destroy()");
 		if (databaseHelper != null) {
 			databaseHelper.close();
 			databaseHelper = null;
@@ -96,7 +96,7 @@ public final class DataModel extends Observable {
 			dbMetaDta = new DbMetadata();
 			dbMetaDta.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 			db.insert(DbMetadata.DATABASE_TABLE_NAME, null, dbMetaDta.getContentValues());
-			Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "getDbMetadata() new metadata object created");
+			Log.i(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "getDbMetadata() new metadata object created");
 		}
 		return dbMetaDta;
 	}
@@ -150,17 +150,18 @@ public final class DataModel extends Observable {
 
 	public List<User> getUsers() {
 		final List<User> users = null;
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "getUsers() found [" + users.size() + "] users");
+		Log.i(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "getUsers() found [" + users.size() + "] users");
 		return users;
 	}
 
 	public void initialise(final Context ctx) throws SQLException {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "initialise()");
+		Log.i(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "initialise()");
 		if (databaseHelper == null) {
 			databaseHelper = new DatabaseHelper(ctx);
 		}
 		db = databaseHelper.getWritableDatabase();
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "initialise() db object " + db == null ? "NOT" : "" + " created");
+		Log.i(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "initialise() db object " + db == null ? "NOT" : ""
+				+ " created");
 	}
 
 	@Override
@@ -169,12 +170,12 @@ public final class DataModel extends Observable {
 		// "notifyObservers() notifying [" + myObservers.size() +
 		// "] observers");
 		for (final NocturneFragment a : myObservers) {
-			a.update(instance, a);
+			a.update(DataModel.instance, a);
 		}
 	}
 
 	public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
-		Log.v(NocturneApplication.LOG_TAG, LOG_TAG + "updateItem()");
+		Log.v(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "setRegistrationStatus()");
 		final DbMetadata metadata = getDbMetadata();
 		metadata.setRegistrationStatus(aRequestSent);
 		try {
@@ -190,7 +191,7 @@ public final class DataModel extends Observable {
 	}
 
 	public void shutdown() {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "shutdown()");
+		Log.i(NocturneApplication.LOG_TAG, DataModel.LOG_TAG + "shutdown()");
 	}
 
 }

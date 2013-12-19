@@ -17,6 +17,10 @@
  */
 package com.projectnocturne.services;
 
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
@@ -29,46 +33,69 @@ import com.projectnocturne.server.RestUriFactory;
 import com.projectnocturne.server.RestUriFactory.RestUriType;
 
 public final class ServerCommsService {
-	private static final String LOG_TAG = ServerCommsService.class.getSimpleName() + ":";
+	private static final String LOG_TAG = ServerCommsService.class.getSimpleName() + "::";
 
 	public void checkUserStatus(final User obj) {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "checkUserStatus()");
+		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "checkUserStatus()");
 
-		final String uriString = RestUriFactory.getUri(RestUriType.CHECK_USER_STATUS, obj);
+		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.CHECK_USER_STATUS, obj);
+
+		if (uriData.size() == 0) {
+			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "checkUserStatus() for " + obj.username);
+			return;
+		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), uriString);
+		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
 	}
 
 	public void sendAlert(final Alert obj) {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "sendAlert() " + obj.alert_name);
+		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendAlert() " + obj.alert_name);
 
-		final String uriString = RestUriFactory.getUri(RestUriType.SEND_ALERT, obj);
+		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_ALERT, obj);
+
+		if (uriData.size() == 0) {
+			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendAlert() for " + obj.alert_name);
+			return;
+		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), uriString);
+		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/alert_from_patient", uriData);
 	}
 
 	public void sendSensorReading(final Sensor obj) {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "sendSensorReading() " + obj.sensor_name);
+		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSensorReading() " + obj.sensor_name);
 
-		final String uriString = RestUriFactory.getUri(RestUriType.SEND_SENSOR_READING, obj);
+		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_SENSOR_READING, obj);
+
+		if (uriData.size() == 0) {
+			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSensorReading() for "
+					+ obj.sensor_name);
+			return;
+		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), uriString);
+		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
 	}
 
 	public void sendSubscriptionMessage(final User obj) {
-		Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "sendSubscriptionMessage() for " + obj.name_first);
+		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSubscriptionMessage() for "
+				+ obj.name_first);
 
-		final String uriString = RestUriFactory.getUri(RestUriType.SUBSCRIBETO_SERVICE, obj);
+		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SUBSCRIBETO_SERVICE, obj);
+
+		if (uriData.size() == 0) {
+			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSubscriptionMessage() for "
+					+ obj.name_first);
+			return;
+		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), uriString);
+		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
 	}
 
 }
