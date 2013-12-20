@@ -47,7 +47,7 @@ public final class ServerCommsService {
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
+		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/check_user_status", uriData);
 	}
 
 	public void sendAlert(final Alert obj) {
@@ -78,7 +78,7 @@ public final class ServerCommsService {
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
+		restReq.execute(RequestMethod.POST.toString(), "http://192.168.1.163:9999/send_sendor_reading", uriData);
 	}
 
 	public void sendSubscriptionMessage(final User obj) {
@@ -95,7 +95,7 @@ public final class ServerCommsService {
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		restReq.execute(RequestMethod.POST.toString(), "http://androidexample.com/subscribe", uriData);
+		restReq.execute(RequestMethod.POST.toString(), "http://192.168.1.163:9999/subscribe", uriData);
 	}
 
 }

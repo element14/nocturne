@@ -149,6 +149,7 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 	@Override
 	protected void onPostExecute(final String result) {
 		super.onPostExecute(result);
-		// Do anything with response..
+		Log.i(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "onPostExecute() [" + result + "]");
+		// Do something with response..
 	}
 }
