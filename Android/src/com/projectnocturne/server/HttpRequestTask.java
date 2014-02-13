@@ -35,6 +35,8 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -110,31 +112,45 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 			}
 			}
 			final StatusLine statusLine = response.getStatusLine();
+			Log.d(NocturneApplication.LOG_TAG,
+					HttpRequestTask.LOG_TAG + "doInBackground() statusLine [" + statusLine.toString() + "]");
 
 			if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 				final ByteArrayOutputStream out = new ByteArrayOutputStream();
 				response.getEntity().writeTo(out);
-				out.close();
 				responseString = out.toString();
+				out.close();
 			} else {
+				final ByteArrayOutputStream out = new ByteArrayOutputStream();
+				response.getEntity().writeTo(out);
+				Log.d(NocturneApplication.LOG_TAG,
+						HttpRequestTask.LOG_TAG + "doInBackground() status Not OK [" + out.toString() + "]");
 				// Closes the connection.
+				out.close();
 				response.getEntity().getContent().close();
 				throw new IOException(statusLine.getReasonPhrase());
 			}
+		} catch (final IllegalStateException ise) {
+			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doInBackground() IllegalStateException", ise);
 		} catch (final ClientProtocolException e) {
-			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doInBackground() new metadata object created");
+			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doInBackground() ClientProtocolException", e);
 		} catch (final IOException e) {
-			// TODO Handle problems..
+			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doInBackground() IOException", e);
 		}
+		Log.d(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doInBackground() got status OK ["
+				+ responseString + "]");
 		return responseString;
 	}
 
 	private HttpResponse doPost(final String uri, final List<NameValuePair> pairs) {
+		Log.d(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost(" + uri + ")");
 		try {
 			final HttpClient httpclient = new DefaultHttpClient();
-			final HttpPost post = new HttpPost(uri);
-			post.setEntity(new UrlEncodedFormEntity(pairs));
-			final HttpResponse response = httpclient.execute(post);
+			final HttpPost httppost = new HttpPost(uri);
+			httppost.setEntity(new UrlEncodedFormEntity(pairs, HTTP.UTF_8));
+			final HttpResponse response = httpclient.execute(httppost);
+			Log.d(NocturneApplication.LOG_TAG,
+					HttpRequestTask.LOG_TAG + "doPost() httppost : " + EntityUtils.toString(httppost.getEntity()));
 			return response;
 		} catch (final UnsupportedEncodingException e) {
 			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost() UnsupportedEncodingException");

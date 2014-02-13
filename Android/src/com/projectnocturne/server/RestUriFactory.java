@@ -82,7 +82,7 @@ public final class RestUriFactory {
 			pairs.add(new BasicNameValuePair("postcode", obj.postcode));
 
 			pairs.add(new BasicNameValuePair("phone_mobile", obj.phone_mbl));
-			pairs.add(new BasicNameValuePair("phone_mobile", obj.phone_home));
+			pairs.add(new BasicNameValuePair("phone_home", obj.phone_home));
 
 			pairs.add(new BasicNameValuePair("email_addr", obj.email1));
 			break;

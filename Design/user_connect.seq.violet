@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.7.0_17" class="java.beans.XMLDecoder">
+<java version="1.7.0_25" class="java.beans.XMLDecoder">
  <object class="com.horstmann.violet.SequenceDiagramGraph">
   <void method="addNode">
    <object class="com.horstmann.violet.ImplicitParameterNode" id="LifelineNode0">
@@ -157,7 +157,7 @@
   <void method="connect">
    <object class="com.horstmann.violet.CallEdge">
     <void property="middleLabel">
-     <string>REquest to connect to user Y</string>
+     <string>Request to connect to user Y</string>
     </void>
    </object>
    <object idref="ActivationBarNode0"/>

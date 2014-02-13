@@ -92,19 +92,19 @@ Welcome 1</string>
      <string>x</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>337.0</double>
+      <double>334.0</double>
      </void>
     </void>
     <void class="java.awt.geom.Point2D$Double" method="getField">
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double3"/>
-      <double>250.0</double>
+      <double>275.0</double>
      </void>
     </void>
     <void method="setLocation">
-     <double>337.0</double>
-     <double>250.0</double>
+     <double>334.0</double>
+     <double>275.0</double>
     </void>
    </object>
   </void>
@@ -156,12 +156,12 @@ Welcome 2</string>
      <string>y</string>
      <void method="set">
       <object idref="Point2D$Double5"/>
-      <double>412.0</double>
+      <double>426.0</double>
      </void>
     </void>
     <void method="setLocation">
      <double>338.0</double>
-     <double>412.0</double>
+     <double>426.0</double>
     </void>
    </object>
   </void>
@@ -330,7 +330,7 @@ Status</string>
      <object class="com.horstmann.violet.ArrowHead" field="V"/>
     </void>
     <void property="endLabel">
-     <string>Reg Not Complete</string>
+     <string>Reg Not Ack&apos;d</string>
     </void>
    </object>
    <object idref="DecisionNode1"/>
