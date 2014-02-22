@@ -11,7 +11,9 @@ APT_CMD='sudo apt-get --yes'
 
 $APT_CMD install npm nodejs-legacy
 
-npm install sqlite3 #--save
+sudo npm install -g node-gyp
+
+npm install sqlite3
 npm install formidable
 npm install mqtt
 npm install commander
