@@ -42,3 +42,8 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+
+*~
+
+Node.js and SQLite_files/
+node_modules/

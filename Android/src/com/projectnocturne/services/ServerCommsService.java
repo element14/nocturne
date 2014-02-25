@@ -95,8 +95,7 @@ public final class ServerCommsService {
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 
-		//restReq.execute(RequestMethod.POST.toString(), "http://192.168.1.163:9999/subscribe", uriData);
-		restReq.execute(RequestMethod.POST.toString(), "http://127.0.0.1/~andy/welcome.php", uriData);
+		restReq.execute(RequestMethod.POST.toString(), "http://127.0.0.1:8888//users/register", uriData);
 	}
 
 }

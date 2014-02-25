@@ -4,7 +4,7 @@ var fs = require("fs");
 var formidable = require('formidable');
 var sys = require('sys');
 
-var database = require("./database");
+//var database = require("./database");
 
 
 function users(response, request) {

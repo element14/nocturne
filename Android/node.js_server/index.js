@@ -4,7 +4,7 @@ var requestHandlers = require("./requestHandlers");
 var requestHandlers_users = require("./requestHandlers_users");
 var requestHandlers_alerts = require("./requestHandlers_alerts");
 var requestHandlers_sensors = require("./requestHandlers_sensors");
-var database = require("./database");
+//var database = require("./database");
 
 var handle = {};
 handle["/"] = requestHandlers.start;
@@ -23,6 +23,6 @@ handle["/alerts/from"] = requestHandlers_alerts.alerts_from;
 
 handle["/sensors/reading"] = requestHandlers_sensors.sensors_reading;
 
-database.createTables();
+//database.createTables();
 
 server.start(router.route, handle);
