@@ -6,5 +6,20 @@
         android:key="pref_nickname"
         android:singleLine="true"
         android:title="@string/pref_nickname_title" />
+    <EditTextPreference
+        android:defaultValue="@string/pref_server_address_default"
+        android:key="pref_server_address"
+        android:singleLine="true"
+        android:title="@string/pref_server_address" />
+    <EditTextPreference
+        android:defaultValue="@string/pref_server_port_default"
+        android:key="pref_server_port"
+        android:singleLine="true"
+        android:title="@string/pref_server_port" />
+    <EditTextPreference
+        android:defaultValue="@string/pref_bed_sensor_pol_interval_default"
+        android:key="pref_bed_sensor_pol_interval"
+        android:singleLine="true"
+        android:title="@string/pref_bed_sensor_pol_interval" />
 
 </PreferenceScreen>

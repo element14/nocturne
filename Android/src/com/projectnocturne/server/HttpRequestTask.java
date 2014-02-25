@@ -60,6 +60,8 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 	private static final String LOG_TAG = HttpRequestTask.class.getSimpleName() + ":";
 
 	private HttpResponse doGet(final String uri, final List<NameValuePair> pairs) {
+		Log.d(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doGet(" + uri + ")");
+		HttpResponse response = null;
 		try {
 			final HttpClient httpclient = new DefaultHttpClient();
 			String uriStr = uri + "?";
@@ -70,7 +72,7 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 					uriStr += "&";
 				}
 			}
-			final HttpResponse response = httpclient.execute(new HttpGet(uriStr));
+			response = httpclient.execute(new HttpGet(uriStr));
 			return response;
 		} catch (final UnsupportedEncodingException e) {
 			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost() UnsupportedEncodingException");
@@ -79,7 +81,7 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 		} catch (final IOException e) {
 			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost() IOException");
 		}
-		return null;
+		return response;
 	}
 
 	@Override
@@ -103,11 +105,11 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 					+ "] uri[2] [" + uri[2] + "]");
 			switch (reqMthd) {
 			case GET: {
-				response = doGet(uri[1].toString(), (List<NameValuePair>) uri[2]);
+				response = this.doGet(uri[1].toString(), (List<NameValuePair>) uri[2]);
 				break;
 			}
 			default: {
-				response = doPost(uri[1].toString(), (List<NameValuePair>) uri[2]);
+				response = this.doPost(uri[1].toString(), (List<NameValuePair>) uri[2]);
 				break;
 			}
 			}
@@ -144,11 +146,12 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 
 	private HttpResponse doPost(final String uri, final List<NameValuePair> pairs) {
 		Log.d(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost(" + uri + ")");
+		HttpResponse response = null;
 		try {
 			final HttpClient httpclient = new DefaultHttpClient();
 			final HttpPost httppost = new HttpPost(uri);
 			httppost.setEntity(new UrlEncodedFormEntity(pairs, HTTP.UTF_8));
-			final HttpResponse response = httpclient.execute(httppost);
+			response = httpclient.execute(httppost);
 			Log.d(NocturneApplication.LOG_TAG,
 					HttpRequestTask.LOG_TAG + "doPost() httppost : " + EntityUtils.toString(httppost.getEntity()));
 			return response;
@@ -159,7 +162,7 @@ public final class HttpRequestTask extends AsyncTask<Object, String, String> {
 		} catch (final IOException e) {
 			Log.e(NocturneApplication.LOG_TAG, HttpRequestTask.LOG_TAG + "doPost() IOException");
 		}
-		return null;
+		return response;
 	}
 
 	@Override

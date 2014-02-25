@@ -1,20 +1,20 @@
- /**
- * <p>
- * <u><b>Copyright Notice</b></u>
- * </p><p>
- * The copyright in this document is the property of 
- * Bath Institute of Medical Engineering.
- * </p><p>
- * Without the written consent of Bath Institute of Medical Engineering
- * given by Contract or otherwise the document must not be copied, reprinted or
- * reproduced in any material form, either wholly or in part, and the contents
- * of the document or any method or technique available there from, must not be
- * disclosed to any other person whomsoever.
- *  </p><p>
- *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
- * --------------------------------------------------------------------------
- * 
- */
+/**
+* <p>
+* <u><b>Copyright Notice</b></u>
+* </p><p>
+* The copyright in this document is the property of 
+* Bath Institute of Medical Engineering.
+* </p><p>
+* Without the written consent of Bath Institute of Medical Engineering
+* given by Contract or otherwise the document must not be copied, reprinted or
+* reproduced in any material form, either wholly or in part, and the contents
+* of the document or any method or technique available there from, must not be
+* disclosed to any other person whomsoever.
+*  </p><p>
+*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+* --------------------------------------------------------------------------
+* 
+*/
 package com.projectnocturne;
 
 import android.content.SharedPreferences;
@@ -28,6 +28,12 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 
 	public static final String PREF_NICKNAME = "pref_nickname";
 	public static final String PREF_NICKNAME_DEFAULT = "07:00";
+	public static final String PREF_SERVER_ADDRESS = "pref_server_address";
+	public static final String PREF_SERVER_ADDRESS_DEFAULT = "127.0.0.1";
+	public static final String PREF_SERVER_PORT = "pref_server_port";
+	public static final String PREF_SERVER_PORT_DEFAULT = "8888";
+	public static final String PREF_BED_SENSOR_POL_INTERVAL = "pref_bed_sensor_pol_interval";
+	public static final String PREF_BED_SENSOR_POL_INTERVAL_DEFAULT = "5";
 
 	private String formatTimeStr(final String timeStr) {
 		String frmtdStr = "";
@@ -48,14 +54,15 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 	@Override
 	public void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences);
-		getPreferenceManager();
-		final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		this.addPreferencesFromResource(R.xml.preferences);
+		this.getPreferenceManager();
+		final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
-		final Preference connectionPref = findPreference(PREF_NICKNAME);
-		String str1Fmt = getResources().getString(R.string.pref_nickname_description);
-		final String timeStr = sharedPrefs.getString(PREF_NICKNAME, PREF_NICKNAME_DEFAULT);
-		str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+		final Preference connectionPref = this.findPreference(SettingsFragment.PREF_NICKNAME);
+		String str1Fmt = this.getResources().getString(R.string.pref_nickname_description);
+		final String timeStr = sharedPrefs.getString(SettingsFragment.PREF_NICKNAME,
+				SettingsFragment.PREF_NICKNAME_DEFAULT);
+		str1Fmt = String.format(str1Fmt, this.formatTimeStr(timeStr));
 		connectionPref.setSummary(str1Fmt);
 
 	}
@@ -63,22 +70,22 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 	@Override
 	public void onPause() {
 		super.onPause();
-		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		this.getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+		this.getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPrefs, final String key) {
 		if (key.equals(SettingsFragment.PREF_NICKNAME)) {
-			final Preference connectionPref = findPreference(key);
-			String str1Fmt = getResources().getString(R.string.pref_nickname_description);
-			final String timeStr = sharedPrefs.getString(key, PREF_NICKNAME_DEFAULT);
-			str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+			final Preference connectionPref = this.findPreference(key);
+			String str1Fmt = this.getResources().getString(R.string.pref_nickname_description);
+			final String timeStr = sharedPrefs.getString(key, SettingsFragment.PREF_NICKNAME_DEFAULT);
+			str1Fmt = String.format(str1Fmt, this.formatTimeStr(timeStr));
 			connectionPref.setSummary(str1Fmt);
 
 		}

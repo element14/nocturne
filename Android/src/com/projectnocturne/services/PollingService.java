@@ -74,19 +74,22 @@ public final class PollingService extends Service {
 		// Result of a characteristic read operation
 		public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic,
 				final int status) {
+			Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "BluetoothGattCallback::onCharacteristicRead()");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
-				mCharacteristicList.add(characteristic);
+				PollingService.this.mCharacteristicList.add(characteristic);
 			}
 		}
 
 		@Override
 		public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
+			Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+					+ "BluetoothGattCallback::onConnectionStateChange()");
 			if (newState == BluetoothProfile.STATE_CONNECTED) {
 				Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
 						+ "PollingService :: Connected to GATT server.");
-				Log.i(NocturneApplication.LOG_TAG,
-						PollingService.LOG_TAG + "PollingService :: Attempting to start service discovery:"
-								+ mBluetoothGatt.discoverServices());
+				Log.i(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+						+ "PollingService :: Attempting to start service discovery:"
+						+ PollingService.this.mBluetoothGatt.discoverServices());
 
 			} else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
 				Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
@@ -97,8 +100,11 @@ public final class PollingService extends Service {
 		@Override
 		// New services discovered
 		public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
+			Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "BluetoothGattCallback::onServicesDiscovered()");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
-				mServiceList = mBluetoothGatt.getServices();
+				Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
+						+ "onServicesDiscovered() BluetoothGatt.GATT_SUCCESS");
+				PollingService.this.mServiceList = PollingService.this.mBluetoothGatt.getServices();
 			} else {
 				Log.w(NocturneApplication.LOG_TAG, PollingService.LOG_TAG
 						+ "PollingService :: onServicesDiscovered received: " + status);
@@ -110,14 +116,17 @@ public final class PollingService extends Service {
 	private final BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
 		@Override
 		public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-			mBtDevice = device;
+			Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "BluetoothAdapter.LeScanCallback::onLeScan()");
+			PollingService.this.mBtDevice = device;
 
 			Log.i(NocturneApplication.LOG_TAG,
-					PollingService.LOG_TAG + "PollingService :: Found device [" + mBtDevice.getName() + "]");
+					PollingService.LOG_TAG + "BluetoothAdapter.LeScanCallback::onLeScan() Found device ["
+							+ PollingService.this.mBtDevice.getName() + "]");
 
-			if (mBtDevice.getName().equalsIgnoreCase(PollingService.BLE_DEVICE_NAME_SENSOR_TAG)) {
-				scanLeDevice(false);
-				mBluetoothGatt = device.connectGatt(getApplication(), false, mGattCallback);
+			if (PollingService.this.mBtDevice.getName().equalsIgnoreCase(PollingService.BLE_DEVICE_NAME_SENSOR_TAG)) {
+				PollingService.this.scanLeDevice(false);
+				PollingService.this.mBluetoothGatt = device.connectGatt(PollingService.this.getApplication(), false,
+						PollingService.this.mGattCallback);
 			}
 		}
 	};
@@ -130,58 +139,58 @@ public final class PollingService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "onCreate()");
 
 		// Use this check to determine whether BLE is supported on the device.
 		// Then you can selectively disable BLE-related features.
-		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+		if (!this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
 			Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
 		// Initialises a Bluetooth adapter. get a reference to BluetoothAdapter
 		// through BluetoothManager.
-		final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-		mBluetoothAdapter = bluetoothManager.getAdapter();
+		final BluetoothManager bluetoothManager = (BluetoothManager) this.getSystemService(Context.BLUETOOTH_SERVICE);
+		this.mBluetoothAdapter = bluetoothManager.getAdapter();
 
 		// Checks if Bluetooth is supported on the device.
-		if (mBluetoothAdapter == null) {
+		if (this.mBluetoothAdapter == null) {
 			Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
 		// Ensures Bluetooth is enabled. If not, displays a dialog requesting
 		// user permission to enable Bluetooth.
-		if (!mBluetoothAdapter.isEnabled()) {
+		if (!this.mBluetoothAdapter.isEnabled()) {
 			Toast.makeText(this, R.string.ble_please_enable, Toast.LENGTH_SHORT).show();
 			final Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			getApplication().startActivity(enableBtIntent);
+			this.getApplication().startActivity(enableBtIntent);
 		}
 	}
 
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId) {
-		if (mHandler == null) {
-			mHandler = new Handler();
+		if (this.mHandler == null) {
+			this.mHandler = new Handler();
 		}
-		scanLeDevice(true);
+		this.scanLeDevice(true);
 		return super.onStartCommand(intent, flags, startId);
 	}
 
 	private void scanLeDevice(final boolean enable) {
-		Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "PollingService :: scanLeDevice: "
-				+ (enable ? "True" : "False"));
+		Log.d(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "scanLeDevice(" + (enable ? "True" : "False") + ")");
 		if (enable) {
 			// Stops scanning after a pre-defined scan period.
-			mHandler.postDelayed(new Runnable() {
+			this.mHandler.postDelayed(new Runnable() {
 				@Override
 				public void run() {
-					mBluetoothAdapter.stopLeScan(mLeScanCallback);
+					PollingService.this.mBluetoothAdapter.stopLeScan(PollingService.this.mLeScanCallback);
 				}
 			}, NocturneApplication.BLE_DEVICE_SCAN_PERIOD);
 
-			mBluetoothAdapter.startLeScan(mLeScanCallback);
+			this.mBluetoothAdapter.startLeScan(this.mLeScanCallback);
 		} else {
-			mBluetoothAdapter.stopLeScan(mLeScanCallback);
+			this.mBluetoothAdapter.stopLeScan(this.mLeScanCallback);
 		}
 	}
 
