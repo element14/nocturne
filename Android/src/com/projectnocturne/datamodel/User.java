@@ -1,20 +1,20 @@
 /**
-* <p>
-* <u><b>Copyright Notice</b></u>
-* </p><p>
-* The copyright in this document is the property of 
-* Bath Institute of Medical Engineering.
-* </p><p>
-* Without the written consent of Bath Institute of Medical Engineering
-* given by Contract or otherwise the document must not be copied, reprinted or
-* reproduced in any material form, either wholly or in part, and the contents
-* of the document or any method or technique available there from, must not be
-* disclosed to any other person whomsoever.
-*  </p><p>
-*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
-* --------------------------------------------------------------------------
-* 
-*/
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.datamodel;
 
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ public final class User extends AbstractDataObj {
 
 	public static final String DATABASE_TABLE_NAME = "Users";
 	public static final String FIELD_NAME_USERNAME = "username";
+	public static final String FIELD_NAME_STATUS = "status";
 	public static final String FIELD_NAME_name_first = "name_first";
 	public static final String FIELD_NAME_name_last = "name_last";
 	public static final String FIELD_NAME_email1 = "email1";
@@ -38,6 +39,7 @@ public final class User extends AbstractDataObj {
 	public static final String FIELD_NAME_postcode = "postcode";
 
 	public String username = "";
+	public String status = "";
 	public String name_first = "";
 	public String name_last = "";
 	public String email1 = "";
@@ -54,6 +56,7 @@ public final class User extends AbstractDataObj {
 	public User(final Cursor results) {
 		super(results);
 		username = results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME));
+		status = results.getString(results.getColumnIndex(User.FIELD_NAME_STATUS));
 		name_first = results.getString(results.getColumnIndex(User.FIELD_NAME_name_first));
 		name_last = results.getString(results.getColumnIndex(User.FIELD_NAME_name_last));
 		email1 = results.getString(results.getColumnIndex(User.FIELD_NAME_email1));
@@ -69,6 +72,7 @@ public final class User extends AbstractDataObj {
 	public ContentValues getContentValues() {
 		final ContentValues cv = super.getContentValues();
 		cv.put(User.FIELD_NAME_USERNAME, username);
+		cv.put(User.FIELD_NAME_status, status);
 		cv.put(User.FIELD_NAME_name_first, name_first);
 		cv.put(User.FIELD_NAME_name_last, name_last);
 		cv.put(User.FIELD_NAME_email1, email1);
@@ -86,6 +90,7 @@ public final class User extends AbstractDataObj {
 		final SparseArray<ArrayList<String>> fldList = super.getFields();
 		int x = fldList.size();
 		fldList.put(x++, getArrayList(User.FIELD_NAME_USERNAME, "VARCHAR(255) NOT NULL"));
+		fldList.put(x++, getArrayList(User.FIELD_NAME_STATUS, "VARCHAR(25) NOT NULL"));
 		fldList.put(x++, getArrayList(User.FIELD_NAME_name_first, "VARCHAR(255) NOT NULL"));
 		fldList.put(x++, getArrayList(User.FIELD_NAME_name_last, "VARCHAR(255) NOT NULL"));
 		fldList.put(x++, getArrayList(User.FIELD_NAME_email1, "VARCHAR(255) NOT NULL"));
