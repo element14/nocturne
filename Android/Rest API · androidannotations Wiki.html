@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://github.com/excilys/androidannotations/wiki/Rest%20API -->
+<html class="  "><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    
+    <title>Rest API · excilys/androidannotations Wiki</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="excilys/androidannotations" name="twitter:title"><meta content="androidannotations - Fast Android Development. Easy maintainance." name="twitter:description"><meta content="https://avatars1.githubusercontent.com/u/668697?s=400" name="twitter:image:src">
+<meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="https://avatars1.githubusercontent.com/u/668697?s=400" property="og:image"><meta content="excilys/androidannotations" property="og:title"><meta content="https://github.com/excilys/androidannotations" property="og:url"><meta content="androidannotations - Fast Android Development. Easy maintainance." property="og:description">
+
+    <link rel="assets" href="https://github.global.ssl.fastly.net/">
+    <link rel="conduit-xhr" href="https://ghconduit.com:25035/">
+    <link rel="xhr-socket" href="https://github.com/_sockets">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_wiki" data-pjax-transient="">
+    <meta content="collector.githubapp.com" name="octolytics-host"><meta content="collector-cdn.github.com" name="octolytics-script-host"><meta content="github" name="octolytics-app-id"><meta content="4D66738B:75FD:167A002:53318083" name="octolytics-dimension-request_id"><meta content="378813" name="octolytics-actor-id"><meta content="mrspaceman" name="octolytics-actor-login"><meta content="cffb2164a50ec10a8bbf39c726db073459f0a91377ed6e8ea249dafed13a235c" name="octolytics-actor-hash">
+    
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://github.global.ssl.fastly.net/favicon.ico">
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="kYxZ3KcxvwHpAjCpNfeX/uxZh8J51D6EqR8a8/itkoA=" name="csrf-token">
+
+    <link href="./Rest API · androidannotations Wiki_files/github-2714be798e3a1abfcbd49ca563fdfa1c177cd2e9.css" media="all" rel="stylesheet" type="text/css">
+    <link href="./Rest API · androidannotations Wiki_files/github2-11ee1161f68234125b5e8198b6c00e0409587b77.css" media="all" rel="stylesheet" type="text/css">
+    
+
+
+        <script crossorigin="anonymous" src="./Rest API · androidannotations Wiki_files/frameworks-1eb4805d296158ea875ffc5fa959a11f5a3cdf13.js" type="text/javascript"></script><style type="text/css"></style>
+        <script async="async" crossorigin="anonymous" src="./Rest API · androidannotations Wiki_files/github-0eb4075decc9810b544396b3366e14fecf793432.js" type="text/javascript"></script>
+        
+          <script crossorigin="anonymous" src="./Rest API · androidannotations Wiki_files/wiki-a0c521d0386b43253199d8f49f82de7084651331.js" type="text/javascript"></script>
+
+      <meta http-equiv="x-pjax-version" content="ec5d8630b4ee3231236cfa8bf8abbf04">
+
+      
+  <meta name="description" content="androidannotations - Fast Android Development. Easy maintainance.">
+
+  <meta content="668697" name="octolytics-dimension-user_id"><meta content="excilys" name="octolytics-dimension-user_login"><meta content="3116751" name="octolytics-dimension-repository_id"><meta content="excilys/androidannotations" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="3116751" name="octolytics-dimension-repository_network_root_id"><meta content="excilys/androidannotations" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/excilys/androidannotations/commits/develop.atom" rel="alternate" title="Recent Commits to androidannotations:develop" type="application/atom+xml">
+
+  <script type="text/javascript" async="" src="./Rest API · androidannotations Wiki_files/api.js"></script><script type="text/javascript" async="" src="./Rest API · androidannotations Wiki_files/ga.js"></script></head>
+
+
+  <body class="logged_in  env-production linux vis-public">
+    <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#start-of-content" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+      
+
+
+      <div class="header header-logged-in true">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/">
+  <span class="mega-octicon octicon-mark-github"></span>
+</a>
+
+    
+    <a href="https://github.com/notifications" aria-label="You have unread notifications" class="notification-indicator tooltipped tooltipped-s" data-gotokey="n">
+        <span class="mail-status unread"></span>
+</a>
+
+      <div class="command-bar js-command-bar  in-repository">
+          <form accept-charset="UTF-8" action="https://github.com/search" class="command-bar-form" id="top_search_form" method="get">
+
+<div class="commandbar">
+  <span class="message"></span>
+  <input type="text" data-hotkey="/ s" name="q" id="js-command-bar-field" placeholder="Search or type a command" tabindex="1" autocapitalize="off" data-username="mrspaceman" data-repo="excilys/androidannotations" data-branch="develop" data-sha="f668a56adc4f8e9ab33d8e93886eee4a4d3e450f">
+  <div class="display hidden"></div>
+</div>
+
+    <input type="hidden" name="nwo" value="excilys/androidannotations">
+
+    <div class="select-menu js-menu-container js-select-menu search-context-select-menu">
+      <span class="minibutton select-menu-button js-menu-target" role="button" aria-haspopup="true">
+        <span class="js-select-button">This repository</span>
+      </span>
+
+      <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+        <div class="select-menu-modal">
+
+          <div class="select-menu-item js-navigation-item js-this-repository-navigation-item selected">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" class="js-search-this-repository" name="search_target" value="repository" checked="checked">
+            <div class="select-menu-item-text js-select-button-text">This repository</div>
+          </div> <!-- /.select-menu-item -->
+
+          <div class="select-menu-item js-navigation-item js-all-repositories-navigation-item">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" name="search_target" value="global">
+            <div class="select-menu-item-text js-select-button-text">All repositories</div>
+          </div> <!-- /.select-menu-item -->
+
+        </div>
+      </div>
+    </div>
+
+  <span class="help tooltipped tooltipped-s" aria-label="Show command bar help">
+    <span class="octicon octicon-question"></span>
+  </span>
+
+
+  <input type="hidden" name="ref" value="cmdform">
+
+</form>
+        <ul class="top-nav">
+          <li class="explore"><a href="https://github.com/explore">Explore</a></li>
+            <li><a href="https://gist.github.com/">Gist</a></li>
+            <li><a href="https://github.com/blog">Blog</a></li>
+          <li><a href="https://help.github.com/">Help</a></li>
+        </ul>
+      </div>
+
+    
+
+
+  <ul id="user-links">
+    <li>
+      <a href="https://github.com/mrspaceman" class="name">
+        <img alt="Andy" class=" js-avatar" data-user="378813" height="20" src="./Rest API · androidannotations Wiki_files/378813" width="20"> mrspaceman
+      </a>
+    </li>
+
+    <li class="new-menu dropdown-toggle js-menu-container">
+      <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="js-menu-target tooltipped tooltipped-s" aria-label="Create new...">
+        <span class="octicon octicon-plus"></span>
+        <span class="dropdown-arrow"></span>
+      </a>
+
+      <div class="new-menu-content js-menu-content">
+      </div>
+    </li>
+
+    <li>
+      <a href="https://github.com/settings/profile" id="account_settings" class="tooltipped tooltipped-s" aria-label="Account settings ">
+        <span class="octicon octicon-tools"></span>
+      </a>
+    </li>
+    <li>
+      <a class="tooltipped tooltipped-s" href="https://github.com/logout" data-method="post" id="logout" aria-label="Sign out">
+        <span class="octicon octicon-log-out"></span>
+      </a>
+    </li>
+
+  </ul>
+
+<div class="js-new-dropdown-contents hidden">
+  
+
+<ul class="dropdown-menu">
+  <li>
+    <a href="https://github.com/new"><span class="octicon octicon-repo-create"></span> New repository</a>
+  </li>
+  <li>
+    <a href="https://github.com/organizations/new"><span class="octicon octicon-organization"></span> New organization</a>
+  </li>
+
+
+    <li class="section-title">
+      <span title="excilys/androidannotations">This repository</span>
+    </li>
+      <li>
+        <a href="https://github.com/excilys/androidannotations/issues/new"><span class="octicon octicon-issue-opened"></span> New issue</a>
+      </li>
+</ul>
+
+</div>
+
+
+    
+  </div>
+</div>
+
+      
+
+        
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope="" itemtype="http://schema.org/WebPage">
+    
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+        
+
+<ul class="pagehead-actions">
+
+    <li class="subscription">
+      <form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="kYxZ3KcxvwHpAjCpNfeX/uxZh8J51D6EqR8a8/itkoA="></div>  <input id="repository_id" name="repository_id" type="hidden" value="3116751">
+
+    <div class="select-menu js-menu-container js-select-menu">
+      <a class="social-count js-social-count" href="https://github.com/excilys/androidannotations/watchers">
+        346
+      </a>
+      <span class="minibutton select-menu-button with-count js-menu-target" role="button" tabindex="0" aria-haspopup="true">
+        <span class="js-select-button">
+          <span class="octicon octicon-eye-watch"></span>
+          Watch
+        </span>
+      </span>
+
+      <div class="select-menu-modal-holder">
+        <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+          <div class="select-menu-header">
+            <span class="select-menu-title">Notification status</span>
+            <span class="octicon octicon-remove-close js-menu-close"></span>
+          </div> <!-- /.select-menu-header -->
+
+          <div class="select-menu-list js-navigation-container" role="menu">
+
+            <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <div class="select-menu-item-text">
+                <input checked="checked" id="do_included" name="do" type="radio" value="included">
+                <h4>Not watching</h4>
+                <span class="description">You only receive notifications for conversations in which you participate or are @mentioned.</span>
+                <span class="js-select-button-text hidden-select-button-text">
+                  <span class="octicon octicon-eye-watch"></span>
+                  Watch
+                </span>
+              </div>
+            </div> <!-- /.select-menu-item -->
+
+            <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+              <span class="select-menu-item-icon octicon octicon octicon-check"></span>
+              <div class="select-menu-item-text">
+                <input id="do_subscribed" name="do" type="radio" value="subscribed">
+                <h4>Watching</h4>
+                <span class="description">You receive notifications for all conversations in this repository.</span>
+                <span class="js-select-button-text hidden-select-button-text">
+                  <span class="octicon octicon-eye-unwatch"></span>
+                  Unwatch
+                </span>
+              </div>
+            </div> <!-- /.select-menu-item -->
+
+            <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <div class="select-menu-item-text">
+                <input id="do_ignore" name="do" type="radio" value="ignore">
+                <h4>Ignoring</h4>
+                <span class="description">You do not receive any notifications for conversations in this repository.</span>
+                <span class="js-select-button-text hidden-select-button-text">
+                  <span class="octicon octicon-mute"></span>
+                  Stop ignoring
+                </span>
+              </div>
+            </div> <!-- /.select-menu-item -->
+
+          </div> <!-- /.select-menu-list -->
+
+        </div> <!-- /.select-menu-modal -->
+      </div> <!-- /.select-menu-modal-holder -->
+    </div> <!-- /.select-menu -->
+
+</form>
+    </li>
+
+  <li>
+  
+
+  <div class="js-toggler-container js-social-container starring-container ">
+    <a href="https://github.com/excilys/androidannotations/unstar" class="minibutton with-count js-toggler-target star-button starred" aria-label="Unstar this repository" title="Unstar excilys/androidannotations" data-remote="true" data-method="post" rel="nofollow">
+      <span class="octicon octicon-star-delete"></span><span class="text">Unstar</span>
+    </a>
+
+    <a href="https://github.com/excilys/androidannotations/star" class="minibutton with-count js-toggler-target star-button unstarred" aria-label="Star this repository" title="Star excilys/androidannotations" data-remote="true" data-method="post" rel="nofollow">
+      <span class="octicon octicon-star"></span><span class="text">Star</span>
+    </a>
+
+      <a class="social-count js-social-count" href="https://github.com/excilys/androidannotations/stargazers">
+        2,641
+      </a>
+  </div>
+
+  </li>
+
+
+        <li>
+          <a href="https://github.com/excilys/androidannotations/fork" class="minibutton with-count js-toggler-target fork-button lighter tooltipped-n" title="Fork your own copy of excilys/androidannotations to your account" aria-label="Fork your own copy of excilys/androidannotations to your account" rel="facebox nofollow">
+            <span class="octicon octicon-git-branch-create"></span><span class="text">Fork</span>
+          </a>
+          <a href="https://github.com/excilys/androidannotations/network" class="social-count">655</a>
+        </li>
+
+
+</ul>
+
+        <h1 itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="repo-label"><span>public</span></span>
+          <span class="mega-octicon octicon-repo"></span>
+          <span class="author">
+            <a href="https://github.com/excilys" class="url fn" itemprop="url" rel="author"><span itemprop="title">excilys</span></a>
+          </span>
+          <span class="repohead-name-divider">/</span>
+          <strong><a href="https://github.com/excilys/androidannotations" class="js-current-repository js-repo-home-link">androidannotations</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="Octocat-spinner-32" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+          </span>
+
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline js-new-discussion-timeline">
+        <div class="repository-sidebar clearfix">
+            
+
+<div class="sunken-menu vertical-right repo-nav js-repo-nav js-repository-container-pjax js-octicon-loaders">
+  <div class="sunken-menu-contents">
+    <ul class="sunken-menu-group">
+      <li class="tooltipped tooltipped-w" aria-label="Code">
+        <a href="https://github.com/excilys/androidannotations" aria-label="Code" class="js-selected-navigation-item sunken-menu-item" data-gotokey="c" data-pjax="true" data-selected-links="repo_source repo_downloads repo_commits repo_tags repo_branches /excilys/androidannotations">
+          <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+          <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>      </li>
+
+        <li class="tooltipped tooltipped-w" aria-label="Issues">
+          <a href="https://github.com/excilys/androidannotations/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-gotokey="i" data-selected-links="repo_issues /excilys/androidannotations/issues">
+            <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+            <span class="counter">123</span>
+            <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>        </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Pull Requests">
+        <a href="https://github.com/excilys/androidannotations/pulls" aria-label="Pull Requests" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-gotokey="p" data-selected-links="repo_pulls /excilys/androidannotations/pulls">
+            <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull Requests</span>
+            <span class="counter">19</span>
+            <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>      </li>
+
+
+        <li class="tooltipped tooltipped-w" aria-label="Wiki">
+          <a href="https://github.com/excilys/androidannotations/wiki" aria-label="Wiki" class="selected js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="repo_wiki /excilys/androidannotations/wiki">
+            <span class="octicon octicon-book"></span> <span class="full-word">Wiki</span>
+            <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>        </li>
+    </ul>
+    <div class="sunken-menu-separator"></div>
+    <ul class="sunken-menu-group">
+
+      <li class="tooltipped tooltipped-w" aria-label="Pulse">
+        <a href="https://github.com/excilys/androidannotations/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="pulse /excilys/androidannotations/pulse">
+          <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+          <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Graphs">
+        <a href="https://github.com/excilys/androidannotations/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="repo_graphs repo_contributors /excilys/androidannotations/graphs">
+          <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+          <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Network">
+        <a href="https://github.com/excilys/androidannotations/network" aria-label="Network" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-selected-links="repo_network /excilys/androidannotations/network">
+          <span class="octicon octicon-git-branch"></span> <span class="full-word">Network</span>
+          <img alt="Octocat-spinner-32" class="mini-loader" height="16" src="./Rest API · androidannotations Wiki_files/octocat-spinner-32.gif" width="16">
+</a>      </li>
+    </ul>
+
+
+  </div>
+</div>
+
+              <div class="only-with-full-nav">
+                
+
+  
+
+<div class="clone-url open" data-protocol-type="http" data-url="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone">
+  <h3><strong>HTTPS</strong> clone URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field" value="https://github.com/excilys/androidannotations.git" readonly="readonly">
+
+    <span aria-label="copy to clipboard" class="js-zeroclipboard url-box-clippy minibutton zeroclipboard-button" data-clipboard-text="https://github.com/excilys/androidannotations.git" data-copied-hint="copied!"><span class="octicon octicon-clippy"></span></span>
+  </div>
+</div>
+
+  
+
+<div class="clone-url " data-protocol-type="ssh" data-url="/users/set_protocol?protocol_selector=ssh&amp;protocol_type=clone">
+  <h3><strong>SSH</strong> clone URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field" value="git@github.com:excilys/androidannotations.git" readonly="readonly">
+
+    <span aria-label="copy to clipboard" class="js-zeroclipboard url-box-clippy minibutton zeroclipboard-button" data-clipboard-text="git@github.com:excilys/androidannotations.git" data-copied-hint="copied!"><span class="octicon octicon-clippy"></span></span>
+  </div>
+</div>
+
+  
+
+<div class="clone-url " data-protocol-type="subversion" data-url="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone">
+  <h3><strong>Subversion</strong> checkout URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field" value="https://github.com/excilys/androidannotations" readonly="readonly">
+
+    <span aria-label="copy to clipboard" class="js-zeroclipboard url-box-clippy minibutton zeroclipboard-button" data-clipboard-text="https://github.com/excilys/androidannotations" data-copied-hint="copied!"><span class="octicon octicon-clippy"></span></span>
+  </div>
+</div>
+
+
+<p class="clone-options">You can clone with
+      <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="js-clone-selector" data-protocol="http">HTTPS</a>,
+      <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="js-clone-selector" data-protocol="ssh">SSH</a>,
+      or <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="js-clone-selector" data-protocol="subversion">Subversion</a>.
+  <span class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <a href="https://help.github.com/articles/which-remote-url-should-i-use">
+    <span class="octicon octicon-question"></span>
+    </a>
+  </span>
+</p>
+
+
+
+                <a href="https://github.com/excilys/androidannotations/archive/develop.zip" class="minibutton sidebar-button" aria-label="Download excilys/androidannotations as a zip file" title="Download excilys/androidannotations as a zip file" rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container="">
+          
+
+<div class="tabnav">
+  <ul class="tabnav-tabs">
+    <li><a href="https://github.com/excilys/androidannotations/wiki" class="js-selected-navigation-item tabnav-tab" data-selected-links=" /excilys/androidannotations/wiki">Home</a></li>
+    <li><a href="https://github.com/excilys/androidannotations/wiki/_pages" class="js-selected-navigation-item tabnav-tab" data-selected-links=" /excilys/androidannotations/wiki/_pages">Pages</a></li>
+    <li><a href="https://github.com/excilys/androidannotations/wiki/_history" class="js-selected-navigation-item tabnav-tab" data-selected-links=" /excilys/androidannotations/wiki/_history">History</a></li>
+  </ul>
+</div>
+
+
+
+<div id="wiki-wrapper" class="page">
+<div id="head">
+  <ul class="wiki-actions readability-extra">
+    <li class="gollum-minibutton"><a href="https://github.com/excilys/androidannotations/wiki/Rest-API/_history" class="minibutton bigger action-page-history">
+       Page History
+     </a></li>
+    <li class="gollum-minibutton"><span aria-label="Click to copy url to clipboard" class="js-zeroclipboard minibutton" data-clipboard-text="https://github.com/excilys/androidannotations.wiki.git" data-copied-hint="copied!">Clone URL</span></li>
+  </ul>
+  <h1 class="instapaper_title">Rest API</h1>
+</div>
+<div id="wiki-content">
+  <div class="wrap has-rightbar">
+  <div id="wiki-rightbar" class="gollum-markdown-content readability-sidebar">
+    <h3>
+<a name="12012014-the-301-release-is-out-" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#12012014-the-301-release-is-out-"><span class="octicon octicon-link"></span></a>12/01/2014 <a href="https://github.com/excilys/androidannotations/wiki/ReleaseNotes#wiki-3.0.1">The 3.0.1 release is out !</a>
+</h3>
+
+<h3>
+<a name="using-androidannotations" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#using-androidannotations"><span class="octicon octicon-link"></span></a>Using AndroidAnnotations</h3>
+
+<ul>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Configuration">Get started!</a></li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Download">Download</a></li>
+<li>
+<a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Cookbook">Cookbook</a>, full of recipes</li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/CustomizeAnnotationProcessing">Customize annotation processing</a></li>
+<li>List of all <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/AvailableAnnotations">available annotations</a>
+</li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/ReleaseNotes">Release Notes</a></li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Examples">Examples</a></li>
+</ul><h3>
+<a name="questions" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#questions"><span class="octicon octicon-link"></span></a>Questions?</h3>
+
+<ul>
+<li>Read the <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/FAQ">FAQ</a>
+</li>
+<li>Join the <a href="http://groups.google.com/group/androidannotations">Mailing list</a>
+</li>
+<li>Create <a href="https://github.com/excilys/androidannotations/issues">an issue</a>
+</li>
+<li>Tag on <a href="http://stackoverflow.com/questions/tagged/android-annotations">Stack Overflow</a>
+</li>
+</ul><h3>
+<a name="enjoying-androidannotations" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#enjoying-androidannotations"><span class="octicon octicon-link"></span></a>Enjoying AndroidAnnotations</h3>
+
+<ul>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Apps-using-AndroidAnnotations">Apps using AndroidAnnotations</a></li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/References">References</a></li>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Sponsors">Sponsors</a></li>
+<li><a href="https://twitter.com/#!/AndAnnotations">Twitter</a></li>
+<li><a href="https://plus.google.com/106206799999983258245">Google +</a></li>
+</ul><h3>
+<a name="improving-androidannotations" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#improving-androidannotations"><span class="octicon octicon-link"></span></a>Improving AndroidAnnotations</h3>
+
+<ul>
+<li><a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Contributing">Contributing</a></li>
+</ul>
+  </div>
+  <div id="wiki-body" class="gollum-markdown-content instapaper_body">
+    <div class="markdown-body">
+      <blockquote>
+<p>Since AndroidAnnotations <strong>2.2</strong></p>
+</blockquote>
+
+<h1>
+<a name="introduction" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>The REST API allows you to quickly write REST clients using clean interfaces. </p>
+
+<p>It is a wrapper around the great <a href="http://www.springsource.org/spring-android" rel="nofollow">Spring Android</a> RestTemplate Module. As such, if you want to use the REST API, you should make sure that your application has the right <a href="http://www.springsource.org/download/community?project=Spring%20for%20Android" rel="nofollow">Jars</a> or <a href="http://static.springsource.org/spring-android/docs/1.0.x/reference/htmlsingle/#spring-android-maven" rel="nofollow">Maven dependencies</a> set.</p>
+
+<p>You should also read the Spring Android <a href="http://static.springsource.org/spring-android/docs/1.0.x/reference/htmlsingle/#rest-template" rel="nofollow">RestTemplate Module Documentation</a>, to know more about entity serialization / deserialization and how the RestTemplate works.</p>
+
+<h1>
+<a name="create-your-rest-api-interface" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#create-your-rest-api-interface"><span class="octicon octicon-link"></span></a>Create your REST API interface</h1>
+
+<p>The Rest API works with a <code>@Rest</code> annotated interface. It's the entry point.</p>
+
+<h2>
+<a name="converters" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#converters"><span class="octicon octicon-link"></span></a>Converters</h2>
+
+<p>You <strong>MUST</strong> define <code>converters</code> field on this <code>@Rest</code> annotation, which corresponds to the Spring <code>HttpMessageConverter</code>s that will be provided to the <code>RestTemplate</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<p><strong>Important note:</strong> Keep in mind that <code>HttpMessageConverter</code>s are provided by <em>Spring Android RestTemplate</em>, but it DOESN'T contains the implementation of the converter.
+For example : <code>MappingJacksonHttpMessageConverter</code> is using <a href="http://jackson.codehaus.org/" rel="nofollow">Jackson</a> as converter but you still have to add this library in the classpath of you project.</p>
+
+<h2>
+<a name="root-url" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#root-url"><span class="octicon octicon-link"></span></a>Root url</h2>
+
+<p>You will usually define a ROOT_URL in a <code>@Rest</code> annotation,</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>but you can omit the ROOT_URL and define a complete URL on each method.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"http://company.com/ajax/services/events"</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="interceptors" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#interceptors"><span class="octicon octicon-link"></span></a>Interceptors</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>It may be useful to add an <a href="http://static.springsource.org/spring-android/docs/1.0.x/api/org/springframework/http/client/ClientHttpRequestInterceptor.html" rel="nofollow">interceptor</a> to your Rest client. You can do that with the <code>interceptors</code> field in <code>@Rest</code> annotation.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">},</span> <span class="n">interceptors</span> <span class="o">=</span> <span class="o">{</span> <span class="n">HttpBasicAuthenticatorInterceptor</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HttpBasicAuthenticatorInterceptor</span> <span class="kd">implements</span> <span class="n">ClientHttpRequestInterceptor</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">ClientHttpResponse</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">HttpRequest</span> <span class="n">request</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">,</span> <span class="n">ClientHttpRequestExecution</span> <span class="n">execution</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// do something</span>
+        <span class="k">return</span> <span class="n">execution</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>For example, this can be used to log each request or to handle custom authentication.</p>
+
+<blockquote>
+<p>Before AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Before this version you can manualy add interceptors into RestTemplate instance by adding a <code>getRestTemplate</code> method in your interface. <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Rest-API#resttemplate" rel="nofollow">More information</a> about this on this page.</p>
+
+<h2>
+<a name="error-handler" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#error-handler"><span class="octicon octicon-link"></span></a>Error handler</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>By default, if an api call fails for any reason, an exception is thrown. Managing general exceptions like <code>service unavailable</code> or <code>bad request</code> for every call can be really tedious. Not doing it would make your app crash for all unexpected error. It's a good practice to override the default behavior, and this is done using a <code>RestErrorHandler</code>.</p>
+
+<p>Implement your RestErrorHandler (it doesn't have to be an <code>@EBean</code>).</p>
+
+<div class="highlight highlight-java"><pre><span class="kn">import</span> <span class="nn">org.androidannotations.api.rest.RestErrorHandler</span><span class="o">;</span>
+
+<span class="nd">@EBean</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyErrorHandler</span> <span class="kd">implements</span> <span class="n">RestErrorHandler</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onRestClientExceptionThrown</span><span class="o">(</span><span class="n">RestClientException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Do whatever you want here.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Make sure your rest client interface extends <code>RestClientErrorHandling</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="kd">extends</span> <span class="n">RestClientErrorHandling</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Then set the error handler where you use your rest client.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@RestService</span>
+<span class="n">MyRestClient</span> <span class="n">myRestClient</span><span class="o">;</span>
+
+<span class="nd">@Bean</span>
+<span class="n">MyErrorHandler</span> <span class="n">myErrorHandler</span><span class="o">;</span>
+
+<span class="nd">@AfterInject</span>
+<span class="kt">void</span> <span class="nf">afterInject</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">myRestClient</span><span class="o">.</span><span class="na">setRestErrorHandler</span><span class="o">(</span><span class="n">myErrorHandler</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h1>
+<a name="add-rest-api-methods" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#add-rest-api-methods"><span class="octicon octicon-link"></span></a>Add REST API methods</h1>
+
+<h2>
+<a name="notes" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#notes"><span class="octicon octicon-link"></span></a>Notes</h2>
+
+<p>Let's clarify some points before starting with REST API methods.</p>
+
+<h3>
+<a name="placeholders" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#placeholders"><span class="octicon octicon-link"></span></a>Placeholders</h3>
+
+<p>For each type of REST call you can add URL parameters by writing the parameter names in brackets and you <strong>MUST</strong> define them all as parameters of your method.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="c1">// OK</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+  <span class="n">EventList</span> <span class="nf">getEventsByYearAndLocation</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">,</span> <span class="n">String</span> <span class="n">location</span><span class="o">);</span>
+
+  <span class="c1">// OK</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+  <span class="n">EventList</span> <span class="nf">getEventsByLocationAndYear</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+  <span class="c1">// WRONG</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+  <span class="n">EventList</span> <span class="nf">getEventsByLocation</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">);</span> <span class="c1">// Wrong, "year" must be defined.</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="parameterized-class" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#parameterized-class"><span class="octicon octicon-link"></span></a>Parameterized class</h3>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>You can now return parameterized class (such as <code>List&lt;Event&gt;</code>) in your REST API methods.</p>
+
+<blockquote>
+<p>Before AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Before this version you can't directly return a parameterized class but you can use a class extending of it.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+<span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+</pre></div>
+
+<p>With </p>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventList</span> <span class="kd">extends</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Event</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="responseentity" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#responseentity"><span class="octicon octicon-link"></span></a>ResponseEntity</h3>
+
+<p>You can also return a <code>ResponseEntity</code> parameterized by the expected result type, which gives you access to to the response context. For instance, it could be useful to check the HTTP headers of the response.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+<span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Event</span><span class="o">&gt;</span> <span class="nf">getEvents</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+</pre></div>
+
+<h2>
+<a name="get" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#get"><span class="octicon octicon-link"></span></a>@Get</h2>
+
+<p>Send a request with GET HTTP Method. The example shows the different possible return types.</p>
+
+<p>Your method can return nothing,</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+</pre></div>
+
+<p>or a class representing the object contained in the HTTP response. The binding from JSON/XML to Object is automatically done by the RestTemplate according the defined converters, please check the <a href="http://static.springsource.org/spring-android/docs/1.0.x/reference/htmlsingle/#rest-template-howtoget" rel="nofollow">related documentation</a>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+<span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+</pre></div>
+
+<h2>
+<a name="post" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#post"><span class="octicon octicon-link"></span></a>@Post</h2>
+
+<p>Send a request with POST HTTP method.</p>
+
+<p>The POST HTTP method is used to add objects to a REST resource. You only need to add a parameter representing the object to your annotated method. The allowed return types are the same as <code>@Get</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">addEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">addEventById</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">addAndReturnEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Event</span><span class="o">&gt;</span> <span class="nf">addAndReturnResponseEntity</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<p>Of course, you can send a POST request without sending any entity.</p>
+
+<div class="highlight highlight-java"><pre>  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">addEvent</span><span class="o">();</span>
+</pre></div>
+
+<h2>
+<a name="put" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#put"><span class="octicon octicon-link"></span></a>@Put</h2>
+
+<p>Send a PUT HTTP Method request.
+The allowed return types are the same as <code>@Get</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Put</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">updateEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+  <span class="nd">@Put</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">updateEventById</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="nd">@Put</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">updateEventNoEntity</span><span class="o">();</span>
+
+  <span class="nd">@Put</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">updateEventNoEntityById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="delete" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#delete"><span class="octicon octicon-link"></span></a>@Delete</h2>
+
+<p>Send a DELETE HTTP Method request. Quite similar to the @Put annotation.
+The allowed return types are the same as <code>@Get</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Delete</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">deleteEvents</span><span class="o">();</span>
+
+  <span class="nd">@Delete</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">deleteEventById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="nd">@Delete</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">deleteEventWithEntityById</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="options" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#options"><span class="octicon octicon-link"></span></a>@Options</h2>
+
+<p>Send a OPTIONS HTTP Method request.
+<code>@Options</code> annotated methods <strong>must</strong> return a set of <code>HttpMethod</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Options</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="n">Set</span><span class="o">&lt;</span><span class="n">HttpMethod</span><span class="o">&gt;</span> <span class="nf">getEventOptions</span><span class="o">();</span>
+
+  <span class="nd">@Options</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+  <span class="n">Set</span><span class="o">&lt;</span><span class="n">HttpMethod</span><span class="o">&gt;</span> <span class="nf">getEventOptions</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="head" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#head"><span class="octicon octicon-link"></span></a>@Head</h2>
+
+<p>Send a HEAD HTTP Method request.
+<code>@Head</code> annotated methods <strong>must</strong> return <code>HttpHeaders</code>.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Head</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+  <span class="n">HttpHeaders</span> <span class="nf">getEventHeader</span><span class="o">();</span>
+
+  <span class="nd">@Head</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+  <span class="n">HttpHeaders</span> <span class="nf">getEventHeader2</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<h1>
+<a name="configure-your-rest-api-methods" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#configure-your-rest-api-methods"><span class="octicon octicon-link"></span></a>Configure your REST API methods</h1>
+
+<p>On each method you're able to add some interfaces to customize HTTP calls.</p>
+
+<h2>
+<a name="accept" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#accept"><span class="octicon octicon-link"></span></a>@Accept</h2>
+
+<p>You can negotiate the response format expected by your REST client (JSON, XML, TEXT, HTML...).</p>
+
+<p><code>@Accept</code> can <strong>only</strong> be used on <code>@Get</code> and <code>@Post</code> methods.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="nd">@Post</span><span class="o">(</span><span class="s">"/entity"</span><span class="o">)</span>
+  <span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">addEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<p>You can directly annotate the <code>@Rest</code> interface but only <code>@Get</code> and <code>@Post</code> will use it.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyService</span> <span class="o">{</span>
+<span class="o">}</span>
+</pre></div>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>2.7</strong></p>
+</blockquote>
+
+<p><code>@Accept</code> accepts any String, so you can use custom formats e.g. <code>@Accept("foo/bar")</code>.</p>
+
+<h2>
+<a name="requiresheader--setheader--getheader" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#requiresheader--setheader--getheader"><span class="octicon octicon-link"></span></a>@RequiresHeader / setHeader / getHeader</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Inject a header in the request based on the given key.</p>
+
+<p>To set the header's value you have to create a <code>void setHeader(String name, String value)</code> method in your REST API interface. It will be automaticaly handle and implemented by AA.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="nd">@RequiresHeader</span><span class="o">(</span><span class="s">"myHeader"</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="kt">void</span> <span class="nf">setHeader</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">value</span><span class="o">);</span>
+  <span class="n">String</span> <span class="nf">getHeader</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
+ <span class="o">}</span>
+</pre></div>
+
+<p>In this example your code should call <code>setHeader("myHeader", "My Value")</code> before calling <code>getEvent(…)</code>. AA will is also handle <code>String getHeader(String name)</code> method to let you retrieve a specific header's value.</p>
+
+<h2>
+<a name="requirescookie--setcookie--getcookie" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#requirescookie--setcookie--getcookie"><span class="octicon octicon-link"></span></a>@RequiresCookie / setCookie / getCookie</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Inject a cookie in the request based on the given key.</p>
+
+<p>To set the cookie's value you have to create a <code>void setCookie(String name, String value)</code> method in your REST API interface. It will be automaticaly handle and implemented by AA.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="nd">@RequiresCookie</span><span class="o">(</span><span class="s">"session"</span><span class="o">)</span>
+  <span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="kt">void</span> <span class="nf">setCookie</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">value</span><span class="o">);</span>
+  <span class="n">String</span> <span class="nf">getCookie</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
+ <span class="o">}</span>
+</pre></div>
+
+<p>In this example your code should call <code>setCookie("session", "MyUID")</code> before calling <code>getEvent(…)</code>. AA will is also handle <code>String getCookie(String name)</code> method to let you retrieve a specific cookie's value.</p>
+
+<h2>
+<a name="requirescookieinurl" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#requirescookieinurl"><span class="octicon octicon-link"></span></a>@RequiresCookieInUrl</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Works exactly as <code>@RequiresCookie</code> but it will inject the cookie in the url instead of in headers. It could be helpful in some cases.</p>
+
+<h2>
+<a name="requiresauthentication--setauthentication--sethttpbasicauth" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#requiresauthentication--setauthentication--sethttpbasicauth"><span class="octicon octicon-link"></span></a>@RequiresAuthentication / setAuthentication / setHttpBasicAuth</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>Use the previously configured <code>org.springframework.http.HttpAuthentication</code> to inject authentication value in  the <code>Authorization</code> request header.</p>
+
+<p>To set the authentication object you have to create <code>void setAuthentication(HttpAuthentication auth)</code> and/or <code>setHttpBasicAuth(String username, String password)</code> methods in your REST API interface. The former is a generic method and the latter is just a shortcut for <code>setAuthentication(new HttpBasicAuthentication(username, password))</code>. It will be automaticaly handle and implemented by AA.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="nd">@RequiresAuthentication</span>
+  <span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+  <span class="n">setHttpBasicAuth</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">);</span>
+ <span class="o">}</span>
+</pre></div>
+
+<p>In this example your code should call <code>setHttpBasicAuth("username", "pass")</code> before calling <code>getEvent(...)</code></p>
+
+<h2>
+<a name="setscookie" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#setscookie"><span class="octicon octicon-link"></span></a>@SetsCookie</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>This annotation is used to retrieve and store cookies from the HTTP response. After being set, the can be retrieve by <code>@RequiresCookie</code> and <code>@RequiresCookieInUrl</code> annotation and <code>getCookie</code> method.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+  <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+  <span class="nd">@SetsCookie</span><span class="o">({</span><span class="s">"xt"</span><span class="o">})</span>
+  <span class="n">Event</span> <span class="nf">getEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+ <span class="o">}</span>
+</pre></div>
+
+<h1>
+<a name="customize-your-rest-api-interface" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#customize-your-rest-api-interface"><span class="octicon octicon-link"></span></a>Customize your REST API interface</h1>
+
+<p>AndroidAnnotation <code>@Rest</code> will automaticaly detect and handle some methods in your <code>@Rest</code> annotated interface. Some of them has already been described earlier and works with an annotation. Here are some other methods.</p>
+
+<h2>
+<a name="rooturl" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#rooturl"><span class="octicon octicon-link"></span></a>RootUrl</h2>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>2.6</strong></p>
+</blockquote>
+
+<p>If you need to dynamicaly set ROOT_URL values, you can add a <code>void setRootUrl(String rootUrl)</code> method to the interface.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyRestClient</span> <span class="o">{</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events"</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">setRootUrl</span><span class="o">(</span><span class="n">String</span> <span class="n">rootUrl</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>This can be useful if you need to create builds for different environments.</p>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>You can also retrieve the current ROOT_URL value by adding a <code>String getRootUrl()</code> method to the interface.</p>
+
+<h2>
+<a name="resttemplate" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#resttemplate"><span class="octicon octicon-link"></span></a>RestTemplate</h2>
+
+<p>The generated implementation of your annotated interface uses Spring Android RestTemplate. If you want to configure the RestTemplate to some specific needs, you can add <code>getRestTemplate()</code> and <code>setRestTemplate()</code> methods:</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="s">"http://company.com/ajax/services"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyService</span> <span class="o">{</span>
+    <span class="n">RestTemplate</span> <span class="nf">getRestTemplate</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">setRestTemplate</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h1>
+<a name="uses-bundle-interfaces" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#uses-bundle-interfaces"><span class="octicon octicon-link"></span></a>Uses "bundle" interfaces</h1>
+
+<blockquote>
+<p>Since AndroidAnnotations <strong>3.0</strong></p>
+</blockquote>
+
+<p>AndroidAnnotation provide some interfaces your REST API interface can extends of. Each of them provide handled methods and let you clean your code by using extends composition instead of writing methods.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="s">"http://company.com/ajax/services"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyService</span> <span class="kd">extends</span> <span class="n">RestClientRootUrl</span><span class="o">,</span> <span class="n">RestClientSupport</span> <span class="o">{</span>
+    <span class="err">…</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="restclientrooturl" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#restclientrooturl"><span class="octicon octicon-link"></span></a>RestClientRootUrl</h2>
+
+<p>Provide <code>getRootUrl</code> and <code>setRootUrl</code> methods. <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Rest-API#rooturl" rel="nofollow">See above</a> for more information.</p>
+
+<h2>
+<a name="restclientsupport" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#restclientsupport"><span class="octicon octicon-link"></span></a>RestClientSupport</h2>
+
+<p>Provide <code>getRestTemplate</code> and <code>setRestTemplate</code> methods. <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Rest-API#resttemplate" rel="nofollow">See above</a> for more information.</p>
+
+<h2>
+<a name="restclientheaders" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#restclientheaders"><span class="octicon octicon-link"></span></a>RestClientHeaders</h2>
+
+<p>Provide <code>setHeader</code>, <code>getHeader</code>, <code>getHeader</code>, <code>setHeader</code>, <code>setAuthentication</code> and <code>setHttpBasicAuth</code> methods.  <a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Rest-API#configure-your-rest-api-methods" rel="nofollow">See above</a> for more information.</p>
+
+<h1>
+<a name="using-your-rest-client" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#using-your-rest-client"><span class="octicon octicon-link"></span></a>Using your REST client</h1>
+
+<p>Once your REST interface has been created you can inject it in any <code>@Exxx</code> annotated class with <code>@RestService</code> annotation.</p>
+
+<div class="highlight highlight-java"><pre><span class="nd">@EActivity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+    <span class="nd">@RestService</span>
+    <span class="n">MyRestClient</span> <span class="n">myRestClient</span><span class="o">;</span> <span class="c1">//Inject it</span>
+
+    <span class="nd">@AfterViews</span>
+    <span class="kt">void</span> <span class="nf">afterViews</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">myRestClient</span><span class="o">.</span><span class="na">getEvents</span><span class="o">(</span><span class="s">"fr"</span><span class="o">,</span> <span class="mi">2011</span><span class="o">);</span> <span class="c1">//Play with it</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="handling-errors" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#handling-errors"><span class="octicon octicon-link"></span></a>Handling errors</h2>
+
+<p>Spring Rest Template throws runtime exceptions when there's an error. Checked exceptions would add unwanted boilerplate code to every interface/implementation of REST clients.</p>
+
+<p>If you want to handle HTTP errors from outside of your interface (to show error dialogs or to retry, for example), you can catch the <code>RestClientException</code>. (See <a href="http://static.springsource.org/spring/docs/3.0.x/api/org/springframework/web/client/RestClientException.html" rel="nofollow">documentation</a>)</p>
+
+<div class="highlight highlight-java"><pre><span class="k">try</span> <span class="o">{</span>
+  <span class="n">myRestClient</span><span class="o">.</span><span class="na">getEvents</span><span class="o">(</span><span class="s">"fr"</span><span class="o">,</span> <span class="mi">2011</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RestClientException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// handle error for Rest client exceptions</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>If you just want to log the error for every calls you can just add an interceptor to <code>@Rest</code> (<a class="internal present" href="https://github.com/excilys/androidannotations/wiki/Rest-API#interceptors" rel="nofollow">See above</a>).</p>
+
+<h1>
+<a name="a-full-rest-api-example" class="anchor" href="https://github.com/excilys/androidannotations/wiki/Rest%20API#a-full-rest-api-example"><span class="octicon octicon-link"></span></a>A Full REST API example</h1>
+
+<div class="highlight highlight-java"><pre><span class="nd">@Rest</span><span class="o">(</span><span class="n">rootUrl</span> <span class="o">=</span> <span class="s">"http://company.com/ajax/services"</span><span class="o">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MappingJacksonHttpMessageConverter</span><span class="o">.</span><span class="na">class</span> <span class="o">})</span>
+<span class="c1">// if defined, the url will be added as a prefix to every request</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyService</span> <span class="kd">extends</span> <span class="n">RestClientHeaders</span> <span class="o">{</span>
+
+    <span class="c1">// url variables are mapped to method parameter names.</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+    <span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+    <span class="n">EventList</span> <span class="nf">getEvents</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+    <span class="c1">// The response can be a ResponseEntity&lt;T&gt;</span>
+    <span class="nd">@Get</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+    <span class="cm">/*</span>
+<span class="cm">     * You may (or may not) declare throwing RestClientException (as a reminder,</span>
+<span class="cm">     * since it's a RuntimeException), but nothing else.</span>
+<span class="cm">     */</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">EventList</span><span class="o">&gt;</span> <span class="nf">getEvents2</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">RestClientException</span><span class="o">;</span>
+
+    <span class="c1">// There should be max 1 parameter that is not mapped to an attribute. This</span>
+    <span class="c1">// parameter will be used as the post entity.</span>
+    <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events/"</span><span class="o">)</span>
+    <span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+    <span class="n">Event</span> <span class="nf">addEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+    <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events/{year}/"</span><span class="o">)</span>
+    <span class="n">Event</span> <span class="nf">addEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+    <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events/"</span><span class="o">)</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Event</span><span class="o">&gt;</span> <span class="nf">addEvent2</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">);</span>
+
+    <span class="nd">@Post</span><span class="o">(</span><span class="s">"/events/{year}/"</span><span class="o">)</span>
+    <span class="nd">@Accept</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Event</span><span class="o">&gt;</span> <span class="nf">addEvent2</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+    <span class="nd">@Put</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">updateEvent</span><span class="o">(</span><span class="n">Event</span> <span class="n">event</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="c1">// url variables are mapped to method parameter names.</span>
+    <span class="nd">@Delete</span><span class="o">(</span><span class="s">"/events/{id}"</span><span class="o">)</span>
+    <span class="nd">@RequiresAuthentication</span>
+    <span class="kt">void</span> <span class="nf">removeEvent</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="nd">@Head</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+    <span class="n">HttpHeaders</span> <span class="nf">getEventHeaders</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+    <span class="nd">@Options</span><span class="o">(</span><span class="s">"/events/{year}/{location}"</span><span class="o">)</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">HttpMethod</span><span class="o">&gt;</span> <span class="nf">getEventOptions</span><span class="o">(</span><span class="n">String</span> <span class="n">location</span><span class="o">,</span> <span class="kt">int</span> <span class="n">year</span><span class="o">);</span>
+
+    <span class="c1">// if you need to add some configuration to the Spring RestTemplate.</span>
+    <span class="n">RestTemplate</span> <span class="nf">getRestTemplate</span><span class="o">();</span>
+
+    <span class="kt">void</span> <span class="nf">setRestTemplate</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+    </div>
+  </div>
+  <div id="wiki-footer">
+    <div id="gollum-footer-content" class="gollum-markdown-content">
+      <p>AndroidAnnotations was created by <a href="http://piwai.info/">Pierre-Yves Ricau</a> and is sponsored by <a href="http://www.ebusinessinformation.fr/">eBusinessInformations</a>.</p>
+    </div>
+  </div>
+  </div>
+
+</div>
+<div id="gollum-footer">
+  <p id="last-edit">
+    Last edited by Joan Zapata, <time class="js-relative-date" data-title-format="YYYY-MM-DD HH:mm:ss" datetime="2014-02-02T03:03:33-08:00" title="2014-02-02 11:03:33">2 months ago</time>
+  </p>
+</div>
+</div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer">
+    <ul class="site-footer-links right">
+      <li><a href="https://status.github.com/">Status</a></li>
+      <li><a href="http://developer.github.com/">API</a></li>
+      <li><a href="http://training.github.com/">Training</a></li>
+      <li><a href="http://shop.github.com/">Shop</a></li>
+      <li><a href="https://github.com/blog">Blog</a></li>
+      <li><a href="https://github.com/about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+    </a>
+
+    <ul class="site-footer-links">
+      <li>© 2014 <span title="0.07338s from github-fe116-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy">Privacy</a></li>
+        <li><a href="https://github.com/security">Security</a></li>
+        <li><a href="https://github.com/contact">Contact</a></li>
+    </ul>
+  </div><!-- /.site-footer -->
+</div><!-- /.container -->
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-fullscreen-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="js-fullscreen-contents" placeholder="" data-suggester="fullscreen_suggester"></textarea>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w" aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="https://github.com/excilys/androidannotations/wiki/Rest%20API#" class="octicon octicon-remove-close close js-ajax-error-dismiss"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+  
+
+
+<div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 15px; height: 15px; z-index: 999999999;">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="https://github.global.ssl.fastly.net/flash/ZeroClipboard.v1.3.2.swf">         <param name="allowScriptAccess" value="always">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="trustedOrigins=github.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com%2Cgithub.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com">         <embed src="https://github.global.ssl.fastly.net/flash/ZeroClipboard.v1.3.2.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedOrigins=github.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com%2Cgithub.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com" scale="exactfit">                </object></div>    <div class="facebox" id="facebox" style="display:none;">       <div class="facebox-popup">         <div class="facebox-content">         </div>         <button type="button" class="facebox-close js-facebox-close">           <span class="octicon octicon-remove-close"></span>         </button>       </div>     </div></body></html>

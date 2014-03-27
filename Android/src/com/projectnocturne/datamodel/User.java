@@ -26,29 +26,29 @@ import android.util.SparseArray;
 public final class User extends AbstractDataObj {
 
 	public static final String DATABASE_TABLE_NAME = "Users";
-	public static final String FIELD_NAME_USERNAME = "username";
-	public static final String FIELD_NAME_STATUS = "status";
-	public static final String FIELD_NAME_name_first = "name_first";
-	public static final String FIELD_NAME_name_last = "name_last";
-	public static final String FIELD_NAME_email1 = "email1";
-	public static final String FIELD_NAME_phone_mbl = "phone_mbl";
-	public static final String FIELD_NAME_phone_home = "phone_home";
 	public static final String FIELD_NAME_addr_line1 = "addr_line1";
 	public static final String FIELD_NAME_addr_line2 = "addr_line2";
 	public static final String FIELD_NAME_addr_line3 = "addr_line3";
+	public static final String FIELD_NAME_email1 = "email1";
+	public static final String FIELD_NAME_name_first = "name_first";
+	public static final String FIELD_NAME_name_last = "name_last";
+	public static final String FIELD_NAME_phone_home = "phone_home";
+	public static final String FIELD_NAME_phone_mbl = "phone_mbl";
 	public static final String FIELD_NAME_postcode = "postcode";
+	public static final String FIELD_NAME_STATUS = "status";
+	public static final String FIELD_NAME_USERNAME = "username";
 
-	public String username = "";
-	public String status = "";
-	public String name_first = "";
-	public String name_last = "";
-	public String email1 = "";
-	public String phone_mbl = "";
-	public String phone_home = "";
 	public String addr_line1 = "";
 	public String addr_line2 = "";
 	public String addr_line3 = "";
+	public String email1 = "";
+	public String name_first = "";
+	public String name_last = "";
+	public String phone_home = "";
+	public String phone_mbl = "";
 	public String postcode = "";
+	public String status = "";
+	public String username = "";
 
 	public User() {
 	}
@@ -72,7 +72,7 @@ public final class User extends AbstractDataObj {
 	public ContentValues getContentValues() {
 		final ContentValues cv = super.getContentValues();
 		cv.put(User.FIELD_NAME_USERNAME, username);
-		cv.put(User.FIELD_NAME_status, status);
+		cv.put(User.FIELD_NAME_STATUS, status);
 		cv.put(User.FIELD_NAME_name_first, name_first);
 		cv.put(User.FIELD_NAME_name_last, name_last);
 		cv.put(User.FIELD_NAME_email1, email1);
