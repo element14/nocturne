@@ -40,17 +40,17 @@ public final class ServerCommsService {
 	private static final String LOG_TAG = ServerCommsService.class.getSimpleName() + "::";
 
 	public void checkUserStatus(final Context ctx, final User obj) {
-		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "checkUserStatus()");
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "checkUserStatus()");
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.CHECK_USER_STATUS, obj);
 
 		if (uriData.size() == 0) {
-			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "checkUserStatus() for " + obj.username);
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "checkUserStatus() for " + obj.username);
 			return;
 		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
-		final String serverAddr = this.getServerAddress(ctx);
+		final String serverAddr = getServerAddress(ctx);
 		restReq.execute(RequestMethod.POST.toString(), serverAddr + "check_user_status", uriData);
 	}
 
@@ -67,50 +67,47 @@ public final class ServerCommsService {
 	}
 
 	public void sendAlert(final Context ctx, final Alert obj) {
-		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendAlert() " + obj.alert_name);
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendAlert() " + obj.alert_name);
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_ALERT, obj);
 
 		if (uriData.size() == 0) {
-			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendAlert() for " + obj.alert_name);
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "sendAlert() for " + obj.alert_name);
 			return;
 		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
-		final String serverAddr = this.getServerAddress(ctx);
+		final String serverAddr = getServerAddress(ctx);
 		restReq.execute(RequestMethod.POST.toString(), serverAddr + "alert_from_patient", uriData);
 	}
 
 	public void sendSensorReading(final Context ctx, final Sensor obj) {
-		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSensorReading() " + obj.sensor_name);
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSensorReading() " + obj.sensor_name);
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_SENSOR_READING, obj);
 
 		if (uriData.size() == 0) {
-			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSensorReading() for "
-					+ obj.sensor_name);
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "sendSensorReading() for " + obj.sensor_name);
 			return;
 		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
-		final String serverAddr = this.getServerAddress(ctx);
+		final String serverAddr = getServerAddress(ctx);
 		restReq.execute(RequestMethod.POST.toString(), serverAddr + "send_sendor_reading", uriData);
 	}
 
 	public void sendSubscriptionMessage(final Context ctx, final User obj) {
-		Log.i(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSubscriptionMessage() for "
-				+ obj.name_first);
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + obj.name_first);
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SUBSCRIBETO_SERVICE, obj);
 
 		if (uriData.size() == 0) {
-			Log.e(NocturneApplication.LOG_TAG, ServerCommsService.LOG_TAG + "sendSubscriptionMessage() for "
-					+ obj.name_first);
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "sendSubscriptionMessage() for " + obj.name_first);
 			return;
 		}
 
 		final HttpRequestTask restReq = new HttpRequestTask();
-		final String serverAddr = this.getServerAddress(ctx);
+		final String serverAddr = getServerAddress(ctx);
 		restReq.execute(RequestMethod.POST.toString(), serverAddr + "users/register", uriData);
 	}
 

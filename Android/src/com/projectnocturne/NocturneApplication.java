@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -15,7 +15,7 @@
  * --------------------------------------------------------------------------
  * 
  */
- package com.projectnocturne;
+package com.projectnocturne;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -67,6 +67,33 @@ public final class NocturneApplication extends Application {
 
 	public static NocturneApplication getInstance() {
 		return NocturneApplication.singleton;
+	}
+
+	public static void logMessage(final int lvl, final String msg) {
+		switch (lvl) {
+		case Log.VERBOSE:
+			Log.v(LOG_TAG, msg);
+			break;
+		case Log.DEBUG:
+			Log.d(LOG_TAG, msg);
+			break;
+		case Log.INFO:
+			Log.i(LOG_TAG, msg);
+			break;
+		case Log.WARN:
+			Log.w(LOG_TAG, msg);
+			break;
+		case Log.ERROR:
+			Log.e(LOG_TAG, msg);
+			break;
+		case Log.ASSERT:
+			Log.wtf(LOG_TAG, msg);
+			break;
+		}
+	}
+
+	public static void logMessage(final int lvl, final String msg, final Throwable thr) {
+		Log.e(LOG_TAG, msg, thr);
 	}
 
 	protected Drawable getAppImage(final String packageName) {
@@ -145,7 +172,7 @@ public final class NocturneApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.d(LOG_TAG, "onCreate(); application being created.");
+		NocturneApplication.logMessage(Log.DEBUG, "onCreate(); application being created.");
 		NocturneApplication.singleton = this;
 		svrCommsService = new ServerCommsService();
 		dataModel = DataModel.getInstance();

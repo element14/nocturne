@@ -80,7 +80,8 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 		// Set up the dropdown list navigation in the action bar.
 		actionBar.setListNavigationCallbacks(
-				// Specify a SpinnerAdapter to populate the dropdown list.
+				// Specify a SpinnerAdapter to populate the dropdown
+				// list.
 				new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
 						android.R.id.text1, new String[] { getString(R.string.title_status),
 								getString(R.string.title_connect), getString(R.string.title_connection_requests) }),
@@ -187,7 +188,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	}
 
 	private void startSensorTagService() {
-		Log.d(NocturneApplication.LOG_TAG, MainActivity.LOG_TAG
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG
 				+ "startSensorTagService() starting sensor tag polling service.");
 		final Intent longSvc = new Intent(this, PollingService.class);
 		startService(longSvc);

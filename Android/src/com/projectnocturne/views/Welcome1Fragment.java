@@ -1,20 +1,20 @@
 /**
-* <p>
-* <u><b>Copyright Notice</b></u>
-* </p><p>
-* The copyright in this document is the property of 
-* Bath Institute of Medical Engineering.
-* </p><p>
-* Without the written consent of Bath Institute of Medical Engineering
-* given by Contract or otherwise the document must not be copied, reprinted or
-* reproduced in any material form, either wholly or in part, and the contents
-* of the document or any method or technique available there from, must not be
-* disclosed to any other person whomsoever.
-*  </p><p>
-*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
-* --------------------------------------------------------------------------
-* 
-*/
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.views;
 
 import android.os.Bundle;
@@ -60,14 +60,13 @@ public class Welcome1Fragment extends NocturneFragment {
 	};
 
 	private void enableSubscribeButton() {
-		if ((this.txtWelcomeScr1PersonNameFirst.getText().length() > 0)
-				&& (this.txtWelcomeScr1PersonNameLast.getText().length() > 0)
-				&& (this.txtWelcomeScr1MobilePhoneNbr.getText().length() > 0)
-				&& (this.txtWelcomeScr1HomePhoneNbr.getText().length() > 0)
-				&& (this.txtWelcomeScr1EmailAddress.getText().length() > 0)) {
-			this.btnSubscribe.setEnabled(true);
+		if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0
+				&& txtWelcomeScr1MobilePhoneNbr.getText().length() > 0
+				&& txtWelcomeScr1HomePhoneNbr.getText().length() > 0
+				&& txtWelcomeScr1EmailAddress.getText().length() > 0) {
+			btnSubscribe.setEnabled(true);
 		} else {
-			this.btnSubscribe.setEnabled(false);
+			btnSubscribe.setEnabled(false);
 		}
 	}
 
@@ -81,51 +80,50 @@ public class Welcome1Fragment extends NocturneFragment {
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 		final View v = inflater.inflate(R.layout.activity_welcome_1, container, false);
 
-		this.txtWelcomeScr1PersonNameFirst = (TextView) v.findViewById(R.id.welcomeScr1PersonNameFirst);
-		this.txtWelcomeScr1PersonNameLast = (TextView) v.findViewById(R.id.welcomeScr1PersonNameLast);
-		this.txtWelcomeScr1MobilePhoneNbr = (TextView) v.findViewById(R.id.welcomeScr1MobilePhoneNbr);
-		this.txtWelcomeScr1HomePhoneNbr = (TextView) v.findViewById(R.id.welcomeScr1HomePhoneNbr);
-		this.txtWelcomeScr1EmailAddress = (TextView) v.findViewById(R.id.welcomeScr1EmailAddress);
-		this.btnSubscribe = (Button) v.findViewById(R.id.welcomeScr1BtnSubscribe);
+		txtWelcomeScr1PersonNameFirst = (TextView) v.findViewById(R.id.welcomeScr1PersonNameFirst);
+		txtWelcomeScr1PersonNameLast = (TextView) v.findViewById(R.id.welcomeScr1PersonNameLast);
+		txtWelcomeScr1MobilePhoneNbr = (TextView) v.findViewById(R.id.welcomeScr1MobilePhoneNbr);
+		txtWelcomeScr1HomePhoneNbr = (TextView) v.findViewById(R.id.welcomeScr1HomePhoneNbr);
+		txtWelcomeScr1EmailAddress = (TextView) v.findViewById(R.id.welcomeScr1EmailAddress);
+		btnSubscribe = (Button) v.findViewById(R.id.welcomeScr1BtnSubscribe);
 
-		this.txtWelcomeScr1PersonNameFirst.addTextChangedListener(this.textChangedWtchr);
-		this.txtWelcomeScr1PersonNameLast.addTextChangedListener(this.textChangedWtchr);
-		this.txtWelcomeScr1MobilePhoneNbr.addTextChangedListener(this.textChangedWtchr);
-		this.txtWelcomeScr1HomePhoneNbr.addTextChangedListener(this.textChangedWtchr);
-		this.txtWelcomeScr1EmailAddress.addTextChangedListener(this.textChangedWtchr);
+		txtWelcomeScr1PersonNameFirst.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1PersonNameLast.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1MobilePhoneNbr.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1HomePhoneNbr.addTextChangedListener(textChangedWtchr);
+		txtWelcomeScr1EmailAddress.addTextChangedListener(textChangedWtchr);
 
-		this.btnSubscribe.setEnabled(false);
-		this.btnSubscribe.setOnClickListener(new View.OnClickListener() {
+		btnSubscribe.setEnabled(false);
+		btnSubscribe.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
 				final User usr = new User();
-				usr.name_first = Welcome1Fragment.this.txtWelcomeScr1PersonNameFirst.getText().toString();
-				usr.name_last = Welcome1Fragment.this.txtWelcomeScr1PersonNameLast.getText().toString();
-				usr.phone_mbl = Welcome1Fragment.this.txtWelcomeScr1MobilePhoneNbr.getText().toString();
-				usr.phone_home = Welcome1Fragment.this.txtWelcomeScr1HomePhoneNbr.getText().toString();
-				usr.email1 = Welcome1Fragment.this.txtWelcomeScr1EmailAddress.getText().toString();
+				usr.name_first = txtWelcomeScr1PersonNameFirst.getText().toString();
+				usr.name_last = txtWelcomeScr1PersonNameLast.getText().toString();
+				usr.phone_mbl = txtWelcomeScr1MobilePhoneNbr.getText().toString();
+				usr.phone_home = txtWelcomeScr1HomePhoneNbr.getText().toString();
+				usr.email1 = txtWelcomeScr1EmailAddress.getText().toString();
 				usr.username = usr.email1;
 				Welcome1Fragment.this.sendSubscriptionMessage(usr);
 			}
 		});
-		this.readyFragment = true;
+		readyFragment = true;
 
 		this.update();
 		return v;
 	}
 
 	protected void sendSubscriptionMessage(final User usr) {
-		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(this.getActivity(), usr);
+		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), usr);
 		NocturneApplication.getInstance().getDataModel().addUser(usr);
 		NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
 	}
 
 	public void update() {
-		if (!this.readyFragment) {
-			Log.i(NocturneApplication.LOG_TAG, Welcome1Fragment.LOG_TAG + "update() not ready");
+		if (!readyFragment) {
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() not ready");
 			return;
 		}
-		Log.i(NocturneApplication.LOG_TAG, Welcome1Fragment.LOG_TAG + "update() ready");
-
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
 	}
 }

@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -15,12 +15,14 @@
  * --------------------------------------------------------------------------
  * 
  */
- package com.projectnocturne.sensortag;
+package com.projectnocturne.sensortag;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import android.util.Log;
+
+import com.projectnocturne.NocturneApplication;
 
 /**
  * Class for queueing the BLE write operations writeDescriptor and
@@ -32,7 +34,7 @@ import android.util.Log;
  * */
 public class WriteQueue {
 
-	private static final String LOG_TAG = WriteQueue.class.getSimpleName();
+	private static final String LOG_TAG = WriteQueue.class.getSimpleName() + "::";
 
 	/**
 	 * The runnable at head is the current runnable waiting for a callback. An
@@ -48,7 +50,7 @@ public class WriteQueue {
 	 * Flush is called to cancel all waiting runnables.
 	 */
 	public synchronized void flush() {
-		Log.v(LOG_TAG, "WriteQueue::Flushed queue of size: " + writes.size());
+		NocturneApplication.logMessage(Log.VERBOSE, LOG_TAG + "Flushed queue of size: " + writes.size());
 		writes.clear();
 	}
 
@@ -61,7 +63,7 @@ public class WriteQueue {
 	 *             empty because elements are only popped after callbacks.
 	 * */
 	public synchronized void issue() {
-		Log.i(LOG_TAG, "WriteQueue::issue()");
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "issue()");
 		if (writes.isEmpty()) {
 			// Log.w(LOG_TAG,
 			// "That was weird, no runnable waiting for callback, yet we received a callback."
@@ -72,20 +74,20 @@ public class WriteQueue {
 
 		if (!writes.isEmpty()) {
 			final SensorTagWriteRunnable write = writes.peekFirst();
-			Log.i(LOG_TAG, "WriteQueue::issue() executing [" + write.name + "]");
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG + "issue() executing [" + write.name + "]");
 			new Thread(write).start();
 		}
-		Log.v(LOG_TAG, "Queue size: " + writes.size());
+		NocturneApplication.logMessage(Log.VERBOSE, LOG_TAG + "Queue size: " + writes.size());
 	}
 
 	public synchronized void queueRunnable(final SensorTagWriteRunnable write) {
 		if (writes.isEmpty()) {
-			Log.i(LOG_TAG, "WriteQueue::queueRunnable() executing [" + write.name + "]");
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG + "queueRunnable() executing [" + write.name + "]");
 			new Thread(write).start();
 		}
-		Log.i(LOG_TAG, "WriteQueue::queueRunnable() adding [" + write.name + "] to queue");
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "queueRunnable() adding [" + write.name + "] to queue");
 		writes.addLast(write);
 
-		Log.v(LOG_TAG, "Queue size: " + writes.size());
+		NocturneApplication.logMessage(Log.VERBOSE, LOG_TAG + "Queue size: " + writes.size());
 	}
 }
