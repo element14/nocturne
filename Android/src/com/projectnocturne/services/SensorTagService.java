@@ -56,8 +56,82 @@ public class SensorTagService extends Service {
 	private final List<BluetoothGattCharacteristic> mCharacteristicList = new ArrayList<BluetoothGattCharacteristic>();
 	private Handler mHandler;
 	private final List<BluetoothGattService> mServiceList = null;
+	
+	
+	private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+		@Override
+		// Result of a characteristic read operation
+		public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic,
+				final int status) {
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onCharacteristicRead()");
+			if (status == BluetoothGatt.GATT_SUCCESS) {
+				mCharacteristicList.add(characteristic);
+				
+				//Fire intent to update the database
+				
+				//FIXME : What now??
+			}else{
+				
+				//FIXME : What now??
+			}
+		}
 
-	/*
+		@Override
+		public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()");
+			if (newState == BluetoothProfile.STATE_CONNECTED) {
+				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "Connected to GATT server.");
+				NocturneApplication.logMessage(Log.INFO, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()::Attempting to start service discovery:"
+						+ mBluetoothGatt.discoverServices());
+				
+				//FIXME : What now??
+
+			} else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()::Disconnected from GATT server.");
+				
+				//FIXME : What now??
+			}
+		}
+
+		@Override
+		// New services discovered
+		public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered()");
+			if (status == BluetoothGatt.GATT_SUCCESS) {
+				NocturneApplication
+						.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() BluetoothGatt.GATT_SUCCESS");
+				mServiceList = mBluetoothGatt.getServices();
+				
+				//FIXME : What now??
+			} else {
+				Log.w(NocturneApplication.LOG_TAG, PollingService.LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() received: " + status);
+				
+				//FIXME : What now??
+			}
+		}
+	};
+	
+	/** Device scan callback.
+	 *
+	 * this is called when the Bluetooth adaptor has found a device
+	 */
+	private final BluetoothAdapter.LeScanCallback mBleDevicesFound = new BluetoothAdapter.LeScanCallback() {
+		@Override
+		public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "mBleDevicesFound::onLeScan()");
+			mBtDevice = device;
+
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG
+					+ "mBleDevicesFound::onLeScan() Found device [" + mBtDevice.getName() + "]");
+
+			if (mBtDevice.getName().equalsIgnoreCase(BLE_DEVICE_NAME_SENSOR_TAG)) {
+				SensorTagService.this.scanLeDevice(false);
+				mBluetoothGatt = device.connectGatt(SensorTagService.this.getApplication(), false, mGattCallback);
+			}
+		}
+	};
+
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Service#onBind(android.content.Intent)
@@ -68,7 +142,7 @@ public class SensorTagService extends Service {
 		return null;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Service#onCreate()
@@ -77,9 +151,35 @@ public class SensorTagService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "onCreate()");
+
+		// Use this check to determine whether BLE is supported on the device.
+		// Then you can selectively disable BLE-related features.
+		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+			Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		// Initialises a Bluetooth adapter. get a reference to BluetoothAdapter
+		// through BluetoothManager.
+		final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+		mBluetoothAdapter = bluetoothManager.getAdapter();
+
+		// Checks if Bluetooth is supported on the device.
+		if (mBluetoothAdapter == null) {
+			Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		// Ensures Bluetooth is enabled. If not, displays a dialog requesting
+		// user permission to enable Bluetooth.
+		if (!mBluetoothAdapter.isEnabled()) {
+			Toast.makeText(this, R.string.ble_please_enable, Toast.LENGTH_SHORT).show();
+			final Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			getApplication().startActivity(enableBtIntent);
+		}
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
@@ -90,11 +190,21 @@ public class SensorTagService extends Service {
 		if (mHandler == null) {
 			mHandler = new Handler();
 		}
+		startSensorTagFind(true);
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
 	private void startSensorTagFind(final boolean enable) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagFind(" + (enable ? "True" : "False") + ")");}
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagFind(" + (enable ? "True" : "False") + ")");
+		if (enable) {
+			// Stops scanning after a pre-defined scan period.
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {					mBluetoothAdapter.stopLeScan(mBleDevicesFound);				}
+			}, NocturneApplication.BLE_DEVICE_SCAN_PERIOD);
+
+			mBluetoothAdapter.startLeScan(mBleDevicesFound);		} else {
+			mBluetoothAdapter.stopLeScan(mBleDevicesFound);		}}
 
 private void startSensorTagConnect(){
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagConnect()");}
