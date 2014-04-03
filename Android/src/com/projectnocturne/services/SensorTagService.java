@@ -122,11 +122,16 @@ public class SensorTagService extends Service {
 			mBtDevice = device;
 
 			NocturneApplication.logMessage(Log.INFO, LOG_TAG
-					+ "mBleDevicesFound::onLeScan() Found device [" + mBtDevice.getName() + "]");
+					+ "mBleDevicesFound::onLeScan() Found device [" + mBtDevice.getName() +":"+mBtDevice.getAddress()+":"+mBtDevice.getType()+ "]");
 
 			if (mBtDevice.getName().equalsIgnoreCase(BLE_DEVICE_NAME_SENSOR_TAG)) {
-				SensorTagService.this.scanLeDevice(false);
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+					+ "mBleDevicesFound::onLeScan() found a SensorTag so stop scanning");
+				SensorTagService.this.startSensorTagFind(false);
 				mBluetoothGatt = device.connectGatt(SensorTagService.this.getApplication(), false, mGattCallback);
+			}else{
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+					+ "mBleDevicesFound::onLeScan() not found a SensorTag so continue scanning");
 			}
 		}
 	};
