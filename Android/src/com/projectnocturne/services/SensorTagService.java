@@ -92,5 +92,11 @@ public class SensorTagService extends Service {
 		}
 		return super.onStartCommand(intent, flags, startId);
 	}
+	
+	private void startSensorTagFind(){}
+
+private void startSensorTagConnect(){}
+
+private void startSensorTagReadTemp(){}
 
 }
