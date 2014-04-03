@@ -26,7 +26,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
-import com.projectnocturne.services.PollingService;
+import com.projectnocturne.services.SensorTagService;
 import com.projectnocturne.views.AlertDetectedFragment;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
@@ -46,20 +46,20 @@ import com.projectnocturne.views.Welcome2Fragment;
  */
 public class MainActivity extends Activity implements ActionBar.OnNavigationListener {
 
-	Welcome1Fragment welcome1Fragment = null;
-	Welcome2Fragment welcome2Fragment = null;
-	Status1Fragment status1Fragment = null;
-	AlertDetectedFragment alertDetectedFragment = null;
-
-	private NocturneApplication myApp = null;
-
 	public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
-
 	/**
-	 * The serialisation (saved instance state) Bundle key representing the
-	 * current dropdown position.
+	 * The serialisation (saved instance state) Bundle key representing the current dropdown
+	 * position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	AlertDetectedFragment alertDetectedFragment = null;
+	private NocturneApplication myApp = null;
+
+	Status1Fragment status1Fragment = null;
+
+	Welcome1Fragment welcome1Fragment = null;
+
+	Welcome2Fragment welcome2Fragment = null;
 
 	/**
 	 * (non-Javadoc)
@@ -107,9 +107,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * android.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int,
-	 * long)
+	 * @see android.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int, long)
 	 */
 	@Override
 	public boolean onNavigationItemSelected(final int itemPosition, final long id) {
@@ -190,7 +188,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	private void startSensorTagService() {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG
 				+ "startSensorTagService() starting sensor tag polling service.");
-		final Intent longSvc = new Intent(this, PollingService.class);
+		final Intent longSvc = new Intent(this, SensorTagService.class);
 		startService(longSvc);
 	}
 
