@@ -93,10 +93,13 @@ public class SensorTagService extends Service {
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
-	private void startSensorTagFind(){}
+	private void startSensorTagFind(final boolean enable) {
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagFind(" + (enable ? "True" : "False") + ")");}
 
-private void startSensorTagConnect(){}
+private void startSensorTagConnect(){
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagConnect()");}
 
-private void startSensorTagReadTemp(){}
+private void startSensorTagReadTemp(){
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagReadTemp()");}
 
 }
