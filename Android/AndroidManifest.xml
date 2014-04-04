@@ -57,7 +57,7 @@
         <service
             android:name="com.projectnocturne.services.BluetoothLeService"
             android:enabled="true" />
-        <service android:name="com.projectnocturne.services.PollingService" />
+        <service android:name="com.projectnocturne.services.SensorTagService" />
         <service android:name="com.projectnocturne.StoreToDbService" />
         <service android:name="com.projectnocturne.SendToServerService" />
     </application>
