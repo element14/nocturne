@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -14,7 +14,8 @@
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
  * 
- */package com.projectnocturne.datamodel;
+ */
+package com.projectnocturne.datamodel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +29,12 @@ public final class SensorReading extends AbstractDataObj {
 
 	public static final String DATABASE_TABLE_NAME = "Sensor_Reading";
 	private static final String FIELD_NAME_SENSOR_ID = "SENSOR_ID";
-	private static final String FIELD_NAME_SENSOR_VALUE = "SENSOR_VALUE";
 	private static final String FIELD_NAME_SENSOR_READING_TIME = "SENSOR_READING_TIME";
+	private static final String FIELD_NAME_SENSOR_VALUE = "SENSOR_VALUE";
 
-	public long sensor_id;
-	public String sensor_value;
+	public String sensor_id;
 	public String sensor_reading_time;
+	public String sensor_value;
 
 	public SensorReading() {
 	}
@@ -41,14 +42,14 @@ public final class SensorReading extends AbstractDataObj {
 	public SensorReading(final Cursor results) {
 		setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
 		setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-		sensor_id = Long.parseLong(results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_ID)));
+		sensor_id = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_ID));
 		sensor_value = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_VALUE));
 		sensor_reading_time = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_READING_TIME));
 	}
 
 	public SensorReading(final HashMap<String, String> aRow) {
 		super(aRow);
-		sensor_id = Long.parseLong(aRow.get(FIELD_NAME_SENSOR_ID));
+		sensor_id = aRow.get(FIELD_NAME_SENSOR_ID);
 		sensor_value = aRow.get(FIELD_NAME_SENSOR_VALUE);
 		sensor_reading_time = aRow.get(FIELD_NAME_SENSOR_READING_TIME);
 	}

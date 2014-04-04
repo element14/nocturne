@@ -22,6 +22,8 @@ package com.projectnocturne.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -41,6 +43,7 @@ import android.widget.Toast;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.datamodel.SensorReading;
 
 /**
  * This service polls the SensorTag in the background recording the SensorTag temperature into the
@@ -106,7 +109,12 @@ public class SensorTagService extends Service {
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				mCharacteristicList.add(characteristic);
 
+				final SensorReading reading;
+				reading.sensor_id = mBtDevice.getName() + ":" + mBtDevice.getAddress();
+				reading.sensor_value = characteristic.getIntValue(formatType, offset);
+				reading.sensor_reading_time = DateTime.now().toString("");
 				// Fire intent to update the database
+				NocturneApplication.getInstance().getDataModel().addSensorReading(reading);
 
 				// FIXME : What now??
 			} else {
