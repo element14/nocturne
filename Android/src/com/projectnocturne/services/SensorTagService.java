@@ -46,8 +46,8 @@ import com.projectnocturne.R;
 import com.projectnocturne.datamodel.SensorReading;
 
 /**
- * This service polls the SensorTag in the background recording the SensorTag temperature into the
- * database.
+ * This service polls the SensorTag in the background recording the SensorTag
+ * temperature into the database.
  * <p>
  * <ol>
  * <li>Start searching for Bluetooth LE devices</li>
@@ -63,9 +63,18 @@ public class SensorTagService extends Service {
 	public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
 	public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
 	public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-	private static final String BLE_DEVICE_NAME_SENSOR_TAG = "SensorTag"; // / the name that the
-																		  // sensor tag broadcasts
-																		  // for BLE GATT discovery
+	private static final String BLE_DEVICE_NAME_SENSOR_TAG = "SensorTag"; // /
+																		  // the
+																		  // name
+																		  // that
+																		  // the
+																		  // sensor
+																		  // tag
+																		  // broadcasts
+																		  // for
+																		  // BLE
+																		  // GATT
+																		  // discovery
 	public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
 	private static final String LOG_TAG = SensorTagService.class.getSimpleName() + "::";
 
@@ -77,19 +86,20 @@ public class SensorTagService extends Service {
 	private final BluetoothAdapter.LeScanCallback mBleDevicesFound = new BluetoothAdapter.LeScanCallback() {
 		@Override
 		public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "mBleDevicesFound::onLeScan()");
+			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "mBleDevicesFound::onLeScan()");
 			mBtDevice = device;
 
-			NocturneApplication.logMessage(Log.INFO, LOG_TAG + "mBleDevicesFound::onLeScan() Found device ["
-					+ mBtDevice.getName() + ":" + mBtDevice.getAddress() + "(type:" + mBtDevice.getType() + ")]");
+			NocturneApplication.logMessage(Log.INFO,
+					SensorTagService.LOG_TAG + "mBleDevicesFound::onLeScan() Found device [" + mBtDevice.getName()
+							+ ":" + mBtDevice.getAddress() + "(type:" + mBtDevice.getType() + ")]");
 
-			if (mBtDevice.getName().equalsIgnoreCase(BLE_DEVICE_NAME_SENSOR_TAG)) {
-				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+			if (mBtDevice.getName().equalsIgnoreCase(SensorTagService.BLE_DEVICE_NAME_SENSOR_TAG)) {
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 						+ "mBleDevicesFound::onLeScan() found a SensorTag so stop scanning");
 				SensorTagService.this.startSensorTagFind(false);
 				mBluetoothGatt = device.connectGatt(SensorTagService.this.getApplication(), false, mGattCallback);
 			} else {
-				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 						+ "mBleDevicesFound::onLeScan() not found a SensorTag so continue scanning");
 			}
 		}
@@ -105,13 +115,15 @@ public class SensorTagService extends Service {
 		// Result of a characteristic read operation
 		public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic,
 				final int status) {
-			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onCharacteristicRead()");
+			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
+					+ "BluetoothGattCallback::onCharacteristicRead()");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				mCharacteristicList.add(characteristic);
 
-				final SensorReading reading;
+				final SensorReading reading = new SensorReading();
 				reading.sensor_id = mBtDevice.getName() + ":" + mBtDevice.getAddress();
-				reading.sensor_value = characteristic.getIntValue(formatType, offset);
+				// FIXME : reading.sensor_value =
+				// characteristic.getIntValue(formatType, offset);
 				reading.sensor_reading_time = DateTime.now().toString("");
 				// Fire intent to update the database
 				NocturneApplication.getInstance().getDataModel().addSensorReading(reading);
@@ -125,17 +137,18 @@ public class SensorTagService extends Service {
 
 		@Override
 		public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
-			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()");
+			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
+					+ "BluetoothGattCallback::onConnectionStateChange()");
 			if (newState == BluetoothProfile.STATE_CONNECTED) {
-				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "Connected to GATT server.");
-				NocturneApplication.logMessage(Log.INFO, LOG_TAG
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "Connected to GATT server.");
+				NocturneApplication.logMessage(Log.INFO, SensorTagService.LOG_TAG
 						+ "BluetoothGattCallback::onConnectionStateChange()::Attempting to start service discovery:"
 						+ mBluetoothGatt.discoverServices());
 
 				// FIXME : What now??
 
 			} else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 						+ "BluetoothGattCallback::onConnectionStateChange()::Disconnected from GATT server.");
 
 				// FIXME : What now??
@@ -145,16 +158,17 @@ public class SensorTagService extends Service {
 		@Override
 		// New services discovered
 		public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
-			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered()");
+			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
+					+ "BluetoothGattCallback::onServicesDiscovered()");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
-				NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 						+ "BluetoothGattCallback::onServicesDiscovered() BluetoothGatt.GATT_SUCCESS");
 				mServiceList = mBluetoothGatt.getServices();
 
 				// FIXME : What now??
 			} else {
-				Log.w(NocturneApplication.LOG_TAG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() received: "
-						+ status);
+				Log.w(NocturneApplication.LOG_TAG, SensorTagService.LOG_TAG
+						+ "BluetoothGattCallback::onServicesDiscovered() received: " + status);
 
 				// FIXME : What now??
 			}
@@ -171,7 +185,7 @@ public class SensorTagService extends Service {
 	 */
 	@Override
 	public IBinder onBind(final Intent arg0) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "onBind()");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "onBind()");
 		return null;
 	}
 
@@ -183,7 +197,7 @@ public class SensorTagService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "onCreate()");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "onCreate()");
 
 		// Use this check to determine whether BLE is supported on the device.
 		// Then you can selectively disable BLE-related features.
@@ -219,7 +233,7 @@ public class SensorTagService extends Service {
 	 */
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "onStartCommand()");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "onStartCommand()");
 		if (mHandler == null) {
 			mHandler = new Handler();
 		}
@@ -228,11 +242,12 @@ public class SensorTagService extends Service {
 	}
 
 	private void startSensorTagConnect() {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagConnect()");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "startSensorTagConnect()");
 	}
 
 	private void startSensorTagFind(final boolean enable) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagFind(" + (enable ? "True" : "False") + ")");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "startSensorTagFind("
+				+ (enable ? "True" : "False") + ")");
 		if (enable) {
 			// Stops scanning after a pre-defined scan period.
 			mHandler.postDelayed(new Runnable() {
@@ -249,7 +264,7 @@ public class SensorTagService extends Service {
 	}
 
 	private void startSensorTagReadTemp() {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "startSensorTagReadTemp()");
+		NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "startSensorTagReadTemp()");
 	}
 
 }
