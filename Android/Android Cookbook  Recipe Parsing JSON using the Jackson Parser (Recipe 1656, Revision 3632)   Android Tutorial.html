@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Android Cookbook: Recipe Parsing JSON using the  Jackson Parser (Recipe 1656, Revision 3632) | Android Tutorial</title>
+	<script src="/a4j/g/3_3_4-SNAPSHOT/org/ajax4jsf/framework.pack.js" type="text/javascript"></script><script src="/a4j/g/3_3_4-SNAPSHOT/org/richfaces/ui.pack.js" type="text/javascript"></script><link class="component" href="/a4j/s/3_3_4-SNAPSHOT/org/richfaces/skin.xcss/DATB/eAFTk-k2DV0-QxoACtsCsg__;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" rel="stylesheet" type="text/css" /><link class="user" href="/a4j/s/3_3_4-SNAPSHOTstylesheet/theme.xcss/DATB/eAFTk-k2DV0-QxoACtsCsg__;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" rel="stylesheet" type="text/css" /><link class="user" href="/stylesheet/theme.css;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" rel="stylesheet" type="text/css" /><link rel="shortcut icon" href="/favicon.ico" />
+    </head>
+
+    <body onload="myInit()">
+	<!-- Every-page Header -->
+	<table width="100%">
+	<tr>
+		<!-- col 1 - left image -->
+		<td valign="center" rowspan="2">
+			<img src="/img/AndroidCook.png" alt="Logo Icon" />
+		</td>
+		<!-- col 2 - main logo -->
+		<td align="center" valign="center" style="font-size:18pt;">
+			<img src="/img/title-logo-black.png" alt="Logo" />
+			<br />
+			A Crowd-sourced Cookbook on Writing Great Android&reg; Apps
+		</td>
+		<!-- col 3 - search box -->
+		<td align="right" valign="center">
+			<!-- Search Box -->
+<form id="searchbox" name="searchbox" method="post" action="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" class="none" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="searchbox" value="searchbox" />
+<input id="searchbox:searchstring" type="text" name="searchbox:searchstring" value="" /><input id="searchbox:searchbutton" type="submit" name="searchbox:searchbutton" value="Search" /><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form>
+
+			<!-- Social -->
+			<!-- GitHub -->
+			<a href="https://github.com/IanDarwin/Android-Cookbook-Examples/">
+				<img src="img/invertocat.png" width="41" height="41" alt="GitHub logo" />
+			</a>
+			<!-- Twitter -->
+			<a href="http://twitter.com/AndroidCook">
+				<img src="img/twitter-icon.png" width="41" height="41" alt="Twitter logo" />
+			</a>
+
+		</td>
+		<!-- col 4 - right image -->
+		<td rowspan="2">
+			<a href="http://oreilly.com/catalog/9781449388416/">
+			<img src="img/cover-small.png" border="0" alt="OReilly Book Cover Art" />
+			</a>
+		</td>
+	</tr>
+
+	<!-- row 2 - menu, spans middle 2 columns only -->
+	<tr>
+
+		<!-- bottom row of top table - menu -->
+		<td colspan="2" align="center"><table border="0" cellpadding="0" cellspacing="0" class="rich-toolbar " id="j_id11" width="100%"><tr valign="middle"><td class="rich-toolbar-item  " style=";"><a href="/home.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="menuHomeId">Home</a></td><td class="rich-toolbar-item  " style=";"><a href="/FAQ.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id13">F.A.Q.</a></td><td class="rich-toolbar-item  " style=";"><div class="rich-ddmenu-label rich-ddmenu-label-unselect  " id="j_id14"><div class="rich-label-text-decor">Community</div><div style="margin: 0px; padding: 0px; border: 0px; position: absolute; z-index: 100;"><div id="j_id14_menu" class="rich-menu-list-border" style="display: none; z-index: 2;"><div class="rich-menu-list-bg"><div class="rich-menu-item rich-menu-item-enabled" id="j_id16" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id16:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id16:anchor"><a href="/WhosOnList.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id17">Who's Logged In?</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id18" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id18:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id18:anchor"><a href="/RevisionList.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id19">Who's been up to what?</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id20" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id20:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id20:anchor"><a href="/invite-dev.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id21">Invite-a-Dev</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id22" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id22:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id22:anchor">
+				<a href="/promo/">Stuff to use to promote the site</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id24" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id24:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id24:anchor"><a href="/BugList.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id25">Bug/ToDo List</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id26" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id26:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id26:anchor"><a href="/BugEdit.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id27">New Bug/Request/Idea</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id28" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id28:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id28:anchor"><a href="/PrivateMailSender.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=1" id="j_id29">Contact Admin/Feedback</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id31" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id31:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id31:anchor">
+				<a href="http://www.darwinsys.com/contact.jsp">Can't-Login Contact</a></span></div><div class="rich-menu-list-strut"><div class="rich-menu-list-strut" style="">&#160;</div></div></div></div><script id="j_id14_menu_script" type="text/javascript">new RichFaces.Menu.Layer('j_id14_menu',{'hideDelay':800,'delay':50} ).asDropDown('j_id14').addItems([['j_id16'] ,['j_id18'] ,['j_id20'] ,['j_id22'] ,['j_id24'] ,['j_id26'] ,['j_id28'] ,['j_id31'] ] );</script></div></div></td><td class="rich-toolbar-item  " style=";"><div class="rich-ddmenu-label rich-ddmenu-label-unselect  " id="j_id33"><div class="rich-label-text-decor">Writing Recipes</div><div style="margin: 0px; padding: 0px; border: 0px; position: absolute; z-index: 100;"><div id="j_id33_menu" class="rich-menu-list-border" style="display: none; z-index: 2;"><div class="rich-menu-list-bg"><div class="rich-menu-item rich-menu-item-enabled" id="j_id35" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id35:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id35:anchor"><a href="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?recipeId=2" id="j_id36">Recipe Wishlist/What To Write</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id38" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id38:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id38:anchor"><a href="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?recipeId=4" id="j_id39">Author's Guide/How to write</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id41" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id41:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id41:anchor"><a href="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?recipeId=5" id="j_id42">Wiki Markup/How To Format</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id44" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id44:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id44:anchor"><a href="/WikiTryout.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id45">Wiki Sandbox</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id46" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id46:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id46:anchor"><a href="/ViewTOC.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id47">View ALL Recipes</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id48" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id48:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id48:anchor"><a href="/SuggestRecipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id49">Suggest a Recipe for someone to write</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id50" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id50:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id50:anchor"><a href="/RecipeEdit.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id51">Write a new Recipe</a></span></div><div class="rich-menu-item rich-menu-item-enabled" id="j_id52" onclick="RichFaces.Menu.updateItem(event,this);"><span class="rich-menu-item-icon  " id="j_id52:icon"><img alt="" height="16" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" width="16" /></span><span class="rich-menu-item-label" id="j_id52:anchor"><a href="/TandC.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" id="j_id53">Terms and Conditions</a></span></div><div class="rich-menu-list-strut"><div class="rich-menu-list-strut" style="">&#160;</div></div></div></div><script id="j_id33_menu_script" type="text/javascript">new RichFaces.Menu.Layer('j_id33_menu',{'hideDelay':0,'delay':250} ).asDropDown('j_id33').addItems([['j_id35'] ,['j_id38'] ,['j_id41'] ,['j_id44'] ,['j_id46'] ,['j_id48'] ,['j_id50'] ,['j_id52'] ] );</script></div></div></td><td class="rich-toolbar-item ">
+
+	<!-- The real Admin Menu --></td><td class="rich-toolbar-item ">
+
+	<!-- @newMenuItem@ --></td><td style="width:100%"></td><td class="rich-toolbar-item  " style=";"><a href="https://androidcookbook.com/login.seam" id="j_id121">Login</a></td></tr></table>
+		</td>
+		<td></td>
+	</tr>
+	</table>
+	
+	<!-- Rest of page -->
+	<div class="body"><div class="rich-panel " id="j_id127"><div class="rich-panel-header " id="j_id127_header">Parsing JSON using the  Jackson Parser</div><div class="rich-panel-body " id="j_id127_body"><table width="100%">
+<tbody>
+<tr>
+<td><span style="width: 80%;">
+	<!-- Top, Left column: periphera --><div id="chapter">
+
+    <div class="prop">
+        <span class="name">Chapter
+        </span>
+        <span class="value"><a href="/ChapterView.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?chapterId=700&amp;cid=868" id="chapter:chapter_link">11. Data Persistence</a>
+        </span>
+    </div></div><div id="owner">
+
+    <div class="prop">
+        <span class="name">Contributed by
+        </span>
+        <span class="value"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=826" id="owner:j_id143">Wagied Davids</a> 2011-05-24 10:09:38 (updated 2011-12-17 09:22:54)
+        </span>
+    </div></div><div id="isPublished">
+
+    <div class="prop">
+        <span class="name">In Published Edition?
+        </span>
+        <span class="value">No
+        </span>
+    </div></div></span></td>
+<td><span style="width: 20%;">
+	<!-- Top, Right column - voting -->
+<form id="j_id160" name="j_id160" method="post" action="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id160" value="j_id160" />
+<input type="submit" name="j_id160:j_id161" value="&#9650;" title="Vote up" disabled="disabled" class="vote_up" /><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form><span style="font-size: 22pt; color: #999;">0</span>
+		<br />Votes
+<form id="j_id165" name="j_id165" method="post" action="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id165" value="j_id165" />
+<input type="submit" name="j_id165:j_id166" value="&#9660;" title="Vote down" disabled="disabled" class="vote_down" /><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" />
+</form></span></td>
+</tr>
+</tbody>
+</table>
+
+
+	<!-- Rest of page: one main column --><div id="problem">
+
+    <div class="prop">
+        <span class="name">Problem
+        </span>
+        <span class="value">
+<p>Parse JSON using Jackson parser</p>
+        </span>
+    </div></div><div id="solution">
+
+    <div class="prop">
+        <span class="name">Solution
+        </span>
+        <span class="value">
+<p>Jackson (<a class="externallink" href="http://jackson.codehaus.org/" rel="nofollow" title="http://jackson.codehaus.org/">http://jackson.codehaus.org/</a>) is a really fast streaming JSON parser and generator. It also offers full node-based Tree Model, as well as full OJM (Object/Json Mapper) data binding functionality.</p>
+<p>Required Downloads available from <a class="externallink" href="http://jackson.codehaus.org/Download" rel="nofollow" title="http://jackson.codehaus.org/Download">http://jackson.codehaus.org/Download</a>
+jackson-core-asl-1.8.0.jar
+jackson-jaxrs-1.8.0.jar
+jackson-mapper-asl-1.8.0.jar
+jackson-mrbean-1.8.0.jar
+jackson-xc-1.8.0.jar</p>
+        </span>
+    </div></div><div id="discussion">
+
+    <div class="prop">
+        <span class="name">Discussion
+        </span>
+        <span class="value">
+<p>File: recipes-all.json
+</p><pre class="xml">
+{ <span style="color:#2A00FF; ">&#34;recipes&#34;</span>:
+	[
+		{
+			<span style="color:#2A00FF; ">&#34;name&#34;</span>:<span style="color:#2A00FF; ">&#34;Recipe 1&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;id&#34;</span>:<span style="color:#2A00FF; ">&#34;8aecfd9b2fa26e83012fa298c2a50017&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;recipe&#34;</span>:<span style="color:#2A00FF; ">&#34;1 Lorem ipsum...&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;image&#34;</span>:<span style="color:#2A00FF; ">&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2a50017&#34;</span>
+		},
+		{
+			<span style="color:#2A00FF; ">&#34;name&#34;</span>:<span style="color:#2A00FF; ">&#34;Recipe 2&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;id&#34;</span>:<span style="color:#2A00FF; ">&#34;8aecfd9b2fa26e83012fa298c2a90018&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;recipe&#34;</span>:<span style="color:#2A00FF; ">&#34;2 Lorem ipsum...&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;image&#34;</span>: <span style="color:#2A00FF; ">&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2a90018&#34;</span>
+		},
+		{
+			<span style="color:#2A00FF; ">&#34;name&#34;</span>: <span style="color:#2A00FF; ">&#34;Recipe 3&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;id&#34;</span>:<span style="color:#2A00FF; ">&#34;8aecfd9b2fa26e83012fa298c2ae0019&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;recipe&#34;</span>:<span style="color:#2A00FF; ">&#34;3 Lorem ipsum...&#34;</span>,
+			<span style="color:#2A00FF; ">&#34;image&#34;</span>:  <span style="color:#2A00FF; ">&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2ae0019&#34;</span>
+			}
+	]
+}
+</pre>
+
+<p>File: main.xml
+</p><pre class="xml">
+<span style="color:#7F0055; font-weight: bold; ">&#60;</span>?xml version=<span style="color:#2A00FF; ">&#34;1.0&#34;</span> encoding=<span style="color:#2A00FF; ">&#34;utf-8&#34;</span>?<span style="color:#7F0055; font-weight: bold; ">&#62;</span>
+<span style="color:#7F0055; font-weight: bold; ">&#60;LinearLayout</span> xmlns:android=<span style="color:#2A00FF; ">&#34;http://schemas.android.com/apk/res/android&#34;</span>
+	android:orientation=<span style="color:#2A00FF; ">&#34;vertical&#34;</span> android:layout_width=<span style="color:#2A00FF; ">&#34;fill_parent&#34;</span>
+	android:layout_height=<span style="color:#2A00FF; ">&#34;fill_parent&#34;</span><span style="color:#7F0055; font-weight: bold; ">&#62;</span>
+	<span style="color:#7F0055; font-weight: bold; ">&#60;TextView</span> android:id=<span style="color:#2A00FF; ">&#34;@+id/textview&#34;</span> android:layout_width=<span style="color:#2A00FF; ">&#34;fill_parent&#34;</span>
+		android:layout_height=<span style="color:#2A00FF; ">&#34;wrap_content&#34;</span> <span style="color:#7F0055; font-weight: bold; ">/&#62;</span>
+<span style="color:#7F0055; font-weight: bold; ">&#60;/LinearLayout&#62;</span>
+</pre>
+
+<p>Data Model files:
+File: A: Recipe.java
+</p><pre class="java">
+<span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">class</span> Recipe
+  {
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; ">String</span> name;
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; ">String</span> id;
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; ">String</span> recipe;
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; ">String</span> image;
+  }
+</pre>
+
+<p>File B: Recipes.java 
+</p><pre class="java">
+<span style="color:#7F0055; font-weight: bold; ">import</span> java.util.ArrayList;
+<span style="color:#7F0055; font-weight: bold; ">import</span> java.util.HashMap;
+
+<span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">class</span> Recipes <span style="color:#7F0055; font-weight: bold; ">extends</span> HashMap&#60;<span style="color:#7F0055; ">String</span>, ArrayList&#60;Recipe&#62;&#62;
+  {
+	<span style="color:#3F7F5F; ">//empty
+</span>  }
+</pre>
+
+<p>File: Main.java
+</p><pre class="java">
+<span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">class</span> Main <span style="color:#7F0055; font-weight: bold; ">extends</span> Activity
+  {
+    <span style="color:#7F0055; font-weight: bold; ">private</span> <span style="color:#7F0055; font-weight: bold; ">static</span> <span style="color:#7F0055; font-weight: bold; ">final</span> <span style="color:#7F0055; ">String</span> tag = Main.<span style="color:#7F0055; font-weight: bold; ">class</span>.getName();
+
+    @Override
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">void</span> onCreate(Bundle savedInstanceState)
+      {
+        <span style="color:#7F0055; font-weight: bold; ">super</span>.onCreate(savedInstanceState);
+        setContentView(com.android.jackson.json.R.layout.main);
+        TextView textview = (TextView) <span style="color:#7F0055; font-weight: bold; ">this</span>.findViewById(com.android.jackson.json.R.id.textview);
+
+        <span style="color:#7F0055; ">StringBuffer</span> strBuffer = <span style="color:#7F0055; font-weight: bold; ">new</span> <span style="color:#7F0055; ">StringBuffer</span>();
+
+        MockRecipesController mockRecipesController = <span style="color:#7F0055; font-weight: bold; ">new</span> MockRecipesController();
+        mockRecipesController.init();
+        <span style="color:#7F0055; font-weight: bold; ">for</span> (Recipe recipe : mockRecipesController.findAll())
+          {
+            Log.d(tag, <span style="color:#2A00FF; ">&#34;Name: &#34;</span> + recipe.name);
+            Log.d(tag, <span style="color:#2A00FF; ">&#34;ID: &#34;</span> + recipe.id);
+            Log.d(tag, <span style="color:#2A00FF; ">&#34;Recipe: &#34;</span> + recipe.recipe);
+            Log.d(tag, <span style="color:#2A00FF; ">&#34;Image: &#34;</span> + recipe.image);
+
+            strBuffer.append(<span style="color:#2A00FF; ">&#34;Name: &#34;</span> + recipe.name + <span style="color:#2A00FF; ">&#34;\n&#34;</span>);
+            strBuffer.append(<span style="color:#2A00FF; ">&#34;ID: &#34;</span> + recipe.id + <span style="color:#2A00FF; ">&#34;\n&#34;</span>);
+            strBuffer.append(<span style="color:#2A00FF; ">&#34;Recipe: &#34;</span> + recipe.recipe + <span style="color:#2A00FF; ">&#34;\n&#34;</span>);
+            strBuffer.append(<span style="color:#2A00FF; ">&#34;Image: &#34;</span> + recipe.image + <span style="color:#2A00FF; ">&#34;\n&#34;</span>);
+          }
+
+            <span style="color:#3F7F5F; ">// Finally
+</span>            textview.setText(strBuffer.toString());
+          }
+      }
+  }
+</pre>
+
+<p>File: MockRecipesController.java
+</p><pre class="java">
+<span style="color:#7F0055; font-weight: bold; ">package</span> com.malibu.mock;
+
+<span style="color:#7F0055; font-weight: bold; ">import</span> java.io.IOException;
+<span style="color:#7F0055; font-weight: bold; ">import</span> java.util.ArrayList;
+
+<span style="color:#7F0055; font-weight: bold; ">import</span> org.codehaus.jackson.JsonFactory;
+<span style="color:#7F0055; font-weight: bold; ">import</span> org.codehaus.jackson.JsonParseException;
+<span style="color:#7F0055; font-weight: bold; ">import</span> org.codehaus.jackson.JsonParser;
+<span style="color:#7F0055; font-weight: bold; ">import</span> org.codehaus.jackson.map.ObjectMapper;
+
+<span style="color:#7F0055; font-weight: bold; ">import</span> com.malibu.models.Recipe;
+<span style="color:#7F0055; font-weight: bold; ">import</span> com.malibu.models.Recipes;
+
+<span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">class</span> MockRecipesController
+  {
+    <span style="color:#7F0055; font-weight: bold; ">private</span> <span style="color:#7F0055; font-weight: bold; ">final</span> <span style="color:#7F0055; ">String</span> json = <span style="color:#2A00FF; ">&#34;{ \&#34;recipes\&#34;: \n&#34;</span> + <span style="color:#2A00FF; ">&#34;  [ \n&#34;</span> + <span style="color:#2A00FF; ">&#34;    {\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;name\&#34;:\&#34;Recipe 1\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;id\&#34;:\&#34;8aecfd9b2fa26e83012fa298c2a50017\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;recipe\&#34;:\&#34;1 Lorem ipsum...\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;image\&#34;:\&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2a50017\&#34;\n&#34;</span> + <span style="color:#2A00FF; ">&#34;    }, \n&#34;</span> + <span style="color:#2A00FF; ">&#34;    { \n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;name\&#34;:\&#34;Recipe 2\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;id\&#34;:\&#34;8aecfd9b2fa26e83012fa298c2a90018\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;recipe\&#34;:\&#34;2 Lorem ipsum...\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;image\&#34;: \&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2a90018\&#34;\n&#34;</span> + <span style="color:#2A00FF; ">&#34;    },\n&#34;</span> + <span style="color:#2A00FF; ">&#34;    {\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;name\&#34;: \&#34;Recipe 3\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;id\&#34;:\&#34;8aecfd9b2fa26e83012fa298c2ae0019\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;recipe\&#34;:\&#34;3 Lorem ipsum...\&#34;,\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      \&#34;image\&#34;:  \&#34;/malibu-server/recipe/getImage/8aecfd9b2fa26e83012fa298c2ae0019\&#34;\n&#34;</span> + <span style="color:#2A00FF; ">&#34;      } \n&#34;</span> + <span style="color:#2A00FF; ">&#34;  ]\n&#34;</span> + <span style="color:#2A00FF; ">&#34;}\n&#34;</span> + <span style="color:#2A00FF; ">&#34;&#34;</span>;
+
+    <span style="color:#7F0055; font-weight: bold; ">private</span> ObjectMapper objectMapper = <span style="color:#7F0055; font-weight: bold; ">null</span>;
+    <span style="color:#7F0055; font-weight: bold; ">private</span> JsonFactory jsonFactory = <span style="color:#7F0055; font-weight: bold; ">null</span>;
+    <span style="color:#7F0055; font-weight: bold; ">private</span> JsonParser jp = <span style="color:#7F0055; font-weight: bold; ">null</span>;
+    <span style="color:#7F0055; font-weight: bold; ">private</span> ArrayList&#60;Recipe&#62; recipes = <span style="color:#7F0055; font-weight: bold; ">null</span>;
+    <span style="color:#7F0055; font-weight: bold; ">private</span> Recipes mRecipes = <span style="color:#7F0055; font-weight: bold; ">null</span>;
+
+    <span style="color:#7F0055; font-weight: bold; ">public</span> MockRecipesController()
+      {
+        objectMapper = <span style="color:#7F0055; font-weight: bold; ">new</span> ObjectMapper();
+        jsonFactory = <span style="color:#7F0055; font-weight: bold; ">new</span> JsonFactory();
+      }
+
+    <span style="color:#7F0055; font-weight: bold; ">public</span> <span style="color:#7F0055; font-weight: bold; ">void</span> init()
+      {
+        <span style="color:#7F0055; font-weight: bold; ">try</span>
+          {
+            jp = jsonFactory.createJsonParser(json);
+            mRecipes = objectMapper.readValue(jp, Recipes.<span style="color:#7F0055; font-weight: bold; ">class</span>);
+            recipes = mRecipes.get(<span style="color:#2A00FF; ">&#34;recipes&#34;</span>);
+          }
+        <span style="color:#7F0055; font-weight: bold; ">catch</span> (JsonParseException e)
+          {
+            e.printStackTrace();
+          }
+        <span style="color:#7F0055; font-weight: bold; ">catch</span> (IOException e)
+          {
+            e.printStackTrace();
+          }
+      }
+
+    <span style="color:#7F0055; font-weight: bold; ">public</span> ArrayList&#60;Recipe&#62; findAll()
+      {
+        <span style="color:#7F0055; font-weight: bold; ">return</span> recipes;
+      }
+
+    <span style="color:#7F0055; font-weight: bold; ">public</span> Recipe findById(<span style="color:#7F0055; font-weight: bold; ">int</span> id)
+      {
+        <span style="color:#7F0055; font-weight: bold; ">return</span> recipes.get(id);
+      }
+  }
+
+</pre>
+
+
+        </span>
+    </div></div>
+
+	<!--  DOWNLOADS -->
+	<!-- rich:panel id="downloadMethods" -->
+		<!-- f:facet name="header">Downloads</f:facet -->
+        
+        <!--/rich:panel-->
+
+        <div style="clear:both"></div></div></div>
+
+    <div class="actionButtons"><input onclick="location.href='/RecipeRaw.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?recipeId=1656&amp;cid=868'; return false;" id="raw" value="View WikiText" type="button" />
+
+	<!-- production peoples can see docbook -->
+
+	<!-- Edit button can appear if not logged in (will trigger login) or
+	 *** if you have permission to edit this recipe, but not otherwise
+	 *** as it would then trigger a 403
+	 --><input onclick="location.href='/RecipeEdit.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?title=Parsing+JSON+using+the++Jackson+Parser&amp;recipeId=1656&amp;cid=868'; return false;" id="edit1" value="Edit" type="button" /><input onclick="location.href='/home.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?cid=868'; return false;" id="done" value="Done" type="button" />
+
+    </div>
+
+	<!-- COMMENTS AND Revisions ON THIS RECIPE --><script type="text/javascript">RichFaces.tabPanel['commentsAndRevisions']={'ontabchange':'','id':'commentsAndRevisions'} ;</script><table border="0" cellpadding="0" cellspacing="0" class="rich-tabpanel " id="commentsAndRevisions" style="margin-top: 5px;width:"><tbody><tr><td align="left" class="rich-tab-bottom-line "><form id="commentsAndRevisions:_form" name="commentsAndRevisions:_form" method="post" style="margin:0; padding:0; display: inline;" action="/Recipe.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC"><!--table  border="0" cellpadding="0" cellspacing="0" style="position:relative;top:1px"--><table border="0" cellpadding="0" cellspacing="0"><tr><td><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="width: 1px; ;border:0" /></td><td id="commentslist_cell" style="height: 100%; vertical-align: bottom;" class="rich-tabhdr-cell-active"><table border="0" cellpadding="0" cellspacing="0" id="commentslist_shifted" onclick="if (RichFaces.onTabChange(event, 'commentsAndRevisions','commentslist')) RichFaces.switchTab('commentsAndRevisions','commentslist','commentslist');" style="position:relative; top:1px;;height : 100%; "><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td><td class="rich-tabhdr-side-cell"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td id="commentslist_lbl" onmouseover="RichFaces.overTab(this);" onmouseout="RichFaces.outTab(this);" class="rich-tab-header rich-tab-active    ">Comments (0)</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td></tr></table></td><td><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="width: 1px; ;border:0" /></td><td id="postcomment_cell" style="height: 100%; vertical-align: bottom;" class="rich-tabhdr-cell-inactive"><table border="0" cellpadding="0" cellspacing="0" id="postcomment_shifted" onclick="if (RichFaces.onTabChange(event, 'commentsAndRevisions','postcomment')) RichFaces.switchTab('commentsAndRevisions','postcomment','postcomment');" style="position:relative;;height : 100%; "><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td><td class="rich-tabhdr-side-cell"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td id="postcomment_lbl" onmouseover="RichFaces.overTab(this);" onmouseout="RichFaces.outTab(this);" class="rich-tab-header rich-tab-inactive    ">Leave a comment</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td></tr></table></td><td><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="width: 1px; ;border:0" /></td><td id="editlist_cell" style="height: 100%; vertical-align: bottom;" class="rich-tabhdr-cell-inactive"><table border="0" cellpadding="0" cellspacing="0" id="editlist_shifted" onclick="if (RichFaces.onTabChange(event, 'commentsAndRevisions','editlist')) RichFaces.switchTab('commentsAndRevisions','editlist','editlist');" style="position:relative;;height : 100%; "><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td><td class="rich-tabhdr-side-cell"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td id="editlist_lbl" onmouseover="RichFaces.overTab(this);" onmouseout="RichFaces.outTab(this);" class="rich-tab-header rich-tab-inactive    ">Edit History (6)</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="border:0" width="1" /></td></tr></table></td><td><img alt="" height="1" src="/a4j/g/3_3_4-SNAPSHOTimages/spacer.gif" style="width: 1px; ;border:0" /></td></tr></table><div style="display: none;"><input autocomplete="off" id="commentsAndRevisions_input" name="commentsAndRevisions" type="hidden" value="commentslist" /><script type="text/javascript">RichFaces.panelTabs['commentsAndRevisions']=[{'ontabenter':'','id':'commentslist','name':'commentslist','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontableave':'','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    ','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive'} ,{'ontabenter':'','id':'postcomment','name':'postcomment','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontableave':'','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    ','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive'} ,{'ontabenter':'','id':'editlist','name':'editlist','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontableave':'','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    ','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive'} ] ;</script></div><input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id1" /></form></td></tr><tr><td id="commentslist" style=";height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content  " style="; ">There are no (moderator-approved) comments on this recipe yet.</td></tr></table></td><td id="postcomment" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content  " style="; ">
+			If you were 
+			 <a href="https://androidcookbook.com/login.seam?cid=868" id="j_id226">logged in</a>
+			 you could add a comment to this Recipe.</td></tr></table></td><td id="editlist" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content  " style="; ">
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=1" id="j_id257:0:j_id259">idarwin</a>
+				 said  2011-12-17 09:22:54
+				<em>Withdraw from Publication: not enough explanation, too much mystery code. Sorry.</em>
+			</div><div id="j_id257:0:j_id267" style="font-size: 0px;"><div class="rich-separator " style="height: 1px; background-image: url(/a4j/g/3_3_4-SNAPSHOTorg.richfaces.renderkit.html.images.SimpleSeparatorImage/DATB/eAFjYFTpzWUCAAMeASI_); height: 20px;;"></div></div>
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=1" id="j_id257:1:j_id259">idarwin</a>
+				 said  2011-10-03 11:04:33
+				<em>Shorter title; no punctuation in title</em>
+			</div><div id="j_id257:1:j_id267" style="font-size: 0px;"><div class="rich-separator " style="height: 1px; background-image: url(/a4j/g/3_3_4-SNAPSHOTorg.richfaces.renderkit.html.images.SimpleSeparatorImage/DATB/eAFjYFTpzWUCAAMeASI_); height: 20px;;"></div></div>
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=1" id="j_id257:2:j_id259">idarwin</a>
+				 said  2011-05-24 02:31:03
+				<em>Moderator approve</em>
+			</div><div id="j_id257:2:j_id267" style="font-size: 0px;"><div class="rich-separator " style="height: 1px; background-image: url(/a4j/g/3_3_4-SNAPSHOTorg.richfaces.renderkit.html.images.SimpleSeparatorImage/DATB/eAFjYFTpzWUCAAMeASI_); height: 20px;;"></div></div>
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=826" id="j_id257:3:j_id259">w2davids</a>
+				 said  2011-05-24 10:13:29
+				<em>formatting changes</em>
+			</div><div id="j_id257:3:j_id267" style="font-size: 0px;"><div class="rich-separator " style="height: 1px; background-image: url(/a4j/g/3_3_4-SNAPSHOTorg.richfaces.renderkit.html.images.SimpleSeparatorImage/DATB/eAFjYFTpzWUCAAMeASI_); height: 20px;;"></div></div>
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=826" id="j_id257:4:j_id259">w2davids</a>
+				 said  2011-05-24 10:10:33
+				<em>Screenshot added</em>
+			</div><div id="j_id257:4:j_id267" style="font-size: 0px;"><div class="rich-separator " style="height: 1px; background-image: url(/a4j/g/3_3_4-SNAPSHOTorg.richfaces.renderkit.html.images.SimpleSeparatorImage/DATB/eAFjYFTpzWUCAAMeASI_); height: 20px;;"></div></div>
+			<div class="comment"><a href="/Profile.seam;jsessionid=CD5106F031D66261BDD49DBC0540FEBC?personId=826" id="j_id257:5:j_id259">w2davids</a>
+				 said  2011-05-24 10:09:38
+				<em>Initial creation</em>
+			</div></td></tr></table></td></tr></tbody></table>
+	</div>
+
+	<div class="footer">
+	<p>
+	<a href="Privacy.seam">Privacy Policy</a>
+	<a href="TandC.seam">Terms and Conditions</a>
+         Powered by <a href="http://seamframework.org">Seam</a> 2.1.2 and <a href="http://www.jboss.org/jbossrichfaces">RichFaces</a>. Originally created by seam-gen.</p>
+	</div>
+   </body>
+</html>

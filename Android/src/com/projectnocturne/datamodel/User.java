@@ -23,6 +23,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.SparseArray;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public final class User extends AbstractDataObj {
 
 	public static final String DATABASE_TABLE_NAME = "Users";
@@ -38,16 +40,37 @@ public final class User extends AbstractDataObj {
 	public static final String FIELD_NAME_STATUS = "status";
 	public static final String FIELD_NAME_USERNAME = "username";
 
+	@JsonProperty("addr_line1")
 	public String addr_line1 = "";
+
+	@JsonProperty("addr_line2")
 	public String addr_line2 = "";
+
+	@JsonProperty("addr_line3")
 	public String addr_line3 = "";
+
+	@JsonProperty("email1")
 	public String email1 = "";
+
+	@JsonProperty("name_first")
 	public String name_first = "";
+
+	@JsonProperty("name_last")
 	public String name_last = "";
+
+	@JsonProperty("phone_home")
 	public String phone_home = "";
+
+	@JsonProperty("phone_mbl")
 	public String phone_mbl = "";
+
+	@JsonProperty("postcode")
 	public String postcode = "";
+
+	@JsonProperty("addr_line1")
 	public String status = "";
+
+	@JsonProperty("username")
 	public String username = "";
 
 	public User() {

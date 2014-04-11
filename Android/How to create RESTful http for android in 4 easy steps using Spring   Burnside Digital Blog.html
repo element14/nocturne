@@ -1,0 +1,477 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>How to create RESTful http for android in 4 easy steps using Spring | Burnside Digital Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="initial-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="http://blogs.burnsidedigital.com/wp-content/themes/elc-blog/css/fonts.css" />
+<link rel="stylesheet" href="http://blogs.burnsidedigital.com/wp-content/themes/elc-blog/css/reset.css" />
+<link rel="stylesheet" href="http://blogs.burnsidedigital.com/wp-content/themes/elc-blog/css/elc.css" />
+<link rel="pingback" href="http://blogs.burnsidedigital.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="Burnside Digital Blog &raquo; Feed" href="http://blogs.burnsidedigital.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Burnside Digital Blog &raquo; Comments Feed" href="http://blogs.burnsidedigital.com/comments/feed/" />
+
+			<script type="text/javascript">//<![CDATA[
+			// Google Analytics for WordPress by Yoast v4.2.8 | http://yoast.com/wordpress/google-analytics/
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-88216-20']);
+							_gaq.push(['_trackPageview']);
+			(function () {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+			//]]></script>
+			<link rel='stylesheet' type='text/css' media='all' href='http://blogs.burnsidedigital.com/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/jetpack/modules/widgets/widgets.css' />
+<script type='text/javascript' src='http://blogs.burnsidedigital.com/wp-content/plugins/bwp-minify/min/?f=wp-includes/js/comment-reply.min.js,wp-includes/js/jquery/jquery.js,wp-includes/js/jquery/jquery-migrate.min.js,wp-content/themes/flatline/js/modernizr-2.0.6.min.js'></script>
+
+<!-- All in One SEO Pack 1.6.15.3 by Michael Torbert of Semper Fi Web Design[55,159] -->
+<meta name="keywords" content="android" />
+<link rel="canonical" href="http://blogs.burnsidedigital.com/2012/08/how-to-create-restful-http-for-android-in-4-easy-steps-using-spring/" />
+<!-- /all in one seo pack -->
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How to create RESTful http for android in 4 easy steps using Spring" />
+<meta property="og:url" content="http://blogs.burnsidedigital.com/2012/08/how-to-create-restful-http-for-android-in-4-easy-steps-using-spring/" />
+<meta property="og:description" content="Recently I began a new project that relies heavily on RESTful web service to supply data. After some research, I decide to give Spring for Android a try. Why Spring for android? Spring addresses th..." />
+<meta property="og:site_name" content="Burnside Digital Blog" />
+<meta property="og:image" content="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_1_blogpost-300x187.png" />
+<meta property="og:image" content="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_2_blogpost-300x187.png" />
+<link rel="shortcut icon" type="image/x-icon" href="http://blogs.burnsidedigital.com/wp-content/themes/elc-blog/images/favicon.ico" />
+<meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.4" />
+</head>
+
+<body class="single single-post postid-1484 single-format-standard">
+	<div id="page">
+
+		<header id="site-header" role="banner">
+			<h1 id="site-title"><a href="http://www.burnsidedigital.com/"><img src="http://blogs.burnsidedigital.com/wp-content/themes/elc-blog/images/logo-burnside-digital.png" alt="Burnside Digital"></a></h1>
+			<p id='skip-link'><em><a href="#navigation">Skip to Navigation</a> &darr;</em></p>
+		</header>
+
+		<div id="content" role="main">
+
+
+	<article id="post-1484" class="post-1484 post type-post status-publish format-standard hentry category-droid">
+		<header>
+			<h1 class="post-title"><a href="http://blogs.burnsidedigital.com/2012/08/how-to-create-restful-http-for-android-in-4-easy-steps-using-spring/">How to create RESTful http for android in 4 easy steps using&nbsp;Spring</a></h1>
+			<p class="byline">	<span class="date">
+		<time datetime="2012-08-21T09:49:40+00:00" pubdate><a href="http://blogs.burnsidedigital.com/2012/08/how-to-create-restful-http-for-android-in-4-easy-steps-using-spring/"><span class="day">21</span> <span class="month">Aug</span></a></time>	</span>
+	<span class="author">by:
+		<a href="http://blogs.burnsidedigital.com/author/otto/">Larry Wegener</a>	</span>
+	<span class="avatar">
+		<a href="http://blogs.burnsidedigital.com/author/otto/">
+			<img alt='' src='http://1.gravatar.com/avatar/98147965e9c265fd74ea114522279ca4?s=36&amp;d=retro&amp;r=G' class='avatar avatar-36 photo' height='36' width='36' />		</a>
+	</span>
+	</p>
+						<div class="warning old-post">
+				This article was published <strong>1 year, 7 months ago</strong>. Due to the rapidly evolving nature of web development, some concepts may no longer be applicable.
+			</div>
+				</header>
+		<div class="post-content">
+			<p>Recently I began a new project that relies heavily on RESTful web service to supply data. After some research, I decide to give Spring for Android a try. Why Spring for android?</p>
+<ul>
+<li>Spring addresses the fragmentation issues in Android</li>
+<li>Customizable / fine grain tuning available for REST template</li>
+<li>Native support for both GSON and Jackson conversion libraries</li>
+<li>Spring provides a nice level of abstraction for the REST client</li>
+<li>Less code = fewer bugs</li>
+</ul>
+<p>So here are the four easy steps it takes to get Spring for Android setup in your project.</p>
+<ul>
+<li>Download the jar files and add them to the libs folder of your project.</li>
+<li>Create a model to represent your json data</li>
+<li>Get the RestTemplate object, initialize it and add your message converters </li>
+<li>Call the exchange method and process the response</li>
+</ul>
+<p>
+<strong>Download the Jar files</strong><br />
+<br />
+<strong></strong>The Spring jar files needed can be downloaded <a title="Spring Android" href="http://www.springsource.org/spring-android" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.springsource.org']);" target="_blank">here</a></p>
+<p>The jar files needed are:</p>
+<ul>
+<li>spring-android-core-1.0.0.RELEASE.jar</li>
+<li>spring-android-auth-1.0.0.RELEASE.jar</li>
+<li>spring-android-rest-1.0.0.RELEASE.jar</li>
+</ul>
+<p>After downloading the files you will need them to put them in a folder in your Android application entitled &#8220;libs&#8221;. This folder should be automatically created for you in new versions of the ADT but if not add it to the main project directory. After you add the jar files to this folder Eclipse will automatically add them to the java build path of your project under the Android Dependencies folder.</p>
+<p><a href="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_1_blogpost.png" ><img class="alignnone size-medium wp-image-1511" src="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_1_blogpost-300x187.png" alt="" width="300" height="187" /></a></p>
+<p>If for some reason the files are not appearing in your build path you can always add them manually via the properties of your project. Right click your project -&gt; properties -&gt; java build path -&gt; libraries -&gt; Add Jars -&gt; {Your Project} -&gt; libs  -&gt; highlight the jars and click OK</p>
+<p><a href="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_2_blogpost.png" ><img class="alignnone size-medium wp-image-1512" src="http://blogs.burnsidedigital.com/wp-content/uploads/2012/08/properties_2_blogpost-300x187.png" alt="" width="300" height="187" /></a></p>
+<p>
+<strong>Create a data model</strong><br />
+<br />
+Create a simple java bean that represents the json data you will be receiving.</p>
+<p>For example, if you json response looks like this &#8211; {id:1, first_name:&#8221;John&#8221;, last_name:&#8221;Doe&#8221;} the corresponding bean would look like this:</p>
+<pre class="brush: java; title: ; notranslate" title="">
+public class User {
+  private long id;
+  @JsonProperty(&quot;first_name&quot;)
+  private String firstName;
+  @JsonProperty(&quot;last_name&quot;)
+  private String lastName;
+  @JsonIgnore()
+  private boolean isActive;
+
+  public long getId() {
+    return id;
+  }
+  public void setId(long id) {
+    this.id = id;
+  }
+  public String getFirstName() {
+     return firstName;
+  }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+  String getLastName() {
+    return lastName;
+  }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+}
+</pre>
+<p>There are numerous annotations that can be added to your bean that will help <a title="GSON User Guide" href="https://sites.google.com/site/gson/gson-user-guide" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://sites.google.com']);" target="_blank">GSON</a> or <a title="Jackson Annotations" href="http://wiki.fasterxml.com/JacksonAnnotations" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wiki.fasterxml.com']);" target="_blank">Jackson</a> interpret what to do with the object. We will write about that in a later post.</p>
+<p>Spring for Android makes creating and sending http requests incredibly easy. They support the 4 main CRUD operations <a title="RestTemplate Methods" href="http://static.springsource.org/spring-android/docs/1.0.x/reference/html/rest-template.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://static.springsource.org']);" target="_blank">POST, GET, PUT, DELETE, as well as OPTIONS and HEAD</a>.  There are also 2 more methods called exchange and execute where you pass in the request method you want executed.</p>
+<p>I like to use interfaces to define my REST services. I find it useful for testing because mock data can be substituted with a minimum amount of code. In my activity code I will declare an interface variable and then instantiate that variable as the mock data source if my application is in test mode. It might look something like this:</p>
+<pre class="brush: java; title: ; notranslate" title="">
+public class MainActivity extends Activity{
+
+IUserService userService;
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  if(Config.isTestMode){
+    userService = new MockUserDataSource();
+  }else{
+    userService = new UserService();
+  }
+</pre>
+<p>
+With the Config class being a simple java class that lives in the util package of the application and holds mock objects and other things we will use to configure our application.</p>
+<p></p>
+<pre class="brush: java; title: ; notranslate" title="">
+public class Config{
+
+  //change this value to true if we are running the application in test mode
+  public final static boolean isTestMode = false;
+
+  //other values we will need....
+}
+</pre>
+<p>That being said, the next thing to do is create an interface that will be implemented by your service class.</p>
+<pre class="brush: java; title: ; notranslate" title="">
+public interface IUserService{
+  public ArrayList getAllUsers();
+  public User getUserById(long id);
+  public boolean deleteUserById(long id);
+  public boolean createNewUser(User user);
+  public User updateUser(User updatedUser);
+}
+</pre>
+<p>
+<strong>Get the RestTemplate, initialize it and add your message converters</strong><br />
+</p>
+<p>The service class implements this interface and this is where we will use our SpringAndroid classes.</p>
+<pre class="brush: java; title: ; notranslate" title="">
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import com.elc.blog.androidspringexample.interfaces.IUserService;
+import com.elc.blog.androidspringexample.models.User;
+import com.elc.blog.androidspringexample.models.UserContainer;
+
+public class UserService implements IUserService {
+
+	private static final String BASE_URL = &quot;http://blog/example.com&quot;;
+
+	@Override
+	public ArrayList&lt;User&gt; getAllUsers() {
+		// The URL for making the GET request
+  final String url = BASE_URL + &quot;/users.json&quot;;
+  //This is where we get the RestTemplate and add the message converters
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+  //This is where we call the exchange method and process the response		
+		ResponseEntity&lt;UserContainer&gt; responseEntity =  restTemplate.exchange(url, HttpMethod.GET, getRequestEntity(), UserContainer.class);
+		return responseEntity.getBody().getUsers();
+	}
+
+	@Override
+	public User getUserById(long id) {
+		// The URL for making the GET request
+  final String url = BASE_URL + &quot;/user?userId={id}&quot;;
+  //This is where we get the RestTemplate and add the message converters
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+		
+		return restTemplate.getForObject(url,User.class, id);
+	}
+
+	@Override
+	public boolean deleteUserById(long id) {
+  final String url = BASE_URL + &quot;/user?userId={id}&quot;;
+  //This is where we get the RestTemplate and add the message converters
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+		
+		restTemplate.delete(url,User.class, id);
+		return true;
+	}
+
+	@Override
+	public boolean createNewUser(User user) {
+		
+		String url = BASE_URL + &quot;user&quot;;
+		HttpHeaders requestHeaders = new HttpHeaders();
+		// Set the Content-Type header
+		requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+  //create the request body
+		MultiValueMap&lt;String, String&gt; body = new LinkedMultiValueMap&lt;String, String&gt;();
+		body.add(&quot;user[id]&quot;,String.valueOf(user.getId()));
+		body.add(&quot;user[first_name]&quot;, user.getFirstName());
+		body.add(&quot;user[last_name]&quot;,user.getLastName());
+
+		//create the request entity
+		HttpEntity&lt;?&gt; requestEntity = new HttpEntity&lt;Object&gt;(body, requestHeaders);
+  //Get the RestTemplate and add the message converters		
+  RestTemplate restTemplate = new RestTemplate();
+
+		List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = new ArrayList&lt;HttpMessageConverter&lt;?&gt;&gt;();
+		messageConverters.add(new FormHttpMessageConverter());
+		messageConverters.add(new StringHttpMessageConverter());
+		restTemplate.setMessageConverters(messageConverters);
+		try {
+			ResponseEntity&lt;String&gt; response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+			HttpStatus status = response.getStatusCode();
+			if(status == HttpStatus.CREATED) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch (HttpClientErrorException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	@Override
+	public User updateUser(User updatedUser) {
+		String url = BASE_URL + &quot;updateuser?userid={id}&quot;;
+		HttpHeaders requestHeaders = new HttpHeaders();
+		// Set the Content-Type header
+		requestHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		
+		MultiValueMap&lt;String, String&gt; body = new LinkedMultiValueMap&lt;String, String&gt;();
+		body.add(&quot;user[id]&quot;,String.valueOf(updatedUser.getId()));
+		body.add(&quot;user[first_name]&quot;, updatedUser.getFirstName());
+		body.add(&quot;user[last_name]&quot;,updatedUser.getLastName());
+
+		//create the request entity
+		HttpEntity&lt;?&gt; requestEntity = new HttpEntity&lt;Object&gt;(body, requestHeaders);
+		RestTemplate restTemplate = new RestTemplate();
+
+		List&lt;HttpMessageConverter&lt;?&gt;&gt; messageConverters = new ArrayList&lt;HttpMessageConverter&lt;?&gt;&gt;();
+		messageConverters.add(new FormHttpMessageConverter());
+		messageConverters.add(new StringHttpMessageConverter());
+		restTemplate.setMessageConverters(messageConverters);
+		try {
+			ResponseEntity&lt;User&gt; response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, User.class, updatedUser.getId());
+			HttpStatus status = response.getStatusCode();
+			if(status == HttpStatus.CREATED) {
+				return response.getBody();
+			}else {
+				return null;
+			}
+		}catch (HttpClientErrorException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private HttpEntity&lt;?&gt; getRequestEntity() {
+		HttpHeaders requestHeaders = new HttpHeaders(); 
+		requestHeaders.setAccept(Collections.singletonList(new MediaType(&quot;application&quot;,&quot;json&quot;))); 
+		return new HttpEntity&lt;Object&gt;(requestHeaders);
+	}
+}
+
+</pre>
+<p>Another thing to note is use of a container class. When retrieving an array of users from our service we need to give our parser a container to user to hold the array. Often it is easiest to make a container class to hold the response.</p>
+<pre class="brush: java; title: ; notranslate" title="">
+public class UserContainer {
+	private ArrayList users;
+
+	public ArrayList getUsers() {
+		return users;
+	}
+	public void setUsers(ArrayList users) {
+		this.users = users;
+	}
+}
+</pre>
+<p>
+<strong>Call exchange or other RestTemplate methods process your results</strong><br />
+</p>
+<p>This happens when you call call the exchange method and process the ResponseEntity object. Most of the processing is done for you by the MappingJacksonHttpMessageConverter and all that remains for us to do is call the getBody() method on the responseEntity.</p>
+<p></p>
+<pre class="brush: java; title: ; notranslate" title="">
+
+ResponseEntity&lt;UserContainer&gt; responseEntity =  restTemplate.exchange(url, HttpMethod.GET, getRequestEntity(), UserContainer.class);
+UserContainer uc = responseEntity.getBody();
+if(null != uc){
+  ArrayList&lt;User&gt; users = uc.getUsers();
+  return users;
+}else{
+  return null;
+}
+
+</pre>
+<p>
+In conclusion, I hope you find Spring for Android to be as useful as I did. Between the level of abstraction it provides and the resulting smaller code base, I think it is worthwhile to get to know how to use Spring for Android.</p>
+<p>In my next post I&#8217;ll write about how to deal with session cookies, https, and basic auth with Spring for Android.</p>
+<p>references:</p>
+<ul>
+<li><a href="http://static.springsource.org/spring-android/docs/1.0.x/reference/html/index.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://static.springsource.org']);" target="_blank">http://static.springsource.org/spring-android/docs/1.0.x/reference/html/index.html</a></li>
+<li><a href="https://github.com/SpringSource/spring-android-samples" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://github.com']);" target="_blank">https://github.com/SpringSource/spring-android-samples</a></li>
+<li><a href="http://wiki.fasterxml.com/JacksonHome" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wiki.fasterxml.com']);" target="_blank">http://wiki.fasterxml.com/JacksonHome</a></li>
+<li><a href="https://sites.google.com/site/gson/gson-user-guide/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://sites.google.com']);" target="_blank">https://sites.google.com/site/gson/gson-user-guide/</a></li>
+</ul>
+		</div>
+				<footer>
+				<p class="taxonomy"><span class="label">Filed under</span> <a href="http://blogs.burnsidedigital.com/category/droid/" title="View all posts in Android" rel="category tag">Android</a></p>
+	<p class="comments"><span>Comments Off</span></p>
+		</footer>
+	</article>
+
+	
+<section id="comments">
+	<h2 class="comments-title">No Responses to &#8220;How to create RESTful http for android in 4 easy steps using&nbsp;Spring&#8221;</h2>
+						<p class="nocomments">Comments on this post are closed.</p>
+			</section>
+
+
+	<nav class="single-post-navigation">
+		<ul>
+			<li class="previous"><strong>Previous Post:</strong> <a href="http://blogs.burnsidedigital.com/2012/08/how-to-create-swiping-gesture-list-items-for-windows-phone-7/" rel="prev">How to create swiping gesture list items for Windows Phone&nbsp;7</a></li>			<li class="next"><strong>Next Post:</strong> <a href="http://blogs.burnsidedigital.com/2012/08/5-third-party-ios-libraries-i-have-found-useful-lately-2/" rel="next">5 Third Party iOS Libraries I Have Found Useful&nbsp;Lately</a></li>		</ul>
+	</nav>
+
+
+			<footer id="site-footer">
+				<p class="copyright">&copy; Copyright 2014 Burnside Digital</p>
+			</footer>
+
+		</div> <!-- /#content -->
+
+		<nav id="navigation" role="navigation">
+			<h4>We Blog About:</h4>
+			<ul id="nav-categories">
+				<li id="nav-droid"><a href="/category/droid">Android</a></li>
+				<li id="nav-ios"><a href="/category/ios">iOS</a></li>
+				<li id="nav-windows-phone"><a href="/category/windows-phone">Windows Phone</a></li>
+				<li id="nav-webdev"><a href="/category/webdev">Web Development</a></li>
+				<li id="nav-frontend"><a href="/category/frontend">Front-End Dev.</a></li>
+				<li id="nav-design"><a href="/category/design">Design</a></li>
+				<li id="nav-infrastructure"><a href="/category/infrastructure">Infrastructure</a></li>
+			</ul>
+			<ul id="nav-utility">
+				<li id="nav-search">
+					<form role="search" method="get" id="searchform" action="http://blogs.burnsidedigital.com/">
+						<input type="search" placeholder="Search" rsults="5" autosave="saved" value="" name="s" id="s">
+						<input type="submit" id="searchsubmit" value="Search">
+					</form>
+				</li>
+				<li id="nav-tags"><a href="/tags">Show Tags</a></li>
+				<li id="nav-contributors"><a href="/contributors">Contributors</a></li>
+			</ul>
+		</nav> <!-- /#navigation -->
+
+		<aside id="sidebar-top-tags" class="widget">
+			<ul class="list-tags"><li><a href='http://blogs.burnsidedigital.com/tag/rails/'>rails</a> <span class='count'>(128)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/ruby/'>ruby</a> <span class='count'>(112)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/rubyonrails/'>rubyonrails</a> <span class='count'>(29)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/javascript/'>javascript</a> <span class='count'>(25)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/amazon/'>amazon</a> <span class='count'>(19)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/aws/'>aws</a> <span class='count'>(19)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/flash/'>flash</a> <span class='count'>(18)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/jquery/'>jquery</a> <span class='count'>(15)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/actionscript/'>actionscript</a> <span class='count'>(15)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/ec2/'>ec2</a> <span class='count'>(14)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/testing/'>testing</a> <span class='count'>(14)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/s3/'>s3</a> <span class='count'>(14)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/rspec/'>rspec</a> <span class='count'>(13)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/osx/'>osx</a> <span class='count'>(12)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/cloudcomputing/'>cloudcomputing</a> <span class='count'>(12)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/cloud/'>cloud</a> <span class='count'>(10)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/plugin/'>plugin</a> <span class='count'>(9)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/git/'>git</a> <span class='count'>(9)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/gems/'>gems</a> <span class='count'>(9)</span></li><li><a href='http://blogs.burnsidedigital.com/tag/css/'>CSS</a> <span class='count'>(8)</span></li></ul>			<a href="/tags" class="show-more">Show all tags</a>
+		</aside>
+
+		<aside id="sidebar-top-authors" class="widget">
+			<ul class="list-authors"><li><a href='http://blogs.burnsidedigital.com/author/elc/'><img alt='' src='http://1.gravatar.com/avatar/b0b84ab6a37ef865ef2fe4bb28f4da03?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/elc/'>ELC Technologies</a> <span class='count'>(151)</span></li><li><a href='http://blogs.burnsidedigital.com/author/cdunn/'><img alt='' src='http://1.gravatar.com/avatar/bbbf5ba8e501f521508aec38d839f497?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/cdunn/'>Cary Dunn</a> <span class='count'>(71)</span></li><li><a href='http://blogs.burnsidedigital.com/author/dstamat/'><img alt='' src='http://1.gravatar.com/avatar/5e65c43f8c95e30cdf84b248718840d8?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/dstamat/'>Dylan Stamat</a> <span class='count'>(44)</span></li><li><a href='http://blogs.burnsidedigital.com/author/jsiegel/'><img alt='' src='http://1.gravatar.com/avatar/bcc9a5220617cf1f565d8bafaba97e3d?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/jsiegel/'>Jonathan Siegel</a> <span class='count'>(34)</span></li><li><a href='http://blogs.burnsidedigital.com/author/achee/'><img alt='' src='http://0.gravatar.com/avatar/265c816742eba38d8e3049459bf5388a?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/achee/'>Alex Chee</a> <span class='count'>(26)</span></li><li><a href='http://blogs.burnsidedigital.com/author/btreb/'><img alt='' src='http://0.gravatar.com/avatar/40eedd88e947107793124dc4d4287be1?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/btreb/'>Brandon Trebitowski</a> <span class='count'>(24)</span></li><li><a href='http://blogs.burnsidedigital.com/author/dlabare/'><img alt='' src='http://0.gravatar.com/avatar/6e502a07c9f281feab53e4687f65d15d?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/dlabare/'>Daniel LaBare</a> <span class='count'>(18)</span></li><li><a href='http://blogs.burnsidedigital.com/author/dpalm/'><img alt='' src='http://1.gravatar.com/avatar/101b2be3b760357be098a70244a21561?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/dpalm/'>David Palm</a> <span class='count'>(15)</span></li><li><a href='http://blogs.burnsidedigital.com/author/smingins/'><img alt='' src='http://1.gravatar.com/avatar/17d2c907d8bff4d5f78da74bc4d38466?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/smingins/'>Shane Mingins</a> <span class='count'>(15)</span></li><li><a href='http://blogs.burnsidedigital.com/author/names/'><img alt='' src='http://0.gravatar.com/avatar/08bb9560d87ed7378ee0a9d0e6183a0c?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/names/'>Nicholaus Ames</a> <span class='count'>(13)</span></li><li><a href='http://blogs.burnsidedigital.com/author/ceberz/'><img alt='' src='http://0.gravatar.com/avatar/2fa1dbaab45d682386d9427acc2d9799?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/ceberz/'>Christopher Eberz</a> <span class='count'>(11)</span></li><li><a href='http://blogs.burnsidedigital.com/author/mmurphy/'><img alt='' src='http://1.gravatar.com/avatar/3c19b251df4bef30d8dcc419bb4f8252?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/mmurphy/'>Max Murphy</a> <span class='count'>(11)</span></li><li><a href='http://blogs.burnsidedigital.com/author/gmartynus/'><img alt='' src='http://0.gravatar.com/avatar/62710fbec13503dfcac363787e6d7e38?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/gmartynus/'>Gregor Martynus</a> <span class='count'>(10)</span></li><li><a href='http://blogs.burnsidedigital.com/author/hchoroomi/'><img alt='' src='http://0.gravatar.com/avatar/64e20956a916ffa6eb32fcbf23733c2e?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/hchoroomi/'>Husein Choroomi</a> <span class='count'>(10)</span></li><li><a href='http://blogs.burnsidedigital.com/author/apraditya/'><img alt='' src='http://1.gravatar.com/avatar/9cd894d1d8be3c595b1f2f47b1ab9453?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/apraditya/'>Adinda Praditya</a> <span class='count'>(9)</span></li><li><a href='http://blogs.burnsidedigital.com/author/rhou/'><img alt='' src='http://1.gravatar.com/avatar/9d6dc17f875e311f2b7d4a830d4f8b93?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/rhou/'>Rick Hou</a> <span class='count'>(6)</span></li><li><a href='http://blogs.burnsidedigital.com/author/jeberly/'><img alt='' src='http://0.gravatar.com/avatar/af64e71caa3ab3aeb8abff3d8f47c875?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/jeberly/'>John Eberly</a> <span class='count'>(6)</span></li><li><a href='http://blogs.burnsidedigital.com/author/schaney/'><img alt='' src='http://1.gravatar.com/avatar/7e82a019d5ca281e8e2867a9b629c756?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/schaney/'>Stuart Chaney</a> <span class='count'>(5)</span></li><li><a href='http://blogs.burnsidedigital.com/author/jstephenson/'><img alt='' src='http://1.gravatar.com/avatar/d8ba7c519d690ea61002874b7e81b01b?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/jstephenson/'>Josh Stephenson</a> <span class='count'>(4)</span></li><li><a href='http://blogs.burnsidedigital.com/author/rtaing/'><img alt='' src='http://1.gravatar.com/avatar/511b43bc710445f24886a042278a6bd0?s=32&amp;d=retro&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /></a> <a href='http://blogs.burnsidedigital.com/author/rtaing/'>Ricky Taing</a> <span class='count'>(4)</span></li></ul>			<a href="/contributors" class="show-more">Show all contributors</a>
+		</aside>
+
+	</div> <!-- /#page -->
+
+	<script type='text/javascript' src='http://blogs.burnsidedigital.com/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://blogs.burnsidedigital.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://blogs.burnsidedigital.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['tab-size'] = 2;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.defaults['wrap-lines'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201415'></script>
+<script type='text/javascript' src='http://blogs.burnsidedigital.com/wp-content/plugins/bwp-minify/min/?f=wp-content/themes/elc-blog/js/elc.js,wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js'></script>
+
+	<script src="http://stats.wordpress.com/e-201415.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.2',blog:'37012380',post:'1484',tz:'-7'});
+	var load_cmc = function(){linktracker_init(37012380,1484,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script>
+<style type='text/css'>img#wpstats{display:none}</style>
+</body>
+</html>
