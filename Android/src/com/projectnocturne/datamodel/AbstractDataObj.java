@@ -1,20 +1,20 @@
 /**
-* <p>
-* <u><b>Copyright Notice</b></u>
-* </p><p>
-* The copyright in this document is the property of 
-* Bath Institute of Medical Engineering.
-* </p><p>
-* Without the written consent of Bath Institute of Medical Engineering
-* given by Contract or otherwise the document must not be copied, reprinted or
-* reproduced in any material form, either wholly or in part, and the contents
-* of the document or any method or technique available there from, must not be
-* disclosed to any other person whomsoever.
-*  </p><p>
-*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
-* --------------------------------------------------------------------------
-* 
-*/
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.datamodel;
 
 import java.util.ArrayList;
@@ -112,6 +112,13 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	}
 
 	/**
+	 * @return the lastSynced
+	 */
+	public String getLastSynced() {
+		return lastSynced;
+	}
+
+	/**
 	 * @return the lastUpdated
 	 */
 	public String getLastUpdated() {
@@ -173,6 +180,13 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 		return uniqueIdentifier;
 	}
 
+	/**
+	 * @return the localUpdates
+	 */
+	public boolean isLocalUpdates() {
+		return localUpdates;
+	}
+
 	public String makeSafeSQL(final String str) {
 		String tmpStr = str.replace('"', '`');
 		tmpStr = tmpStr.replace('\'', '`');
@@ -227,6 +241,14 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 	 */
 	public void setLastUpdated(final String lastUpdated) {
 		this.lastUpdated = lastUpdated;
+	}
+
+	/**
+	 * @param localUpdates
+	 *            the localUpdates to set
+	 */
+	public void setLocalUpdates(final boolean localUpdates) {
+		this.localUpdates = localUpdates;
 	}
 
 	public final void setUniqueIdentifier(final int value) {

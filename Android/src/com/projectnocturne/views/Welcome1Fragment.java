@@ -35,14 +35,8 @@ import com.projectnocturne.datamodel.User;
 public class Welcome1Fragment extends NocturneFragment {
 	public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + "::";
 
-	private boolean readyFragment;
 	private Button btnSubscribe;
-	private TextView txtWelcomeScr1PersonNameFirst;
-	private TextView txtWelcomeScr1PersonNameLast;
-	private TextView txtWelcomeScr1MobilePhoneNbr;
-	private TextView txtWelcomeScr1HomePhoneNbr;
-	private TextView txtWelcomeScr1EmailAddress;
-
+	private boolean readyFragment;
 	TextWatcher textChangedWtchr = new TextWatcher() {
 		@Override
 		public void afterTextChanged(final Editable s) {
@@ -58,6 +52,12 @@ public class Welcome1Fragment extends NocturneFragment {
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
 		}
 	};
+	private TextView txtWelcomeScr1EmailAddress;
+	private TextView txtWelcomeScr1HomePhoneNbr;
+	private TextView txtWelcomeScr1MobilePhoneNbr;
+	private TextView txtWelcomeScr1PersonNameFirst;
+
+	private TextView txtWelcomeScr1PersonNameLast;
 
 	private void enableSubscribeButton() {
 		if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0
@@ -98,12 +98,12 @@ public class Welcome1Fragment extends NocturneFragment {
 			@Override
 			public void onClick(final View v) {
 				final User usr = new User();
-				usr.name_first = txtWelcomeScr1PersonNameFirst.getText().toString();
-				usr.name_last = txtWelcomeScr1PersonNameLast.getText().toString();
-				usr.phone_mbl = txtWelcomeScr1MobilePhoneNbr.getText().toString();
-				usr.phone_home = txtWelcomeScr1HomePhoneNbr.getText().toString();
-				usr.email1 = txtWelcomeScr1EmailAddress.getText().toString();
-				usr.username = usr.email1;
+				usr.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
+				usr.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
+				usr.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
+				usr.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
+				usr.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
+				usr.setUsername(usr.getEmail1());
 				Welcome1Fragment.this.sendSubscriptionMessage(usr);
 			}
 		});

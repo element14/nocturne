@@ -65,8 +65,24 @@ public final class NocturneApplication extends Application {
 	public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
 	public static final String simpleDateFmtStrDb = "yyyyMMdd";
 
+	public static void d(final String msg) {
+		Log.d(LOG_TAG, msg);
+	}
+
+	public static void e(final String msg) {
+		Log.e(LOG_TAG, msg);
+	}
+
+	public static void e(final String msg, final Throwable thr) {
+		Log.e(LOG_TAG, msg, thr);
+	}
+
 	public static NocturneApplication getInstance() {
 		return NocturneApplication.singleton;
+	}
+
+	public static void i(final String msg) {
+		Log.i(LOG_TAG, msg);
 	}
 
 	public static void logMessage(final int lvl, final String msg) {
@@ -94,6 +110,18 @@ public final class NocturneApplication extends Application {
 
 	public static void logMessage(final int lvl, final String msg, final Throwable thr) {
 		Log.e(LOG_TAG, msg, thr);
+	}
+
+	public static void v(final String msg) {
+		Log.v(LOG_TAG, msg);
+	}
+
+	public static void w(final String msg) {
+		Log.w(LOG_TAG, msg);
+	}
+
+	public static void wtf(final String msg) {
+		Log.wtf(LOG_TAG, msg);
 	}
 
 	protected Drawable getAppImage(final String packageName) {

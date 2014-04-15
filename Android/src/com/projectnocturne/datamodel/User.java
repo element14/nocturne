@@ -41,37 +41,37 @@ public final class User extends AbstractDataObj {
 	public static final String FIELD_NAME_USERNAME = "username";
 
 	@JsonProperty("addr_line1")
-	public String addr_line1 = "";
+	private String addr_line1 = "";
 
 	@JsonProperty("addr_line2")
-	public String addr_line2 = "";
+	private String addr_line2 = "";
 
 	@JsonProperty("addr_line3")
-	public String addr_line3 = "";
+	private String addr_line3 = "";
 
 	@JsonProperty("email1")
-	public String email1 = "";
+	private String email1 = "";
 
 	@JsonProperty("name_first")
-	public String name_first = "";
+	private String name_first = "";
 
 	@JsonProperty("name_last")
-	public String name_last = "";
+	private String name_last = "";
 
 	@JsonProperty("phone_home")
-	public String phone_home = "";
+	private String phone_home = "";
 
 	@JsonProperty("phone_mbl")
-	public String phone_mbl = "";
+	private String phone_mbl = "";
 
 	@JsonProperty("postcode")
-	public String postcode = "";
+	private String postcode = "";
 
 	@JsonProperty("addr_line1")
-	public String status = "";
+	private String status = "";
 
 	@JsonProperty("username")
-	public String username = "";
+	private String username = "";
 
 	public User() {
 	}
@@ -91,6 +91,27 @@ public final class User extends AbstractDataObj {
 		postcode = results.getString(results.getColumnIndex(User.FIELD_NAME_postcode));
 	}
 
+	/**
+	 * @return the addr_line1
+	 */
+	public String getAddr_line1() {
+		return addr_line1;
+	}
+
+	/**
+	 * @return the addr_line2
+	 */
+	public String getAddr_line2() {
+		return addr_line2;
+	}
+
+	/**
+	 * @return the addr_line3
+	 */
+	public String getAddr_line3() {
+		return addr_line3;
+	}
+
 	@Override
 	public ContentValues getContentValues() {
 		final ContentValues cv = super.getContentValues();
@@ -106,6 +127,13 @@ public final class User extends AbstractDataObj {
 		cv.put(User.FIELD_NAME_addr_line3, addr_line3);
 		cv.put(User.FIELD_NAME_postcode, postcode);
 		return cv;
+	}
+
+	/**
+	 * @return the email1
+	 */
+	public String getEmail1() {
+		return email1;
 	}
 
 	@Override
@@ -126,13 +154,150 @@ public final class User extends AbstractDataObj {
 		return fldList;
 	}
 
+	/**
+	 * @return the name_first
+	 */
+	public String getName_first() {
+		return name_first;
+	}
+
+	/**
+	 * @return the name_last
+	 */
+	public String getName_last() {
+		return name_last;
+	}
+
+	/**
+	 * @return the phone_home
+	 */
+	public String getPhone_home() {
+		return phone_home;
+	}
+
+	/**
+	 * @return the phone_mbl
+	 */
+	public String getPhone_mbl() {
+		return phone_mbl;
+	}
+
+	/**
+	 * @return the postcode
+	 */
+	public String getPostcode() {
+		return postcode;
+	}
+
 	public String getSelectByUsername() {
 		return "select * from " + getTableName() + " where " + User.FIELD_NAME_USERNAME + "=?";
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
 	}
 
 	@Override
 	public String getTableName() {
 		return User.DATABASE_TABLE_NAME;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param addr_line1
+	 *            the addr_line1 to set
+	 */
+	public void setAddr_line1(final String addr_line1) {
+		this.addr_line1 = addr_line1;
+	}
+
+	/**
+	 * @param addr_line2
+	 *            the addr_line2 to set
+	 */
+	public void setAddr_line2(final String addr_line2) {
+		this.addr_line2 = addr_line2;
+	}
+
+	/**
+	 * @param addr_line3
+	 *            the addr_line3 to set
+	 */
+	public void setAddr_line3(final String addr_line3) {
+		this.addr_line3 = addr_line3;
+	}
+
+	/**
+	 * @param email1
+	 *            the email1 to set
+	 */
+	public void setEmail1(final String email1) {
+		this.email1 = email1;
+	}
+
+	/**
+	 * @param name_first
+	 *            the name_first to set
+	 */
+	public void setName_first(final String name_first) {
+		this.name_first = name_first;
+	}
+
+	/**
+	 * @param name_last
+	 *            the name_last to set
+	 */
+	public void setName_last(final String name_last) {
+		this.name_last = name_last;
+	}
+
+	/**
+	 * @param phone_home
+	 *            the phone_home to set
+	 */
+	public void setPhone_home(final String phone_home) {
+		this.phone_home = phone_home;
+	}
+
+	/**
+	 * @param phone_mbl
+	 *            the phone_mbl to set
+	 */
+	public void setPhone_mbl(final String phone_mbl) {
+		this.phone_mbl = phone_mbl;
+	}
+
+	/**
+	 * @param postcode
+	 *            the postcode to set
+	 */
+	public void setPostcode(final String postcode) {
+		this.postcode = postcode;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(final String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @param username
+	 *            the username to set
+	 */
+	public void setUsername(final String username) {
+		this.username = username;
 	}
 
 	@Override

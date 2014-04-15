@@ -14,10 +14,13 @@
     <string name="pref_nickname_description">you will be known as &quot;%1$s&quot;</string>
     <string name="pref_server_address_default">127.0.0.1</string>
     <string name="pref_server_address">Server Address</string>
-    <string name="pref_server_port_default">8888</string>
+    <string name="pref_server_address_description">you will be known as &quot;%1$s&quot;</string>
     <string name="pref_server_port">Server Port Number</string>
+    <string name="pref_server_port_default">8888</string>
+    <string name="pref_server_port_description">you will be known as &quot;%1$s&quot;</string>
     <string name="pref_bed_sensor_pol_interval">Polling Interval (secs)</string>
     <string name="pref_bed_sensor_pol_interval_default">5</string>
+    <string name="pref_bed_sensor_pol_interval_description">you will be known as &quot;%1$s&quot;</string>
 
     <!-- Welcome Screen -->
     <string name="welcomeScr1Heading1">Welcome To</string>

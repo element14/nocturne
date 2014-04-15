@@ -2,11 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <EditTextPreference
-        android:defaultValue="@string/pref_nickname_default"
-        android:key="pref_nickname"
-        android:singleLine="true"
-        android:title="@string/pref_nickname_title" />
-    <EditTextPreference
         android:defaultValue="@string/pref_server_address_default"
         android:key="pref_server_address"
         android:singleLine="true"

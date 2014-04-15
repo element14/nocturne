@@ -121,7 +121,7 @@ public final class DataModel extends Observable {
 			tg = new User();
 			tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
 			tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			tg.username = results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME));
+			tg.setUsername(results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;
@@ -142,7 +142,7 @@ public final class DataModel extends Observable {
 			tg = new User();
 			tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
 			tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			tg.username = results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME));
+			tg.setUsername(results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;

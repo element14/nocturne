@@ -42,6 +42,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
+import com.projectnocturne.server.SpringRestTask.RequestMethod;
 
 /**
  * this AsyncTask takes in two parameters :<br/>
@@ -53,9 +54,6 @@ import com.projectnocturne.NocturneApplication;
  * @author andy
  */
 public final class HttpRequestTask extends AsyncTask<Object, String, String> {
-	public enum RequestMethod {
-		GET, POST
-	}
 
 	private static final String LOG_TAG = HttpRequestTask.class.getSimpleName() + ":";
 
