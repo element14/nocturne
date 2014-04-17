@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.SettingsFragment;
+import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.SensorReading;
 import com.projectnocturne.datamodel.User;
 
@@ -40,7 +41,7 @@ import com.projectnocturne.datamodel.User;
  * @author andy
  * 
  */
-public final class SpringRestTask extends AsyncTask<Object, String, String> {
+public final class SpringRestTask extends AsyncTask<Object, String, RESTResponseMsg> {
 
 	public enum RequestMethod {
 		GET, POST
@@ -66,13 +67,13 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 * @see android.os.AsyncTask#doInBackground(java.lang.Object[])
 	 */
 	@Override
-	protected String doInBackground(final Object... params) {
+	protected RESTResponseMsg doInBackground(final Object... params) {
 
 		final RequestMethod reqMthd = RequestMethod.valueOf(params[0].toString());
 		final String uri = params[1].toString();
 		final String url = getServerAddress(ctx) + uri;
 
-		String retStr = "";
+		RESTResponseMsg retStr = null;
 		if (uri.equals(URI_USER_REGISTER)) {
 			retStr = doUserRegister(reqMthd, url, (User) params[2]);
 		} else if (uri.equals(URI_USERS_GET)) {
@@ -89,7 +90,8 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 * @param sensorReading
 	 * @return
 	 */
-	private String doSendSensorReading(final RequestMethod reqMthd, final String url, final SensorReading sensorReading) {
+	private RESTResponseMsg doSendSensorReading(final RequestMethod reqMthd, final String url,
+			final SensorReading sensorReading) {
 		NocturneApplication.d(LOG_TAG + "doUserRegister()");
 
 		// Create a new RestTemplate instance
@@ -101,7 +103,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 
 		// Make the HTTP POST request, marshaling the request to JSON, and the
 		// response to a String
-		final String response = restTemplate.postForObject(url, sensorReading, String.class);
+		final RESTResponseMsg response = restTemplate.postForObject(url, sensorReading, RESTResponseMsg.class);
 
 		return response;
 	}
@@ -111,7 +113,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 * @param uri
 	 * @param object
 	 */
-	private String doUserRegister(final RequestMethod reqMthd, final String url, final User user) {
+	private RESTResponseMsg doUserRegister(final RequestMethod reqMthd, final String url, final User user) {
 		NocturneApplication.d(LOG_TAG + "doUserRegister()");
 
 		String jsonStr = "";
@@ -132,9 +134,9 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 
 		// Make the HTTP POST request, marshaling the request to JSON, and the
 		// response to a String
-		String response = "";
+		RESTResponseMsg response = null;
 		try {
-			response = restTemplate.postForObject(url, user, String.class);
+			response = restTemplate.postForObject(url, user, RESTResponseMsg.class);
 		} catch (final Exception e) {
 			NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
 		}
@@ -159,8 +161,8 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 	 */
 	@Override
-	protected void onPostExecute(final String result) {
-		NocturneApplication.d(LOG_TAG + "onPostExecute(" + result + ")");
+	protected void onPostExecute(final RESTResponseMsg result) {
+		NocturneApplication.d(LOG_TAG + "onPostExecute(" + result.getStatus() + ")");
 		super.onPostExecute(result);
 	}
 
@@ -171,7 +173,6 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 */
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
 		super.onPreExecute();
 	}
 
@@ -182,7 +183,6 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 */
 	@Override
 	protected void onProgressUpdate(final String... values) {
-		// TODO Auto-generated method stub
 		super.onProgressUpdate(values);
 	}
 
