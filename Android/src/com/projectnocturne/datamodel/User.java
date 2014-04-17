@@ -17,78 +17,48 @@
  */
 package com.projectnocturne.datamodel;
 
-import java.util.ArrayList;
-
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.util.SparseArray;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class User extends AbstractDataObj {
-
-	public static final String DATABASE_TABLE_NAME = "Users";
-	public static final String FIELD_NAME_addr_line1 = "addr_line1";
-	public static final String FIELD_NAME_addr_line2 = "addr_line2";
-	public static final String FIELD_NAME_addr_line3 = "addr_line3";
-	public static final String FIELD_NAME_email1 = "email1";
-	public static final String FIELD_NAME_name_first = "name_first";
-	public static final String FIELD_NAME_name_last = "name_last";
-	public static final String FIELD_NAME_phone_home = "phone_home";
-	public static final String FIELD_NAME_phone_mbl = "phone_mbl";
-	public static final String FIELD_NAME_postcode = "postcode";
-	public static final String FIELD_NAME_STATUS = "status";
-	public static final String FIELD_NAME_USERNAME = "username";
+//if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
+@JsonIgnoreProperties(ignoreUnknown = true)
+public final class User {
 
 	@JsonProperty("addr_line1")
-	private String addr_line1 = "";
+	protected String addr_line1 = "";
 
 	@JsonProperty("addr_line2")
-	private String addr_line2 = "";
+	protected String addr_line2 = "";
 
 	@JsonProperty("addr_line3")
-	private String addr_line3 = "";
+	protected String addr_line3 = "";
 
 	@JsonProperty("email1")
-	private String email1 = "";
+	protected String email1 = "";
 
 	@JsonProperty("name_first")
-	private String name_first = "";
+	protected String name_first = "";
 
 	@JsonProperty("name_last")
-	private String name_last = "";
+	protected String name_last = "";
 
 	@JsonProperty("phone_home")
-	private String phone_home = "";
+	protected String phone_home = "";
 
 	@JsonProperty("phone_mbl")
-	private String phone_mbl = "";
+	protected String phone_mbl = "";
 
 	@JsonProperty("postcode")
-	private String postcode = "";
+	protected String postcode = "";
 
-	@JsonProperty("addr_line1")
-	private String status = "";
+	@JsonProperty("status")
+	protected String status = "";
 
 	@JsonProperty("username")
-	private String username = "";
+	protected String username = "";
 
 	public User() {
-	}
-
-	public User(final Cursor results) {
-		super(results);
-		username = results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME));
-		status = results.getString(results.getColumnIndex(User.FIELD_NAME_STATUS));
-		name_first = results.getString(results.getColumnIndex(User.FIELD_NAME_name_first));
-		name_last = results.getString(results.getColumnIndex(User.FIELD_NAME_name_last));
-		email1 = results.getString(results.getColumnIndex(User.FIELD_NAME_email1));
-		phone_mbl = results.getString(results.getColumnIndex(User.FIELD_NAME_phone_mbl));
-		phone_home = results.getString(results.getColumnIndex(User.FIELD_NAME_phone_mbl));
-		addr_line1 = results.getString(results.getColumnIndex(User.FIELD_NAME_addr_line1));
-		addr_line2 = results.getString(results.getColumnIndex(User.FIELD_NAME_addr_line2));
-		addr_line3 = results.getString(results.getColumnIndex(User.FIELD_NAME_addr_line3));
-		postcode = results.getString(results.getColumnIndex(User.FIELD_NAME_postcode));
+		super();
 	}
 
 	/**
@@ -112,46 +82,11 @@ public final class User extends AbstractDataObj {
 		return addr_line3;
 	}
 
-	@Override
-	public ContentValues getContentValues() {
-		final ContentValues cv = super.getContentValues();
-		cv.put(User.FIELD_NAME_USERNAME, username);
-		cv.put(User.FIELD_NAME_STATUS, status);
-		cv.put(User.FIELD_NAME_name_first, name_first);
-		cv.put(User.FIELD_NAME_name_last, name_last);
-		cv.put(User.FIELD_NAME_email1, email1);
-		cv.put(User.FIELD_NAME_phone_mbl, phone_mbl);
-		cv.put(User.FIELD_NAME_phone_home, phone_home);
-		cv.put(User.FIELD_NAME_addr_line1, addr_line1);
-		cv.put(User.FIELD_NAME_addr_line2, addr_line2);
-		cv.put(User.FIELD_NAME_addr_line3, addr_line3);
-		cv.put(User.FIELD_NAME_postcode, postcode);
-		return cv;
-	}
-
 	/**
 	 * @return the email1
 	 */
 	public String getEmail1() {
 		return email1;
-	}
-
-	@Override
-	public SparseArray<ArrayList<String>> getFields() {
-		final SparseArray<ArrayList<String>> fldList = super.getFields();
-		int x = fldList.size();
-		fldList.put(x++, getArrayList(User.FIELD_NAME_USERNAME, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_STATUS, "VARCHAR(25) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_name_first, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_name_last, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_email1, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_phone_mbl, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_phone_home, "VARCHAR(255) NOT NULL"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_addr_line1, "VARCHAR(255)"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_addr_line2, "VARCHAR(255)"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_addr_line3, "VARCHAR(255)"));
-		fldList.put(x++, getArrayList(User.FIELD_NAME_postcode, "VARCHAR(255)"));
-		return fldList;
 	}
 
 	/**
@@ -189,20 +124,11 @@ public final class User extends AbstractDataObj {
 		return postcode;
 	}
 
-	public String getSelectByUsername() {
-		return "select * from " + getTableName() + " where " + User.FIELD_NAME_USERNAME + "=?";
-	}
-
 	/**
 	 * @return the status
 	 */
 	public String getStatus() {
 		return status;
-	}
-
-	@Override
-	public String getTableName() {
-		return User.DATABASE_TABLE_NAME;
 	}
 
 	/**

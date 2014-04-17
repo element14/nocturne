@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -14,7 +14,8 @@
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
  * 
- */package com.projectnocturne.datamodel;
+ */
+package com.projectnocturne.datamodel;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,13 +29,13 @@ import android.util.Log;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private boolean firstTimeThrough = true;
 	private static final String DATABASE_EXT = ".db";
 	private static final String DATABASE_NAME = "NocturneDb";
-
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
 	private static final int DATABASE_VERSION = 1;
+
+	private boolean firstTimeThrough = true;
 
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE_NAME + DATABASE_EXT, null, DATABASE_VERSION);
@@ -46,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(new Condition().getSqlCreate());
 		db.execSQL(new Sensor().getSqlCreate());
 		db.execSQL(new SensorTimePeriods().getSqlCreate());
-		db.execSQL(new User().getSqlCreate());
+		db.execSQL(new UserDb().getSqlCreate());
 		db.execSQL(new UserCondition().getSqlCreate());
 		db.execSQL(new UserConnect().getSqlCreate());
 		db.execSQL(new UserSensors().getSqlCreate());
@@ -58,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(new Condition().getSqlUpdateFromV001());
 		db.execSQL(new Sensor().getSqlUpdateFromV001());
 		db.execSQL(new SensorTimePeriods().getSqlUpdateFromV001());
-		db.execSQL(new User().getSqlUpdateFromV001());
+		db.execSQL(new UserDb().getSqlUpdateFromV001());
 		db.execSQL(new UserCondition().getSqlUpdateFromV001());
 		db.execSQL(new UserConnect().getSqlUpdateFromV001());
 		db.execSQL(new UserSensors().getSqlUpdateFromV001());
@@ -70,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(new Condition().getSqlUpdateFromV002());
 		db.execSQL(new Sensor().getSqlUpdateFromV002());
 		db.execSQL(new SensorTimePeriods().getSqlUpdateFromV002());
-		db.execSQL(new User().getSqlUpdateFromV002());
+		db.execSQL(new UserDb().getSqlUpdateFromV002());
 		db.execSQL(new UserCondition().getSqlUpdateFromV002());
 		db.execSQL(new UserConnect().getSqlUpdateFromV002());
 		db.execSQL(new UserSensors().getSqlUpdateFromV002());
@@ -82,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + new Condition().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new Sensor().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new SensorTimePeriods().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new User().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new UserDb().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new UserCondition().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new UserConnect().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new UserSensors().getTableName());

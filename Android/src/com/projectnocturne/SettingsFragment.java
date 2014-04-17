@@ -26,12 +26,12 @@ import android.preference.PreferenceManager;
 
 public final class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
-	public static final String PREF_SERVER_ADDRESS = "pref_server_address";
-	public static final String PREF_SERVER_ADDRESS_DEFAULT = "127.0.0.1";
-	public static final String PREF_SERVER_PORT = "pref_server_port";
-	public static final String PREF_SERVER_PORT_DEFAULT = "9090";
 	public static final String PREF_BED_SENSOR_POL_INTERVAL = "pref_bed_sensor_pol_interval";
 	public static final String PREF_BED_SENSOR_POL_INTERVAL_DEFAULT = "5";
+	public static final String PREF_SERVER_ADDRESS = "pref_server_address";
+	public static final String PREF_SERVER_ADDRESS_DEFAULT = "192.168.1.214";
+	public static final String PREF_SERVER_PORT = "pref_server_port";
+	public static final String PREF_SERVER_PORT_DEFAULT = "9090";
 
 	private String formatTimeStr(final String timeStr) {
 		String frmtdStr = "";

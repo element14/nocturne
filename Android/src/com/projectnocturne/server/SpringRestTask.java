@@ -28,6 +28,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.SettingsFragment;
 import com.projectnocturne.datamodel.SensorReading;
@@ -111,22 +114,35 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	private String doUserRegister(final RequestMethod reqMthd, final String url, final User user) {
 		NocturneApplication.d(LOG_TAG + "doUserRegister()");
 
+		String jsonStr = "";
+		try {
+			final ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+			jsonStr = mapper.writeValueAsString(user);
+		} catch (final JsonProcessingException e1) {
+			NocturneApplication.e(LOG_TAG + "doUserRegister() exception converting user to json", e1);
+		}
+
 		// Create a new RestTemplate instance
 		final RestTemplate restTemplate = new RestTemplate();
 
-		// Add the Jackson and String message converters
+		// Add the JSON and String message converters
 		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
 		// Make the HTTP POST request, marshaling the request to JSON, and the
 		// response to a String
-		final String response = restTemplate.postForObject(url, user, String.class);
+		String response = "";
+		try {
+			response = restTemplate.postForObject(url, user, String.class);
+		} catch (final Exception e) {
+			NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
+		}
 
 		return response;
 	}
 
 	private String getServerAddress(final Context ctx) {
-		// getting preferences from a specified file
 		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
 		final String serverAddr = "http://"
 				+ settings
@@ -144,7 +160,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, String> {
 	 */
 	@Override
 	protected void onPostExecute(final String result) {
-		// TODO Auto-generated method stub
+		NocturneApplication.d(LOG_TAG + "onPostExecute(" + result + ")");
 		super.onPostExecute(result);
 	}
 

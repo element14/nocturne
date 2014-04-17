@@ -35,6 +35,8 @@ import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.views.NocturneFragment;
 
 public final class DataModel extends Observable {
+	private static DataModel instance = new DataModel();
+
 	private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
 
 	public static DataModel getInstance() {
@@ -43,9 +45,8 @@ public final class DataModel extends Observable {
 
 	private DatabaseHelper databaseHelper = null;
 	private SQLiteDatabase db;
-	private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
 
-	private static DataModel instance = new DataModel();
+	private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
 
 	private DataModel() {
 	}
@@ -60,10 +61,11 @@ public final class DataModel extends Observable {
 	}
 
 	public User addUser(final User itm) {
-		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-		itm.localUpdates = true;
-		final long newId = db.insert(User.DATABASE_TABLE_NAME, null, itm.getContentValues());
-		itm.setUniqueIdentifier(newId);
+		final UserDb userDbObj = new UserDb(itm);
+		userDbObj.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		userDbObj.localUpdates = true;
+		final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, userDbObj.getContentValues());
+		userDbObj.setUniqueIdentifier(newId);
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
 		return itm;
 	}
@@ -106,43 +108,43 @@ public final class DataModel extends Observable {
 		return dbMetaDta.registrationStatus;
 	}
 
-	public User getUser(final int tagId) {
+	public UserDb getUser(final int tagId) {
 		final String selectionSql = BaseColumns._ID + "=?";
 		final String[] selectionArgs = new String[] { "" + tagId };
 		final String groupBy = null;
 		final String having = null;
-		final String orderBy = User.FIELD_NAME_name_first;
-		final Cursor results = db.query(User.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
+		final String orderBy = UserDb.FIELD_NAME_name_first;
+		final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
 				orderBy);
 
-		User tg = null;
+		UserDb tg = null;
 		if (results.getCount() > 0) {
 			results.moveToFirst();
-			tg = new User();
-			tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
-			tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			tg.setUsername(results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME)));
+			tg = new UserDb(results);
+			// tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
+			// tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
+			// tg.setUsername(results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;
 	}
 
-	public User getUser(final String username) {
-		final String selectionSql = User.FIELD_NAME_USERNAME + "=?";
+	public UserDb getUser(final String username) {
+		final String selectionSql = UserDb.FIELD_NAME_USERNAME + "=?";
 		final String[] selectionArgs = new String[] { username };
 		final String groupBy = null;
 		final String having = null;
-		final String orderBy = User.FIELD_NAME_name_first;
-		final Cursor results = db.query(User.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
+		final String orderBy = UserDb.FIELD_NAME_name_first;
+		final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
 				orderBy);
 
-		User tg = null;
+		UserDb tg = null;
 		if (results.getCount() > 0) {
 			results.moveToFirst();
-			tg = new User();
-			tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
-			tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			tg.setUsername(results.getString(results.getColumnIndex(User.FIELD_NAME_USERNAME)));
+			tg = new UserDb(results);
+			// tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
+			// tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
+			// tg.setUsername(results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;
