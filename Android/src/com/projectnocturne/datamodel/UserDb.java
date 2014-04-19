@@ -189,6 +189,13 @@ public final class UserDb extends AbstractDataObj {
 	}
 
 	/**
+	 * @return the userObj
+	 */
+	public User getUserObj() {
+		return userObj;
+	}
+
+	/**
 	 * @param addr_line1
 	 *            the addr_line1 to set
 	 */
@@ -274,6 +281,14 @@ public final class UserDb extends AbstractDataObj {
 	 */
 	public void setUsername(final String username) {
 		userObj.username = username;
+	}
+
+	/**
+	 * @param userObj
+	 *            the userObj to set
+	 */
+	public void setUserObj(final User userObj) {
+		this.userObj = userObj;
 	}
 
 	@Override

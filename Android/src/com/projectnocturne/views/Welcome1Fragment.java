@@ -17,7 +17,11 @@
  */
 package com.projectnocturne.views;
 
+import java.util.List;
+
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,12 +33,27 @@ import android.widget.TextView;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.datamodel.DbMetadata;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
+import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.UserDb;
 
 public class Welcome1Fragment extends NocturneFragment {
-	public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + "::";
+	private static Handler handler = new Handler() {
+		@Override
+		public void handleMessage(final Message msg) {
+			if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
+				final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+			}
+			if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
+				final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
 
+			}
+		}
+	};
+
+	public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + "::";
 	private Button btnSubscribe;
 	private boolean readyFragment;
 	TextWatcher textChangedWtchr = new TextWatcher() {
@@ -55,6 +74,7 @@ public class Welcome1Fragment extends NocturneFragment {
 	private TextView txtWelcomeScr1EmailAddress;
 	private TextView txtWelcomeScr1HomePhoneNbr;
 	private TextView txtWelcomeScr1MobilePhoneNbr;
+
 	private TextView txtWelcomeScr1PersonNameFirst;
 
 	private TextView txtWelcomeScr1PersonNameLast;
@@ -114,9 +134,9 @@ public class Welcome1Fragment extends NocturneFragment {
 	}
 
 	protected void sendSubscriptionMessage(final User usr) {
-		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), usr);
-		NocturneApplication.getInstance().getDataModel().addUser(usr);
+		final UserDb userDbObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
 		NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
+		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), handler, userDbObj);
 	}
 
 	public void update() {
@@ -125,5 +145,13 @@ public class Welcome1Fragment extends NocturneFragment {
 			return;
 		}
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
+		final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
+		if (users.size() == 1) {
+			txtWelcomeScr1PersonNameFirst.setText(users.get(0).getName_first());
+			txtWelcomeScr1PersonNameLast.setText(users.get(0).getName_last());
+			txtWelcomeScr1MobilePhoneNbr.setText(users.get(0).getPhone_mbl());
+			txtWelcomeScr1HomePhoneNbr.setText(users.get(0).getPhone_home());
+			txtWelcomeScr1EmailAddress.setText(users.get(0).getEmail1());
+		}
 	}
 }

@@ -48,8 +48,8 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 	public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
 	/**
-	 * The serialisation (saved instance state) Bundle key representing the current dropdown
-	 * position.
+	 * The serialisation (saved instance state) Bundle key representing the
+	 * current dropdown position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	AlertDetectedFragment alertDetectedFragment = null;
@@ -107,7 +107,9 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see android.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int, long)
+	 * @see
+	 * android.app.ActionBar.OnNavigationListener#onNavigationItemSelected(int,
+	 * long)
 	 */
 	@Override
 	public boolean onNavigationItemSelected(final int itemPosition, final long id) {
@@ -180,6 +182,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 			getFragmentManager().beginTransaction().replace(R.id.container, status1Fragment).commit();
 			break;
 		case REQUEST_DENIED:
+			// FIXME : ????
 			break;
 		}
 

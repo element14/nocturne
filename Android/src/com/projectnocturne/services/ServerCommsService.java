@@ -23,6 +23,8 @@ import org.apache.http.NameValuePair;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -31,6 +33,7 @@ import com.projectnocturne.SettingsFragment;
 import com.projectnocturne.datamodel.Alert;
 import com.projectnocturne.datamodel.Sensor;
 import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.UserDb;
 import com.projectnocturne.server.HttpRequestTask;
 import com.projectnocturne.server.RestUriFactory;
 import com.projectnocturne.server.RestUriFactory.RestUriType;
@@ -50,7 +53,8 @@ public final class ServerCommsService {
 		}
 
 		final SpringRestTask restReq = new SpringRestTask(ctx);
-		restReq.execute(SpringRestTask.RequestMethod.POST.toString(), SpringRestTask.URI_USER_CHECK_STATUS, obj);
+		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
+				SpringRestTask.URI_USER_CHECK_STATUS, obj);
 	}
 
 	private String getServerAddress(final Context ctx) {
@@ -77,7 +81,8 @@ public final class ServerCommsService {
 
 		final HttpRequestTask restReq = new HttpRequestTask();
 		final String serverAddr = getServerAddress(ctx);
-		restReq.execute(SpringRestTask.RequestMethod.POST.toString(), serverAddr + "alert_from_patient", uriData);
+		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
+				serverAddr + "alert_from_patient", uriData);
 	}
 
 	public void sendSensorReading(final Context ctx, final Sensor obj) {
@@ -91,13 +96,15 @@ public final class ServerCommsService {
 		}
 
 		final SpringRestTask restReq = new SpringRestTask(ctx);
-		restReq.execute(SpringRestTask.RequestMethod.POST.toString(), SpringRestTask.URI_SEND_SENSOR_READING, obj);
+		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
+				SpringRestTask.URI_SEND_SENSOR_READING, obj);
 	}
 
-	public void sendSubscriptionMessage(final Context ctx, final User user) {
+	public void sendSubscriptionMessage(final Context ctx, final Handler handler, final UserDb user) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + user.getName_first());
 
 		final SpringRestTask restReq = new SpringRestTask(ctx);
-		restReq.execute(SpringRestTask.RequestMethod.POST.toString(), SpringRestTask.URI_USER_REGISTER, user);
+		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
+				SpringRestTask.URI_USER_REGISTER, user);
 	}
 }

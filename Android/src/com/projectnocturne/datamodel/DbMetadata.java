@@ -1,20 +1,20 @@
 /**
-* <p>
-* <u><b>Copyright Notice</b></u>
-* </p><p>
-* The copyright in this document is the property of 
-* Bath Institute of Medical Engineering.
-* </p><p>
-* Without the written consent of Bath Institute of Medical Engineering
-* given by Contract or otherwise the document must not be copied, reprinted or
-* reproduced in any material form, either wholly or in part, and the contents
-* of the document or any method or technique available there from, must not be
-* disclosed to any other person whomsoever.
-*  </p><p>
-*  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
-* --------------------------------------------------------------------------
-* 
-*/
+ * <p>
+ * <u><b>Copyright Notice</b></u>
+ * </p><p>
+ * The copyright in this document is the property of 
+ * Bath Institute of Medical Engineering.
+ * </p><p>
+ * Without the written consent of Bath Institute of Medical Engineering
+ * given by Contract or otherwise the document must not be copied, reprinted or
+ * reproduced in any material form, either wholly or in part, and the contents
+ * of the document or any method or technique available there from, must not be
+ * disclosed to any other person whomsoever.
+ *  </p><p>
+ *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * --------------------------------------------------------------------------
+ * 
+ */
 package com.projectnocturne.datamodel;
 
 import java.util.ArrayList;
@@ -32,20 +32,23 @@ import android.util.SparseArray;
  */
 public class DbMetadata extends AbstractDataObj {
 	public enum RegistrationStatus {
-		NOT_STARTED, REQUEST_SENT, REQUEST_ACCEPTED, REQUEST_DENIED
+		NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT
 	}
 
-	private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
-
 	public static final String DATABASE_TABLE_NAME = "dbmetadata";
-
-	public static final String FIELD_NAME_DBMETADATA_TIMESTAMP = "db_timestamp";
-	public static final String FIELD_NAME_DBMETADATA_VERSION = "db_version";
 	public static final String FIELD_NAME_DBMETADATA_REGISTRATION_STATUS = "registration_status";
 
+	public static final String FIELD_NAME_DBMETADATA_TIMESTAMP = "db_timestamp";
+
+	public static final String FIELD_NAME_DBMETADATA_VERSION = "db_version";
+
+	private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
+	public static final int RegistrationStatus_ACCEPTED = 63353;
+	public static final int RegistrationStatus_DENIED = 63354;
+
+	public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
 	public long timestamp = 0;
 	public String version = "";
-	public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
 
 	public DbMetadata() {
 	}

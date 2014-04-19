@@ -17,21 +17,56 @@
  */
 package com.projectnocturne.datamodel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class RESTResponseMsg {
+public final class RESTResponseMsg implements Parcelable {
+
+	public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
+		@Override
+		public RESTResponseMsg createFromParcel(final Parcel in) {
+			return new RESTResponseMsg(in);
+		}
+
+		@Override
+		public RESTResponseMsg[] newArray(final int size) {
+			return new RESTResponseMsg[size];
+		}
+	};
 
 	@JsonProperty("message")
 	protected String message = "";
+
+	@JsonProperty("request")
+	protected String request = "";
 
 	@JsonProperty("status")
 	protected String status = "";
 
 	public RESTResponseMsg() {
 		super();
+	}
+
+	private RESTResponseMsg(final Parcel in) {
+		request = in.readString();
+		status = in.readString();
+		message = in.readString();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.os.Parcelable#describeContents()
+	 */
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**
@@ -67,5 +102,17 @@ public final class RESTResponseMsg {
 	@Override
 	public String toString() {
 		return status;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
+	@Override
+	public void writeToParcel(final Parcel dest, final int flags) {
+		dest.writeString(request);
+		dest.writeString(status);
+		dest.writeString(message);
 	}
 }

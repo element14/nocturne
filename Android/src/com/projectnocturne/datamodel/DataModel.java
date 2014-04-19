@@ -60,14 +60,14 @@ public final class DataModel extends Observable {
 		return itm;
 	}
 
-	public User addUser(final User itm) {
+	public UserDb addUser(final User itm) {
 		final UserDb userDbObj = new UserDb(itm);
 		userDbObj.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 		userDbObj.localUpdates = true;
 		final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, userDbObj.getContentValues());
 		userDbObj.setUniqueIdentifier(newId);
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
-		return itm;
+		return userDbObj;
 	}
 
 	public void destroy() {
@@ -150,8 +150,25 @@ public final class DataModel extends Observable {
 		return tg;
 	}
 
-	public List<User> getUsers() {
-		final List<User> users = null;
+	public List<UserDb> getUsers() {
+		final List<UserDb> users = null;
+		final String selectionSql = null;
+		final String[] selectionArgs = new String[] {};
+		final String groupBy = null;
+		final String having = null;
+		final String orderBy = UserDb.FIELD_NAME_name_first;
+		final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
+				orderBy);
+
+		results.moveToFirst();
+		UserDb tg = null;
+		final int nbrResults = results.getCount();
+		while (results.isAfterLast() == false) {
+			tg = new UserDb(results);
+			users.add(tg);
+			results.moveToNext();
+		}
+		results.close();
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsers() found [" + users.size() + "] users");
 		return users;
 	}

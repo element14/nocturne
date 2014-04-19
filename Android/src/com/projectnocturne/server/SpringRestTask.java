@@ -26,6 +26,9 @@ import org.springframework.web.client.RestTemplate;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,9 +36,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.SettingsFragment;
+import com.projectnocturne.datamodel.DbMetadata;
+import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.SensorReading;
-import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.UserDb;
 
 /**
  * @author andy
@@ -57,6 +62,11 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
 	private final Context ctx;
 
+	private Handler handler;
+	private String uri;
+
+	private String url;
+
 	public SpringRestTask(final Context contxt) {
 		ctx = contxt;
 	}
@@ -70,12 +80,12 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 	protected RESTResponseMsg doInBackground(final Object... params) {
 
 		final RequestMethod reqMthd = RequestMethod.valueOf(params[0].toString());
-		final String uri = params[1].toString();
-		final String url = getServerAddress(ctx) + uri;
+		uri = params[1].toString();
+		url = getServerAddress(ctx) + uri;
 
 		RESTResponseMsg retStr = null;
 		if (uri.equals(URI_USER_REGISTER)) {
-			retStr = doUserRegister(reqMthd, url, (User) params[2]);
+			retStr = doUserRegister(reqMthd, url, (UserDb) params[2]);
 		} else if (uri.equals(URI_USERS_GET)) {
 			// retStr = doUserRegister(reqMthd, url, (User) params[2]);
 		} else if (uri.equals(URI_SEND_SENSOR_READING)) {
@@ -113,7 +123,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 	 * @param uri
 	 * @param object
 	 */
-	private RESTResponseMsg doUserRegister(final RequestMethod reqMthd, final String url, final User user) {
+	private RESTResponseMsg doUserRegister(final RequestMethod reqMthd, final String url, final UserDb user) {
 		NocturneApplication.d(LOG_TAG + "doUserRegister()");
 
 		String jsonStr = "";
@@ -135,11 +145,20 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 		// Make the HTTP POST request, marshaling the request to JSON, and the
 		// response to a String
 		RESTResponseMsg response = null;
+		Message msg;
 		try {
 			response = restTemplate.postForObject(url, user, RESTResponseMsg.class);
+			msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
+			final Bundle b = new Bundle();
+			b.putParcelable("RESTResponseMsg", response);
+			msg.setData(b);
+			NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
 		} catch (final Exception e) {
 			NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
+			NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+			msg = handler.obtainMessage(DbMetadata.RegistrationStatus_DENIED);
 		}
+		handler.sendMessage(msg);
 
 		return response;
 	}
