@@ -36,7 +36,6 @@ import com.projectnocturne.R;
 import com.projectnocturne.datamodel.DbMetadata;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.RESTResponseMsg;
-import com.projectnocturne.datamodel.User;
 import com.projectnocturne.datamodel.UserDb;
 
 public class Welcome1Fragment extends NocturneFragment {
@@ -79,6 +78,8 @@ public class Welcome1Fragment extends NocturneFragment {
 
 	private TextView txtWelcomeScr1PersonNameLast;
 
+	UserDb userDbObj = new UserDb();
+
 	private void enableSubscribeButton() {
 		if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0
 				&& txtWelcomeScr1MobilePhoneNbr.getText().length() > 0
@@ -117,14 +118,13 @@ public class Welcome1Fragment extends NocturneFragment {
 		btnSubscribe.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				final User usr = new User();
-				usr.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
-				usr.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
-				usr.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
-				usr.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
-				usr.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
-				usr.setUsername(usr.getEmail1());
-				Welcome1Fragment.this.sendSubscriptionMessage(usr);
+				userDbObj.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
+				userDbObj.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
+				userDbObj.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
+				userDbObj.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
+				userDbObj.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
+				userDbObj.setUsername(userDbObj.getEmail1());
+				Welcome1Fragment.this.sendSubscriptionMessage(userDbObj);
 			}
 		});
 		readyFragment = true;
@@ -133,10 +133,14 @@ public class Welcome1Fragment extends NocturneFragment {
 		return v;
 	}
 
-	protected void sendSubscriptionMessage(final User usr) {
-		final UserDb userDbObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
+	protected void sendSubscriptionMessage(final UserDb usr) {
+		if (usr.getUniqueIdentifier() == -1) {
+			userDbObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
+		} else {
+			userDbObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
+		}
 		NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
-		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), handler, userDbObj);
+		NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), handler, usr);
 	}
 
 	public void update() {
@@ -147,11 +151,12 @@ public class Welcome1Fragment extends NocturneFragment {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
 		final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
 		if (users.size() == 1) {
-			txtWelcomeScr1PersonNameFirst.setText(users.get(0).getName_first());
-			txtWelcomeScr1PersonNameLast.setText(users.get(0).getName_last());
-			txtWelcomeScr1MobilePhoneNbr.setText(users.get(0).getPhone_mbl());
-			txtWelcomeScr1HomePhoneNbr.setText(users.get(0).getPhone_home());
-			txtWelcomeScr1EmailAddress.setText(users.get(0).getEmail1());
+			userDbObj = users.get(0);
+			txtWelcomeScr1PersonNameFirst.setText(userDbObj.getName_first());
+			txtWelcomeScr1PersonNameLast.setText(userDbObj.getName_last());
+			txtWelcomeScr1MobilePhoneNbr.setText(userDbObj.getPhone_mbl());
+			txtWelcomeScr1HomePhoneNbr.setText(userDbObj.getPhone_home());
+			txtWelcomeScr1EmailAddress.setText(userDbObj.getEmail1());
 		}
 	}
 }

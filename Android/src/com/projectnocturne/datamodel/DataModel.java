@@ -45,7 +45,6 @@ public final class DataModel extends Observable {
 
 	private DatabaseHelper databaseHelper = null;
 	private SQLiteDatabase db;
-
 	private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
 
 	private DataModel() {
@@ -57,17 +56,18 @@ public final class DataModel extends Observable {
 		final long newId = db.insert(SensorReading.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
+		notifyObservers();
 		return itm;
 	}
 
-	public UserDb addUser(final User itm) {
-		final UserDb userDbObj = new UserDb(itm);
-		userDbObj.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-		userDbObj.localUpdates = true;
-		final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, userDbObj.getContentValues());
-		userDbObj.setUniqueIdentifier(newId);
+	public UserDb addUser(final UserDb itm) {
+		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		itm.localUpdates = true;
+		final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
+		itm.setUniqueIdentifier(newId);
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
-		return userDbObj;
+		notifyObservers();
+		return itm;
 	}
 
 	public void destroy() {
@@ -121,9 +121,6 @@ public final class DataModel extends Observable {
 		if (results.getCount() > 0) {
 			results.moveToFirst();
 			tg = new UserDb(results);
-			// tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
-			// tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			// tg.setUsername(results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;
@@ -142,16 +139,13 @@ public final class DataModel extends Observable {
 		if (results.getCount() > 0) {
 			results.moveToFirst();
 			tg = new UserDb(results);
-			// tg.setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
-			// tg.setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-			// tg.setUsername(results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME)));
 		}
 		results.close();
 		return tg;
 	}
 
 	public List<UserDb> getUsers() {
-		final List<UserDb> users = null;
+		final List<UserDb> users = new ArrayList<UserDb>();
 		final String selectionSql = null;
 		final String[] selectionArgs = new String[] {};
 		final String groupBy = null;
@@ -169,7 +163,7 @@ public final class DataModel extends Observable {
 			results.moveToNext();
 		}
 		results.close();
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsers() found [" + users.size() + "] users");
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsers() found [" + nbrResults + "] users");
 		return users;
 	}
 
@@ -179,8 +173,8 @@ public final class DataModel extends Observable {
 			databaseHelper = new DatabaseHelper(ctx);
 		}
 		db = databaseHelper.getWritableDatabase();
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "initialise() db object " + db == null ? "NOT" : ""
-				+ " created");
+		final String logMsg = LOG_TAG + "initialise() db object " + (db == null ? "NOT" : "") + " created";
+		NocturneApplication.logMessage(Log.DEBUG, logMsg);
 	}
 
 	@Override
@@ -211,6 +205,21 @@ public final class DataModel extends Observable {
 
 	public void shutdown() {
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "shutdown()");
+	}
+
+	/**
+	 * @param itm
+	 * @return
+	 */
+	public UserDb updateUser(final UserDb itm) {
+		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
+		final String selection = BaseColumns._ID + "=?";
+		final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
+		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		itm.localUpdates = true;
+		db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(), selection, selectionArgs);
+		notifyObservers();
+		return itm;
 	}
 
 }

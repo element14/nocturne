@@ -31,11 +31,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_EXT = ".db";
 	private static final String DATABASE_NAME = "NocturneDb";
+
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
 	private static final int DATABASE_VERSION = 1;
 
-	private boolean firstTimeThrough = true;
+	private boolean firstTimeThrough = false;
 
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE_NAME + DATABASE_EXT, null, DATABASE_VERSION);
@@ -103,6 +104,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			createTables(db);
 			firstTimeThrough = false;
 		}
+		// if (dbConstants.runInDebugMode()) {
+		// try {
+		// final File dbFile = new File(db.getPath());
+		// final File extDir = Environment.getExternalStorageDirectory();
+		// final File dbFileBackup = new File(extDir + File.separator + "dbBak"
+		// + dbConstants.getDbName() + ".db");
+		// dbFileBackup.delete();
+		// FileUtilities.copyFile(dbFile, dbFileBackup);
+		// Log.d("Cmn:AbDbHelper", "database backed up to file [" +
+		// dbFileBackup.getAbsolutePath() + "]");
+		// } catch (final Exception e) {
+		// // e.printStackTrace();
+		// Log.d("Cmn:AbDbHelper", "database backup failed");
+		// }
+		// }
 	}
 
 	@Override

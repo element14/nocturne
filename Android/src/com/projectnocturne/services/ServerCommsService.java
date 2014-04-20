@@ -42,7 +42,7 @@ import com.projectnocturne.server.SpringRestTask;
 public final class ServerCommsService {
 	private static final String LOG_TAG = ServerCommsService.class.getSimpleName() + "::";
 
-	public void checkUserStatus(final Context ctx, final User obj) {
+	public void checkUserStatus(final Context ctx, final Handler handler, final User obj) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "checkUserStatus()");
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.CHECK_USER_STATUS, obj);
@@ -52,7 +52,7 @@ public final class ServerCommsService {
 			return;
 		}
 
-		final SpringRestTask restReq = new SpringRestTask(ctx);
+		final SpringRestTask restReq = new SpringRestTask(ctx, handler);
 		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
 				SpringRestTask.URI_USER_CHECK_STATUS, obj);
 	}
@@ -69,7 +69,7 @@ public final class ServerCommsService {
 		return serverAddr;
 	}
 
-	public void sendAlert(final Context ctx, final Alert obj) {
+	public void sendAlert(final Context ctx, final Handler handler, final Alert obj) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendAlert() " + obj.alert_name);
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_ALERT, obj);
@@ -85,7 +85,7 @@ public final class ServerCommsService {
 				serverAddr + "alert_from_patient", uriData);
 	}
 
-	public void sendSensorReading(final Context ctx, final Sensor obj) {
+	public void sendSensorReading(final Context ctx, final Handler handler, final Sensor obj) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSensorReading() " + obj.sensor_name);
 
 		final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.SEND_SENSOR_READING, obj);
@@ -95,7 +95,7 @@ public final class ServerCommsService {
 			return;
 		}
 
-		final SpringRestTask restReq = new SpringRestTask(ctx);
+		final SpringRestTask restReq = new SpringRestTask(ctx, handler);
 		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
 				SpringRestTask.URI_SEND_SENSOR_READING, obj);
 	}
@@ -103,7 +103,7 @@ public final class ServerCommsService {
 	public void sendSubscriptionMessage(final Context ctx, final Handler handler, final UserDb user) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + user.getName_first());
 
-		final SpringRestTask restReq = new SpringRestTask(ctx);
+		final SpringRestTask restReq = new SpringRestTask(ctx, handler);
 		restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
 				SpringRestTask.URI_USER_REGISTER, user);
 	}

@@ -62,13 +62,14 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
 	private final Context ctx;
 
-	private Handler handler;
+	private final Handler handler;
 	private String uri;
 
 	private String url;
 
-	public SpringRestTask(final Context contxt) {
+	public SpringRestTask(final Context contxt, final Handler hndlr) {
 		ctx = contxt;
+		handler = hndlr;
 	}
 
 	/*
@@ -130,7 +131,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 		try {
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-			jsonStr = mapper.writeValueAsString(user);
+			jsonStr = mapper.writeValueAsString(user.getUserObj());
 		} catch (final JsonProcessingException e1) {
 			NocturneApplication.e(LOG_TAG + "doUserRegister() exception converting user to json", e1);
 		}
@@ -147,7 +148,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 		RESTResponseMsg response = null;
 		Message msg;
 		try {
-			response = restTemplate.postForObject(url, user, RESTResponseMsg.class);
+			response = restTemplate.postForObject(url, user.getUserObj(), RESTResponseMsg.class);
 			msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
 			final Bundle b = new Bundle();
 			b.putParcelable("RESTResponseMsg", response);
@@ -181,7 +182,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 	 */
 	@Override
 	protected void onPostExecute(final RESTResponseMsg result) {
-		NocturneApplication.d(LOG_TAG + "onPostExecute(" + result.getStatus() + ")");
+		NocturneApplication.d(LOG_TAG + "onPostExecute(" + (result == null ? "" : result.getStatus()) + ")");
 		super.onPostExecute(result);
 	}
 

@@ -42,7 +42,7 @@ public final class UserDb extends AbstractDataObj {
 	public static final String FIELD_NAME_STATUS = "status";
 	public static final String FIELD_NAME_USERNAME = "username";
 
-	private User userObj;
+	private User userObj = new User();
 
 	public UserDb() {
 		// Jackson requires a default constructor
@@ -50,17 +50,7 @@ public final class UserDb extends AbstractDataObj {
 
 	public UserDb(final Cursor results) {
 		super(results);
-		userObj.username = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME));
-		userObj.status = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_STATUS));
-		userObj.name_first = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_first));
-		userObj.name_last = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_last));
-		userObj.email1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_email1));
-		userObj.phone_mbl = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
-		userObj.phone_home = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
-		userObj.addr_line1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line1));
-		userObj.addr_line2 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line2));
-		userObj.addr_line3 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line3));
-		userObj.postcode = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_postcode));
+		userObj = new User(results);
 	}
 
 	public UserDb(final User user) {

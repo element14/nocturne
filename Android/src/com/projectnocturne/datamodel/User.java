@@ -17,6 +17,8 @@
  */
 package com.projectnocturne.datamodel;
 
+import android.database.Cursor;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -59,6 +61,23 @@ public final class User {
 
 	public User() {
 		super();
+	}
+
+	/**
+	 * @param results
+	 */
+	public User(final Cursor results) {
+		username = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME));
+		status = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_STATUS));
+		name_first = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_first));
+		name_last = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_last));
+		email1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_email1));
+		phone_mbl = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
+		phone_home = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
+		addr_line1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line1));
+		addr_line2 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line2));
+		addr_line3 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line3));
+		postcode = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_postcode));
 	}
 
 	/**
