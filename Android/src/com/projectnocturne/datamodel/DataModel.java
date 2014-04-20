@@ -50,10 +50,10 @@ public final class DataModel extends Observable {
 	private DataModel() {
 	}
 
-	public SensorReading addSensorReading(final SensorReading itm) {
+	public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
 		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 		itm.localUpdates = true;
-		final long newId = db.insert(SensorReading.DATABASE_TABLE_NAME, null, itm.getContentValues());
+		final long newId = db.insert(SensorReadingDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
 		itm.setUniqueIdentifier(newId);
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
 		notifyObservers();
@@ -213,12 +213,15 @@ public final class DataModel extends Observable {
 	 */
 	public UserDb updateUser(final UserDb itm) {
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
+
 		final String selection = BaseColumns._ID + "=?";
 		final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
 		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
 		itm.localUpdates = true;
+
 		db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(), selection, selectionArgs);
 		notifyObservers();
+
 		return itm;
 	}
 

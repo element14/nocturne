@@ -43,7 +43,7 @@ import android.widget.Toast;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
-import com.projectnocturne.datamodel.SensorReading;
+import com.projectnocturne.datamodel.SensorReadingDb;
 
 /**
  * This service polls the SensorTag in the background recording the SensorTag
@@ -120,11 +120,11 @@ public class SensorTagService extends Service {
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				mCharacteristicList.add(characteristic);
 
-				final SensorReading reading = new SensorReading();
-				reading.sensor_id = mBtDevice.getName() + ":" + mBtDevice.getAddress();
+				final SensorReadingDb reading = new SensorReadingDb();
+				reading.sensorReading.sensor_id = mBtDevice.getName() + ":" + mBtDevice.getAddress();
 				// FIXME : reading.sensor_value =
 				// characteristic.getIntValue(formatType, offset);
-				reading.sensor_reading_time = DateTime.now().toString("");
+				reading.sensorReading.sensor_reading_time = DateTime.now().toString("");
 				// Fire intent to update the database
 				NocturneApplication.getInstance().getDataModel().addSensorReading(reading);
 

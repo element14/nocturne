@@ -44,50 +44,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private void createTables(final SQLiteDatabase db) {
 		db.execSQL(new DbMetadata().getSqlCreate());
-		db.execSQL(new Alert().getSqlCreate());
-		db.execSQL(new Condition().getSqlCreate());
-		db.execSQL(new Sensor().getSqlCreate());
-		db.execSQL(new SensorTimePeriods().getSqlCreate());
+		db.execSQL(new AlertDb().getSqlCreate());
+		db.execSQL(new ConditionDb().getSqlCreate());
+		db.execSQL(new SensorDb().getSqlCreate());
+		db.execSQL(new SensorTimePeriodsDb().getSqlCreate());
 		db.execSQL(new UserDb().getSqlCreate());
-		db.execSQL(new UserCondition().getSqlCreate());
-		db.execSQL(new UserConnect().getSqlCreate());
-		db.execSQL(new UserSensors().getSqlCreate());
+		db.execSQL(new UserConditionDb().getSqlCreate());
+		db.execSQL(new UserConnectDb().getSqlCreate());
+		db.execSQL(new UserSensorsDb().getSqlCreate());
 	}
 
 	private void doUpgradeFrom001(final SQLiteDatabase db) {
 		db.execSQL(new DbMetadata().getSqlUpdateFromV001());
-		db.execSQL(new Alert().getSqlUpdateFromV001());
-		db.execSQL(new Condition().getSqlUpdateFromV001());
-		db.execSQL(new Sensor().getSqlUpdateFromV001());
-		db.execSQL(new SensorTimePeriods().getSqlUpdateFromV001());
+		db.execSQL(new AlertDb().getSqlUpdateFromV001());
+		db.execSQL(new ConditionDb().getSqlUpdateFromV001());
+		db.execSQL(new SensorDb().getSqlUpdateFromV001());
+		db.execSQL(new SensorTimePeriodsDb().getSqlUpdateFromV001());
 		db.execSQL(new UserDb().getSqlUpdateFromV001());
-		db.execSQL(new UserCondition().getSqlUpdateFromV001());
-		db.execSQL(new UserConnect().getSqlUpdateFromV001());
-		db.execSQL(new UserSensors().getSqlUpdateFromV001());
+		db.execSQL(new UserConditionDb().getSqlUpdateFromV001());
+		db.execSQL(new UserConnectDb().getSqlUpdateFromV001());
+		db.execSQL(new UserSensorsDb().getSqlUpdateFromV001());
 	}
 
 	private void doUpgradeFrom002(final SQLiteDatabase db) {
 		db.execSQL(new DbMetadata().getSqlUpdateFromV002());
-		db.execSQL(new Alert().getSqlUpdateFromV002());
-		db.execSQL(new Condition().getSqlUpdateFromV002());
-		db.execSQL(new Sensor().getSqlUpdateFromV002());
-		db.execSQL(new SensorTimePeriods().getSqlUpdateFromV002());
+		db.execSQL(new AlertDb().getSqlUpdateFromV002());
+		db.execSQL(new ConditionDb().getSqlUpdateFromV002());
+		db.execSQL(new SensorDb().getSqlUpdateFromV002());
+		db.execSQL(new SensorTimePeriodsDb().getSqlUpdateFromV002());
 		db.execSQL(new UserDb().getSqlUpdateFromV002());
-		db.execSQL(new UserCondition().getSqlUpdateFromV002());
-		db.execSQL(new UserConnect().getSqlUpdateFromV002());
-		db.execSQL(new UserSensors().getSqlUpdateFromV002());
+		db.execSQL(new UserConditionDb().getSqlUpdateFromV002());
+		db.execSQL(new UserConnectDb().getSqlUpdateFromV002());
+		db.execSQL(new UserSensorsDb().getSqlUpdateFromV002());
 	}
 
 	private void dropTables(final SQLiteDatabase db) {
 		db.execSQL("DROP TABLE IF EXISTS " + new DbMetadata().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new Alert().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new Condition().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new Sensor().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new SensorTimePeriods().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new AlertDb().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new ConditionDb().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new SensorDb().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new SensorTimePeriodsDb().getTableName());
 		db.execSQL("DROP TABLE IF EXISTS " + new UserDb().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new UserCondition().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new UserConnect().getTableName());
-		db.execSQL("DROP TABLE IF EXISTS " + new UserSensors().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new UserConditionDb().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new UserConnectDb().getTableName());
+		db.execSQL("DROP TABLE IF EXISTS " + new UserSensorsDb().getTableName());
 	}
 
 	@Override

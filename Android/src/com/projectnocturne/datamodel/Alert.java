@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -14,70 +14,108 @@
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
  * 
- */package com.projectnocturne.datamodel;
+ */
+package com.projectnocturne.datamodel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.provider.BaseColumns;
-import android.util.SparseArray;
+//if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
+@JsonIgnoreProperties(ignoreUnknown = true)
+public final class Alert {
 
-public final class Alert extends AbstractDataObj {
-	public static final String DATABASE_TABLE_NAME = "Alerts";
-	public static final String FIELD_NAME_USER_ID = "user_Id";
-	public static final String FIELD_NAME_ALERT_NAME = "alert_name";
-	public static final String FIELD_NAME_ALERT_DESC = "alert_desc";
-	public static final String FIELD_NAME_RESPONSE = "response";
-	public static final String FIELD_NAME_RESPONSE_SENT = "response_sent";
-
-	public long user_Id;
-	public String alert_name;
+	@JsonProperty("alert_desc")
 	public String alert_desc;
+
+	@JsonProperty("alert_name")
+	public String alert_name;
+
+	@JsonProperty("response")
 	public String response;
+
+	@JsonProperty("response_sent")
 	public boolean response_sent = false;
+
+	@JsonProperty("user_Id")
+	public long user_Id;
 
 	public Alert() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Alert(final Cursor results) {
-		setUniqueIdentifier(results.getString(results.getColumnIndex(BaseColumns._ID)));
-		setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-		user_Id = Long.parseLong(results.getString(results.getColumnIndex(FIELD_NAME_USER_ID)));
-		alert_name = results.getString(results.getColumnIndex(FIELD_NAME_ALERT_NAME));
-		alert_desc = results.getString(results.getColumnIndex(FIELD_NAME_ALERT_DESC));
-		response = results.getString(results.getColumnIndex(FIELD_NAME_RESPONSE));
-		response_sent = results.getString(results.getColumnIndex(FIELD_NAME_RESPONSE_SENT)).equalsIgnoreCase("TRUE");
+	/**
+	 * @return the alert_desc
+	 */
+	public String getAlert_desc() {
+		return alert_desc;
 	}
 
-	public Alert(final HashMap<String, String> aRow) {
-		super(aRow);
-		user_Id = Long.parseLong(aRow.get(FIELD_NAME_USER_ID));
-		alert_name = aRow.get(FIELD_NAME_ALERT_NAME);
+	/**
+	 * @return the alert_name
+	 */
+	public String getAlert_name() {
+		return alert_name;
 	}
 
-	@Override
-	public ContentValues getContentValues() {
-		final ContentValues map = super.getContentValues();
-		map.put(FIELD_NAME_USER_ID, user_Id);
-		map.put(FIELD_NAME_ALERT_NAME, alert_name);
-		return map;
+	/**
+	 * @return the response
+	 */
+	public String getResponse() {
+		return response;
 	}
 
-	@Override
-	public SparseArray<ArrayList<String>> getFields() {
-		final SparseArray<ArrayList<String>> fields = super.getFields();
-		int x = fields.size();
-		fields.put(x++, getArrayList(FIELD_NAME_USER_ID, "LONG NOT NULL"));
-		fields.put(x++, getArrayList(FIELD_NAME_ALERT_NAME, "VARCHAR(255) NOT NULL"));
-		return fields;
+	/**
+	 * @return the user_Id
+	 */
+	public long getUser_Id() {
+		return user_Id;
 	}
 
-	@Override
-	public String getTableName() {
-		return DATABASE_TABLE_NAME;
+	/**
+	 * @return the response_sent
+	 */
+	public boolean isResponse_sent() {
+		return response_sent;
+	}
+
+	/**
+	 * @param alert_desc
+	 *            the alert_desc to set
+	 */
+	public void setAlert_desc(final String alert_desc) {
+		this.alert_desc = alert_desc;
+	}
+
+	/**
+	 * @param alert_name
+	 *            the alert_name to set
+	 */
+	public void setAlert_name(final String alert_name) {
+		this.alert_name = alert_name;
+	}
+
+	/**
+	 * @param response
+	 *            the response to set
+	 */
+	public void setResponse(final String response) {
+		this.response = response;
+	}
+
+	/**
+	 * @param response_sent
+	 *            the response_sent to set
+	 */
+	public void setResponse_sent(final boolean response_sent) {
+		this.response_sent = response_sent;
+	}
+
+	/**
+	 * @param user_Id
+	 *            the user_Id to set
+	 */
+	public void setUser_Id(final long user_Id) {
+		this.user_Id = user_Id;
 	}
 
 	@Override

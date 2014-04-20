@@ -47,7 +47,6 @@ public class Welcome1Fragment extends NocturneFragment {
 			}
 			if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
 				final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-
 			}
 		}
 	};
