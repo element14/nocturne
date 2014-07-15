@@ -54,11 +54,8 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	AlertDetectedFragment alertDetectedFragment = null;
 	private NocturneApplication myApp = null;
-
 	Status1Fragment status1Fragment = null;
-
 	Welcome1Fragment welcome1Fragment = null;
-
 	Welcome2Fragment welcome2Fragment = null;
 
 	/**
