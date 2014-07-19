@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,7 +13,7 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne;
 
@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
@@ -41,7 +42,7 @@ import com.projectnocturne.views.Welcome2Fragment;
  * <li>The user selects the app from the launcher</li>
  * <li>The app detects an alert</li>
  * </ul>
- * 
+ *
  * @author aspela
  */
 public class MainActivity extends Activity implements ActionBar.OnNavigationListener {
@@ -60,7 +61,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 	/**
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -137,6 +138,38 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		final int id = item.getItemId();
+		// Handle item selection
+		switch (id) {
+		case R.id.action_settings:
+			final Intent settings = new Intent(this, SettingsActivity.class);
+			startActivity(settings);
+			break;
+		// case R.id.action_jump_to_today:
+		// planViewFrgmnt.update();
+		// break;
+		// case R.id.action_select_plan:
+		// showTrainingPlanChooser();
+		// return true;
+		// case R.id.action_help:
+		// // showHelp();
+		// break;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
 	 */
 	@Override
@@ -160,7 +193,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void showScreen() {
 		final RegistrationStatus currentRegStatus = NocturneApplication.getInstance().getDataModel()
