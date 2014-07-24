@@ -60,6 +60,10 @@
         <service android:name="com.projectnocturne.services.SensorTagService" />
         <service android:name="com.projectnocturne.StoreToDbService" />
         <service android:name="com.projectnocturne.SendToServerService" />
+
+        <provider
+            android:authorities=".contentprovider.NocturneContentProvider"
+            android:name=".NocturneContentProvider" />
     </application>
 
 </manifest>

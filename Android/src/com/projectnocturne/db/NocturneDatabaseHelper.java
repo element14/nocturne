@@ -15,31 +15,35 @@
  * --------------------------------------------------------------------------
  * 
  */
-package com.projectnocturne.datamodel;
+package com.projectnocturne.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.projectnocturne.datamodel.AlertDb;
+import com.projectnocturne.datamodel.ConditionDb;
+import com.projectnocturne.datamodel.DbMetadata;
+import com.projectnocturne.datamodel.SensorDb;
+import com.projectnocturne.datamodel.SensorTimePeriodsDb;
+import com.projectnocturne.datamodel.UserConditionDb;
+import com.projectnocturne.datamodel.UserConnectDb;
+import com.projectnocturne.datamodel.UserDb;
+import com.projectnocturne.datamodel.UserSensorsDb;
+
 /**
  * 
  * @author aspela
  * 
  */
-public class DatabaseHelper extends SQLiteOpenHelper {
-
-	private static final String DATABASE_EXT = ".db";
-	private static final String DATABASE_NAME = "NocturneDb";
-
-	// any time you make changes to your database objects, you may have to
-	// increase the database version
-	private static final int DATABASE_VERSION = 1;
+public class NocturneDatabaseHelper extends SQLiteOpenHelper {
 
 	private boolean firstTimeThrough = false;
 
-	public DatabaseHelper(final Context context) {
-		super(context, DATABASE_NAME + DATABASE_EXT, null, DATABASE_VERSION);
+	public NocturneDatabaseHelper(final Context context) {
+		super(context, NocturneDbContractConstants.NocturneConstants.DATABASE_NAME, null,
+				NocturneDbContractConstants.NocturneConstants.DATABASE_VERSION);
 	}
 
 	private void createTables(final SQLiteDatabase db) {
@@ -92,7 +96,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(final SQLiteDatabase db) {
-		Log.w("DatabaseHelper", "Creating database version " + DATABASE_VERSION);
+		Log.w("DatabaseHelper", "Creating database version "
+				+ NocturneDbContractConstants.NocturneConstants.DATABASE_VERSION);
 		createTables(db);
 	}
 

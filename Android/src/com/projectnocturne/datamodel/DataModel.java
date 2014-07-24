@@ -32,6 +32,7 @@ import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
+import com.projectnocturne.db.NocturneDatabaseHelper;
 import com.projectnocturne.views.NocturneFragment;
 
 public final class DataModel extends Observable {
@@ -43,7 +44,7 @@ public final class DataModel extends Observable {
 		return DataModel.instance;
 	}
 
-	private DatabaseHelper databaseHelper = null;
+	private NocturneDatabaseHelper databaseHelper = null;
 	private SQLiteDatabase db;
 	private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
 
@@ -170,7 +171,7 @@ public final class DataModel extends Observable {
 	public void initialise(final Context ctx) throws SQLException {
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "initialise()");
 		if (databaseHelper == null) {
-			databaseHelper = new DatabaseHelper(ctx);
+			databaseHelper = new NocturneDatabaseHelper(ctx);
 		}
 		db = databaseHelper.getWritableDatabase();
 		final String logMsg = LOG_TAG + "initialise() db object " + (db == null ? "NOT" : "") + " created";

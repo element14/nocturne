@@ -17,21 +17,32 @@
  */
 package com.projectnocturne.services;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
+import com.projectnocturne.alarmreceivers.BedAlarmReceiver;
 
 public final class BootReceiver extends BroadcastReceiver {
-	private static final String LOG_TAG = BootReceiver.class.getSimpleName();
+	private static final String LOG_TAG = BootReceiver.class.getSimpleName() + "::";
 
 	@Override
 	public void onReceive(final Context context, final Intent intent) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BootReceiver; starting project nocturne service.");
-		final Intent longSvc = new Intent(context, SensorTagService.class);
-		context.startService(longSvc);
-	}
+		if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BootReceiver; starting project nocturne service.");
 
+			// Set the alarm here.
+			AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+			Intent alrmIntent = new Intent(context, BedAlarmReceiver.class);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alrmIntent, 0);
+
+			alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, AlarmManager.INTERVAL_HALF_HOUR,
+					AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+
+		}
+	}
 }
