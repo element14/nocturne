@@ -52,23 +52,51 @@ public final class DataModel extends Observable {
 	}
 
 	public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
-		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-		itm.localUpdates = true;
-		final long newId = db.insert(SensorReadingDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
-		itm.setUniqueIdentifier(newId);
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
-		notifyObservers();
-		return itm;
+//		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+	//	itm.localUpdates = true;
+		//final long newId = db.insert(SensorReadingDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
+//		itm.setUniqueIdentifier(newId);
+//		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
+//		notifyObservers();
+//		return itm;
+		
+        ContentResolver cr = getContentResolver();
+        Log.i(TAG,"data type; " + cr.getType(NocturneSensorReadingContentProvider.CONTENT_URI));
+        ContentValues values = itm.getContentValues();
+
+        Uri insertedUri = cr.insert(NocturneSensorReadingContentProvider.CONTENT_URI, values);
+        //        get the row id - it's the last path segment in the returned uri
+        // for the inserted record
+        String lastPathSegment = insertedUri.getLastPathSegment();
+        //        save the inserted record's row id in global variable
+        insertedRecordId = Integer.valueOf(lastPathSegment);
+
+        Log.i(TAG, "Uri of inserted user: " + insertedUri);
+        return insertedRecordId;
 	}
 
 	public UserDb addUser(final UserDb itm) {
-		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-		itm.localUpdates = true;
-		final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
-		itm.setUniqueIdentifier(newId);
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
-		notifyObservers();
-		return itm;
+	//	itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+	//	itm.localUpdates = true;
+	//	final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
+	//	itm.setUniqueIdentifier(newId);
+	//	NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
+	//	notifyObservers();
+	//	return itm;		
+		
+        ContentResolver cr = getContentResolver();
+        Log.i(TAG,"data type; " + cr.getType(NocturneUserContentProvider.CONTENT_URI));
+        ContentValues values = itm.getContentValues();
+
+        Uri insertedUri = cr.insert(NocturneUserContentProvider.CONTENT_URI, values);
+        //        get the row id - it's the last path segment in the returned uri
+        // for the inserted record
+        String lastPathSegment = insertedUri.getLastPathSegment();
+        //        save the inserted record's row id in global variable
+        insertedRecordId = Integer.valueOf(lastPathSegment);
+
+        Log.i(TAG, "Uri of inserted user: " + insertedUri);
+        return insertedRecordId;
 	}
 
 	public void destroy() {
