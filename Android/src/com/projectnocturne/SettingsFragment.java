@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,7 +13,7 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne;
 
@@ -60,13 +60,13 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 		String str1Fmt = getResources().getString(R.string.pref_server_address_description);
 		String timeStr = sharedPrefs.getString(SettingsFragment.PREF_SERVER_ADDRESS,
 				SettingsFragment.PREF_SERVER_ADDRESS_DEFAULT);
-		str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+		str1Fmt = String.format(str1Fmt, timeStr);
 		connectionPref.setSummary(str1Fmt);
 
 		connectionPref = findPreference(SettingsFragment.PREF_SERVER_PORT);
 		str1Fmt = getResources().getString(R.string.pref_server_port_description);
 		timeStr = sharedPrefs.getString(SettingsFragment.PREF_SERVER_PORT, SettingsFragment.PREF_SERVER_PORT_DEFAULT);
-		str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+		str1Fmt = String.format(str1Fmt, timeStr);
 		connectionPref.setSummary(str1Fmt);
 		connectionPref.setSummary(str1Fmt);
 
@@ -74,7 +74,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 		str1Fmt = getResources().getString(R.string.pref_bed_sensor_pol_interval_description);
 		timeStr = sharedPrefs.getString(SettingsFragment.PREF_BED_SENSOR_POL_INTERVAL,
 				SettingsFragment.PREF_BED_SENSOR_POL_INTERVAL_DEFAULT);
-		str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+		str1Fmt = String.format(str1Fmt, timeStr);
 		connectionPref.setSummary(str1Fmt);
 
 	}
@@ -97,19 +97,19 @@ public final class SettingsFragment extends PreferenceFragment implements OnShar
 		if (key.equals(SettingsFragment.PREF_SERVER_ADDRESS)) {
 			String str1Fmt = getResources().getString(R.string.pref_server_address_description);
 			final String timeStr = sharedPrefs.getString(key, SettingsFragment.PREF_SERVER_ADDRESS_DEFAULT);
-			str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+			str1Fmt = String.format(str1Fmt, timeStr);
 			connectionPref.setSummary(str1Fmt);
 
 		} else if (key.equals(SettingsFragment.PREF_SERVER_PORT)) {
 			String str1Fmt = getResources().getString(R.string.pref_server_port_description);
 			final String timeStr = sharedPrefs.getString(key, SettingsFragment.PREF_SERVER_PORT_DEFAULT);
-			str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+			str1Fmt = String.format(str1Fmt, timeStr);
 			connectionPref.setSummary(str1Fmt);
 
 		} else if (key.equals(SettingsFragment.PREF_BED_SENSOR_POL_INTERVAL)) {
 			String str1Fmt = getResources().getString(R.string.pref_bed_sensor_pol_interval_description);
 			final String timeStr = sharedPrefs.getString(key, SettingsFragment.PREF_BED_SENSOR_POL_INTERVAL_DEFAULT);
-			str1Fmt = String.format(str1Fmt, formatTimeStr(timeStr));
+			str1Fmt = String.format(str1Fmt, timeStr);
 			connectionPref.setSummary(str1Fmt);
 
 		}
