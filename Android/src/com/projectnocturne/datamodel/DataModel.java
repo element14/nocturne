@@ -24,13 +24,19 @@ import java.util.Observable;
 
 import org.joda.time.DateTime;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
+import com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider;
+import com.projectnocturne.contentprovider.NocturneUserContentProvider;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.db.NocturneDatabaseHelper;
 import com.projectnocturne.views.NocturneFragment;
@@ -40,9 +46,12 @@ public final class DataModel extends Observable {
 
 	private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
 
-	public static DataModel getInstance() {
+	public static DataModel getInstance(Context ctx) {
+		instance.ctx = ctx;
 		return DataModel.instance;
 	}
+
+	private Context ctx;
 
 	private NocturneDatabaseHelper databaseHelper = null;
 	private SQLiteDatabase db;
@@ -51,52 +60,54 @@ public final class DataModel extends Observable {
 	private DataModel() {
 	}
 
-	public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
-//		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-	//	itm.localUpdates = true;
-		//final long newId = db.insert(SensorReadingDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
-//		itm.setUniqueIdentifier(newId);
-//		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addSensorReading() item id is now [" + newId + "]");
-//		notifyObservers();
-//		return itm;
-		
-        ContentResolver cr = getContentResolver();
-        Log.i(TAG,"data type; " + cr.getType(NocturneSensorReadingContentProvider.CONTENT_URI));
-        ContentValues values = itm.getContentValues();
+	public SensorReadingDb addSensorReading(SensorReadingDb itm) {
+		// itm.lastUpdated = new
+		// DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		// itm.localUpdates = true;
+		// final long newId = db.insert(SensorReadingDb.DATABASE_TABLE_NAME,
+		// null, itm.getContentValues());
+		// itm.setUniqueIdentifier(newId);
+		// NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
+		// "addSensorReading() item id is now [" + newId + "]");
+		// notifyObservers();
+		// return itm;
 
-        Uri insertedUri = cr.insert(NocturneSensorReadingContentProvider.CONTENT_URI, values);
-        //        get the row id - it's the last path segment in the returned uri
-        // for the inserted record
-        String lastPathSegment = insertedUri.getLastPathSegment();
-        //        save the inserted record's row id in global variable
-        insertedRecordId = Integer.valueOf(lastPathSegment);
+		ContentResolver cr = ctx.getContentResolver();
+		ContentValues values = itm.getContentValues();
 
-        Log.i(TAG, "Uri of inserted user: " + insertedUri);
-        return insertedRecordId;
+		Uri insertedUri = cr.insert(NocturneSensorReadingContentProvider.CONTENT_URI, values);
+		// get the row id - it's the last path segment in the returned uri
+		// for the inserted record
+		String lastPathSegment = insertedUri.getLastPathSegment();
+		// save the inserted record's row id in global variable
+		itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
+
+		return itm;
 	}
 
-	public UserDb addUser(final UserDb itm) {
-	//	itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-	//	itm.localUpdates = true;
-	//	final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null, itm.getContentValues());
-	//	itm.setUniqueIdentifier(newId);
-	//	NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "addUser() item id is now [" + newId + "]");
-	//	notifyObservers();
-	//	return itm;		
-		
-        ContentResolver cr = getContentResolver();
-        Log.i(TAG,"data type; " + cr.getType(NocturneUserContentProvider.CONTENT_URI));
-        ContentValues values = itm.getContentValues();
+	public UserDb addUser(UserDb itm) {
+		// itm.lastUpdated = new
+		// DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		// itm.localUpdates = true;
+		// final long newId = db.insert(UserDb.DATABASE_TABLE_NAME, null,
+		// itm.getContentValues());
+		// itm.setUniqueIdentifier(newId);
+		// NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
+		// "addUser() item id is now [" + newId + "]");
+		// notifyObservers();
+		// return itm;
 
-        Uri insertedUri = cr.insert(NocturneUserContentProvider.CONTENT_URI, values);
-        //        get the row id - it's the last path segment in the returned uri
-        // for the inserted record
-        String lastPathSegment = insertedUri.getLastPathSegment();
-        //        save the inserted record's row id in global variable
-        insertedRecordId = Integer.valueOf(lastPathSegment);
+		ContentResolver cr = ctx.getContentResolver();
+		ContentValues values = itm.getContentValues();
 
-        Log.i(TAG, "Uri of inserted user: " + insertedUri);
-        return insertedRecordId;
+		Uri insertedUri = cr.insert(NocturneUserContentProvider.CONTENT_URI, values);
+		// get the row id - it's the last path segment in the returned uri
+		// for the inserted record
+		String lastPathSegment = insertedUri.getLastPathSegment();
+		// save the inserted record's row id in global variable
+		itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
+
+		return itm;
 	}
 
 	public void destroy() {
@@ -157,17 +168,18 @@ public final class DataModel extends Observable {
 
 	public UserDb getUser(final String username) {
 		final String selectionSql = UserDb.FIELD_NAME_USERNAME + "=?";
-        String[] projection = null;
+		String[] projection = null;
 		final String[] selectionArgs = new String[] { username };
 		final String groupBy = null;
 		final String having = null;
 		final String orderBy = UserDb.FIELD_NAME_name_first;
-		//final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,orderBy);
-				
-        ContentResolver cr = getContentResolver();
-        Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI,recordId);
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG+"data type; " + cr.getType(recordUri));
-        Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
+		// final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
+		// selectionSql, selectionArgs, groupBy, having,orderBy);
+
+		ContentResolver cr = ctx.getContentResolver();
+		Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI, recordId);
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "data type; " + cr.getType(recordUri));
+		Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
 
 		UserDb tg = null;
 		if (results.getCount() > 0) {
@@ -180,18 +192,19 @@ public final class DataModel extends Observable {
 
 	public List<UserDb> getUsers() {
 		final List<UserDb> users = new ArrayList<UserDb>();
-        String[] projection = null;
+		String[] projection = null;
 		final String selectionSql = null;
 		final String[] selectionArgs = new String[] {};
 		final String groupBy = null;
 		final String having = null;
 		final String orderBy = UserDb.FIELD_NAME_name_first;
-	//	final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having, orderBy);				
-				
-        ContentResolver cr = getContentResolver();
-        Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI,recordId);
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG+"data type; " + cr.getType(recordUri));
-        Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
+		// final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
+		// selectionSql, selectionArgs, groupBy, having, orderBy);
+
+		ContentResolver cr = ctx.getContentResolver();
+		Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI, recordId);
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "data type; " + cr.getType(recordUri));
+		Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
 
 		results.moveToFirst();
 		UserDb tg = null;
@@ -253,25 +266,26 @@ public final class DataModel extends Observable {
 	public UserDb updateUser(final UserDb itm) {
 		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
 
-//		final String selection = BaseColumns._ID + "=?";
-//		final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
-//		itm.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-//		itm.localUpdates = true;
+		// final String selection = BaseColumns._ID + "=?";
+		// final String[] selectionArgs = {
+		// String.valueOf(itm.getUniqueIdentifier()) };
+		// itm.lastUpdated = new
+		// DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+		// itm.localUpdates = true;
 
-//		db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(), selection, selectionArgs);
-//		notifyObservers();
-//		return itm;
-		
-		
-        ContentResolver cr = getContentResolver();
-        Log.i(TAG,"data type; " + cr.getType(NocturneUserContentProvider.CONTENT_URI));
-        ContentValues values = itm.getContentValues();
+		// db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(),
+		// selection, selectionArgs);
+		// notifyObservers();
+		// return itm;
 
-        String selection = BaseColumns._ID + "=?";
-      final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
+		ContentResolver cr = ctx.getContentResolver();
+		ContentValues values = itm.getContentValues();
 
-        int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection, selectionArguments);
-        Log.i(TAG, "Number records updated: " + numberRecordsUpdated);
+		String selection = BaseColumns._ID + "=?";
+		final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
+
+		int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection, selectionArgs);
+		return itm;
 	}
 
 }
