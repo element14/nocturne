@@ -203,7 +203,7 @@ public final class NocturneApplication extends Application {
 		NocturneApplication.logMessage(Log.DEBUG, "onCreate(); application being created.");
 		NocturneApplication.singleton = this;
 		svrCommsService = new ServerCommsService();
-		dataModel = DataModel.getInstance();
+		dataModel = DataModel.getInstance(getApplicationContext());
 		try {
 			dataModel.initialise(this);
 		} catch (final SQLException ex) {

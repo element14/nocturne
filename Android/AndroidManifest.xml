@@ -62,8 +62,12 @@
         <service android:name="com.projectnocturne.SendToServerService" />
 
         <provider
-            android:authorities=".contentprovider.NocturneContentProvider"
-            android:name=".NocturneContentProvider" />
+            android:authorities=".contentprovider.NocturneSensorReadingContentProvider"
+            android:name=".NocturneSensorReadingContentProvider" android:exported="false"/>
+
+        <provider
+            android:authorities=".contentprovider.NocturneUserContentProvider"
+            android:name=".NocturneUserContentProvider" android:exported="false"/>
     </application>
 
 </manifest>

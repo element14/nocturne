@@ -25,7 +25,6 @@ import java.util.Observable;
 import org.joda.time.DateTime;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -177,9 +176,8 @@ public final class DataModel extends Observable {
 		// selectionSql, selectionArgs, groupBy, having,orderBy);
 
 		ContentResolver cr = ctx.getContentResolver();
-		Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI, recordId);
-		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "data type; " + cr.getType(recordUri));
-		Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
+		Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql, selectionArgs,
+				orderBy);
 
 		UserDb tg = null;
 		if (results.getCount() > 0) {
@@ -202,9 +200,8 @@ public final class DataModel extends Observable {
 		// selectionSql, selectionArgs, groupBy, having, orderBy);
 
 		ContentResolver cr = ctx.getContentResolver();
-		Uri recordUri = ContentUris.withAppendedId(NocturneUserContentProvider.CONTENT_URI, recordId);
-		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "data type; " + cr.getType(recordUri));
-		Cursor results = cr.query(recordUri, projection, selectionSql, selectionArgs, orderBy);
+		Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql, selectionArgs,
+				orderBy);
 
 		results.moveToFirst();
 		UserDb tg = null;
