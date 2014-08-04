@@ -19,8 +19,12 @@
 
 package com.projectnocturne.services;
 
+import static android.bluetooth.BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE;
+import static android.bluetooth.BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.joda.time.DateTime;
 
@@ -30,6 +34,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
@@ -44,6 +49,8 @@ import android.widget.Toast;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 import com.projectnocturne.datamodel.SensorReadingDb;
+import com.projectnocturne.sensortag.Sensor;
+import com.ti.sensortag.ble.WriteQueue;
 
 /**
  * This service polls the SensorTag in the background recording the SensorTag
@@ -63,18 +70,18 @@ public class SensorTagService extends Service {
 	public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
 	public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
 	public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-	private static final String BLE_DEVICE_NAME_SENSOR_TAG = "SensorTag"; // /
-																		  // the
-																		  // name
-																		  // that
-																		  // the
-																		  // sensor
-																		  // tag
-																		  // broadcasts
-																		  // for
-																		  // BLE
-																		  // GATT
-																		  // discovery
+	public static final String BLE_DEVICE_NAME_SENSOR_TAG = "SensorTag"; // /
+																		 // the
+																		 // name
+																		 // that
+																		 // the
+																		 // sensor
+																		 // tag
+																		 // broadcasts
+																		 // for
+																		 // BLE
+																		 // GATT
+																		 // discovery
 	public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
 	private static final String LOG_TAG = SensorTagService.class.getSimpleName() + "::";
 
@@ -95,28 +102,32 @@ public class SensorTagService extends Service {
 
 			if (mBtDevice.getName().equalsIgnoreCase(SensorTagService.BLE_DEVICE_NAME_SENSOR_TAG)) {
 				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
-						+ "mBleDevicesFound::onLeScan() found a SensorTag so stop scanning");
+						+ "mBleDevicesFound::onLeScan() found a [" + mBtDevice.getName()
+						+ "] so stop scanning and connect to it");
+
 				SensorTagService.this.startSensorTagFind(false);
-				mBluetoothGatt = device.connectGatt(SensorTagService.this.getApplication(), false, mGattCallback);
+				mBluetoothGattSensorTag = device.connectGatt(SensorTagService.this.getApplication(), false,
+						mGattCallbackSensorTag);
+
 			} else {
 				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
-						+ "mBleDevicesFound::onLeScan() not found a SensorTag so continue scanning");
+						+ "mBleDevicesFound::onLeScan() not a SensorTag so continue scanning");
 			}
 		}
 	};
 
 	private BluetoothAdapter mBluetoothAdapter;
-	private BluetoothGatt mBluetoothGatt;
+	private BluetoothGatt mBluetoothGattSensorTag;
 	private BluetoothDevice mBtDevice;
 	private final List<BluetoothGattCharacteristic> mCharacteristicList = new ArrayList<BluetoothGattCharacteristic>();
 
-	private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+	private final BluetoothGattCallback mGattCallbackSensorTag = new BluetoothGattCallback() {
 		@Override
 		// Result of a characteristic read operation
 		public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic,
 				final int status) {
 			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
-					+ "BluetoothGattCallback::onCharacteristicRead()");
+					+ "mGattCallbackSensorTag::onCharacteristicRead()");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				mCharacteristicList.add(characteristic);
 
@@ -138,18 +149,19 @@ public class SensorTagService extends Service {
 		@Override
 		public void onConnectionStateChange(final BluetoothGatt gatt, final int status, final int newState) {
 			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
-					+ "BluetoothGattCallback::onConnectionStateChange()");
+					+ "mGattCallbackSensorTag::onConnectionStateChange()");
 			if (newState == BluetoothProfile.STATE_CONNECTED) {
-				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG + "Connected to GATT server.");
+				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
+						+ "mGattCallbackSensorTag::onConnectionStateChange():: Connected to GATT server.");
 				NocturneApplication.logMessage(Log.INFO, SensorTagService.LOG_TAG
-						+ "BluetoothGattCallback::onConnectionStateChange()::Attempting to start service discovery:"
-						+ mBluetoothGatt.discoverServices());
+						+ "mGattCallbackSensorTag::onConnectionStateChange():: Attempting to start service discovery:"
+						+ mBluetoothGattSensorTag.discoverServices());
 
 				// FIXME : What now??
 
 			} else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
 				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
-						+ "BluetoothGattCallback::onConnectionStateChange()::Disconnected from GATT server.");
+						+ "mGattCallbackSensorTag::onConnectionStateChange()::Disconnected from GATT server.");
 
 				// FIXME : What now??
 			}
@@ -160,12 +172,29 @@ public class SensorTagService extends Service {
 		public void onServicesDiscovered(final BluetoothGatt gatt, final int status) {
 			NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 					+ "BluetoothGattCallback::onServicesDiscovered()");
+
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				NocturneApplication.logMessage(Log.DEBUG, SensorTagService.LOG_TAG
 						+ "BluetoothGattCallback::onServicesDiscovered() BluetoothGatt.GATT_SUCCESS");
-				mServiceList = mBluetoothGatt.getServices();
+				mServiceList = mBluetoothGattSensorTag.getServices();
 
 				// FIXME : What now??
+
+				final int numServices = mServiceList.size();
+				if (numServices > 0) {
+					NocturneApplication
+							.logMessage(
+									Log.DEBUG,
+									LOG_TAG
+											+ "mGattCallbackHRM::onServicesDiscovered() Skipping service discovery since we already have "
+											+ numServices + " services cached.");
+					SensorTagService.this.onServicesDiscovered(mBtDevice);
+				} else {
+
+					NocturneApplication.logMessage(Log.DEBUG, LOG_TAG
+							+ "mGattCallbackHRM::onServicesDiscovered() Attempting to start service discovery:"
+							+ mBluetoothGattSensorTag.discoverServices());
+				}
 			} else {
 				Log.w(NocturneApplication.LOG_TAG, SensorTagService.LOG_TAG
 						+ "BluetoothGattCallback::onServicesDiscovered() received: " + status);
@@ -177,6 +206,65 @@ public class SensorTagService extends Service {
 
 	private Handler mHandler;
 	private List<BluetoothGattService> mServiceList = null;
+	private final WriteQueue writeQueue = new WriteQueue();
+
+	private void changeNotificationStatus(final BluetoothGattService gattService, final Sensor sensor,
+			final boolean enable) {
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "changeNotificationStatus()");
+		writeQueue.queueRunnable(new Runnable() {
+			@Override
+			public void run() {
+				final BluetoothGattCharacteristic dataCharacteristic = gattService.getCharacteristic(sensor.getData());
+				logEvent(mBluetoothGattSensorTag.setCharacteristicNotification(dataCharacteristic, true),
+						"The notification status was changed.", "Failed to set the notification status.");
+
+				final BluetoothGattDescriptor config = dataCharacteristic.getDescriptor(UUID
+						.fromString("00002902-0000-1000-8000-00805f9b34fb"));
+				logEvent(config != null, "Unable to get config descriptor.");
+
+				final byte[] configValue = enable ? ENABLE_NOTIFICATION_VALUE : DISABLE_NOTIFICATION_VALUE;
+				final boolean success = config.setValue(configValue);
+				logEvent(success, "Could not locally store value.");
+
+				logEvent(mBluetoothGattSensorTag.writeDescriptor(config), "Initiated a write to descriptor.",
+						"Unable to initiate write.");
+			}
+		});
+	}
+
+	private void changeSensorStatus(final BluetoothGattService service, final Sensor sensor, final boolean enabled) {
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "changeSensorStatus()");
+		if (sensor == com.projectnocturne.sensortag.Sensor.SIMPLE_KEYS) { return; }
+
+		writeQueue.queueRunnable(new Runnable() {
+			@Override
+			public void run() {
+				final BluetoothGattCharacteristic config = service.getCharacteristic(sensor.getConfig());
+
+				final byte[] code = enabled ? sensor.getEnableSensorCode() : new byte[] { 0 };
+
+				final boolean successLocalySetValue = config.setValue(code);
+				logEvent(successLocalySetValue, "Unable to locally set the enable code.");
+
+				final boolean success = mBluetoothGattSensorTag.writeCharacteristic(config);
+				logEvent(success, "Unable to initiate the write that turns on/off " + sensor);
+			}
+		});
+	}
+
+	void logEvent(final boolean success, final String failureMessage) {
+		if (!success) {
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + failureMessage);
+		}
+	};
+
+	void logEvent(final boolean success, final String succesMsg, final String failureMessage) {
+		if (success) {
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG + succesMsg);
+		} else {
+			NocturneApplication.logMessage(Log.ERROR, LOG_TAG + failureMessage);
+		}
+	}
 
 	/**
 	 * (non-Javadoc)
@@ -223,6 +311,19 @@ public class SensorTagService extends Service {
 			Toast.makeText(this, R.string.ble_please_enable, Toast.LENGTH_SHORT).show();
 			final Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			getApplication().startActivity(enableBtIntent);
+		}
+	}
+
+	void onServicesDiscovered(final BluetoothDevice device) {
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "onServicesDiscovered() ");
+		for (final Sensor sensor : Sensor.values()) {
+			final BluetoothGattService gattService = mBluetoothGattSensorTag.getService(sensor.getService());
+			if (gattService != null) {
+				NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "Unable to get service for " + sensor);
+			}
+
+			changeNotificationStatus(gattService, sensor, true);
+			changeSensorStatus(gattService, sensor, true);
 		}
 	}
 

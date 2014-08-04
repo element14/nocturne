@@ -40,7 +40,7 @@ import com.projectnocturne.db.NocturneDatabaseHelper;
 public final class NocturneSensorReadingContentProvider extends ContentProvider {
 	private static final String LOG_TAG = NocturneSensorReadingContentProvider.class.getSimpleName() + "::";
 
-	public static final String AUTHORITY = "com.projectnocturne.contentprovider.NocturneContentProvider";
+	public static final String AUTHORITY = "com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider";
 	public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 	public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_URI, SensorReadingDb.DATABASE_TABLE_NAME);
 

@@ -40,8 +40,11 @@ public final class BootReceiver extends BroadcastReceiver {
 			Intent alrmIntent = new Intent(context, BedAlarmReceiver.class);
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alrmIntent, 0);
 
-			alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, AlarmManager.INTERVAL_HALF_HOUR,
-					AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+			long interval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15;
+			NocturneApplication.logMessage(Log.INFO, LOG_TAG + "startSensorTagService() setting alarm for [" + interval
+					/ 1000 + "] seconds.");
+
+			alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, interval, interval, pendingIntent);
 
 		}
 	}

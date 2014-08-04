@@ -19,6 +19,9 @@ package com.projectnocturne;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
+import com.projectnocturne.alarmreceivers.BedAlarmReceiver;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
-import com.projectnocturne.services.SensorTagService;
 import com.projectnocturne.views.AlertDetectedFragment;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
@@ -42,7 +45,7 @@ import com.projectnocturne.views.Welcome2Fragment;
  * <li>The user selects the app from the launcher</li>
  * <li>The app detects an alert</li>
  * </ul>
- *
+ * 
  * @author aspela
  */
 public class MainActivity extends Activity implements ActionBar.OnNavigationListener {
@@ -61,7 +64,7 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 	/**
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -73,18 +76,20 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 
 		// Set up the action bar to show a dropdown list.
 		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		if (actionBar != null) {
+			actionBar.setDisplayShowTitleEnabled(false);
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-		// Set up the dropdown list navigation in the action bar.
-		actionBar.setListNavigationCallbacks(
-				// Specify a SpinnerAdapter to populate the dropdown
-				// list.
-				new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
-						android.R.id.text1, new String[] { getString(R.string.title_status),
-								getString(R.string.title_connect), getString(R.string.title_connection_requests) }),
-				this);
-
+			// Set up the dropdown list navigation in the action bar.
+			actionBar
+					.setListNavigationCallbacks(
+							// Specify a SpinnerAdapter to populate the dropdown
+							// list.
+							new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1,
+									android.R.id.text1, new String[] { getString(R.string.title_status),
+											getString(R.string.title_connect),
+											getString(R.string.title_connection_requests) }), this);
+		}
 		startSensorTagService();
 
 		showScreen();
@@ -221,8 +226,17 @@ public class MainActivity extends Activity implements ActionBar.OnNavigationList
 	private void startSensorTagService() {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG
 				+ "startSensorTagService() starting sensor tag polling service.");
-		final Intent longSvc = new Intent(this, SensorTagService.class);
-		startService(longSvc);
+
+		// Set the alarm here.
+		AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+		Intent alrmIntent = new Intent(this, BedAlarmReceiver.class);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alrmIntent, 0);
+
+		long interval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30;
+		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "startSensorTagService() setting alarm for [" + interval
+				/ 1000 + "] seconds.");
+
+		alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, interval, pendingIntent);
 	}
 
 }

@@ -48,26 +48,37 @@
         </activity>
 
         <!-- sets up the scheduled alarm at boot -->
-        <receiver android:name="com.projectnocturne.services.BootReceiver" >
+        <receiver
+            android:name="com.projectnocturne.services.BootReceiver"
+            android:enabled="TRUE" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name="com.projectnocturne.alarmreceivers.BedAlarmReceiver"
+            android:enabled="true" />
 
         <service
             android:name="com.projectnocturne.services.BluetoothLeService"
             android:enabled="true" />
-        <service android:name="com.projectnocturne.services.SensorTagService" />
-        <service android:name="com.projectnocturne.StoreToDbService" />
-        <service android:name="com.projectnocturne.SendToServerService" />
+        <service android:name="com.projectnocturne.services.SensorTagService"
+            android:enabled="true"  />
+        <service android:name="com.projectnocturne.services.HrmService"
+            android:enabled="true"  />
+        <service android:name="com.projectnocturne.StoreToDbService"
+            android:enabled="true"  />
+        <service android:name="com.projectnocturne.SendToServerService" 
+            android:enabled="true" />
 
         <provider
-            android:authorities=".contentprovider.NocturneSensorReadingContentProvider"
-            android:name=".NocturneSensorReadingContentProvider" android:exported="false"/>
-
+            android:name="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
+            android:authorities="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
+            android:exported="false" />
         <provider
-            android:authorities=".contentprovider.NocturneUserContentProvider"
-            android:name=".NocturneUserContentProvider" android:exported="false"/>
+            android:name="com.projectnocturne.contentprovider.NocturneUserContentProvider"
+            android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

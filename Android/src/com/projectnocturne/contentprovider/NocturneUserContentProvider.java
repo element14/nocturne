@@ -40,7 +40,7 @@ import com.projectnocturne.db.NocturneDatabaseHelper;
 public final class NocturneUserContentProvider extends ContentProvider {
 	private static final String LOG_TAG = NocturneUserContentProvider.class.getSimpleName() + "::";
 
-	public static final String AUTHORITY = "com.projectnocturne.contentprovider.NocturneContentProvider";
+	public static final String AUTHORITY = "com.projectnocturne.contentprovider.NocturneUserContentProvider";
 	public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 	public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_URI, UserDb.DATABASE_TABLE_NAME);
 
@@ -171,8 +171,7 @@ public final class NocturneUserContentProvider extends ContentProvider {
 		switch (uriMatcher.match(uri)) {
 		case SINGLE_ROW:
 			String rowID = uri.getPathSegments().get(1);
-			selection = UserDb._ID + "=" + rowID
-					+ (!TextUtils.isEmpty(selection) ? (" AND (" + selection + ")") : "");
+			selection = UserDb._ID + "=" + rowID + (!TextUtils.isEmpty(selection) ? (" AND (" + selection + ")") : "");
 		default:
 			break;
 		}
