@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.projectnocturne"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:name="NocturneApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.projectnocturne.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+
+        <!-- sets up the scheduled alarm at boot -->
+        <receiver
+            android:name="com.projectnocturne.services.BootReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.projectnocturne.alarmreceivers.BedAlarmReceiver"
+            android:enabled="true"/>
+
+
+        <provider
+            android:name="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
+            android:authorities="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
+            android:exported="false"/>
+        <provider
+            android:name="com.projectnocturne.contentprovider.NocturneUserContentProvider"
+            android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
+            android:exported="false"/>
+    </application>
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true"/>
+
+
+</manifest>
