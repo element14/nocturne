@@ -1,0 +1,825 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0071)http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link href="./Developing REST Web Services Tutorial_files/tutorial.css" rel="stylesheet" type="text/css">
+		<title>Developing REST Web Services Tutorial</title>
+	<style type="text/css"></style></head>
+	<body>
+	<table id="background">
+	  <tbody><tr>
+	   <td align="center">
+	    <div align="left" style="padding-left: 5%;padding-top: 10px;padding-bottom: 10px;">
+		<img border="0" alt="MyEclipse Logo" src="./Developing REST Web Services Tutorial_files/ME_logo.jpg">
+		</div>
+		<table id="root" border="0" cellpadding="0" cellspacing="0">
+		 <tbody>
+		  <tr>
+		   <td style="vertical-align: top;">
+			<table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+			<tbody>
+				<tr>
+					<td colspan="4" id="title" style="vertical-align: top;" width="100%">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+								<td width="15" height="19"><img src="./Developing REST Web Services Tutorial_files/white_table_01.jpg" width="15" height="19" alt=""></td>
+								<td width="99%"><img src="./Developing REST Web Services Tutorial_files/white_table.jpg" width="100%" height="19" alt=""></td>
+								<td width="15" height="19"><img src="./Developing REST Web Services Tutorial_files/white_table_02.jpg" width="15" height="19" alt=""></td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr>
+					<td width="20px" rowspan="3">&nbsp;
+					</td>
+					<td colspan="2"><a name="top"></a><h1>Developing REST Web Services Tutorial</h1>
+					</td>
+					<td align="right" style="vertical-align: top; padding-right: 10px;" rowspan="3">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><h2>Table of Contents</h2>
+					</td>
+				</tr>
+				<tr>
+					<td width="60%" style="padding-top: 5px;">
+						<div id="outline">
+						<ol>
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#Introduction" title="Introduction">Introduction </a>
+							</li>
+
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#Requirements" title="System Requirements"> System
+									Requirements</a>
+							</li>
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#project">Creating the REST Web Service Project</a>
+							</li>
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#web_service">Creating the REST Web Service</a>
+							</li>
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#deploy">Deploying &amp; Testing the Web Service</a>
+							</li>
+							<ol></ol>
+
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#Resources" title="Resources">Resources </a>
+							</li>
+							<li>
+								<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#Feedback" title="Feedback"> Feedback</a>
+							</li>
+						</ol>
+						</div>
+									</td>
+									<td style="vertical-align:top; padding-top: 50px;"><a href="http://www.myeclipseide.com/module-htmlpages-display-pid-4.html" target="_blank"><img border="0" alt="download the latest MyEclipse version" src="./Developing REST Web Services Tutorial_files/download.jpg" width="229" height="66"></a><br><br>
+										<a href="http://www.myeclipseide.com/module-htmlpages-display-pid-8.html" target="_blank"><img border="0" alt="help and support" src="./Developing REST Web Services Tutorial_files/help.jpg" width="229" height="66"></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+					  <table id="content" style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+					   <tbody><tr>
+						<td width="25px" rowspan="7">&nbsp;
+						</td>
+						<td>
+						<br><h2>
+							1.
+							<a name="Introduction">Introduction</a>
+						</h2>
+						<p>
+							This document will outline the process of developing a REST web
+							service, deploying it to the internal MyEclipse Tomcat server and
+							testing it with the REST Web Services Explorer. The REST features
+							in MyEclipse are based on Jersey, which is the reference
+							implementation for JAX-RS, the Java API for RESTful Web Services.
+							We will be creating a simple web service which we will use to
+							maintain a list of customers.
+							<br>
+						</p>
+						<p>
+							MyEclipse also supports developing SOAP web services using
+							JAX-WS; for folks needing to develop and deploy WebSphere JAX-RPC
+							or WebSphere JAX-WS web services, please take a look at MyEclipse
+							Blue Edition.
+							<br>
+						</p>
+						<p>
+							Additional resources covering web service creation using JAX-WS
+							and JAX-RPC are included in the
+							<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#resources">Resources section</a> of this document.
+							</p><div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<p></p><br>
+						</td>
+						<td width="25px" rowspan="7">&nbsp;
+						</td>
+				</tr>
+
+				<tr>
+					<td valign="top">
+						<h2>
+							2.
+							<a name="Requirements">System Requirements</a>
+						</h2>
+						<p>
+							This tutorial was created with MyEclipse. However, if you notice portions
+							of this tutorial looking different than the screens you are
+							seeing, please
+							<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#Feedback">let us know</a> and we will make sure to
+							resolve any inconsistencies.
+							</p><div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<p></p><br>
+					</td>
+				</tr>
+
+
+
+
+
+				<tr>
+					<td valign="top">
+						<h2>
+							3.
+							<a name="project"></a>Creating the REST Web Service Project
+						</h2>
+						<p>
+							To get started we will create a simple Web Service Project by
+							selecting
+							<strong>Web Service Project</strong> from the new toolbar menu:
+						</p>
+						<p>
+							<img alt="" src="./Developing REST Web Services Tutorial_files/rest_menu_item.gif">
+							<br> 
+							Alternatively, invoke the wizard using <strong>File &gt; New &gt; Other 
+							&gt; MyEclipse &gt; Java Enterprise Projects &gt; Web Service 
+							Project</strong>. 
+						</p>
+						<p> 
+							Name the project <em>restdemo</em> and select <strong>REST (JAX-RS) </strong>from the list 
+							of frameworks. 
+						</p>
+
+						<p>
+							<img alt="" src="./Developing REST Web Services Tutorial_files/rest_webservice_project_1.gif">
+						</p>
+
+						<p> 
+							Click <strong>Next</strong> to move to page 2 of the wizard. On this page you can 
+							specify the path at which the services will be available, the 
+							name of the corresponding JAX-RS servlet and libraries which you 
+							wish to add to your project. For this project the defaults are 
+							fine, so click <strong>Finish</strong> to create the project. 
+						</p><p>
+							<img alt="" src="./Developing REST Web Services Tutorial_files/rest_webservice_project_2.gif">
+						</p>
+
+						<p>
+							<img alt="" src="./Developing REST Web Services Tutorial_files/rest_servlet.gif">
+							<br>
+							JAX-RS servlet generated in web.xml
+						</p>
+
+						<p>
+							<strong> Note:</strong> Instead of creating a new project, you 
+							may also add REST capabilities to any existing Java EE 5 Web 
+							project. From the project's context menu, select <strong>MyEclipse &gt; 
+							Add REST Capabilities...</strong> 
+							</p><div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<p></p><br>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<h2>
+							4.
+							<a name="web_service"></a>Creating the REST Web Service
+						</h2>
+						<h3><br>
+							4.1 Creating the Customer entity
+						</h3>
+						<p>
+							To start, create a simple Customer class with id, name and address
+							fields; this class represents the Customer entity we will be
+							managing with our web service. Use the
+							<strong>File &gt; New &gt; Class</strong> wizard, put <em>Customer</em> in the 
+							<strong>Name</strong> field, <em>com.myeclipseide.ws</em> in the 
+							<strong>Package</strong> field and <strong>Finish</strong> the wizard. Replace the 
+							contents of the generated class with the following code: 
+						</p>
+						<p>
+						<table class="code">
+							<tbody>
+								<tr>
+									<td class="code" style="background-color: #fff">
+										 <code>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">com.myeclipseide.ws;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.xml.bind.annotation.XmlRootElement;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#646464">@XmlRootElement</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">Customer&nbsp;</font><font color="#000000">{</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">id;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">String&nbsp;name;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">String&nbsp;address;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">getId</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">id;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">setId</font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">id</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.id&nbsp;=&nbsp;id;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getName</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">name;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">setName</font><font color="#000000">(</font><font color="#000000">String&nbsp;name</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.name&nbsp;=&nbsp;name;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;getAddress</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">address;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">setAddress</font><font color="#000000">(</font><font color="#000000">String&nbsp;address</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>this</b></font><font color="#000000">.address&nbsp;=&nbsp;address;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#000000">}</font></code>
+									</td>
+									<td style="background-color: #fff; vertical-align: top;">
+										<p>
+											In this tutorial, we will be using XML as the serialization
+											format, i.e. we will send and receive Customer entities from
+											the web service using XML.
+										</p>
+										<p>
+											The @XMLRootElement annotation on the Customer class is a
+											JAXB annotation which allows JAXB to convert this entity from
+											Java to XML and back. It is possible to annotate the fields
+											and methods within the class to customize the serialization,
+											but for our tutorial the JAXB defaults are fine.
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</p>
+						<h3><br>
+							4.2 Creating the CustomersResource class, the core of our web
+							service
+						</h3>
+						<ol>
+							<li>
+								<p>
+									Select the <em>restdemo</em> project and invoke the new web service
+									wizard from the toolbar:
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_new_ws_menu.gif">
+								</p>
+								<p> 
+									Make sure the Project combo displays the <em>restdemo</em> project and 
+									the <strong>REST (JAX-RS)</strong> framework is selected. Select <strong>Create new Java bean</strong> and 
+									click <strong>Next</strong>. 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_new_ws_page1.gif">
+								</p>
+							</li>
+							<li>
+								<p>
+									Fill out this page as shown in the following screenshot:
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_ws_class_start.gif">
+								</p>
+								<ul>
+									<li> 
+										The <strong>URL path</strong> field indicates the path at which this resource 
+										can be reached, for this tutorial, we will use <em>customers</em> as this resource manages our customer 
+										list. The resource will thus be hosted at 
+										"/customers". 
+									</li>
+									<li><strong> 
+										Singleton</strong> lifecycle ensures that only one instance of this 
+										class will created by Jersey per web-application. 
+									</li>
+									<li> 
+										The <strong>Consumes</strong> and <strong>Produces</strong> combos can be used to specify the 
+										default mime type(s) of data which this resource can accept 
+										and generate. These values can be overridden by individual 
+										methods in the class. As mentioned above, we will be 
+										serializing to XML, so we use the <strong>application/xml</strong> mime type. 
+									</li>
+
+								</ul>
+							</li>
+							<li>
+								<p>
+									Click the
+									<strong>Add</strong> button in the above dialog to add the
+									method that will fetch a list of customers. Fill out the wizard
+									that pops up like so and click
+									<strong>Finish</strong>.
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_method_get_customers.gif">
+								</p>
+								<ul>
+									<li> 
+										The <strong>HTTP method</strong> combo can be used to specify what type of HTTP 
+										request this method will respond to; in this case, we wish to 
+										respond to an HTTP GET request. 
+									</li>
+									<li> 
+										The <strong>Method Signature preview</strong> will be updated as you make 
+										changes to the page, giving you an idea of what your method 
+										will look like once generated. 
+									</li>
+								</ul>
+							</li>
+							<li>
+								<p> 
+									Click the <strong>Add</strong> button again to add a method that will return 
+									details of a specific customer. 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_method_get_customer.gif">
+								</p>
+								<ul>
+									<li> 
+										The <strong>URL path</strong> field specifies the path at which this method can 
+										be reached, relative to the containing resource. 
+										<br> 
+										In this case we specify <em>{id}</em>, which means this 
+										resource method can be reached at /customers/{id}. The curly 
+										braces denote a URI variable. These variables are substituted 
+										at runtime in order for a resource to respond to a request 
+										based on the substituted URI. 
+									</li>
+									<li> 
+										Click <strong>Add</strong> to add a method parameter which can be directly 
+										edited in the table. Since we need the value of the <em>id</em> variable, we use the <strong>PathParam</strong> annotation to 
+										map it to the <em>cId</em> parameter. 
+									</li>
+
+								</ul>
+							</li>
+							<li>
+								<p>
+									Finally, add a method which allows us to add a new customer to
+									our list.
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_method_add_customer.gif">
+								</p>
+								<ul>
+									<li> 
+										In this case, we're responding to a POST request and expect 
+										application/xml input which would be deserialized into the <em>customer</em> parameter. 
+									</li>
+									<li> 
+										The <em>customer</em> parameter is an <strong>Entity</strong> parameter (unannotated) 
+										and is mapped directly from the message body of the incoming 
+										request. 
+									</li>
+									<li> 
+										We also override the default application/xml output specified 
+										by the <em>CustomersResource</em> class and specify <strong>text/html</strong> instead. 
+									</li>
+								</ul>
+							</li>
+							<li>
+								<p>
+									After adding those 3 methods, your wizard should now look like
+									this:
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_ws_class_end.gif">
+								</p>
+								<p> 
+									Click <strong>Finish</strong> to generate the <em>CustomersResource</em> class, you will 
+									see a class with stubbed out resource methods as shown below: 
+								</p>
+								<table class="code">
+										<tbody><tr>
+											<td class="code" style="background-color: #fff">
+											<code>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">com.myeclipseide.ws;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.List;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Consumes;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.GET;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.POST;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Path;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.PathParam;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Produces;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">com.sun.jersey.spi.resource.Singleton;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#646464">@Produces</font><font color="#000000">(</font><font color="#2a00ff">"application/xml"</font><font color="#000000">)</font><br>
+<font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"customers"</font><font color="#000000">)</font><br>
+<font color="#646464">@Singleton</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">CustomersResource&nbsp;</font><font color="#000000">{</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@GET</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">List&lt;Customer&gt;&nbsp;getCustomers</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">UnsupportedOperationException</font><font color="#000000">(</font><font color="#2a00ff">"Not&nbsp;yet&nbsp;implemented."</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@GET</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"{id}"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">Customer&nbsp;getCustomer</font><font color="#000000">(</font><font color="#646464">@PathParam</font><font color="#000000">(</font><font color="#2a00ff">"id"</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">cId</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">UnsupportedOperationException</font><font color="#000000">(</font><font color="#2a00ff">"Not&nbsp;yet&nbsp;implemented."</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@POST</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"add"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Produces</font><font color="#000000">(</font><font color="#2a00ff">"text/plain"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Consumes</font><font color="#000000">(</font><font color="#2a00ff">"application/xml"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;addCustomer</font><font color="#000000">(</font><font color="#000000">Customer&nbsp;customer</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>throw&nbsp;new&nbsp;</b></font><font color="#000000">UnsupportedOperationException</font><font color="#000000">(</font><font color="#2a00ff">"Not&nbsp;yet&nbsp;implemented."</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#000000">}</font></code>
+								</td>
+								</tr>
+								</tbody></table>
+							</li>
+							<li>
+								<p>
+									We must now provide implementations for the methods created by
+									the above wizard. In a real application, at this point we would
+									probably wire in a database using JPA or Hibernate to help
+									manage our customer list, but a simple in-memory map is
+									sufficient for this tutorial.
+								</p>
+								<p> 
+									Our implementation is simple; when a customer is received 
+									by our service, we give the entity a counter based id and add 
+									it to our map. Retrieving a customer from this map by id and 
+									providing a list of customers is straightforward as you can see 
+									below. You may copy this implementation into your class; 
+									observe that the class and method signatures have not changed, 
+									all we're doing is fleshing out the generated stubs with an 
+									implementation of our service. We also add a single customer
+									to the list for demonstration purposes.
+								</p>
+								<table class="code">
+										<tbody><tr>
+											<td class="code" style="background-color: #fff">
+											<code>
+<font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">com.myeclipseide.ws;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.ArrayList;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.List;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.TreeMap;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Consumes;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.GET;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.POST;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Path;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.PathParam;</font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">javax.ws.rs.Produces;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">com.sun.jersey.spi.resource.Singleton;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#646464">@Produces</font><font color="#000000">(</font><font color="#2a00ff">"application/xml"</font><font color="#000000">)</font><br>
+<font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"customers"</font><font color="#000000">)</font><br>
+<font color="#646464">@Singleton</font><br>
+<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">CustomersResource&nbsp;</font><font color="#000000">{</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>private&nbsp;</b></font><font color="#000000">TreeMap&lt;Integer,&nbsp;Customer&gt;&nbsp;customerMap&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">TreeMap&lt;Integer,&nbsp;Customer&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">CustomersResource</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;hardcode&nbsp;a&nbsp;single&nbsp;customer&nbsp;into&nbsp;the&nbsp;database&nbsp;for&nbsp;demonstration</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;purposes</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Customer&nbsp;customer&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Customer</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">customer.setName</font><font color="#000000">(</font><font color="#2a00ff">"Harold&nbsp;Abernathy"</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">customer.setAddress</font><font color="#000000">(</font><font color="#2a00ff">"Sheffield,&nbsp;UK"</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">addCustomer</font><font color="#000000">(</font><font color="#000000">customer</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@GET</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">List&lt;Customer&gt;&nbsp;getCustomers</font><font color="#000000">()&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">List&lt;Customer&gt;&nbsp;customers&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">ArrayList&lt;Customer&gt;</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">customers.addAll</font><font color="#000000">(</font><font color="#000000">customerMap.values</font><font color="#000000">())</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">customers;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@GET</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"{id}"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">Customer&nbsp;getCustomer</font><font color="#000000">(</font><font color="#646464">@PathParam</font><font color="#000000">(</font><font color="#2a00ff">"id"</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">cId</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#000000">customerMap.get</font><font color="#000000">(</font><font color="#000000">cId</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#f8ad0b"></font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@POST</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Path</font><font color="#000000">(</font><font color="#2a00ff">"add"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Produces</font><font color="#000000">(</font><font color="#2a00ff">"text/plain"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#646464">@Consumes</font><font color="#000000">(</font><font color="#2a00ff">"application/xml"</font><font color="#000000">)</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#000000">String&nbsp;addCustomer</font><font color="#000000">(</font><font color="#000000">Customer&nbsp;customer</font><font color="#000000">)&nbsp;{</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">id&nbsp;=&nbsp;customerMap.size</font><font color="#000000">()</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">customer.setId</font><font color="#000000">(</font><font color="#000000">id</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">customerMap.put</font><font color="#000000">(</font><font color="#000000">id,&nbsp;customer</font><font color="#000000">)</font><font color="#000000">;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>return&nbsp;</b></font><font color="#2a00ff">"Customer&nbsp;"&nbsp;</font><font color="#000000">+&nbsp;customer.getName</font><font color="#000000">()&nbsp;</font><font color="#000000">+&nbsp;</font><font color="#2a00ff">"&nbsp;added&nbsp;with&nbsp;Id&nbsp;"&nbsp;</font><font color="#000000">+&nbsp;id;</font><br>
+<font color="#f8ad0b">&nbsp;&nbsp;</font><font color="#000000">}</font><br>
+<font color="#000000">}</font></code>
+							</td>
+							</tr>
+							</tbody></table>
+							</li>
+							<p>
+								<strong>Note:</strong> You can invoke the the JAX-RS Method 
+								wizard directly for any class in a REST web service project by 
+								using the <strong>Add REST Method...</strong> context menu action. Right-click in 
+								the Java editor to bring up the context menu and select <strong>Add REST 
+								Method...</strong> from the <strong>MyEclipse</strong> submenu. 
+							</p>
+							<p>
+								<img src="./Developing REST Web Services Tutorial_files/rest_add_method_menu.gif">
+							</p>
+						</ol>
+						<div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<br>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<h2>
+							5.
+							<a name="deploy"></a>Deploying &amp; Testing the Web Service
+						</h2>
+						<h3>
+							<br>
+							5.1 Deploying &amp; Running the <em>restdemo</em> Project
+						</h3>
+						<p>
+							The fastest way to deploy our web service is to deploy our web
+							project using the
+							<em>Run As</em> or
+							<em>Debug As</em> action of
+							<strong>MyEclipse Server Application</strong>. We can do that by
+							right-clicking on our project, going down to
+							<em>Debug As</em> (or
+							<em>Run As</em>) and selecting
+							<strong>MyEclipse Server Application</strong>:
+						</p>
+						<p>
+							<img src="./Developing REST Web Services Tutorial_files/rest_runas.gif">
+						</p>
+						<p>
+							If you have multiple server connectors configured, MyEclipse will
+							ask you which one you want to use, for the purpose of this
+							tutorial select
+							<strong>MyEclipse Tomcat</strong>. If you don't have any connectors
+							configured,
+							MyEclipse Tomcat will be used automatically for you to
+							deploy your project to and then run.
+							<br>
+						</p>
+						<p>
+							Now MyEclipse will perform the following steps for you
+							automatically:
+						</p>
+						<ol>
+							<li>
+								Package our web project, and deploy it in
+								<em>Exploded</em> format to the application server
+							</li>
+							<li>
+								Start the application server for us, loading our web project
+							</li>
+						</ol>
+						<p>
+							The MyEclipse Web Browser will popup and show you the default
+							<em>index.jsp</em> page of our web app, we don't actually need
+							this because we aren't testing a web page, so you can close this
+							view.
+						</p>
+
+						<h3><br>
+							5.2 Testing the Web Service with the REST Web Services Explorer
+							(PRO Only)
+						</h3>
+						<p> 
+							The easiest way to test our web service is to use the <strong>REST Web 
+							Services explorer</strong>. Since the explorer is available only to 
+							MyEclipse Professional subscribers, if you are MyEclipse Standard 
+							subscriber, please follow the instructions in section 5.3. 
+						</p>
+						<ol>
+							<li>
+								<p> 
+									Right-click the <em>restdemo</em> project and select <strong>Test with REST Web 
+									Services Explorer</strong> from the <strong>MyEclipse</strong> submenu as shown below: 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_test_menu.gif">
+								</p>
+								<p>
+									<strong>Note:</strong> If you deployed <em>restdemo</em> to an
+									application server other than MyEclipse Tomcat, the WADL URL
+									used in the explorer may contain an incorrect port, preventing
+									the explorer from loading your WADL file. Correct the port and
+									click the go button to proceed.
+								</p>
+
+								<p>
+									You may also open the REST Web Services Explorer using the drop
+									down from the main eclipse toolbar. In this case, you need to
+									manually enter the path of a WADL file in the address bar
+									before proceeding.
+								</p>
+							</li>
+							<li>
+								<p> 
+									Expand the <em>customers</em> node and select <em>{id}</em>. In the <em>id</em> field on 
+									the right, enter <em>0</em> and click Test. In the <strong>Raw View</strong> 
+									tab, observe the lone customer we have in our map being 
+									returned in XML. 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_explorer_id.gif">
+								</p>
+							</li>
+							<li>
+								<p> 
+									Let's add a customer to our list. Expand select <em>add</em> under the <em>customers</em> node. In the content area on the right, paste the 
+									following and click <strong>Test</strong>: 
+									<br>
+									<code>
+										&lt;customer&gt;
+										<br>
+										&nbsp;&nbsp;&nbsp; &lt;name&gt;Bill Adama&lt;/name&gt;
+										<br>
+										&nbsp;&nbsp;&nbsp; &lt;address&gt;Vancouver,
+										Canada&lt;/address&gt;
+										<br>
+										&lt;/customer&gt;
+									</code>
+								</p><p> 
+									The response should now say: <em>Customer Bill Adama added 
+									with Id 1</em> 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_explorer_add.gif">
+								</p>
+							</li>
+							<li>
+								<p> 
+									Select the <em>customers</em> node and click <strong>Test</strong>. The two customers in 
+									our list are returned by the service in XML. 
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_explorer_list.gif">
+								</p>
+							</li>
+
+						</ol>
+
+						<h3><br>
+							5.3 Testing the Web Service Using a Standard Browser
+						</h3>
+						<ol>
+							<li>
+								Open
+								<a href="http://localhost:8080/restdemo/services/customers/0" target="_blank">http://localhost:8080/restdemo/services/customers/0</a>
+								in your browser to see the first customer in XML.
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_firefox_single.gif">
+								</p>
+							</li>
+							<li>
+								<p>
+									To add a customer to our list, we need to send customer data to
+									the service via an HTTP POST request. You could use a Firefox
+									extension like
+									<a href="https://addons.mozilla.org/en-US/firefox/addon/2691" target="_blank">Poster</a> to make the request as shown below.
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_poster.gif">
+								</p>
+							</li>
+							<li>
+								<p>
+									Open
+									<a href="http://localhost:8080/restdemo/services/customers" target="_blank">http://localhost:8080/restdemo/services/customers</a>
+									in your browser to get a list of all customers in XML.
+								</p>
+								<p>
+									<img src="./Developing REST Web Services Tutorial_files/rest_firefox_list.gif">
+								</p>
+							</li>
+
+						</ol>
+						<p>
+							<strong>Note:</strong> If you deployed <em>restdemo</em> to an application 
+							server other than MyEclipse Tomcat, you may need to correct the 
+							port in the above links depending on your application server. 
+							</p><div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<p></p><br>
+					</td>
+				</tr>
+
+				<tr>
+					<td valign="top">
+						<h2>
+							6.
+							<a name="Resources">Resources</a>
+						</h2>
+						<p>
+							In this section we want to provide you with additional links to
+							resources that supplement the topics covered in this tutorial.
+							While this is not an exhaustive list, we do make an effort to
+							point to the more popular links that should provide you with
+							diverse, high-quality information.
+						</p>
+						<ul>
+							<li>
+								REST Resources
+								<ul>
+									<li>
+										<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/resources/restdemo.zip">restdemo.zip</a> contains the
+										<em>restdemo</em> project we created in this tutorial.
+									</li>
+									<li>
+										<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest_overview/index.html">MyEclipse
+											REST Web Services Overview</a>
+									</li>
+									<li>
+										<a href="https://jsr311.dev.java.net/" target="_blank">JSR
+											311- JAX-RS:</a> Java API for RESTful Web Services.
+									</li>
+									<li>
+										<a href="http://jersey.dev.java.net/" target="_blank">Project
+											Jersey</a> is the JAX-RS reference implementation MyEclipse uses.
+									</li>
+									<li>
+										<a href="http://docs.sun.com/app/docs/doc/820-4867?l=en" target="_blank">RESTful Web Services Developer's Guide</a>
+									</li>
+								</ul>
+							</li>
+							<li>
+								MyEclipse SOAP Web Service Tutorials
+								<ul>
+									<li>
+										<a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_jaxws/index.html"> Developing
+											JAX-WS Web Services &amp; Clients</a>
+									</li>
+									<li>
+										<a href="http://www.myeclipseide.com/documentation/quickstarts/blueedition/blue_jaxws/index.html"> Developing
+											JAX-WS Web Services for WebSphere (MyEclipse Blue Edition)</a>
+									</li>
+									<li>
+										<a href="http://www.myeclipseide.com/documentation/quickstarts/blueedition/blue_jaxrpc/index.html">
+											Developing JAX-RPC Web Services for WebSphere (MyEclipse Blue
+											Edition)</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<br>
+
+					</td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<h2>
+							7.
+							<a name="Feedback">Feedback</a>
+						</h2>
+						<p>
+							We would like to hear from you! If you liked this tutorial, have
+							some suggestions or even some corrections for us, please let us
+							know. We track all user feedback about our learning material in
+							our
+							<a href="http://www.myeclipseide.com/PNphpBB2+file-viewforum-f-6.html" title="Documentation Forum">Documentation Forum</a>.&nbsp;
+							Please be sure to let us know which piece of MyEclipse material
+							you are commenting on so we can quickly pinpoint any issues that
+							arise.
+       					</p><div align="center"><a href="http://www.myeclipseide.com/documentation/quickstarts/webservices_rest/#top" class="go_top">top</a></div>
+						<p></p><br>
+						</td>
+					   </tr>
+					  </tbody></table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	   </td>
+	  </tr>
+	</tbody></table>
+	
+
+
+</body></html>

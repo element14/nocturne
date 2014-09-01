@@ -20,6 +20,7 @@
         android:text="@string/statusScr1Heading1"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
+        android:textColor="@color/text_normal"
         android:typeface="serif" />
 
     <TextView
@@ -37,6 +38,7 @@
         android:text="@string/statusScr1Heading2"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
+        android:textColor="@color/text_normal"
         android:typeface="serif" />
 
     <TextView
@@ -50,6 +52,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="5dp"
+        android:textColor="@color/text_normal"
         android:text="@string/statusScr1Instructions" />
 
     <TextView

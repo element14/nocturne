@@ -1,0 +1,462 @@
+
+<html>
+<head>
+   <title>Simple 5.1.6</title>
+   <link href="/syntax/prettify.css" type="text/css" rel="stylesheet" />
+   <script type="text/javascript" src="/syntax/prettify.js"></script>
+   <meta name="Description" CONTENT="Simple and embeddable Java HTTP server">
+   <style type="text/css">
+   <!--
+      @import url(/styles/main.css);
+      @import url(/styles/menu.css);
+   -->
+   </style>
+</head>
+<body onload="prettyPrint()" bgcolor="#ffffff">
+<!--127.0.0.1 --><!-- --><div id="page" style="position: absolute; left: 16; top: 20; width: 710; border: 1px solid #ffffff">
+   <div id="top" style="position: relative; left: 0; top: 0;">
+      <table border="0" cellpadding="2">
+<tr>
+   <td valign="top" align="left">
+      <img src="/images/logo-small.png" alt="Simple">
+   </td>
+   <td width="100%">
+      <!-- EMPTY COLUMN -->
+   </td>
+   <td>
+      <!-- <img src="/images/java_logo.gif"> -->
+   </td>
+</tr>
+</table>
+   </div>
+
+   <div id="trail" style="position: relative; left: 5; top: 5;">
+      <font face='verdana'><a href='http://www.simpleframework.org/index.php'>Home</a> &gt;&nbsp;<a href='http://www.simpleframework.org//doc/tutorial'>Tutorial</a> &gt;&nbsp;</font>   </div>
+
+   <div id="main_menu" style="position: relative; top: 15; left: 2; z-index: 100;">
+      <script language="JavaScript" type="text/javascript" src="/menu/menu.js"></script>
+<script language="JavaScript" type="text/javascript" src="/menu/menu_items.js"></script>
+<script language="JavaScript" type="text/javascript" src="/menu/menu_tpl.js"></script>
+<script language="JavaScript" type="text/javascript">
+   <!--//
+        new menu (MENU_ITEMS, MENU_POS, MENU_STYLES);
+   //-->
+</script>
+   </div>
+
+   <div id="content" style="position: relative; left: 0; top: 55;">
+      <table border="0" cellpadding="5" cellspacing="0">
+<tr>
+      <td align="left" valign="top" width="100%">
+      <p>
+Simple is a framework, not a standalone server such as Tomcat or Jetty. 
+Instead of a ready to run application, you are provided with a framework that will 
+enable a server instance to be created and embedded within an application. An ideal platform for this
+is <a href="http://www.springframework.org/">Spring</a>, which will allow you 
+to define exactly how your application is to be assembeled. Here you will be provided
+with a basic introduction to the framework and how it can be used
+to either embed Simple into your application or create your own 
+application server based on the framework. Each section illustrates a specific
+feature of the framework, and examples are provided when required.
+</p>
+<ol>
+<li><a href='#start'>Getting started</a></li>
+<li><a href='#form'>Dealing with form data</a></li>
+<li><a href='#upload'>Uploading files</a></li>
+<li><a href='#request'>Examining the request</a></li>
+<li><a href='#async'>Asynchronous services</a></li>
+</ol>
+<br><!-- archive/getting_started.html -->
+<a name='start'></a><b>Getting started</b>
+<p>
+This tutorial begins with
+an overview of how to implement and start a very simple server.
+In order to implement your own server you will need to
+provide header information to the client describing the content, and a message 
+representing that content.
+I will assume that most readers are familiar with the <a href="http://www.ietf.org/rfc/rfc2616.txt">HTTP</a>
+protocol or are at least aware of it. Below is an implementation of 
+a server that provides a single "Hello World" plain text response. In this implementation 
+we also provide a "Content-Type" header as well as some other optional HTTP headers.
+</p>
+<p>
+<pre class="prettyprint">
+import java.io.PrintStream;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+
+import org.simpleframework.http.Request;
+import org.simpleframework.http.Response;
+import org.simpleframework.http.core.Container;
+import org.simpleframework.http.core.ContainerServer;
+import org.simpleframework.transport.Server;
+import org.simpleframework.transport.connect.Connection;
+import org.simpleframework.transport.connect.SocketConnection;
+
+public class HelloWorld implements Container {
+
+   public void handle(Request request, Response response) {
+      try {
+         PrintStream body = response.getPrintStream();
+         long time = System.currentTimeMillis();
+   
+         response.setValue("Content-Type", "text/plain");
+         response.setValue("Server", "HelloWorld/1.0 (Simple 4.0)");
+         response.setDate("Date", time);
+         response.setDate("Last-Modified", time);
+   
+         body.println("Hello World");
+         body.close();
+      } catch(Exception e) {
+         e.printStackTrace();
+      }
+   } 
+
+   public static void main(String[] list) throws Exception {
+      Container container = new HelloWorld();
+      Server server = new ContainerServer(container);
+      Connection connection = new SocketConnection(server);
+      SocketAddress address = new InetSocketAddress(8080);
+
+      connection.connect(address);
+   }
+}
+</pre>
+</p>
+<p>
+The above class implements a standalone HTTP server that will provide a 
+single static response to every request, regardless of the URL used. For
+example connecting to the following address <a href="http://localhost:8080/">http://localhost:8080/</a>
+when running the server on your desktop will provide you with the generated response.
+Thats it, a HTTP web server implemented as a single Java object.
+</p>
+<!-- archive/form_post_example.html -->
+<a name='form'></a><b>Dealing with form data</b>
+<p>
+In this section an example of how to deal with form data is provided.
+Form data is typically sent in a HTTP POST request as a result of submitting a HTML form, and contains name value pairs which provides details on what 
+actions to take and what data to use. It is provided in a 
+<a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Query.html">Query</a> object, which is essentially a 
+<a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Map.html">Map</a> of string key value pairs. 
+This query can be acquired from the <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Request.html">Request</a>
+object which represents each HTTP request event handled. Below is an example of how to acquire the query and extract a string value using an arbitrary key.
+</p>
+<p>
+<pre class="prettyprint">
+Query query = request.getQuery();
+String value = query.get(key);  
+</pre>
+</p>
+<p>
+As well as extracting single values associated with a given key, it is also possible to acquire multiple values for a given key. When multiple values are mapped to a single key value they are provided as a list of strings. The code snippet below illustrates how to acquire a list of values for a given key.
+</p>
+<p>
+<pre class="prettyprint">
+List&lt;String&gt; list = query.getAll(key); 
+String first = list.get(0); 
+String second = list.get(1); 
+</pre>
+</p>
+<p>
+Query data can also be acquired from the request, this provides the parameters sent as part of the request URI only. For example, take the URI <code>http://www.domain.com/index.html?name=value</code> which contains a single key value pair. For convenience the values can be acquired as integers, floats, or boolean values. For example, take the code snippet below.
+</p>
+<p>
+<pre class="prettyprint">
+int real = query.getInteger(key);
+int decimal = query.getFloat(key);
+</pre>
+</p>
+<p>
+For more extensive information on how form data can be acquired, take a look 
+at the <a href="http://simpleweb.svn.sourceforge.net/viewvc/simpleweb/branches/4.0/src/test/java/org/simpleframework/http/core/PostTest.java?view=markup">PostTest</a>
+unit test.
+</p>
+
+<!-- archive/file_upload.html -->
+<a name='upload'></a><b>Uploading files</b>
+<p>
+In this section an example of how the integrated file upload functionality can 
+be used is provided. Unlike the Servlet framework Simple supports <a href="http://www.ietf.org/rfc/rfc2388.txt">multipart</a>
+form encoding out of the box. This allows large files to be uploaded from HTML forms, and also
+facilitates <a href="http://www.w3.org/TR/SOAP-attachments">SOAP with Attachments</a> without any additional libraries.
+Each part of the multipart message is represented using a <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Part.html">Part</a>
+object, which contains all the headers associated with the part as well as an <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/InputStream.html">InputStream</a> that can be used to read the contents
+of the part. Below is a code snippet which shows how to acquire a part from the request and determine its file name and type.
+<pre class="prettyprint">
+Part part = request.getPart(name);
+String path = part.getFileName();
+boolean file = part.isFile();
+</pre>
+<p>
+
+In order to acquire all the parts uploaded as part of the request the list of parts can be acquired. This can be acquired from the form object and can be used to iterate over the parts. Below is a code snippet showing how to acquire the list of parts.
+</p>
+<pre class="prettyprint">
+List&lt;Part&gt; list = request.getParts();
+
+for(Part part : list) {
+   InputStream stream = part.getInputStream();
+   String name = part.getName();
+
+   if(part.isFile()) {
+      name = part.getFileName();
+   }
+   handle(name, stream);
+}
+</pre>
+<p>
+If you are only interested in the simple string values posted as part of the HTML form you can simply determine
+whether the part is a file or not and acquire the contents of the part as a string. For example, take the HTML code snippet below.
+</p>
+<p>
+<pre class="prettyprint">
+&lt;form action='/upload.html' enctype='multipart/form-data' method='post'&gt;
+  &lt;input type='text' name='subject'&gt;
+  &lt;input type='text' name='description'&gt;
+  &lt;input type='file' name='upload'&gt;
+  &lt;input type='submit'&gt;
+&lt;/form&gt;
+</pre>
+</p>
+<p>
+From the above HTML form the encoding is <code>multipart/form-data</code>, so we will receive a file named <code>upload</code> and two other text parameters. 
+Because the encoding of the data is multipart the text parameters can be acquired either as a part object, or as a normal form parameter. However, the file part is 
+accessible only as a part. This is because a file is typically either too large to convert to a string, or it contains binary content and so is best read as a 
+stream of bytes. Below is an example of how you would acquire the values submitted by this form.
+</p>
+<p>
+<pre class="prettyprint">
+String subject = request.getPart("subject").getContent();
+String description = request.getPart("description").getContent();
+Part upload = request.getPart("upload");
+String content = request.getPart("upload").getContent();
+</pre>
+</p>
+<p>
+In order to maintain compatibility with other file upload frameworks the <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Request.html">Request</a>
+input stream will still contain the unmodified byte stream sent by the browser, or in the case of SOAP, the client. This allows frameworks such as the Apache
+<a href="http://commons.apache.org/fileupload/">File Upload</a> to be used if preferred, although this will not perform as well, and is not capabile of dealing
+with arbitrary nesting of multipart bodies as you would find in SOAP protocols that use attachements, such as MM7 for example.
+</p>
+<p>
+For performance all file uploads are loaded in to memory, however it is possible to strategize this using your own custom <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/util/buffer/Allocator.html">Allocator</a>
+implementation. For an example of multipart uploads take a look 
+at the <a href="http://simpleweb.svn.sourceforge.net/viewvc/simpleweb/branches/4.0/src/test/java/org/simpleframework/http/core/UploadTest.java?view=markup">UploadTest</a>
+unit test.
+</p>
+
+
+
+<!-- archive/examining_headers.html -->
+<a name='request'></a><b>Examining the request</b>
+<p>
+The headers provided by the <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Request.html">Request</a> object can be acquired through various getter methods. Each
+method provides a different way to acquire data from the HTTP request. All header values can be acquired as integers, dates, strings, or in the case of comma separated tokens a list of strings. The following headers, which have special signifigance, can be acquired from the request using convenience
+methods.
+</p>
+<p>
+<pre class="prettyprint">
+Content-Type
+Content-Length
+Cookie
+Connection
+Accept-Language
+</pre>
+</p>
+The <code>Content-Type</code> header is used to describe the content sent from the client to the server. It allows the server to determine how to
+deal with the request body, for example, form data identified by the content type <code>application/x-www-form-urlencoded</code> is parsed by the server in order to provide parameters.
+The code snippet below provides an example of how to acquire the various parts of the content type header. As can be seen, the <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/ContentType.html">ContentType</a> interface also provides a means to acquire the character set parameter from the header.
+<p>
+<pre class="prettyprint">
+ContentType type = request.getContentType(); 
+String primary = type.getPrimary(); 
+String secondary = type.getSecondary(); 
+String charset = type.getCharset();
+</pre>
+<p>
+The <code>Accept-Language</code> header is used by the browser to convey the locale the client exists within. It provides a means for the server to 
+localize the content served. For example, someone from Germany may require content in the German language, alternatively someone from another country may require
+content in another language. It is important for the server to interpret these client preferences. In order to do so a list of <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Locale.html">Locale</a> objects can be acquired representing the client preferences. Take the code snippet below, this shows how to acquire the client language preferences.
+</p>
+<p>
+<pre class="prettyprint">
+List&lt;Locale&gt; list = request.getLocales();
+
+for(Locale locale : list) {
+   String language = locale.getLanguage();
+
+   if(isLanguage(Locale.GERMAN, language)) {
+      handleGerman(request);
+   }
+   if(isLanguage(Locale.FRENCH, language)) {
+      handleFrench(request);
+   }
+   if(isLanguage(Locale.ENGLISH, language)) {
+      handleEnglish(request);
+   }
+}
+</pre>
+</p>
+<p>
+The <code>Cookie</code> headers can be acquired as <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Cookie.html">Cookie</a> objects 
+that expose the individuals parts of the cookie. Each cookie can be acquired by the unique cookie name, once acquired the constituent parts of the cookie can 
+be examined. Below is an example of how to acquire a cookie.
+</p>
+<p>
+<pre class="prettyprint">
+Cookie cookie = request.getCookie(name);
+String path = cookie.getPath();
+String value = cookie.getValue();
+</pre>
+</p>
+<p>
+The request URI can be acquired as an <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Address.html">Address</a> object, which
+contains the query, path, and if sent, the domain, port and scheme. Typically the domain, port and scheme will only be sent if the server is used as a
+HTTP proxy server. For the most part either the relative path is sufficient. This can be acquired as a  <a href="http://www.simpleframework.org/doc/javadoc/org/simpleframework/http/Path.html">Path</a> from the request as follows.
+</p>
+<p>
+<pre class="prettyprint">
+Path path = request.getPath(); 
+String directory = path.getDirectory();
+String name = path.getName(); 
+String[] segments = path.getSegments(); 
+</pre>
+</p>
+<p>
+If a <code>Content-Length</code> header has been sent with the request this can be acquired as an integer value from
+the request object. The associated method will return the length as a positive integer if it exists, if it does not
+exist then the method will return a negative value to indicate that the length could not be determined. Also, whether the
+connection is persistent or not can be acquired through the request. This is an indication of whether the combination of
+protocol version and <code>Connection</code> header results in a persistent connection. The code below illustrates how to 
+determine the length of the content and the persistence of the connection.
+</p>
+<p>
+<pre class="prettyprint">
+int length = request.getContentLength();
+boolean persistent = request.isKeepAlive();
+</pre>
+</p>
+<p>
+Alternatively the length of the content within the request can be determined using the request input stream. The 
+number of available bytes within the stream represents the size of the content delivered. In a scenario where the
+request body is sent as a chunked encoded stream then this is typically the only means of determining length.
+</p>
+<!-- archive/asynchronous_services.html -->
+<a name='async'></a><b>Asynchronous services</b>
+<p>
+The framework supports asynchronous services and is capable of serving content in a 
+separate thread to the original servicing thread. This allows the server to scale to 
+very high loads, even when the service depends on some high latency resource to become
+available. For example, consider a scenario where your service is dependant on some
+remote process to complete a task like completion of a SOAP request or waiting for a
+JMS message to arrive. Below is a very simple and rather contrived example
+of how this can be implemented.</p>
+<p>
+<pre class="prettyprint">
+import java.io.PrintStream;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import org.simpleframework.http.Request;
+import org.simpleframework.http.Response;
+import org.simpleframework.http.core.Container;
+import org.simpleframework.http.core.ContainerServer;
+import org.simpleframework.transport.Server;
+import org.simpleframework.transport.connect.Connection;
+import org.simpleframework.transport.connect.SocketConnection;
+
+public class AsynchronousService implements Container {
+
+   public static class Task implements Runnable {
+  
+      private final Response response;
+      private final Request request;
+ 
+      public Task(Request request, Response response) {
+         this.response = response;
+         this.request = request;
+      }
+
+      public void run() {
+         try {
+            PrintStream body = response.getPrintStream();
+            long time = System.currentTimeMillis();
+   
+            response.setValue("Content-Type", "text/plain");
+            response.setValue("Server", "HelloWorld/1.0 (Simple 4.0)");
+            response.setDate("Date", time);
+            response.setDate("Last-Modified", time);
+   
+            body.println("Hello World");
+            body.close();
+         } catch(Exception e) {
+            e.printStackTrace();
+         }
+      }
+   } 
+   
+   private final Executor executor;
+
+   public AsynchronousService(int size) {
+      this.executor = Executors.newFixedThreadPool(size);
+   }
+
+   public void handle(Request request, Response response) {
+      Task task = new Task(request, response);
+      
+      executor.execute(task);
+   }
+
+   public static void main(String[] list) throws Exception {
+      Container container = new AsynchronousService(10);
+      Server server = new ContainerServer(container);
+      Connection connection = new SocketConnection(server);
+      SocketAddress address = new InetSocketAddress(8080);
+
+      connection.connect(address);
+   }
+}
+</pre>
+</p>
+<p>
+The above class illustrates how the completion of the response is not tied to the
+servicing thread. Here the response is scheduled for completion after some arbitrary
+throttle period. Such asynchronous is useful when the completion of the HTTP transaction
+requires some resource to become available.
+</p>
+<!-- pad the bottom -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+   </td>
+</tr>
+</table>
+   </div>
+
+   <div style='position: relative; visibility: hidden;'>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=62369&amp;type=5" width="105" height="31" border="0" alt="SourceForge Logo"></A>
+   </div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-7258054-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html><div style="visibility: hidden;">
+
