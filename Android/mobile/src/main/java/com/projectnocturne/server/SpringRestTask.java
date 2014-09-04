@@ -103,7 +103,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 	 */
 	private RESTResponseMsg doSendSensorReading(final RequestMethod reqMthd, final String url,
 			final SensorReading sensorReading) {
-		NocturneApplication.d(LOG_TAG + "doUserRegister()");
+		NocturneApplication.d(LOG_TAG + "doSendSensorReading()");
 
 		// Create a new RestTemplate instance
 		final RestTemplate restTemplate = new RestTemplate();
