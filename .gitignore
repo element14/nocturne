@@ -16,7 +16,6 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
-.idea/
 
 
 ### Android ###
@@ -30,20 +29,8 @@ DerivedData
 # Java class files
 *.class
 
-# generated files
-Android/bin/
-Android/gen/
-bin/
-gen/
-
 # Local configuration file (sdk path, etc)
 local.properties
 
-# Eclipse project files
-#.classpath
-#.project
-
 *~
 
-Node.js and SQLite_files/
-node_modules/

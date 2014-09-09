@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="commons-csv-20070823">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mobile/libs/commons-csv-20070823.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
