@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 19
     buildToolsVersion '20.0.0'
 
     packagingOptions {
@@ -37,7 +37,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    wearApp project(':wear')
     compile 'com.google.android.gms:play-services-wearable:5.0.77'
     compile 'com.android.support:support-v4:20.0.0'
 }
