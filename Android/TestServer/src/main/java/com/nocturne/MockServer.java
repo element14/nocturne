@@ -50,11 +50,14 @@ import org.simpleframework.transport.connect.SocketConnection;
 public class MockServer implements Container {
 
 	public static void main(final String[] list) throws Exception {
+        System.out.println("MockServer() main() starting");
 		final Container container = new MockServer();
 		final Server server = new ContainerServer(container);
 		final Connection connection = new SocketConnection(server);
 		final SocketAddress address = new InetSocketAddress(9090);
+        System.out.println("here we go");
 		connection.connect(address);
+        System.out.println("shutting down???");
 	}
 
 	private String getJsonString(final String key, final String value) {
@@ -63,6 +66,7 @@ public class MockServer implements Container {
 
 	@Override
 	public void handle(final Request request, final Response response) {
+        System.out.println("MockServer() handle() starting");
 		try {
 			final PrintStream body = response.getPrintStream();
 			final long time = System.currentTimeMillis();
@@ -90,12 +94,13 @@ public class MockServer implements Container {
 				}
 			}
 
-			response.setValue("Content-Type", "text/plain");
-			response.setValue("Server", "HelloWorld/1.0 (Simple 4.0)");
+			//response.setValue("Content-Type", "text/plain");
+			response.setValue("Content-Type", "application/json");
+			response.setValue("Server", "MockServer/1.0 (Simple 4.0)");
 			response.setDate("Date", time);
 			response.setDate("Last-Modified", time);
 
-			body.println("Hello World");
+			//body.println("Hello World");
 			body.close();
 		} catch (final Exception e) {
 			e.printStackTrace();
