@@ -39,6 +39,7 @@ import com.projectnocturne.datamodel.SensorReading;
 import com.projectnocturne.datamodel.UserDb;
 
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -89,7 +90,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
     /**
      * @param reqMthd
-     * @param uri
+     * @param url
      * @param sensorReading
      * @return
      */
@@ -131,7 +132,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         final RestTemplate restTemplate = new RestTemplate();
 
         // Add the JSON and String message converters
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         // Make the HTTP POST request, marshaling the request to JSON, and the

@@ -71,7 +71,15 @@ public class MockServer implements Container {
 			final PrintStream body = response.getPrintStream();
 			final long time = System.currentTimeMillis();
 
+			//response.setValue("Content-Type", "text/plain");
+			response.setValue("Content-Type", "application/json");
+			response.setValue("Content-Encoding", "application/json");
+			response.setValue("Server", "MockServer/1.0 (Simple 4.0)");
+			response.setDate("Date", time);
+			response.setDate("Last-Modified", time);
+
 			final ContentType type = request.getContentType();
+            System.out.println("request context-type was ["+type.toString()+"]");
 			final String primary = type.getPrimary();
 			final String secondary = type.getSecondary();
 			final String charset = type.getCharset();
@@ -93,12 +101,6 @@ public class MockServer implements Container {
 					handleRequestUserRegister(request, body);
 				}
 			}
-
-			//response.setValue("Content-Type", "text/plain");
-			response.setValue("Content-Type", "application/json");
-			response.setValue("Server", "MockServer/1.0 (Simple 4.0)");
-			response.setDate("Date", time);
-			response.setDate("Last-Modified", time);
 
 			//body.println("Hello World");
 			body.close();
