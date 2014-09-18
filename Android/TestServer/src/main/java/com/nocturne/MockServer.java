@@ -73,7 +73,7 @@ public class MockServer implements Container {
 
 			//response.setValue("Content-Type", "text/plain");
 			response.setValue("Content-Type", "application/json");
-			response.setValue("Content-Encoding", "application/json");
+			//response.setValue("Content-Encoding", "application/json");
 			response.setValue("Server", "MockServer/1.0 (Simple 4.0)");
 			response.setDate("Date", time);
 			response.setDate("Last-Modified", time);

@@ -101,6 +101,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         final RestTemplate restTemplate = new RestTemplate();
 
         // Add the Jackson and String message converters
+        restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
