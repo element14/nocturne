@@ -44,3 +44,17 @@ The app can then ping the server to get those values - I think that should be a 
 Caregiver does when viewing the settings, so that the caregiver MUST review and OK the new settings 
 (just in case something goes wonky).
 
+
+----
+
+
+Frameworks in use:
+====
+TestServer
+----
+ * Simple -  http://www.simpleframework.org/
+
+
+Android App
+----
+ * Spring RestTemplate - http://spring.io/guides/gs/consuming-rest-android/
