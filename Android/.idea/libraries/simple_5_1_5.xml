@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="simple-5.1.5">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/TestServer/libs/simple-5.1.5.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

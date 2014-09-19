@@ -12,4 +12,5 @@ jar {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/simple-5.1.6.jar')
 }

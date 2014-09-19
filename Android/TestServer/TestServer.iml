@@ -26,7 +26,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="simple-5.1.5" level="project" />
+    <orderEntry type="library" exported="" name="simple-5.1.6" level="project" />
   </component>
 </module>
 

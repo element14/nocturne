@@ -33,6 +33,7 @@ public class SettingsActivity extends PreferenceActivity {
     public static final String PREF_SERVER_ADDRESS_DEFAULT = "192.168.1.155";
     public static final String PREF_SERVER_PORT = "pref_server_port";
     public static final String PREF_SERVER_PORT_DEFAULT = "9090";
+
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown

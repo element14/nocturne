@@ -38,9 +38,9 @@ import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.SensorReading;
 import com.projectnocturne.datamodel.UserDb;
 
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -88,6 +88,19 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         return retStr;
     }
 
+    private RestTemplate getRestTemplate(){
+        // Create a new RestTemplate instance
+        final RestTemplate restTemplate = new RestTemplate();
+
+        // Add the JSON and String message converters
+        restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
+       // restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        return restTemplate;
+    }
+
     /**
      * @param reqMthd
      * @param url
@@ -98,12 +111,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         NocturneApplication.d(LOG_TAG + "doSendSensorReading()");
 
         // Create a new RestTemplate instance
-        final RestTemplate restTemplate = new RestTemplate();
-
-        // Add the Jackson and String message converters
-        restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+        final RestTemplate restTemplate = getRestTemplate();
 
         // Make the HTTP POST request, marshaling the request to JSON, and the
         // response to a String
@@ -114,8 +122,8 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
     /**
      * @param reqMthd
-     * @param uri
-     * @param object
+     * @param url
+     * @param user
      */
     private RESTResponseMsg doUserRegister(final RequestMethod reqMthd, final String url, final UserDb user) {
         NocturneApplication.d(LOG_TAG + "doUserRegister()");
@@ -130,23 +138,22 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         }
 
         // Create a new RestTemplate instance
-        final RestTemplate restTemplate = new RestTemplate();
-
-        // Add the JSON and String message converters
-        restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+        final RestTemplate restTemplate = getRestTemplate();
 
         // Make the HTTP POST request, marshaling the request to JSON, and the
         // response to a String
         RESTResponseMsg response = null;
         Message msg;
         try {
+            //response = restTemplate.postForObject("http://rest-service.guides.spring.io/greeting", user.getUserObj(), RESTResponseMsg.class);
+
             response = restTemplate.postForObject(url, user.getUserObj(), RESTResponseMsg.class);
             msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
             final Bundle b = new Bundle();
             b.putParcelable("RESTResponseMsg", response);
             msg.setData(b);
             NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+            NocturneApplication.d(LOG_TAG + "doUserRegister() success ["+response.toString()+"]");
         } catch (final Exception e) {
             NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
             NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
@@ -160,7 +167,6 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
     private String getServerAddress(final Context ctx) {
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
         String serverIpAddr = SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT;
-        serverIpAddr = "10.0.4.227";
         final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, serverIpAddr) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
         return serverAddr;
     }

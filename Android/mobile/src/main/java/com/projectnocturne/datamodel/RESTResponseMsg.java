@@ -13,7 +13,7 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
 
@@ -23,96 +23,114 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-//if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
+/**
+ * {"response": {"request":"/users/register","status":"success","message": "User registered"}}
+ * <p/>
+ * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class RESTResponseMsg implements Parcelable {
 
-	public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
-		@Override
-		public RESTResponseMsg createFromParcel(final Parcel in) {
-			return new RESTResponseMsg(in);
-		}
+    public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
+        @Override
+        public RESTResponseMsg createFromParcel(final Parcel in) {
+            return new RESTResponseMsg(in);
+        }
 
-		@Override
-		public RESTResponseMsg[] newArray(final int size) {
-			return new RESTResponseMsg[size];
-		}
-	};
+        @Override
+        public RESTResponseMsg[] newArray(final int size) {
+            return new RESTResponseMsg[size];
+        }
+    };
 
-	@JsonProperty("message")
-	protected String message = "";
+    @JsonProperty("id")
+    protected String id = "";
 
-	@JsonProperty("request")
-	protected String request = "";
+    @JsonProperty("content")
+    protected String content = "";
 
-	@JsonProperty("status")
-	protected String status = "";
+    @JsonProperty("message")
+    protected String message = "";
 
-	public RESTResponseMsg() {
-		super();
-	}
+    @JsonProperty("request")
+    protected String request = "";
 
-	private RESTResponseMsg(final Parcel in) {
-		request = in.readString();
-		status = in.readString();
-		message = in.readString();
-	}
+    @JsonProperty("status")
+    protected String status = "";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.os.Parcelable#describeContents()
-	 */
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public RESTResponseMsg() {
+        super();
+    }
 
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
+    private RESTResponseMsg(final Parcel in) {
+        id = in.readString();
+        content = in.readString();
+        request = in.readString();
+        status = in.readString();
+        message = in.readString();
+    }
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.os.Parcelable#describeContents()
+     */
+    @Override
+    public int describeContents() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	/**
-	 * @param message
-	 *            the message to set
-	 */
-	public void setMessage(final String message) {
-		this.message = message;
-	}
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(final String status) {
-		this.status = status;
-	}
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(final String message) {
+        this.message = message;
+    }
 
-	@Override
-	public String toString() {
-		return status;
-	}
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-	 */
-	@Override
-	public void writeToParcel(final Parcel dest, final int flags) {
-		dest.writeString(request);
-		dest.writeString(status);
-		dest.writeString(message);
-	}
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(final String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+
+        String tmpStr = "[id=\"" + id + "\"]";
+        tmpStr += " [content=\"" + content + "\"]";
+        tmpStr += " [message=\"" + message + "\"]";
+        tmpStr += " [request=\"" + request + "\"]";
+        tmpStr += " [status=\"" + status + "\"]";
+        return tmpStr;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+     */
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeString(id);
+        dest.writeString(content);
+        dest.writeString(request);
+        dest.writeString(status);
+        dest.writeString(message);
+    }
 }
