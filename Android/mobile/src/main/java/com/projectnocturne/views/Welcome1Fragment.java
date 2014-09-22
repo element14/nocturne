@@ -61,6 +61,7 @@ public class Welcome1Fragment extends NocturneFragment {
                 txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
                 txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
                 txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+                txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -126,11 +127,16 @@ public class Welcome1Fragment extends NocturneFragment {
         txtWelcomeScr1HomePhoneNbr.addTextChangedListener(textChangedWtchr);
         txtWelcomeScr1EmailAddress.addTextChangedListener(textChangedWtchr);
 
+        txtWelcomeScr1ErrorMessage.setVisibility(View.INVISIBLE);
+        txtWelcomeScr1ErrorMessageDetail.setVisibility(View.INVISIBLE);
+        txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
+
         btnSubscribe.setEnabled(false);
         btnSubscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 txtWelcomeScr1ErrorMessage.setVisibility(View.INVISIBLE);
+                txtWelcomeScr1ErrorMessageDetail.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1Progress.setVisibility(View.VISIBLE);
                 userDbObj.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
                 userDbObj.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
