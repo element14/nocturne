@@ -124,6 +124,40 @@
         android:inputType="textEmailAddress"
         android:textColor="@color/text_normal"/>
 
+
+    <ProgressBar
+        android:id="@+id/welcomeScr1Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcomeScr1EmailAddress"
+        android:layout_above="@+id/welcomeScr1BtnSubscribe"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:indeterminateOnly="true"
+        android:visibility="invisible">
+    </ProgressBar>
+
+    <TextView
+        android:id="@+id/welcomeScr1ErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/welcomeScr1BtnSubscribe"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="xxxx"
+        android:textColor="@color/text_error"
+        android:textSize="30sp"
+        android:visibility="invisible"/>
+
     <Button
         android:id="@+id/welcomeScr1BtnSubscribe"
         android:layout_width="wrap_content"

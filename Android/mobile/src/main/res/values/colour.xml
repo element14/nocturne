@@ -4,6 +4,7 @@
     <!-- General -->
     <color name="window_background">#E0F2F7</color>
     <color name="text_normal">#0000F7</color>
+    <color name="text_error">#FF0000</color>
 
     <!-- Alert detected screen -->
     <color name="alert_detected_btn_background">#848484</color>

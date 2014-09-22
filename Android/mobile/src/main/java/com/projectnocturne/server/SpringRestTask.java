@@ -88,13 +88,13 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         return retStr;
     }
 
-    private RestTemplate getRestTemplate(){
+    private RestTemplate getRestTemplate() {
         // Create a new RestTemplate instance
         final RestTemplate restTemplate = new RestTemplate();
 
         // Add the JSON and String message converters
         restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
-       // restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+        // restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
         restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
@@ -153,11 +153,16 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
             b.putParcelable("RESTResponseMsg", response);
             msg.setData(b);
             NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
-            NocturneApplication.d(LOG_TAG + "doUserRegister() success ["+response.toString()+"]");
+            NocturneApplication.d(LOG_TAG + "doUserRegister() success [" + response.toString() + "]");
         } catch (final Exception e) {
             NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
             NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
             msg = handler.obtainMessage(DbMetadata.RegistrationStatus_DENIED);
+            response = new RESTResponseMsg();
+            response.setMessage("Server Connection Failed [" + e.getMessage() + "]\nPlease Try Again");
+            final Bundle b = new Bundle();
+            b.putParcelable("RESTResponseMsg", response);
+            msg.setData(b);
         }
         handler.sendMessage(msg);
 
