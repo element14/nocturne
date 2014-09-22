@@ -59,6 +59,7 @@ public class Welcome1Fragment extends NocturneFragment {
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
                 //FIXME : show error message
                 txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
+                txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
                 txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
             }
         }
@@ -88,6 +89,7 @@ public class Welcome1Fragment extends NocturneFragment {
     private UserDb userDbObj = null;
     private TextView txtWelcomeScr1ErrorMessage;
     private ProgressBar txtWelcomeScr1Progress;
+    private TextView txtWelcomeScr1ErrorMessageDetail;
 
     private void enableSubscribeButton() {
         if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0 && txtWelcomeScr1MobilePhoneNbr.getText().length() > 0 && txtWelcomeScr1HomePhoneNbr.getText().length() > 0 && txtWelcomeScr1EmailAddress.getText().length() > 0) {
@@ -115,6 +117,7 @@ public class Welcome1Fragment extends NocturneFragment {
         txtWelcomeScr1EmailAddress = (EditText) v.findViewById(R.id.welcomeScr1EmailAddress);
         txtWelcomeScr1Progress = (ProgressBar) v.findViewById(R.id.welcomeScr1Progress);
         txtWelcomeScr1ErrorMessage = (TextView) v.findViewById(R.id.welcomeScr1ErrorMessage);
+        txtWelcomeScr1ErrorMessageDetail = (TextView) v.findViewById(R.id.welcomeScr1ErrorMessageDetail);
         btnSubscribe = (Button) v.findViewById(R.id.welcomeScr1BtnSubscribe);
 
         txtWelcomeScr1PersonNameFirst.addTextChangedListener(textChangedWtchr);

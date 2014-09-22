@@ -87,6 +87,12 @@ public final class RESTResponseMsg implements Parcelable {
     public String getMessage() {
         return message;
     }
+    /**
+     * @return the message
+     */
+    public String getContent() {
+        return content;
+    }
 
     /**
      * @param message the message to set

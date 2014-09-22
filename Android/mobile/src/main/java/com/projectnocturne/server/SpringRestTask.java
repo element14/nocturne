@@ -159,7 +159,8 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
             NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
             msg = handler.obtainMessage(DbMetadata.RegistrationStatus_DENIED);
             response = new RESTResponseMsg();
-            response.setMessage("Server Connection Failed [" + e.getMessage() + "]\nPlease Try Again");
+            response.setMessage("Server Connection Failed");
+            response.setMessage("[" + e.getMessage() + "]\nPlease Try Again");
             final Bundle b = new Bundle();
             b.putParcelable("RESTResponseMsg", response);
             msg.setData(b);
