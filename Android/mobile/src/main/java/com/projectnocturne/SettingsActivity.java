@@ -30,7 +30,7 @@ public class SettingsActivity extends PreferenceActivity {
     public static final String PREF_BED_SENSOR_POL_INTERVAL = "pref_bed_sensor_pol_interval";
     public static final String PREF_BED_SENSOR_POL_INTERVAL_DEFAULT = "5";
     public static final String PREF_SERVER_ADDRESS = "pref_server_address";
-    public static final String PREF_SERVER_ADDRESS_DEFAULT = "192.168.1.155";
+    public static final String PREF_SERVER_ADDRESS_DEFAULT = "192.168.1.218";
     public static final String PREF_SERVER_PORT = "pref_server_port";
     public static final String PREF_SERVER_PORT_DEFAULT = "9090";
 

@@ -51,10 +51,10 @@ public class MainActivity extends Activity {
                 welcome1Fragment = new Welcome1Fragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, welcome1Fragment).commit();
                 break;
-            case REQUEST_SENT:
-                welcome2Fragment = new Welcome2Fragment();
-                getFragmentManager().beginTransaction().replace(R.id.container, welcome2Fragment).commit();
-                break;
+//            case REQUEST_SENT:
+//                welcome2Fragment = new Welcome2Fragment();
+//                getFragmentManager().beginTransaction().replace(R.id.container, welcome2Fragment).commit();
+//                break;
             case REQUEST_ACCEPTED:
                 status1Fragment = new Status1Fragment();
                 getFragmentManager().beginTransaction().replace(R.id.container, status1Fragment).commit();

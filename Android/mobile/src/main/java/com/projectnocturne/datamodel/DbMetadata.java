@@ -13,130 +13,116 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.provider.BaseColumns;
-import android.util.Log;
 import android.util.SparseArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author andy
- * 
  */
 public class DbMetadata extends AbstractDataObj {
-	public enum RegistrationStatus {
-		NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT
-	}
+    public static final String DATABASE_TABLE_NAME = "dbmetadata";
+    public static final String FIELD_NAME_DBMETADATA_REGISTRATION_STATUS = "registration_status";
+    public static final String FIELD_NAME_DBMETADATA_TIMESTAMP = "db_timestamp";
+    public static final String FIELD_NAME_DBMETADATA_VERSION = "db_version";
+    public static final int RegistrationStatus_ACCEPTED = 63353;
+    public static final int RegistrationStatus_DENIED = 63354;
+    private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
+    public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
+    public long timestamp = 0;
+    public String version = "";
 
-	public static final String DATABASE_TABLE_NAME = "dbmetadata";
-	public static final String FIELD_NAME_DBMETADATA_REGISTRATION_STATUS = "registration_status";
+    public DbMetadata() {
+    }
 
-	public static final String FIELD_NAME_DBMETADATA_TIMESTAMP = "db_timestamp";
+    public DbMetadata(final Cursor results) {
+        timestamp = results.getLong(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
+        version = results.getString(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_VERSION));
+        setRegistrationStatus(results.getInt(results
+                .getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
+        setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
+        setUniqueIdentifier(results.getInt(results.getColumnIndex(BaseColumns._ID)));
+    }
 
-	public static final String FIELD_NAME_DBMETADATA_VERSION = "db_version";
+    public DbMetadata(final HashMap<String, String> aRow) {
+        super(aRow);
+        version = aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_VERSION);
+        timestamp = Long.parseLong(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
+        setRegistrationStatus(Integer.parseInt(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
+    }
 
-	private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
-	public static final int RegistrationStatus_ACCEPTED = 63353;
-	public static final int RegistrationStatus_DENIED = 63354;
+    @Override
+    public ContentValues getContentValues() {
+        final ContentValues map = super.getContentValues();
+        map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, version);
+        map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, timestamp);
+        map.put(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, registrationStatus.ordinal());
+        return map;
+    }
 
-	public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
-	public long timestamp = 0;
-	public String version = "";
+    @Override
+    public SparseArray<ArrayList<String>> getFields() {
+        final SparseArray<ArrayList<String>> fields = super.getFields();
+        int x = fields.size();
+        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, "VARCHAR(255) NOT NULL"));
+        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP, "LONG"));
+        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, "LONG"));
+        return fields;
+    }
 
-	public DbMetadata() {
-	}
+    @Override
+    public String getSqlUpdateFromV001() {
+        return null;
+    }
 
-	public DbMetadata(final Cursor results) {
-		timestamp = results.getLong(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
-		version = results.getString(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_VERSION));
-		setRegistrationStatus(results.getInt(results
-				.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
-		setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-		setUniqueIdentifier(results.getInt(results.getColumnIndex(BaseColumns._ID)));
-	}
+    @Override
+    public String getSqlUpdateFromV002() {
+        return null;
+    }
 
-	public DbMetadata(final HashMap<String, String> aRow) {
-		super(aRow);
-		version = aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_VERSION);
-		timestamp = Long.parseLong(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
-		setRegistrationStatus(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS));
-	}
+    @Override
+    public String getTableName() {
+        return DbMetadata.DATABASE_TABLE_NAME;
+    }
 
-	@Override
-	public ContentValues getContentValues() {
-		final ContentValues map = super.getContentValues();
-		map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, version);
-		map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, timestamp);
-		map.put(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, timestamp);
-		return map;
-	}
+    public void setRegistrationStatus(final int newValue) {
+        switch (newValue) {
+            case 0:
+                registrationStatus = RegistrationStatus.NOT_STARTED;
+                break;
+            case 1:
+                registrationStatus = RegistrationStatus.REQUEST_ACCEPTED;
+                break;
+            case 2:
+                registrationStatus = RegistrationStatus.REQUEST_DENIED;
+                break;
+            case 3:
+                registrationStatus = RegistrationStatus.REQUEST_SENT;
+                break;
+            default:
+                registrationStatus = RegistrationStatus.NOT_STARTED;
+        }
+    }
 
-	@Override
-	public SparseArray<ArrayList<String>> getFields() {
-		final SparseArray<ArrayList<String>> fields = super.getFields();
-		int x = fields.size();
-		fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, "VARCHAR(255) NOT NULL"));
-		fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP, "LONG"));
-		fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, "LONG"));
-		return fields;
-	}
+    public void setRegistrationStatus(final RegistrationStatus aRegStatus) {
+        registrationStatus = aRegStatus;
+    }
 
-	@Override
-	public String getSqlUpdateFromV001() {
-		return null;
-	}
+    @Override
+    public String toString() {
+        return null;
+    }
 
-	@Override
-	public String getSqlUpdateFromV002() {
-		return null;
-	}
-
-	@Override
-	public String getTableName() {
-		return DbMetadata.DATABASE_TABLE_NAME;
-	}
-
-	public void setRegistrationStatus(final int newValue) {
-		switch (newValue) {
-		case 0:
-			registrationStatus = RegistrationStatus.NOT_STARTED;
-			break;
-		case 1:
-			registrationStatus = RegistrationStatus.REQUEST_SENT;
-			break;
-		case 2:
-			registrationStatus = RegistrationStatus.REQUEST_ACCEPTED;
-			break;
-		case 3:
-			registrationStatus = RegistrationStatus.REQUEST_DENIED;
-			break;
-		default:
-			registrationStatus = RegistrationStatus.NOT_STARTED;
-		}
-	}
-
-	public void setRegistrationStatus(final RegistrationStatus aRegStatus) {
-		registrationStatus = aRegStatus;
-	}
-
-	private void setRegistrationStatus(final String newValueStr) {
-		try {
-			setRegistrationStatus(Integer.parseInt(newValueStr));
-		} catch (final NumberFormatException nfe) {
-			Log.wtf(DbMetadata.LOG_TAG, "new Registration status value [" + newValueStr + "] invalid", nfe);
-		}
-	}
-
-	@Override
-	public String toString() {
-		return null;
-	}
+    public enum RegistrationStatus {
+        NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
+    }
 
 }

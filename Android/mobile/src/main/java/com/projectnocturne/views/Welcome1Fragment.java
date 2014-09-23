@@ -178,7 +178,7 @@ public class Welcome1Fragment extends NocturneFragment {
         } else {
             userDbObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
         }
-        NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
+        //NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
         NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), handler, usr);
     }
 
