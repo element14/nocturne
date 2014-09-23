@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.projectnocturne.MainActivity;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 import com.projectnocturne.datamodel.DbMetadata;
@@ -49,15 +50,17 @@ public class Welcome1Fragment extends NocturneFragment {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
+            NocturneApplication.d(LOG_TAG + "handleMessage()");
             txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
             final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
             if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
-                //FIXME : Move on to status screen
+                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+                ((MainActivity)getActivity()).showScreen();
 
             } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
-                //FIXME : show error message
+                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
                 txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
                 txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
                 txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
@@ -65,6 +68,7 @@ public class Welcome1Fragment extends NocturneFragment {
             }
         }
     };
+
     TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
@@ -80,6 +84,7 @@ public class Welcome1Fragment extends NocturneFragment {
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
         }
     };
+
     private Button btnSubscribe;
     private boolean readyFragment;
     private EditText txtWelcomeScr1EmailAddress;

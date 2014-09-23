@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">ProjectNocturne</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_welcome1">Welcome1Activity</string>
     <string name="title_status">Status</string>
     <string name="title_connect">Connect</string>
     <string name="title_connection_requests">Connection Requests</string>
@@ -112,6 +112,7 @@
     <string name="menu_refresh">Refresh</string>
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
-    <string name="title_activity_welcome1">Welcome1Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_help">Help</string>
 
 </resources>

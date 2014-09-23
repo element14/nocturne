@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/window_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
                 android:orientation="vertical">
 
     <TextView
@@ -19,7 +22,6 @@
         android:paddingTop="5dp"
         android:text="@string/welcomeScr1Heading1"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/text_normal"
         android:textStyle="bold"
         android:typeface="serif"/>
 
@@ -37,7 +39,6 @@
         android:paddingTop="5dp"
         android:text="@string/welcomeScr1Heading2"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/text_normal"
         android:textStyle="bold"
         android:typeface="serif"/>
 
@@ -52,8 +53,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="5dp"
-        android:text="@string/welcomeScr1Instructions"
-        android:textColor="@color/text_normal"/>
+        android:text="@string/welcomeScr1Instructions"/>
 
     <LinearLayout
         android:id="@+id/welcomeScr1PersonNameLayout"
@@ -70,8 +70,7 @@
             android:layout_weight=".40"
             android:ems="10"
             android:hint="@string/welcomeScr1PersonNameFirst"
-            android:inputType="textPersonName"
-            android:textColor="@color/text_normal">
+            android:inputType="textPersonName">
 
             <requestFocus/>
         </EditText>
@@ -83,8 +82,7 @@
             android:layout_weight=".60"
             android:ems="10"
             android:hint="@string/welcomeScr1PersonNameLast"
-            android:inputType="textPersonName"
-            android:textColor="@color/text_normal">
+            android:inputType="textPersonName">
         </EditText>
     </LinearLayout>
 
@@ -97,8 +95,7 @@
         android:layout_below="@+id/welcomeScr1PersonNameLayout"
         android:ems="10"
         android:hint="@string/welcomeScr1MobilePhoneNbr"
-        android:inputType="phone"
-        android:textColor="@color/text_normal"/>
+        android:inputType="phone"/>
 
     <EditText
         android:id="@+id/welcomeScr1HomePhoneNbr"
@@ -109,8 +106,7 @@
         android:layout_below="@+id/welcomeScr1MobilePhoneNbr"
         android:ems="10"
         android:hint="@string/welcomeScr1HomePhoneNbr"
-        android:inputType="phone"
-        android:textColor="@color/text_normal"/>
+        android:inputType="phone"/>
 
     <EditText
         android:id="@+id/welcomeScr1EmailAddress"
@@ -121,9 +117,7 @@
         android:layout_below="@+id/welcomeScr1HomePhoneNbr"
         android:ems="10"
         android:hint="@string/welcomeScr1EmailAddr"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/text_normal"/>
-
+        android:inputType="textEmailAddress"/>
 
     <ProgressBar
         android:id="@+id/welcomeScr1Progress"
@@ -152,7 +146,6 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="5dp"
-        android:text="xxxx"
         android:textColor="@color/text_error"
         android:textSize="30sp"
         android:visibility="invisible"/>
@@ -170,7 +163,6 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="5dp"
-        android:text="xxxx"
         android:textColor="@color/text_error"
         android:textSize="26sp"
         android:visibility="invisible"/>

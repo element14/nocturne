@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.projectnocturne.alarmreceivers.BedAlarmReceiver;
 import com.projectnocturne.datamodel.DbMetadata;
+import com.projectnocturne.views.HelpActivity;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
 import com.projectnocturne.views.Welcome2Fragment;
@@ -19,7 +20,7 @@ import com.projectnocturne.views.Welcome2Fragment;
 
 public class MainActivity extends Activity {
 
-	public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
+    public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
 
     private NocturneApplication myApp = null;
     private Status1Fragment status1Fragment = null;
@@ -33,14 +34,16 @@ public class MainActivity extends Activity {
 
         myApp = (NocturneApplication) getApplication();
 
-		startSensorTagService();
+        startSensorTagService();
         showScreen();
     }
+
 
     /**
      *
      */
-    private void showScreen() {
+    public void showScreen() {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "showScreen()");
         final DbMetadata.RegistrationStatus currentRegStatus = NocturneApplication.getInstance().getDataModel()
                 .getRegistrationStatus();
         switch (currentRegStatus) {
@@ -62,21 +65,21 @@ public class MainActivity extends Activity {
         }
     }
 
-	private void startSensorTagService() {
-		NocturneApplication.logMessage(Log.INFO, LOG_TAG
-				+ "startSensorTagService() starting sensor tag polling service.");
+    private void startSensorTagService() {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG
+                + "startSensorTagService() starting sensor tag polling service.");
 
-		// Set the alarm here.
-		final AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		final Intent alrmIntent = new Intent(this, BedAlarmReceiver.class);
-		final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alrmIntent, 0);
+        // Set the alarm here.
+        final AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        final Intent alrmIntent = new Intent(this, BedAlarmReceiver.class);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alrmIntent, 0);
 
-		final long interval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30;
-		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "startSensorTagService() setting alarm for [" + interval
-				/ 1000 + "] seconds.");
+        final long interval = AlarmManager.INTERVAL_FIFTEEN_MINUTES / 30;
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "startSensorTagService() setting alarm for [" + interval
+                / 1000 + "] seconds.");
 
-		alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, interval, pendingIntent);
-	}
+        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, interval, pendingIntent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,15 +99,9 @@ public class MainActivity extends Activity {
                 final Intent settings = new Intent(this, SettingsActivity.class);
                 startActivity(settings);
                 break;
-            // case R.id.action_jump_to_today:
-            // planViewFrgmnt.update();
-            // break;
-            // case R.id.action_select_plan:
-            // showTrainingPlanChooser();
-            // return true;
-            // case R.id.action_help:
-            // // showHelp();
-            // break;
+            case R.id.action_help:
+                final Intent help = new Intent(this, HelpActivity.class);
+                startActivity(help);
             default:
                 return super.onOptionsItemSelected(item);
         }
