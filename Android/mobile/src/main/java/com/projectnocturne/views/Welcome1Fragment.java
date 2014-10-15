@@ -33,6 +33,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.percolate.caffeine.MiscUtils;
+import com.percolate.caffeine.ViewUtils;
 import com.projectnocturne.MainActivity;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
@@ -98,7 +100,12 @@ public class Welcome1Fragment extends NocturneFragment {
     private TextView txtWelcomeScr1ErrorMessageDetail;
 
     private void enableSubscribeButton() {
-        if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 && txtWelcomeScr1PersonNameLast.getText().length() > 0 && txtWelcomeScr1MobilePhoneNbr.getText().length() > 0 && txtWelcomeScr1HomePhoneNbr.getText().length() > 0 && txtWelcomeScr1EmailAddress.getText().length() > 0) {
+        if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 &&
+                txtWelcomeScr1PersonNameLast.getText().length() > 0 &&
+                txtWelcomeScr1MobilePhoneNbr.getText().length() > 0 &&
+                txtWelcomeScr1HomePhoneNbr.getText().length() > 0 &&
+                txtWelcomeScr1EmailAddress.getText().length() > 0 &&
+                MiscUtils.isValidEmail(txtWelcomeScr1EmailAddress.getText().toString())) {
             btnSubscribe.setEnabled(true);
         } else {
             btnSubscribe.setEnabled(false);
@@ -116,15 +123,15 @@ public class Welcome1Fragment extends NocturneFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_welcome_1, container, false);
 
-        txtWelcomeScr1PersonNameFirst = (EditText) v.findViewById(R.id.welcomeScr1PersonNameFirst);
-        txtWelcomeScr1PersonNameLast = (EditText) v.findViewById(R.id.welcomeScr1PersonNameLast);
-        txtWelcomeScr1MobilePhoneNbr = (EditText) v.findViewById(R.id.welcomeScr1MobilePhoneNbr);
-        txtWelcomeScr1HomePhoneNbr = (EditText) v.findViewById(R.id.welcomeScr1HomePhoneNbr);
-        txtWelcomeScr1EmailAddress = (EditText) v.findViewById(R.id.welcomeScr1EmailAddress);
-        txtWelcomeScr1Progress = (ProgressBar) v.findViewById(R.id.welcomeScr1Progress);
-        txtWelcomeScr1ErrorMessage = (TextView) v.findViewById(R.id.welcomeScr1ErrorMessage);
-        txtWelcomeScr1ErrorMessageDetail = (TextView) v.findViewById(R.id.welcomeScr1ErrorMessageDetail);
-        btnSubscribe = (Button) v.findViewById(R.id.welcomeScr1BtnSubscribe);
+        txtWelcomeScr1PersonNameFirst = ViewUtils.findViewById(v, R.id.welcomeScr1PersonNameFirst);
+        txtWelcomeScr1PersonNameLast = ViewUtils.findViewById(v, R.id.welcomeScr1PersonNameLast);
+        txtWelcomeScr1MobilePhoneNbr = ViewUtils.findViewById(v, R.id.welcomeScr1MobilePhoneNbr);
+        txtWelcomeScr1HomePhoneNbr = ViewUtils.findViewById(v, R.id.welcomeScr1HomePhoneNbr);
+        txtWelcomeScr1EmailAddress = ViewUtils.findViewById(v, R.id.welcomeScr1EmailAddress);
+        txtWelcomeScr1Progress =ViewUtils.findViewById(v, R.id.welcomeScr1Progress);
+        txtWelcomeScr1ErrorMessage = ViewUtils.findViewById(v, R.id.welcomeScr1ErrorMessage);
+        txtWelcomeScr1ErrorMessageDetail = ViewUtils.findViewById(v, R.id.welcomeScr1ErrorMessageDetail);
+        btnSubscribe = ViewUtils.findViewById(v, R.id.welcomeScr1BtnSubscribe);
 
         txtWelcomeScr1PersonNameFirst.addTextChangedListener(textChangedWtchr);
         txtWelcomeScr1PersonNameLast.addTextChangedListener(textChangedWtchr);

@@ -146,16 +146,16 @@ public final class NocturneApplication extends Application {
 		return extDir.getPath() + File.separator + getApplicationName() + File.separator;
 	}
 
-	public String getAppVersion(final String packageName) {
-		String verName = "unknown";
-		try {
-			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
-			verName = pInfo.versionName;
-		} catch (final NameNotFoundException e) {
-			e.printStackTrace();
-		}
-		return verName;
-	}
+//	public String getAppVersion(final String packageName) {
+//		String verName = "unknown";
+//		try {
+//			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+//			verName = pInfo.versionName;
+//		} catch (final NameNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		return verName;
+//	}
 
 	public int getAppVersionNbr() {
 		return this.getAppVersionNbr("com.projectnocturne");
