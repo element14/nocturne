@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
+import com.projectnocturne.services.SensorTagService;
 
 /**
  * @author aspela
@@ -42,9 +43,9 @@ public final class BedAlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(final Context context, final Intent arg1) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "onReceive()");
-		//final Intent sensorTagSvc = new Intent(context, SensorTagService.class);
-		//final Intent hrmSvc = new Intent(context, HrmService.class);
-		// context.startService(hrmSvc);
+		final Intent svc = new Intent(context, SensorTagService.class);
+		//svc = new Intent(context, HrmService.class);
+		 context.startService(svc);
 	}
 
 }
