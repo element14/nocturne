@@ -24,6 +24,10 @@
             android:name="com.projectnocturne.views.HelpActivity"
             android:label="@string/title_activity_help" />
 
+        <!-- this is the Service that polls the SensorTag --><service
+        android:name=".services.SensorTagService"
+        android:exported="false"/>
+
         <!-- sets up the scheduled alarm at boot -->
         <receiver
             android:name="com.projectnocturne.services.BootReceiver"

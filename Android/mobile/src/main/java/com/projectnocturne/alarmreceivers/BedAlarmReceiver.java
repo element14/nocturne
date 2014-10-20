@@ -44,7 +44,7 @@ public final class BedAlarmReceiver extends BroadcastReceiver {
 	public void onReceive(final Context context, final Intent arg1) {
 		NocturneApplication.logMessage(Log.INFO, LOG_TAG + "onReceive()");
 		final Intent svc = new Intent(context, SensorTagService.class);
-		//svc = new Intent(context, HrmService.class);
+        //svc.setData("Some data");
 		 context.startService(svc);
 	}
 
