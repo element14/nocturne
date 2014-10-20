@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +107,8 @@ public class Status1Fragment extends NocturneFragment {
         if (users.size() == 1) {
             UserDb userDbObj = users.get(0);
             String text = String.format(getResources().getString(R.string.statusScr1Heading1), userDbObj.getName_first() + " " + userDbObj.getName_last());
-            txtStatusScr1Heading1.setText(text);
+            CharSequence styledText = Html.fromHtml(text);
+            txtStatusScr1Heading1.setText(styledText);
         }
     }
 
