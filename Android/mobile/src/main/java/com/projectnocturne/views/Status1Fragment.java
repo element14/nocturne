@@ -32,13 +32,18 @@ import android.widget.TextView;
 import com.percolate.caffeine.ViewUtils;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.datamodel.UserDb;
 import com.projectnocturne.services.SensorTagService;
+
+import java.util.List;
 
 public class Status1Fragment extends NocturneFragment {
     public static final String LOG_TAG = Status1Fragment.class.getSimpleName() + "::";
 
     private boolean readyFragment;
 
+    private TextView txtStatusScr1Heading1;
+    private TextView txtStatusScr1Heading2;
     private TextView txtStatusScr1StatusItem1;
     private TextView txtStatusScr1StatusItem1Value;
     private TextView txtStatusScr1StatusItem2;
@@ -57,6 +62,9 @@ public class Status1Fragment extends NocturneFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_status_1, container, false);
+
+        txtStatusScr1Heading1 = ViewUtils.findViewById(v, R.id.statusScr1Heading1);
+        txtStatusScr1Heading2 = ViewUtils.findViewById(v, R.id.statusScr1Heading2);
 
         txtStatusScr1StatusItem1 = ViewUtils.findViewById(v, R.id.statusScr1StatusItem1);
         txtStatusScr1StatusItem1Value = ViewUtils.findViewById(v, R.id.statusScr1StatusItem1_value);
@@ -94,6 +102,12 @@ public class Status1Fragment extends NocturneFragment {
         }
         Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "update() ready");
 
+        final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
+        if (users.size() == 1) {
+            UserDb userDbObj = users.get(0);
+            String text = String.format(getResources().getString(R.string.statusScr1Heading1), userDbObj.getName_first() + " " + userDbObj.getName_last());
+            txtStatusScr1Heading1.setText(text);
+        }
     }
 
     // Broadcast receiver for receiving status updates from the IntentService

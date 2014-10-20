@@ -44,7 +44,7 @@
     <string name="welcomeScr2BtnContinue">Continue</string>
 
     <!-- Status Screen 1 -->
-    <string name="statusScr1Heading1">Hello %1$s</string>
+    <string name="statusScr1Heading1">Hello &lt;b>%1$s&lt;/b></string>
     <string name="statusScr1Heading2">Status</string>
     <string name="statusScr1Instructions">If any of the items below are red, please contact your caregiver for advise</string>
     <string name="statusScr1StatusItem1">Cloud Connection</string>

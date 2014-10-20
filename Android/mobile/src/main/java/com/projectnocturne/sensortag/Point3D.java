@@ -1,7 +1,7 @@
-package com.ti.sensortag.models;
+package com.projectnocturne.sensortag;
 
-/** 
- * Auto generated wrapper class for the data with 3 dimensions. 
+/**
+ * Auto generated wrapper class for the data with 3 dimensions.
  * */
 public class Point3D {
 	public double x,y,z;
@@ -11,7 +11,7 @@ public class Point3D {
 	    this.y = y;
 	    this.z = z;
 	}
-	
+
 	@Override
 	public int hashCode() {
 	    final int prime = 31;

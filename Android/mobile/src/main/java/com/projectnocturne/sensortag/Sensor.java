@@ -1,17 +1,17 @@
 package com.projectnocturne.sensortag;
 
-import static android.bluetooth.BluetoothGattCharacteristic.FORMAT_SINT8;
-import static android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8;
-import static java.lang.Math.pow;
-
-import java.util.List;
-import java.util.UUID;
-
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.sensortag.constants.TiBleConstants;
+
+import java.util.List;
+import java.util.UUID;
+
+import static android.bluetooth.BluetoothGattCharacteristic.FORMAT_SINT8;
+import static android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8;
+import static java.lang.Math.pow;
 
 /**
  * This enum encapsulates the differences amongst the sensors. The differences
@@ -58,10 +58,10 @@ public enum Sensor {
 			/*
 			 * The IR Temperature sensor produces two measurements; Object ( AKA
 			 * target or IR) Temperature, and Ambient ( AKA die ) temperature.
-			 * 
+			 *
 			 * Both need some conversion, and Object temperature is dependent on
 			 * Ambient temperature.
-			 * 
+			 *
 			 * They are stored as [ObjLSB, ObjMSB, AmbLSB, AmbMSB] (4 bytes)
 			 * Which means we need to shift the bytes around to get the correct
 			 * values.
@@ -85,11 +85,11 @@ public enum Sensor {
 		public void onCharacteristicChanged(final BluetoothGattCharacteristic c) {
 			/*
 			 * The accelerometer has the range [-2g, 2g] with unit (1/64)g.
-			 * 
+			 *
 			 * To convert from unit (1/64)g to unit g we divide by 64.
-			 * 
+			 *
 			 * (g = 9.81 m/s^2)
-			 * 
+			 *
 			 * The z value is multiplied with -1 to coincide with how we have
 			 * arbitrarily defined the positive y direction. (illustrated by the
 			 * apps accelerometer image)
@@ -209,7 +209,7 @@ public enum Sensor {
 			 * The key state is encoded into 1 unsigned byte. bit 0 designates
 			 * the right key. bit 1 designates the left key. bit 2 designates
 			 * the side key.
-			 * 
+			 *
 			 * Weird, in the userguide left and right are opposite.
 			 */
 			Integer encodedInteger = c.getIntValue(FORMAT_UINT8, 0);
@@ -233,7 +233,7 @@ public enum Sensor {
 	 * complement values in the awkward format LSB MSB, which cannot be directly
 	 * parsed as getIntValue(FORMAT_SINT16, offset) because the bytes are stored
 	 * in the "wrong" direction.
-	 * 
+	 *
 	 * This function extracts these 16 bit two's complement values.
 	 * */
 	private static Integer shortSignedAtOffset(BluetoothGattCharacteristic c, int offset) {
@@ -262,7 +262,7 @@ public enum Sensor {
 	/**
 	 * Our Model in our MVC-structured code, the sensors update the model when
 	 * new data arrives. The sensors are therefore the Controllers in our MVC.
-	 * 
+	 *
 	 * Note: Having the variable "model" is only done for brevity reasons.
 	 * */
 	// private final static Measurements model = Measurements.INSTANCE;

@@ -13,6 +13,7 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.sensortag.ScanType;
+import com.projectnocturne.sensortag.Sensor;
+import com.projectnocturne.sensortag.WriteQueue;
 import com.projectnocturne.sensortag.constants.SampleGattAttributes;
 
 import java.util.List;
@@ -41,6 +45,10 @@ public class SensorTagService extends IntentService {
     public final static String EXTRA_DATA = "com.projectnocturne.bluetooth.le.EXTRA_DATA";
     public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
 
+
+    // See ScanType enum's definition for details.
+    public final static ScanType scanType = Build.MODEL.equals("Nexus 4") ? ScanType.ONE_OFF : ScanType.CONTINUOUS;
+
     private static final int STATE_DISCONNECTED = 0;
     private int mConnectionState = STATE_DISCONNECTED;
     private static final int STATE_CONNECTING = 1;
@@ -49,6 +57,7 @@ public class SensorTagService extends IntentService {
     private static final long SCAN_PERIOD = 10000;
     public BluetoothGatt mBluetoothGatt;
     private List<BluetoothGattService> mServiceList;
+    final WriteQueue writeQueue = new WriteQueue();
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -65,6 +74,8 @@ public class SensorTagService extends IntentService {
 
                 //Discover services
                 gatt.discoverServices();
+
+                //FIXME : read the simplekey
 
             } else if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_DISCONNECTED) {
                 NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()::Disconnected from GATT server.");
@@ -116,9 +127,9 @@ public class SensorTagService extends IntentService {
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "LeScanCallback::onLeScan(" + device.getName() + ")");
             if (device.getName().equalsIgnoreCase("sensortag")) {
-                scanLeDevice(false);
-                //For the device we want, make a connection
+                // make a connection to the sensortag
                 device.connectGatt(SensorTagService.this, true, mGattCallback);
+                scanLeDevice(false);
             }
         }
     };
@@ -133,13 +144,55 @@ public class SensorTagService extends IntentService {
     }
 
 
-    private void broadcastUpdate(final String action) {
+    private void changeNotificationStatus(final BluetoothGattService gattService, final Sensor sensor,
+                                          final boolean enable) {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + String.format("changeNotificationStatus()"));
+//        writeQueue.queueRunnable(new SensorTagWriteRunnable() {
+//            @Override
+//            public void run() {
+//                final BluetoothGattCharacteristic dataCharacteristic = gattService.getCharacteristic(sensor.getData());
+//                logEvent(mBluetoothGatt.setCharacteristicNotification(dataCharacteristic, true),
+//                        "The notification status was changed.", "Failed to set the notification status.");
+//
+//                final BluetoothGattDescriptor config = dataCharacteristic.getDescriptor(CCC);
+//                logEvent(config != null, "Unable to get config descriptor.");
+//
+//                final byte[] configValue = enable ? ENABLE_NOTIFICATION_VALUE : DISABLE_NOTIFICATION_VALUE;
+//                final boolean success = config.setValue(configValue);
+//                logEvent(success, "Could not locally store value.");
+//
+//                logEvent(mBluetoothGatt.writeDescriptor(config), "Initiated a write to descriptor.","Unable to initiate write.");
+//            }
+//        });
+    }
+
+    private void changeSensorStatus(final BluetoothGattService service, final Sensor sensor, final boolean enabled) {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + String.format("changeSensorStatus()"));
+//        if (sensor. == TiBleConstants.SIMPLE_KEYS_SERV_UUID) { return; }
+//
+//        writeQueue.queueRunnable(new SensorTagWriteRunnable() {
+//            @Override
+//            public void run() {
+//                final BluetoothGattCharacteristic config = service.getCharacteristic(sensor.getConfig());
+//
+//                final byte[] code = enabled ? sensor.getEnableSensorCode() : new byte[] { 0 };
+//
+//                final boolean successLocalySetValue = config.setValue(code);
+//                logEvent(successLocalySetValue, "Unable to locally set the enable code.");
+//
+//                final boolean success = mBluetoothGatt.writeCharacteristic(config);
+//                logEvent(success, "Unable to initiate the write that turns on/off " + sensor);
+//            }
+//        });
+    }
+
+    private synchronized void broadcastUpdate(final String action) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + String.format("broadcastUpdate: %s", action));
         final Intent intent = new Intent(action);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-    private void broadcastUpdate(final String action, final BluetoothGattCharacteristic characteristic) {
+    private synchronized void broadcastUpdate(final String action, final BluetoothGattCharacteristic characteristic) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + String.format("broadcastUpdate: %s", action));
         final Intent intent = new Intent(action);
 
@@ -193,7 +246,7 @@ public class SensorTagService extends IntentService {
     }
 
 
-    private void scanLeDevice(final boolean enable) {
+    private synchronized void scanLeDevice(final boolean enable) {
         if (enable) {
             // Stops scanning after a pre-defined scan period.
             mHandler.postDelayed(new Runnable() {
