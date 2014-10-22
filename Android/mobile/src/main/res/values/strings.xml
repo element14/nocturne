@@ -11,20 +11,20 @@
     <string name="pref_activity_title">Preferences</string>
     <string name="pref_nickname_title">Name to show</string>
     <string name="pref_nickname_default">MrNobody</string>
-    <string name="pref_nickname_description">you will be known as &quot;%1$s&quot;</string>
+    <string name="pref_nickname_description">you will be known as "%1$s"</string>
     <string name="pref_enable_sensortag_polling_title">Enable Bed Sensor Polling</string>
     <string name="pref_enable_sensortag_polling_description">Enable Bed Sensor Polling</string>
     <string name="pref_bed_sensor_pol_interval_title">Polling Interval (secs)</string>
     <string name="pref_bed_sensor_pol_interval_default">5</string>
-    <string name="pref_bed_sensor_pol_interval_description">Sensor will be polled every: &quot;%1$s&quot; seconds</string>
+    <string name="pref_bed_sensor_pol_interval_description">Sensor will be polled every: "%1$s" seconds</string>
 
     <!-- Preferences-Advanced -->
     <string name="pref_server_address_default">192.168.1.155</string>
     <string name="pref_server_address">Server Address</string>
-    <string name="pref_server_address_description">Server Address is: &quot;%1$s&quot;</string>
+    <string name="pref_server_address_description">Server Address is: "%1$s"</string>
     <string name="pref_server_port">Server Port Number</string>
     <string name="pref_server_port_default">8888</string>
-    <string name="pref_server_port_description">Server Port is: &quot;%1$s&quot;</string>
+    <string name="pref_server_port_description">Server Port is: "%1$s"</string>
 
     <!-- Welcome Screen -->
     <string name="welcomeScr1Heading1">Welcome To</string>
@@ -72,7 +72,7 @@
 
     <!-- Alert Carer Screen -->
     <string name="alert_carer_Heading1">Alert X From</string>
-    <string name="alert_carer_Heading2">&lt;Patient Name&gt;<Patient></Patient></string>
+    <string name="alert_carer_Heading2">&lt;Patient Name><Patient /></string>
     <string name="alert_carer_OkayQuestion">Respond ?</string>
     <string name="alert_carer_BtnOkay">  Yes  </string>
     <string name="alert_carer_BtnNotOkay">No</string>
@@ -107,12 +107,14 @@
     <string name="unknown_service">Unknown service</string>
 
     <!-- Menu items -->
-    <string name="menu_connect">Connect</string>
-    <string name="menu_disconnect">Disconnect</string>
-    <string name="menu_refresh">Refresh</string>
-    <string name="menu_scan">Scan</string>
-    <string name="menu_stop">Stop</string>
+    <string name="action_connect">Connect</string>
+    <string name="action_disconnect">Disconnect</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_stop">Stop</string>
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
+    <string name="title_activity_connection_request">ConnectionRequest</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

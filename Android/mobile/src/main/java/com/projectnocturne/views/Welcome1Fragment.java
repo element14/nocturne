@@ -175,7 +175,7 @@ public class Welcome1Fragment extends NocturneFragment {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        final MenuItem someMenuItem = menu.findItem(R.id.menu_connect);
+        final MenuItem someMenuItem = menu.findItem(R.id.action_connect);
         someMenuItem.setVisible(true);
     }
 

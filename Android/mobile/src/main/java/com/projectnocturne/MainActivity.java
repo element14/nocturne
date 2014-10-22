@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.projectnocturne.alarmreceivers.BedAlarmReceiver;
 import com.projectnocturne.datamodel.DbMetadata;
+import com.projectnocturne.views.ConnectionRequestActivity;
 import com.projectnocturne.views.HelpActivity;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
@@ -31,9 +32,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         myApp = (NocturneApplication) getApplication();
-
         startSensorTagService();
         showScreen();
     }
@@ -97,6 +96,10 @@ public class MainActivity extends Activity {
             case R.id.action_settings:
                 final Intent settings = new Intent(this, SettingsActivity.class);
                 startActivity(settings);
+                break;
+            case R.id.action_connect:
+                final Intent cract = new Intent(this, ConnectionRequestActivity.class);
+                startActivity(cract);
                 break;
             case R.id.action_help:
                 final Intent help = new Intent(this, HelpActivity.class);

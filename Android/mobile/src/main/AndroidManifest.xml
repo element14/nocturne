@@ -1,79 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.projectnocturne"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.projectnocturne" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <application
-        android:name="NocturneApplication"
+        android:name="com.projectnocturne.NocturneApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name="com.projectnocturne.MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!-- action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_CONNECTED"/>
+                <!--
+                action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_CONNECTED"/>
                 <action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_DISCONNECTED"/>
                 <action android:name="com.projectnocturne.bluetooth.le.ACTION_DATA_AVAILABLE"/>
-                <action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"/ -->
+                <action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"/
+                -->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.projectnocturne.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name="com.projectnocturne.views.HelpActivity"
-            android:label="@string/title_activity_help"/>
+            android:label="@string/title_activity_help" />
 
         <!-- this is the Service that polls the SensorTag -->
         <service
-            android:name=".services.SensorTagService"
-            android:exported="false"/>
+            android:name="com.projectnocturne.services.SensorTagService"
+            android:exported="false" />
 
         <!-- sets up the scheduled alarm at boot -->
         <receiver
             android:name="com.projectnocturne.services.BootReceiver"
-            android:enabled="true">
+            android:enabled="true" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.projectnocturne.alarmreceivers.BedAlarmReceiver"
-            android:enabled="true"/>
-
+            android:enabled="true" />
 
         <provider
             android:name="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
-            android:exported="false"/>
+            android:exported="false" />
         <provider
             android:name="com.projectnocturne.contentprovider.NocturneUserContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name="com.projectnocturne.views.ConnectionRequest"
+            android:label="@string/title_activity_connection_request" >
+        </activity>
     </application>
-
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.NFC"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-
-
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true"/>
-
 
 </manifest>

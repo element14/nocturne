@@ -3,26 +3,26 @@
     tools:context=".MainActivity" >
 
     <item
-        android:id="@+id/menu_refresh"
+        android:id="@+id/action_refresh"
         android:checkable="false"
         android:orderInCategory="1"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_refresh"/>
+        android:title="@string/action_refresh"/>
     <item
-        android:id="@+id/menu_connect"
+        android:id="@+id/action_connect"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/menu_connect"/>
+        android:title="@string/action_connect"/>
     <item
-        android:id="@+id/menu_scan"
+        android:id="@+id/action_scan"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/menu_scan"/>
+        android:title="@string/action_scan"/>
     <item
-        android:id="@+id/menu_stop"
+        android:id="@+id/action_stop"
         android:orderInCategory="101"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/menu_stop"/>
+        android:title="@string/action_stop"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
