@@ -30,6 +30,8 @@ DerivedData
 *.class
 
 # Local configuration file (sdk path, etc)
+Android/.gradle/1.12/taskArtifacts
+Android/.gradle/2.1/taskArtifacts
 local.properties
 
 *~

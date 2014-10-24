@@ -98,8 +98,8 @@ public class MainActivity extends Activity {
                 startActivity(settings);
                 break;
             case R.id.action_connect:
-                final Intent cract = new Intent(this, ConnectionRequestActivity.class);
-                startActivity(cract);
+                final Intent cnctReq = new Intent(this, ConnectionRequestActivity.class);
+                startActivity(cnctReq);
                 break;
             case R.id.action_help:
                 final Intent help = new Intent(this, HelpActivity.class);

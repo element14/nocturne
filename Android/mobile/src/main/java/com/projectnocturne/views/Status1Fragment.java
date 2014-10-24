@@ -21,7 +21,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
 import android.util.Log;
@@ -33,9 +35,13 @@ import android.widget.TextView;
 import com.percolate.caffeine.ViewUtils;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.UserDb;
 import com.projectnocturne.services.SensorTagService;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 public class Status1Fragment extends NocturneFragment {
@@ -110,6 +116,34 @@ public class Status1Fragment extends NocturneFragment {
             CharSequence styledText = Html.fromHtml(text);
             txtStatusScr1Heading1.setText(styledText);
         }
+
+        boolean connected = false;
+        int timeout = 1000;
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String serverAddr = "http://"
+                + settings
+                .getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                + ":"
+                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                + "/";
+        try {
+            URL serverURL = new URL(serverAddr);
+            URLConnection urlconn = serverURL.openConnection();
+            urlconn.setConnectTimeout(timeout);
+            urlconn.connect();
+            connected = true;
+        } catch (IOException e) {
+            NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "update()", e);
+        } catch (IllegalStateException e) {
+            NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+        }
+
+        if (connected) {
+            txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+        } else {
+            txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+        }
+
     }
 
     // Broadcast receiver for receiving status updates from the IntentService
@@ -121,16 +155,16 @@ public class Status1Fragment extends NocturneFragment {
         // Called when the BroadcastReceiver gets an Intent it's registered to receive
         @Override
         public void onReceive(Context context, Intent intent) {
-
             if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_GATT_CONNECTED)) {
+                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.connected));
                 Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_CONNECTED");
             } else if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_GATT_DISCONNECTED)) {
+                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.notconnected));
                 Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_DISCONNECTED");
             } else if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_DATA_AVAILABLE)) {
+                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.connected));
                 Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_DATA_AVAILABLE");
             }
-
-
         }
     }
 }

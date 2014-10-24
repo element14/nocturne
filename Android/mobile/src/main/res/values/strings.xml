@@ -56,6 +56,7 @@
     <string name="statusScr1StatusItem4">Bed Sensor Connection</string>
     <string name="statusScr1StatusItem4_value">Good/Bad</string>
     <string name="statusScr1BtnContinue">Continue</string>
+    <string name="statusScr1Status_alertButton">Alert Carer</string>
 
     <!-- Patient Screen 1 -->
     <string name="patientScr2Heading1"></string>
@@ -100,6 +101,9 @@
     <string name="no_data">No data</string>
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
+    <string name="notconnected">Not Connected</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
     <string name="title_devices">BLE Device Scan</string>
     <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
     <string name="unknown_device">Unknown device</string>
