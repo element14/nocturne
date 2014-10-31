@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
@@ -49,8 +52,9 @@ public class ConnectionRequestActivity extends Activity {
     }
 
     public class ConnectionRequestFragment extends NocturneFragment {
-        public final String LOG_TAG = ConnectionRequestFragment.class.getSimpleName() + "::";
-
+        private final String LOG_TAG = ConnectionRequestFragment.class.getSimpleName() + "::";
+        private TextView txtEmailAddr;
+        private ToggleButton swtchCarer;
         private boolean readyFragment;
 
         @Override
@@ -61,7 +65,10 @@ public class ConnectionRequestActivity extends Activity {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-            final View v = inflater.inflate(R.layout.activity_connection_request, container, false);
+            final View v = inflater.inflate(R.layout.fragment_connection_request, container, false);
+
+            txtEmailAddr = (TextView) v.findViewById(R.id.connect_user_email);
+            swtchCarer = (ToggleButton) v.findViewById(R.id.connect_user_switch_carer);
 
             readyFragment = true;
 

@@ -33,7 +33,7 @@ import com.projectnocturne.datamodel.User;
  */
 public final class RestUriFactory {
 	public enum RestUriType {
-		SUBSCRIBETO_SERVICE, SEND_SENSOR_READING, SEND_ALERT, CHECK_USER_STATUS
+		SUBSCRIBETO_SERVICE, SEND_SENSOR_READING, SEND_ALERT, CHECK_USER_STATUS, GET_USER_LIST
 	}
 
 	private static final String LOG_TAG = RestUriFactory.class.getSimpleName();
