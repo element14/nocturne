@@ -16,7 +16,6 @@ import com.projectnocturne.views.ConnectionRequestActivity;
 import com.projectnocturne.views.HelpActivity;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
-import com.projectnocturne.views.Welcome2Fragment;
 
 
 public class MainActivity extends Activity {
@@ -26,7 +25,6 @@ public class MainActivity extends Activity {
     private NocturneApplication myApp = null;
     private Status1Fragment status1Fragment = null;
     private Welcome1Fragment welcome1Fragment = null;
-    private Welcome2Fragment welcome2Fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

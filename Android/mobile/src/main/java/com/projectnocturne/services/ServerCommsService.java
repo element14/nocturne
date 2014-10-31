@@ -69,21 +69,6 @@ public final class ServerCommsService {
         return serverAddr;
     }
 
-    public void getUserList(final Context ctx, final Handler handler) {
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "getUserList()");
-
-        final List<NameValuePair> uriData = RestUriFactory.getUri(RestUriType.CHECK_USER_STATUS, obj);
-
-        if (uriData.size() == 0) {
-            NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "checkUserStatus() for " + obj.getUsername());
-            return;
-        }
-
-        final SpringRestTask restReq = new SpringRestTask(ctx, handler);
-        restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
-                SpringRestTask.URI_USER_CHECK_STATUS, obj);
-    }
-
     public void sendAlert(final Context ctx, final Handler handler, final Alert obj) {
         NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendAlert() " + obj.alert_name);
 
