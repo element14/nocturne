@@ -1,4 +1,4 @@
- /**
+/**
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
@@ -13,19 +13,20 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
- */package com.projectnocturne.views;
+ *
+ */
+package com.projectnocturne.views;
+
+import android.app.Activity;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import android.app.Activity;
-
 public abstract class NocturneActivity extends Activity implements Observer {
 
-	@Override
-	public void update(final Observable aObservable, final Object aData) {
-		// TODO Auto-generated method stub
+    @Override
+    public void update(final Observable aObservable, final Object aData) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 }

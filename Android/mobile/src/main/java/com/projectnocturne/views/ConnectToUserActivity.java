@@ -1,29 +1,29 @@
 package com.projectnocturne.views;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 
-public class ConnectionRequestActivity extends Activity {
+public class ConnectToUserActivity extends Activity {
+    private final String LOG_TAG = ConnectToUserActivity.class.getSimpleName() + "::";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connection_request);
+        setContentView(R.layout.activity_connect_to_user);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ConnectionRequestFragment())
+                    .add(R.id.container, new ConnectToUserFragment())
                     .commit();
         }
     }
@@ -32,7 +32,7 @@ public class ConnectionRequestActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_connection_request, menu);
+        getMenuInflater().inflate(R.menu.menu_connect_to_user, menu);
         return true;
     }
 
@@ -51,39 +51,31 @@ public class ConnectionRequestActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class ConnectionRequestFragment extends NocturneFragment {
-        private final String LOG_TAG = ConnectionRequestFragment.class.getSimpleName() + "::";
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class ConnectToUserFragment extends Fragment {
+        private final String LOG_TAG = ConnectToUserFragment.class.getSimpleName() + "::";
         private TextView txtEmailAddr;
         private ToggleButton swtchCarer;
+        private Button btnConnect;
         private boolean readyFragment;
 
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            update();
+        public ConnectToUserFragment() {
         }
 
         @Override
-        public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-            final View v = inflater.inflate(R.layout.fragment_connection_request, container, false);
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_connect_to_user, container, false);
 
-            txtEmailAddr = (TextView) v.findViewById(R.id.connect_user_email);
-            swtchCarer = (ToggleButton) v.findViewById(R.id.connect_user_switch_carer);
+            txtEmailAddr = (TextView) rootView.findViewById(R.id.connect_user_email);
+            swtchCarer = (ToggleButton) rootView.findViewById(R.id.connect_user_switch_carer);
+            btnConnect = (Button) rootView.findViewById(R.id.connect_user_button_connect);
 
             readyFragment = true;
 
-            update();
-            return v;
-        }
-
-        public void update() {
-            if (!readyFragment) {
-                Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() not ready");
-                return;
-            }
-            Log.i(NocturneApplication.LOG_TAG, LOG_TAG + "update() ready");
-
+            return rootView;
         }
     }
-
 }

@@ -58,7 +58,7 @@ public class Welcome1Fragment extends NocturneFragment {
             if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
                 NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
-                ((MainActivity)getActivity()).showScreen();
+                ((MainActivity) getActivity()).showScreen();
 
             } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
@@ -128,7 +128,7 @@ public class Welcome1Fragment extends NocturneFragment {
         txtWelcomeScr1MobilePhoneNbr = ViewUtils.findViewById(v, R.id.welcomeScr1MobilePhoneNbr);
         txtWelcomeScr1HomePhoneNbr = ViewUtils.findViewById(v, R.id.welcomeScr1HomePhoneNbr);
         txtWelcomeScr1EmailAddress = ViewUtils.findViewById(v, R.id.welcomeScr1EmailAddress);
-        txtWelcomeScr1Progress =ViewUtils.findViewById(v, R.id.welcomeScr1Progress);
+        txtWelcomeScr1Progress = ViewUtils.findViewById(v, R.id.welcomeScr1Progress);
         txtWelcomeScr1ErrorMessage = ViewUtils.findViewById(v, R.id.welcomeScr1ErrorMessage);
         txtWelcomeScr1ErrorMessageDetail = ViewUtils.findViewById(v, R.id.welcomeScr1ErrorMessageDetail);
         btnSubscribe = ViewUtils.findViewById(v, R.id.welcomeScr1BtnSubscribe);

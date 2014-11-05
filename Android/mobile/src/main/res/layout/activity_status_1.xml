@@ -142,15 +142,6 @@
         android:layout_marginRight="30dp"
         android:text="@string/statusScr1StatusItem4_value" />
 
-    <ExpandableListView
-        android:id="@+id/statusScr1Status_clientList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/statusScr1Status_alertButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/statusScr1StatusItem4"
-        android:layout_marginTop="14dp" />
 
     <Button
         android:id="@+id/statusScr1Status_alertButton"

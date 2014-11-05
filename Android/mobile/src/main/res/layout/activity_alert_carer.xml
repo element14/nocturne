@@ -65,7 +65,7 @@
         android:layout_below="@+id/alert_carer_OkayQuestion"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:minLines="3" >
+        android:minLines="3">
 
         <requestFocus />
     </EditText>
@@ -78,11 +78,11 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
         android:layout_marginTop="14dp"
+        android:width="180dp"
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/alert_carer_BtnOkay"
-        android:textColor="@color/alert_carer_btn_textColour_okay"
-        android:width="180dp" />
+        android:textColor="@color/alert_carer_btn_textColour_okay" />
 
     <Button
         android:id="@+id/alert_carer_BtnNotRespond"
@@ -91,9 +91,9 @@
         android:layout_below="@+id/alert_carer_BtnRespond"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
+        android:width="180dp"
         android:height="80dp"
         android:text="@string/alert_carer_BtnNotOkay"
-        android:textColor="@color/alert_carer_btn_textColour_notokay"
-        android:width="180dp" />
+        android:textColor="@color/alert_carer_btn_textColour_notokay" />
 
 </RelativeLayout>

@@ -12,7 +12,8 @@ import android.view.MenuItem;
 
 import com.projectnocturne.alarmreceivers.BedAlarmReceiver;
 import com.projectnocturne.datamodel.DbMetadata;
-import com.projectnocturne.views.ConnectionRequestActivity;
+import com.projectnocturne.views.ConnectToUserActivity;
+import com.projectnocturne.views.ConnectionRequestedActivity;
 import com.projectnocturne.views.HelpActivity;
 import com.projectnocturne.views.Status1Fragment;
 import com.projectnocturne.views.Welcome1Fragment;
@@ -96,7 +97,7 @@ public class MainActivity extends Activity {
                 startActivity(settings);
                 break;
             case R.id.action_connect:
-                final Intent cnctReq = new Intent(this, ConnectionRequestActivity.class);
+                final Intent cnctReq = new Intent(this, ConnectToUserActivity.class);
                 startActivity(cnctReq);
                 break;
             case R.id.action_help:

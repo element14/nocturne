@@ -56,11 +56,11 @@
         android:layout_below="@+id/connect_req_Heading3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
+        android:width="180dp"
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/connect_req_BtnOkay"
-        android:textColor="@color/connect_req_btn_textColour_okay"
-        android:width="180dp" />
+        android:textColor="@color/connect_req_btn_textColour_okay" />
 
     <Button
         android:id="@+id/connect_req_BtnNotOkay"
@@ -69,10 +69,10 @@
         android:layout_alignLeft="@+id/connect_req_BtnOkay"
         android:layout_below="@+id/connect_req_BtnOkay"
         android:layout_marginTop="14dp"
+        android:width="180dp"
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/connect_req_BtnNotOkay"
-        android:textColor="@color/connect_req_btn_textColour_okay"
-        android:width="180dp" />
+        android:textColor="@color/connect_req_btn_textColour_okay" />
 
 </RelativeLayout>

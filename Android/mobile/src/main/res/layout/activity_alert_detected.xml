@@ -65,11 +65,11 @@
         android:layout_below="@+id/alert_detected_OkayQuestion"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
+        android:width="180dp"
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/alert_detected_BtnOkay"
-        android:textColor="@color/alert_detected_btn_textColour_okay"
-        android:width="180dp" />
+        android:textColor="@color/alert_detected_btn_textColour_okay" />
 
     <Button
         android:id="@+id/alert_detected_BtnNotOkay"
@@ -78,9 +78,9 @@
         android:layout_below="@+id/alert_detected_BtnOkay"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
+        android:width="180dp"
         android:height="80dp"
         android:text="@string/alert_detected_BtnNotOkay"
-        android:textColor="@color/alert_detected_btn_textColour_notokay"
-        android:width="180dp" />
+        android:textColor="@color/alert_detected_btn_textColour_notokay" />
 
 </RelativeLayout>
