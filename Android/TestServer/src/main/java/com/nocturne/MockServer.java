@@ -42,8 +42,12 @@ import org.simpleframework.transport.connect.SocketConnection;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
 
 
 /**
@@ -51,16 +55,19 @@ import java.sql.SQLException;
  */
 public class MockServer implements Container {
 
-    java.sql.Connection connection = null;
+    private java.sql.Connection dbConnection;
 
     public static void main(final String[] list) throws Exception {
         System.out.println("MockServer() main() starting");
-        final Container container = new MockServer();
-        final Server server = new ContainerServer(container);
-        final Connection connection = new SocketConnection(server);
+        final MockServer mockSvr = new MockServer();
+        final Server server = new ContainerServer(mockSvr);
+        final Connection socketConnection = new SocketConnection(server);
         final SocketAddress address = new InetSocketAddress(9090);
+
+        mockSvr.dbInitialise();
+
         System.out.println("here we go");
-        connection.connect(address);
+        socketConnection.connect(address);
     }
 
     private String getJsonString(final String key, final String value) {
@@ -143,179 +150,163 @@ public class MockServer implements Container {
         body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
     }
 
-    private void dbInitialise() {
-        dbStartServer();
-        dbCreateTables();
-    }
-
-    private void dbCreateTables() {
+    public void dbInitialise() {
         try {
             dbOpenConnection();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`users` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`users` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `username` VARCHAR(45) NOT NULL,\n" +
-                    "  `name_first` VARCHAR(45) NOT NULL,\n" +
-                    "  `name_last` VARCHAR(45) NOT NULL,\n" +
-                    "  `email1` VARCHAR(45) NOT NULL,\n" +
-                    "  `phone_mbl` VARCHAR(45) NOT NULL,\n" +
-                    "  `phone_home` VARCHAR(45) NULL,\n" +
-                    "  `addr_line1` VARCHAR(45) NOT NULL,\n" +
-                    "  `addr_line2` VARCHAR(45) NULL,\n" +
-                    "  `addr_line3` VARCHAR(45) NULL,\n" +
-                    "  `postcode` VARCHAR(45) NOT NULL,\n" +
-                    "  `registration_status` VARCHAR(45) NOT NULL,\n" +
-                    "  PRIMARY KEY (`_id`))").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`conditions` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`conditions` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `condition_name` VARCHAR(45) NOT NULL,\n" +
-                    "  `condition_desc` VARCHAR(45) NULL,\n" +
-                    "  PRIMARY KEY (`_id`));").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`user_condition` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`user_condition` (\n" +
-                    "  `user_id` INT NOT NULL,\n" +
-                    "  `condition_id` INT NOT NULL,\n" +
-                    "  INDEX `condition_id_idx` (),\n" +
-                    "  PRIMARY KEY (`user_id`, `condition_id`),\n" +
-                    "  CONSTRAINT `user_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`users` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION,\n" +
-                    "  CONSTRAINT `condition_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`conditions` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`user_connect` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`user_connect` (\n" +
-                    "  `patient_user_id` VARCHAR(45) NOT NULL,\n" +
-                    "  `caregiver_user_id` VARCHAR(45) NOT NULL,\n" +
-                    "  PRIMARY KEY (`patient_user_id`, `caregiver_user_id`),\n" +
-                    "  INDEX `user2_id_idx` (),\n" +
-                    "  CONSTRAINT `user1_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`users` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION,\n" +
-                    "  CONSTRAINT `user2_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`users` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`alerts` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`alerts` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `user_Id` INT NOT NULL,\n" +
-                    "  `alert_name` VARCHAR(45) NOT NULL,\n" +
-                    "  `alert_desc` VARCHAR(45) NULL,\n" +
-                    "  `response` VARCHAR(255) NULL,\n" +
-                    "  `response_sent` TINYINT(1) NULL,\n" +
-                    "  PRIMARY KEY (`_id`),\n" +
-                    "  INDEX `user_id_idx` (),\n" +
-                    "  CONSTRAINT `user_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`users` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`sensor` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`sensor` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `sensor_name` VARCHAR(45) NULL,\n" +
-                    "  `sensor_desc` VARCHAR(45) NULL,\n" +
-                    "  PRIMARY KEY (`_id`));").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`sensor_timeperiods` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`sensor_timeperiods` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `start_time` VARCHAR(45) NULL,\n" +
-                    "  `stop_time` VARCHAR(45) NULL,\n" +
-                    "  `sensor_value_exprected` VARCHAR(45) NULL,\n" +
-                    "  `sensor_warm_time` VARCHAR(45) NULL,\n" +
-                    "  `sensor_alert_time` VARCHAR(45) NULL,\n" +
-                    "  `sensor_id` INT NOT NULL,\n" +
-                    "  PRIMARY KEY (`_id`, `sensor_id`),\n" +
-                    "  INDEX `fk_sensor_timeperiods_sensor1_idx` (`sensor_id` ASC),\n" +
-                    "  CONSTRAINT `fk_sensor_timeperiods_sensor1`\n" +
-                    "    FOREIGN KEY (`sensor_id`)\n" +
-                    "    REFERENCES `nocturne`.`sensor` (`_id`)\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`sensor_reading` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`sensor_reading` (\n" +
-                    "  `_id` INT NOT NULL,\n" +
-                    "  `sensor_id` INT NOT NULL,\n" +
-                    "  `sensor_value` VARCHAR(45) NOT NULL,\n" +
-                    "  `sensor_reading_time` VARCHAR(45) NOT NULL,\n" +
-                    "  PRIMARY KEY (`_id`, `sensor_id`),\n" +
-                    "  INDEX `fk_sensor_reading_sensors1_idx` (`sensor_id` ASC),\n" +
-                    "  CONSTRAINT `fk_sensor_reading_sensors1`\n" +
-                    "    FOREIGN KEY (`sensor_id`)\n" +
-                    "    REFERENCES `nocturne`.`sensor` (`_id`)\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-
-            connection.prepareStatement("DROP TABLE IF EXISTS `nocturne`.`user_sensors` ;").execute();
-            connection.prepareStatement("CREATE TABLE IF NOT EXISTS `nocturne`.`user_sensors` (\n" +
-                    "  `user_id` INT NOT NULL,\n" +
-                    "  `sensor_timeperiods_id` INT NOT NULL,\n" +
-                    "  `sensor_reading__id` INT NOT NULL,\n" +
-                    "  `sensor_reading_sensor_id` INT NOT NULL,\n" +
-                    "  PRIMARY KEY (`user_id`, `sensor_timeperiods_id`),\n" +
-                    "  INDEX `fk_user_sensors_sensor_timeperiods1_idx` (`sensor_timeperiods_id` ASC),\n" +
-                    "  INDEX `fk_user_sensors_sensor_reading1_idx` (`sensor_reading__id` ASC, `sensor_reading_sensor_id` ASC),\n" +
-                    "  CONSTRAINT `user_id`\n" +
-                    "    FOREIGN KEY ()\n" +
-                    "    REFERENCES `nocturne`.`users` ()\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION,\n" +
-                    "  CONSTRAINT `fk_user_sensors_sensor_timeperiods1`\n" +
-                    "    FOREIGN KEY (`sensor_timeperiods_id`)\n" +
-                    "    REFERENCES `nocturne`.`sensor_timeperiods` (`_id`)\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION,\n" +
-                    "  CONSTRAINT `fk_user_sensors_sensor_reading1`\n" +
-                    "    FOREIGN KEY (`sensor_reading__id` , `sensor_reading_sensor_id`)\n" +
-                    "    REFERENCES `nocturne`.`sensor_reading` (`_id` , `sensor_id`)\n" +
-                    "    ON DELETE NO ACTION\n" +
-                    "    ON UPDATE NO ACTION);").execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            if (!isDbSetup()) {
+                dbCreateTables();
+                dbCreateDummyData();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
         }
+    }
+
+    public boolean isDbSetup() {
+        boolean issetup = false;
+        Statement stmt = null;
+        try {
+            stmt = dbConnection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table';");
+            //rs.first();
+            while (rs.next()) {
+                String tbleName = rs.getString("name");
+                if (tbleName == "nocturne_user_sensors") {
+                    issetup = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return issetup;
     }
 
     private void dbOpenConnection() {
         try {
-            // Getting a connection to the newly started database
-            Class.forName("org.hsqldb.jdbcDriver");
-            // Default user of the HSQLDB is 'sa' with an empty password
-            connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/xdb", "sa", "");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            Class.forName("org.sqlite.JDBC");
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:mockserver.db");
+            Properties clientInfo = dbConnection.getClientInfo();
+            DatabaseMetaData metadata = dbConnection.getMetaData();
+            String catalog = dbConnection.getCatalog();
+            System.out.println("database opened successfully");
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
         }
     }
 
     private void dbCloseConnection() {
         try {
-            if (connection != null) {
-                connection.close();
+            if (dbConnection != null) {
+                dbConnection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void dbStartServer() {
+    private void dbCreateTables() {
+        try {
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_users ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_users (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  username VARCHAR(45) NOT NULL,\n" +
+                    "  name_first VARCHAR(45) NOT NULL,\n" +
+                    "  name_last VARCHAR(45) NOT NULL,\n" +
+                    "  email1 VARCHAR(45) NOT NULL,\n" +
+                    "  phone_mbl VARCHAR(45) NOT NULL,\n" +
+                    "  phone_home VARCHAR(45) ,\n" +
+                    "  addr_line1 VARCHAR(45) ,\n" +
+                    "  addr_line2 VARCHAR(45) ,\n" +
+                    "  addr_line3 VARCHAR(45) ,\n" +
+                    "  postcode VARCHAR(45),\n" +
+                    "  registration_status VARCHAR(45) NOT NULL)").execute();
 
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_conditions ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_conditions (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  condition_name VARCHAR(45) NOT NULL,\n" +
+                    "  condition_desc VARCHAR(45) NULL);").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_condition ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_condition (\n" +
+                    "  user_id INTEGER NOT NULL,\n" +
+                    "  condition_id INTEGER NOT NULL,\n" +
+                    "  PRIMARY KEY (user_id, condition_id));").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_connect ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_connect (\n" +
+                    "  patient_user_id VARCHAR(45) NOT NULL,\n" +
+                    "  caregiver_user_id VARCHAR(45) NOT NULL,\n" +
+                    "  PRIMARY KEY (patient_user_id, caregiver_user_id));").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_alerts ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_alerts (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  user_Id INTEGER NOT NULL,\n" +
+                    "  alert_name VARCHAR(45) NOT NULL,\n" +
+                    "  alert_desc VARCHAR(45) NULL,\n" +
+                    "  response VARCHAR(255) NULL,\n" +
+                    "  response_sent TINYINT(1) NULL);").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  sensor_name VARCHAR(45) NULL,\n" +
+                    "  sensor_desc VARCHAR(45) NULL);").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor_timeperiods ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor_timeperiods (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  start_time VARCHAR(45) NULL,\n" +
+                    "  stop_time VARCHAR(45) NULL,\n" +
+                    "  sensor_value_exprected VARCHAR(45) NULL,\n" +
+                    "  sensor_warm_time VARCHAR(45) NULL,\n" +
+                    "  sensor_alert_time VARCHAR(45) NULL,\n" +
+                    "  sensor_id INTEGER NOT NULL);").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor_reading ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor_reading (\n" +
+                    "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  sensor_id INTEGER NOT NULL,\n" +
+                    "  sensor_value VARCHAR(45) NOT NULL,\n" +
+                    "  sensor_reading_time VARCHAR(45) NOT NULL);").execute();
+
+            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_sensors ;").execute();
+            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_sensors (\n" +
+                    "  user_id INTEGER NOT NULL,\n" +
+                    "  sensor_timeperiods_id INTEGER NOT NULL,\n" +
+                    "  sensor_reading__id INTEGER NOT NULL,\n" +
+                    "  sensor_reading_sensor_id INTEGER NOT NULL,\n" +
+                    "  PRIMARY KEY (user_id, sensor_timeperiods_id));").execute();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
+    private void dbCreateDummyData() {
+        Statement stmt = null;
+        try {
+            stmt = dbConnection.createStatement();
+            String sql = "INSERT INTO nocturne_users (" +
+                    "username," +
+                    "name_first,name_last," +
+                    "email1," +
+                    "phone_mbl," +
+                    "registration_status) " +
+                    "VALUES ('user2', 'Andy2', 'Aspell2', 'droidinactu@gmail.com', '07986', 'REGISTERED' );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
+    }
+
 }

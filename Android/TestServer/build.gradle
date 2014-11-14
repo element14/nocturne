@@ -13,4 +13,5 @@ jar {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/simple-5.1.6.jar')
+    compile files('libs/sqlite-jdbc-3.8.7.jar')
 }
