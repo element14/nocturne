@@ -121,6 +121,8 @@ public class MockServer implements Container {
             if (directory.equalsIgnoreCase("/users/")) {
                 if (name.equalsIgnoreCase("register")) {
                     handleRequestUserRegister(request, body);
+                }else if (name.equalsIgnoreCase("connect")) {
+                    handleRequestUserConnect(request, body);
                 }
             }
 
@@ -145,6 +147,24 @@ public class MockServer implements Container {
      */
     private void handleRequestUserRegister(final Request request, final PrintStream body) {
         System.out.println("handleRequestUserRegister()");
+
+        //FIXME : parse request message
+
+
+        //FIXME : add user to database
+
+
+        // body.println("{" + getJsonString("key", "value") + "}");
+        //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
+        body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+    }
+
+    /**
+     * @param request
+     * @param body
+     */
+    private void handleRequestUserConnect(final Request request, final PrintStream body) {
+        System.out.println("handleRequestUserConnect()");
         // body.println("{" + getJsonString("key", "value") + "}");
         //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
         body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");

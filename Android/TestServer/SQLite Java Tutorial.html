@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://www.tutorialspoint.com/sqlite/sqlite_java.htm -->
+<html lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./SQLite Java Tutorial_files/cb=gapi.loaded_1" async=""></script><script src="./SQLite Java Tutorial_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" src="./SQLite Java Tutorial_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" src="./SQLite Java Tutorial_files/layers086.js"></script>
+<meta charset="utf-8">
+<title>SQLite Java Tutorial</title>
+<link rel="shortcut icon" href="http://www.tutorialspoint.com/favicon.ico" type="image/x-icon">
+<meta name="Keywords" content="Learning, SQLite, Programming, Database, Clauses, Commands, Functions, Administration, Queries, Simple, Steps, Basic, Advanced, Concepts">
+<meta name="description" content="SQLite Java Tutorial - Learn SQLite from basic to advanced convering database programming clauses command functions administration queries and usage alongwith PHP, PERL, C, C++ and JAVA in simple steps. This tutorial takes you starting from basic to advance SQLite concepts.">
+<!--<base href="http://www.tutorialspoint.com">--><base href=".">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<script type="text/javascript" src="./SQLite Java Tutorial_files/jquery.min.js"></script>
+<script type="text/javascript" src="./SQLite Java Tutorial_files/mobile.js"></script>
+<link rel="stylesheet" type="text/css" href="./SQLite Java Tutorial_files/style.css">
+<link rel="stylesheet" type="text/css" href="./SQLite Java Tutorial_files/prettify.css">
+<script type="text/javascript" src="./SQLite Java Tutorial_files/prettify.js"></script>
+<style media="screen" type="text/css">
+/* SQLite Scheme */
+#topmenu a:hover {text-decoration:none;color:#bce179 !important;background-color:transparent;font-weight:bold;}
+#header{ 
+background:#bce179 !important;
+}
+#topmenu
+{
+background-color:#11463a !important;
+}
+#leftcol ul.menu li.heading 
+{
+background:#bce179 !important;
+border:1px solid #11463a !important;
+}
+#middlecol  {min-height:1800px; padding:0px;}
+</style>
+<script src="./SQLite Java Tutorial_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-232293-6";
+urchinTracker();
+</script>
+<link rel="stylesheet" type="text/css" href="./SQLite Java Tutorial_files/widget007.old.css" media="all"><link rel="stylesheet" type="text/css" href="./SQLite Java Tutorial_files/layers067.css" media="all"></head>
+<body onload="prettyPrint()">
+<div id="header">
+<div class="wrapper">
+<h1 class="logo"><a href="http://www.tutorialspoint.com/index.htm">Tutorials Point - Simply Easy Learning</a></h1>
+<div id="search">
+<form method="get" id="searchform" name="searchform" action="http://www.google.com/search" target="_blank">
+<input type="hidden" name="sitesearch" value="www.tutorialspoint.com">
+<input type="text" name="as_q" id="s" value="Search this site..." onfocus="if (this.value == &#39;Search this site...&#39;) {this.value = &#39;&#39;;}" onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search this site...&#39;;}">
+<input value="FORID:11" name="cof" type="hidden">
+<input type="hidden" name="ie" value="ISO-8859-1">
+<input class="submit btn" type="image" src="./SQLite Java Tutorial_files/icon-search.png" alt="Go">
+</form>
+</div>
+</div>
+</div>
+<div id="topmenu">
+<div class="wrapper">
+<div id="mobileleft">
+<a href="http://www.tutorialspoint.com/index.htm" id="home"><img src="./SQLite Java Tutorial_files/home-icon.png"></a>
+</div>
+<div id="left">
+<a href="http://www.tutorialspoint.com/index.htm" target="_top">Home </a>
+<a href="http://www.tutorialspoint.com/computer_programming_tutorials.htm">Programming </a>
+<a href="http://www.tutorialspoint.com/java_technology_tutorials.htm">Java </a>
+<a href="http://www.tutorialspoint.com/web_development_tutorials.htm">Web </a>
+<a href="http://www.tutorialspoint.com/database_tutorials.htm">Databases </a>
+<a href="http://www.tutorialspoint.com/academic_tutorials.htm">Academic</a>
+<a href="http://www.tutorialspoint.com/management_tutorials.htm" title="Management Tutorials">Management</a>
+<a href="http://www.tutorialspoint.com/software_quality_tutorials.htm" title="Software Quality Tutorials">Quality</a>
+<a href="http://www.tutorialspoint.com/telecom_tutorials.htm" title="Telecom Tutorials">Telecom</a>
+<a href="http://www.tutorialspoint.com/misc_tutorials.htm">More...</a>
+</div>
+<div id="mobileright">
+<a href="http://www.tutorialspoint.com/#" id="pull"><img src="./SQLite Java Tutorial_files/nav-icon.png"></a>
+</div>
+<div id="right">
+<a href="http://www.tutorialspoint.com/references.htm" target="_top">REFERENCES</a> |
+<a href="http://www.tutorialspoint.com/forums/index.php" target="_top">FORUM</a> |
+<a href="http://www.tutorialspoint.com/about/index.htm" target="_top">ABOUT</a> |
+<a href="http://www.tutorialspoint.com/about/contact_us.htm" target="_top">CONTACT</a>
+</div>
+</div>
+</div>
+<div class="wrapper">
+<div id="leftcol">
+<div class="mini-logo">
+<img src="./SQLite Java Tutorial_files/sqlite-mini-logo.png" alt="SQLite Tutorial">
+</div>
+<ul class="menu">
+<li class="heading">Learn SQLite</li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/index.htm">SQLite - Home</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_overview.htm">SQLite - Overview</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_installation.htm">SQLite - Installation</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_commands.htm">SQLite - Commands</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_syntax.htm">SQLite - Syntax</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_data_types.htm">SQLite - Data Types</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_create_database.htm">SQLite - Create Database</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_attach_database.htm">SQLite - Attach Database</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_detach_database.htm">SQLite - Detach Database</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_create_table.htm">SQLite - Create Table</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_drop_table.htm">SQLite - Drop Table</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_insert_query.htm">SQLite - Insert Query</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_select_query.htm">SQLite - Select Query</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_operators.htm">SQLite - Operators</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_expressions.htm">SQLite - Expressions</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_where_clause.htm">SQLite - Where Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_and_or_clauses.htm">SQLite - AND &amp; OR Clauses</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_update_query.htm">SQLite - Update Query</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_delete_query.htm">SQLite - Delete Query</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_like_clause.htm">SQLite - Like Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_glob_clause.htm">SQLite - Glob Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_limit_clause.htm">SQLite - Limit Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_order_by.htm">SQLite - Order By</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_group_by.htm">SQLite - Group By</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_having_clause.htm">SQLite - Having Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_distinct_keyword.htm">SQLite - Distinct Keyword</a></li>
+</ul>
+<ul class="menu">
+<li class="heading">Advanced SQLite</li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_pragma.htm">SQLite - PRAGMA</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_constraints.htm">SQLite - Constraints</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_using_joins.htm">SQLite - Joins</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_unions_clause.htm">SQLite - Unions Clause</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_null_values.htm">SQLite - NULL Values</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_alias_syntax.htm">SQLite - Alias Syntax</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_triggers.htm">SQLite - Triggers</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_indexes.htm">SQLite - Indexes</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_indexed_by.htm">SQLite - Indexed By</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_alter_command.htm">SQLite - Alter Command</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_truncate_table.htm">SQLite - Truncate Table</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_views.htm">SQLite - Views</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_transactions.htm">SQLite - Transactions</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_sub_queries.htm">SQLite - Sub Queries</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_using_autoincrement.htm">SQLite -  Autoincrement</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_injection.htm">SQLite - Injection</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_explain.htm">SQLite - Explain</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_vacuum.htm">SQLite - Vacuum</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_date_time.htm">SQLite - Date &amp; Time</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_useful_functions.htm">SQLite - Useful Functions</a></li>
+</ul>
+<ul class="menu">
+<li class="heading">SQLite Interfaces</li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm">SQLite - C/C++</a></li>
+<li><a target="_top" href="./SQLite Java Tutorial_files/SQLite Java Tutorial.html"><b>SQLite - Java</b></a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_php.htm">SQLite - PHP</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_perl.htm">SQLite - Perl</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_python.htm">SQLite - Python</a></li>
+</ul>
+<ul class="menu">
+<li class="heading">SQL Useful Resources</li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_quick_guide.htm">SQLite - Quick Guide</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/sqlite/sqlite_useful_resources.htm">SQLite - Useful Resources</a></li>
+</ul>
+<ul class="menu">
+<li class="sreading">Selected Reading</li>
+<li><a target="_top" href="http://www.tutorialspoint.com/developers-best-practices/index.htm">Developer's Best Practices</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/computer-glossary.htm">Computer Glossary</a></li>
+<li><a target="_top" href="http://www.tutorialspoint.com/computer-whoiswho.htm">Who is Who</a></li>
+</ul>
+</div><!-- leftcol -->
+<div id="middlecol">
+<!-- PRINTING STARTS HERE -->
+<div class="content">
+<h1>SQLite Java Tutorial</h1>
+<div class="topgooglead">
+<div class="topadtag">Advertisements</div>
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle top_ad_slot" style="display:inline-block;" data-ad-client="ca-pub-7133395778201029" data-ad-slot="2813390526">
+</ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<hr>
+<div class="pre-btn">
+<a href="http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm">Previous Page</a>
+</div>
+<div class="nxt-btn">
+<a href="http://www.tutorialspoint.com/sqlite/sqlite_php.htm">Next Page</a>
+</div>
+<div class="clearer"></div>
+<hr>
+<h2>Installation</h2>
+<p>Before we start using SQLite in our Java programs, we need to make sure that we have SQLite JDBC Driver and Java set up on the machine. You can check Java tutorial for Java installation on your machine. Now, let us check how to set up SQLite JDBC driver.</p>
+<ul class="list">
+<li><p>Download latest version of <i>sqlite-jdbc-(VERSION).jar</i> from <a href="https://bitbucket.org/xerial/sqlite-jdbc/downloads" rel="nofollow">sqlite-jdbc</a> repository.</p></li>
+<li><p>Add downloaded jar file <i>sqlite-jdbc-(VERSION).jar</i> in your class path, or you can use it along with -classpath option as explained below in examples.</p></li>
+</ul>
+<p>Following section assumes you have little knowledge about Java JDBC concepts. If you don't, then it is suggested to spent half an hour with <a href="http://www.tutorialspoint.com/jdbc/jdbc-create-database.htm">JDBC Tutorial</a> to become comfortable with concepts explained below.</p>
+<h2>Connecting To Database</h2>
+<p>Following Java programs shows how to connect to an existing database. If database does not exist, then it will be created and finally a database object will be returned.</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>Now, let's compile and run above program to create our database <b>test.db</b> in the current directory. You can change your path as per your requirement. We are assuming current version of JDBC driver <i>sqlite-jdbc-3.7.2.jar</i> is available in the current path</p>
+<pre class="result">$javac SQLiteJDBC.java
+$java -classpath ".:sqlite-jdbc-3.7.2.jar" SQLiteJDBC
+Open database successfully
+</pre>
+<p>If you are going to use Windows machine, then you can compile and run your code as follows:</p>
+<pre class="result">$javac SQLiteJDBC.java
+$java -classpath ".;sqlite-jdbc-3.7.2.jar" SQLiteJDBC
+Opened database successfully
+</pre>
+<h2>Create a Table</h2>
+<p>Following Java program will be used to create a table in previously created database:</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Statement</span><span class="pln"> stmt </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+
+      stmt </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+      </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"CREATE TABLE COMPANY "</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+                   </span><span class="str">"(ID INT PRIMARY KEY     NOT NULL,"</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+                   </span><span class="str">" NAME           TEXT    NOT NULL, "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
+                   </span><span class="str">" AGE            INT     NOT NULL, "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
+                   </span><span class="str">" ADDRESS        CHAR(50), "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
+                   </span><span class="str">" SALARY         REAL)"</span><span class="pun">;</span><span class="pln"> 
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Table created successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>When above program is compiled and executed, it will create COMPANY table in your <b>test.db</b> and final listing of the file will be as follows:</p>
+<pre class="result">-rw-r--r--. 1 root root 3201128 Jan 22 19:04 sqlite-jdbc-3.7.2.jar
+-rw-r--r--. 1 root root    1506 May  8 05:43 SQLiteJDBC.class
+-rw-r--r--. 1 root root     832 May  8 05:42 SQLiteJDBC.java
+-rw-r--r--. 1 root root    3072 May  8 05:43 test.db
+</pre>
+<h2>INSERT Operation</h2>
+<p>Following Java program shows how we can create records in our COMPANY table created in above example:</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Statement</span><span class="pln"> stmt </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">setAutoCommit</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+
+      stmt </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+      </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+                   </span><span class="str">"VALUES (1, 'Paul', 32, 'California', 20000.00 );"</span><span class="pun">;</span><span class="pln"> 
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+
+      sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+            </span><span class="str">"VALUES (2, 'Allen', 25, 'Texas', 15000.00 );"</span><span class="pun">;</span><span class="pln"> 
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+
+      sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+            </span><span class="str">"VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );"</span><span class="pun">;</span><span class="pln"> 
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+
+      sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) "</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
+            </span><span class="str">"VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );"</span><span class="pun">;</span><span class="pln"> 
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+
+      stmt</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">commit</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Records created successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>When above program is compiled and executed, it will create given records in COMPANY table and will display following two line:</p>
+<pre class="result">Opened database successfully
+Records created successfully
+</pre>
+<h2>SELECT Operation</h2>
+<p>Following Java program shows how we can fetch and display records from our COMPANY table created in above example:</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Statement</span><span class="pln"> stmt </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">setAutoCommit</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+
+      stmt </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+      </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> stmt</span><span class="pun">.</span><span class="pln">executeQuery</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SELECT * FROM COMPANY;"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">()</span><span class="pln"> </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> id </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  name </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"name"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> age  </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"age"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  address </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"address"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">float</span><span class="pln"> salary </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getFloat</span><span class="pun">(</span><span class="str">"salary"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ID = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> id </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"NAME = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> name </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"AGE = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> age </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ADDRESS = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> address </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SALARY = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> salary </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+      rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Operation done successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>When above program is compiled and executed, it will produce the following result:</p>
+<pre class="result">Opened database successfully
+ID = 1
+NAME = Paul
+AGE = 32
+ADDRESS = California
+SALARY = 20000.0
+
+ID = 2
+NAME = Allen
+AGE = 25
+ADDRESS = Texas
+SALARY = 15000.0
+
+ID = 3
+NAME = Teddy
+AGE = 23
+ADDRESS = Norway
+SALARY = 20000.0
+
+ID = 4
+NAME = Mark
+AGE = 25
+ADDRESS = Rich-Mond
+SALARY = 65000.0
+
+Operation done successfully
+</pre>
+<h2>UPDATE Operation</h2>
+<p>Following Java code shows how we can use UPDATE statement to update any record and then fetch and display updated records from our COMPANY table:</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Statement</span><span class="pln"> stmt </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">setAutoCommit</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+
+      stmt </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+      </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"UPDATE COMPANY set SALARY = 25000.00 where ID=1;"</span><span class="pun">;</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">commit</span><span class="pun">();</span><span class="pln">
+
+      </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> stmt</span><span class="pun">.</span><span class="pln">executeQuery</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SELECT * FROM COMPANY;"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">()</span><span class="pln"> </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> id </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  name </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"name"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> age  </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"age"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  address </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"address"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">float</span><span class="pln"> salary </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getFloat</span><span class="pun">(</span><span class="str">"salary"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ID = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> id </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"NAME = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> name </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"AGE = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> age </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ADDRESS = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> address </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SALARY = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> salary </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+      rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Operation done successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>When above program is compiled and executed, it will produce the following result:</p>
+<pre class="result">Opened database successfully
+ID = 1
+NAME = Paul
+AGE = 32
+ADDRESS = California
+SALARY = 25000.0
+
+ID = 2
+NAME = Allen
+AGE = 25
+ADDRESS = Texas
+SALARY = 15000.0
+
+ID = 3
+NAME = Teddy
+AGE = 23
+ADDRESS = Norway
+SALARY = 20000.0
+
+ID = 4
+NAME = Mark
+AGE = 25
+ADDRESS = Rich-Mond
+SALARY = 65000.0
+
+Operation done successfully
+</pre>
+<h2>DELETE Operation</h2>
+<p>Following Java code shows how we can use DELETE statement to delete any record and then fetch and display remaining records from our COMPANY table:</p>
+<pre class="prettyprint prettyprinted"><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">sql</span><span class="pun">.*;</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">SQLiteJDBC</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> args</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">)</span><span class="pln">
+  </span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Connection</span><span class="pln"> c </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Statement</span><span class="pln"> stmt </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">Class</span><span class="pun">.</span><span class="pln">forName</span><span class="pun">(</span><span class="str">"org.sqlite.JDBC"</span><span class="pun">);</span><span class="pln">
+      c </span><span class="pun">=</span><span class="pln"> </span><span class="typ">DriverManager</span><span class="pun">.</span><span class="pln">getConnection</span><span class="pun">(</span><span class="str">"jdbc:sqlite:test.db"</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">setAutoCommit</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Opened database successfully"</span><span class="pun">);</span><span class="pln">
+
+      stmt </span><span class="pun">=</span><span class="pln"> c</span><span class="pun">.</span><span class="pln">createStatement</span><span class="pun">();</span><span class="pln">
+      </span><span class="typ">String</span><span class="pln"> sql </span><span class="pun">=</span><span class="pln"> </span><span class="str">"DELETE from COMPANY where ID=2;"</span><span class="pun">;</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">executeUpdate</span><span class="pun">(</span><span class="pln">sql</span><span class="pun">);</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">commit</span><span class="pun">();</span><span class="pln">
+
+      </span><span class="typ">ResultSet</span><span class="pln"> rs </span><span class="pun">=</span><span class="pln"> stmt</span><span class="pun">.</span><span class="pln">executeQuery</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SELECT * FROM COMPANY;"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> rs</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">()</span><span class="pln"> </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> id </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"id"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  name </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"name"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">int</span><span class="pln"> age  </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getInt</span><span class="pun">(</span><span class="str">"age"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">String</span><span class="pln">  address </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getString</span><span class="pun">(</span><span class="str">"address"</span><span class="pun">);</span><span class="pln">
+         </span><span class="kwd">float</span><span class="pln"> salary </span><span class="pun">=</span><span class="pln"> rs</span><span class="pun">.</span><span class="pln">getFloat</span><span class="pun">(</span><span class="str">"salary"</span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ID = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> id </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"NAME = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> name </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"AGE = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> age </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"ADDRESS = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> address </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> </span><span class="str">"SALARY = "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> salary </span><span class="pun">);</span><span class="pln">
+         </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+      rs</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      stmt</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+      c</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e </span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="pln">err</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getClass</span><span class="pun">().</span><span class="pln">getName</span><span class="pun">()</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">": "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">getMessage</span><span class="pun">()</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">exit</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Operation done successfully"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>When above program is compiled and executed, it will produce the following result:</p>
+<pre class="result">Opened database successfully
+ID = 1
+NAME = Paul
+AGE = 32
+ADDRESS = California
+SALARY = 25000.0
+
+ID = 3
+NAME = Teddy
+AGE = 23
+ADDRESS = Norway
+SALARY = 20000.0
+
+ID = 4
+NAME = Mark
+AGE = 25
+ADDRESS = Rich-Mond
+SALARY = 65000.0
+
+Operation done successfully
+</pre>
+<hr>
+<div class="pre-btn">
+<a href="http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm">Previous Page</a>
+</div>
+<div class="print-btn">
+<a href="http://www.tutorialspoint.com/cgi-bin/printpage.cgi" target="_blank">Print Version</a>
+</div>
+<div class="pdf-btn">
+<a href="http://www.tutorialspoint.com/sqlite/pdf/sqlite_java.pdf" alt="SQLite Java Tutorial" target="_blank">PDF Version</a>
+</div>
+<div class="nxt-btn">
+<a href="http://www.tutorialspoint.com/sqlite/sqlite_php.htm">Next Page</a>
+</div>
+<div class="clearer"></div>
+<hr>
+</div>
+<!-- PRINTING ENDS HERE -->
+<div class="bottomgooglead">
+<div class="bottomadtag">Advertisements</div>
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle bottom_ad_slot" style="display:inline-block;" data-ad-client="ca-pub-7133395778201029" data-ad-slot="2952991323">
+</ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div><!-- middlecol -->
+<div id="rightcol">
+<!-- AddThis Button BEGIN -->
+<div class="addthis">
+<div class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_facebook at300b" title="Facebook" href="http://www.tutorialspoint.com/#"><span class="at16nc at300bs at15nc at15t_facebook at16t_facebook"><span class="at_a11y">Share on facebook</span></span></a>
+<a class="addthis_button_twitter at300b" title="Tweet" href="http://www.tutorialspoint.com/#"><span class="at16nc at300bs at15nc at15t_twitter at16t_twitter"><span class="at_a11y">Share on twitter</span></span></a>
+<script type="text/javascript">
+<!--
+ document.write('<a class="addthis_button_google_plusone" g:plusone:count="false"></a>');
+//-->
+</script><a class="addthis_button_google_plusone at300b" g:plusone:count="false"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 24px; height: 15px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 24px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px;" tabindex="0" vspace="0" width="100%" id="I0_1415945301587" name="I0_1415945301587" src="./SQLite Java Tutorial_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></a>
+<a class="addthis_button_linkedin at300b" href="http://www.addthis.com/bookmark.php?v=300&winname=addthis&pub=ra-4f661ec623a400f0&source=tbx-300&lng=en-GB&s=linkedin&url=http%3A%2F%2Fwww.tutorialspoint.com%2Fsqlite%2Fsqlite_java.htm&title=SQLite%20Java%20Tutorial&ate=AT-ra-4f661ec623a400f0/-/-/54659c54bf563fc1/2/53360110293047b2&frommenu=1&uid=53360110293047b2&ct=1&pre=https%3A%2F%2Fwww.google.co.uk%2F&tt=0&captcha_provider=nucaptcha" target="_blank" title="LinkedIn"><span class="at16nc at300bs at15nc at15t_linkedin at16t_linkedin"><span class="at_a11y">Share on linkedin</span></span></a>
+<a class="addthis_button_email at300b" target="_blank" title="Email" href="http://www.tutorialspoint.com/#"><span class="at16nc at300bs at15nc at15t_email at16t_email"><span class="at_a11y">Share on email</span></span></a>
+<a class="addthis_button_compact at300m" href="http://www.tutorialspoint.com/#"><span class="at16nc at300bs at15nc at15t_compact at16t_compact"><span class="at_a11y">More Sharing Services</span></span></a>
+<div class="atclear"></div></div>
+<script type="text/javascript" src="./SQLite Java Tutorial_files/addthis_widget.js"></script>
+</div>
+<!-- AddThis Button END -->
+<div class="localad">
+<a rel="nofollow" href="http://www.modernindianbabynames.com/" target="_blank" title="Modern Baby Names">Modern Baby Names</a>
+</div>
+<div class="localad">
+<a rel="nofollow" href="http://www.photofuntoos.com/" target="_blank" title="Online Photo Editing">Online Photo Editing</a>
+</div>
+<div class="rightgooglead">
+<div style="padding-bottom:5px;padding-left:10px;">Advertisements</div>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7133395778201029";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "image";
+google_ad_channel ="";
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> 
+</script>
+</div>
+</div><!-- rightcol -->
+<div style="clear:both;"></div>
+</div><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe id="_atssh881" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0px; left: 0px; top: 0px;" src="./SQLite Java Tutorial_files/sh180.html"></iframe></div><script type="text/javascript" src="./SQLite Java Tutorial_files/core164.js"></script><!-- wrapper -->
+<div id="footer">
+<div class="wrapper">
+<div id="bottommenu">
+<a href="http://www.tutorialspoint.com/asp.net/index.htm" target="_top">ASP.NET </a> |
+<a href="http://www.tutorialspoint.com/jquery/index.htm" target="_top">jQuery </a> |
+<a href="http://www.tutorialspoint.com/ajax/index.htm" target="_top">AJAX </a> |
+<a href="http://www.tutorialspoint.com/ant/index.htm" target="_top">ANT</a> |
+<a href="http://www.tutorialspoint.com/jsp/index.htm" target="_top">JSP </a> |
+<a href="http://www.tutorialspoint.com/servlets/index.htm" target="_top">Servlets </a> |
+<a href="http://www.tutorialspoint.com/log4j/index.htm" target="_top">log4j </a> |
+<a href="http://www.tutorialspoint.com/ibatis/index.htm" target="_top">iBATIS </a> |
+<a href="http://www.tutorialspoint.com/hibernate/index.htm" target="_top">Hibernate </a> |
+<a href="http://www.tutorialspoint.com/jdbc/index.htm" target="_top">JDBC </a> |
+<a href="http://www.tutorialspoint.com/struts_2/index.htm" target="_top">Struts </a> |
+<a href="http://www.tutorialspoint.com/html5/index.htm" target="_top">HTML5 </a> |
+<a href="http://www.tutorialspoint.com/sql/index.htm" target="_top">SQL </a> |
+<a href="http://www.tutorialspoint.com/mysql/index.htm" target="_top">MySQL </a> |
+<a href="http://www.tutorialspoint.com/cplusplus/index.htm" target="_top">C++ </a> |
+<a href="http://www.tutorialspoint.com/unix/index.htm" target="_top">UNIX </a>
+</div>
+<div id="copyright">
+<p>Copyright © 2014 by tutorialspoint. All Rights Reserved.</p>
+</div>
+</div>
+</div>
+
+
+<script id="hiddenlpsubmitdiv" style="display: none;"></script><script>try{for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){ var lastpass_f = document.forms[lastpass_iter]; if(typeof(lastpass_f.lpsubmitorig2)=="undefined"){ lastpass_f.lpsubmitorig2 = lastpass_f.submit; lastpass_f.submit = function(){ var form=this; var customEvent = document.createEvent("Event"); customEvent.initEvent("lpCustomEvent", true, true); var d = document.getElementById("hiddenlpsubmitdiv"); if (d) {for(var i = 0; i < document.forms.length; i++){ if(document.forms[i]==form){ d.innerText=i; } } d.dispatchEvent(customEvent); }form.lpsubmitorig2(); } } }}catch(e){}</script><iframe name="oauth2relay707858554" id="oauth2relay707858554" src="./SQLite Java Tutorial_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
