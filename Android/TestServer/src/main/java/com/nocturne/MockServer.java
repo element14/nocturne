@@ -28,6 +28,8 @@
  */
 package com.nocturne;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.simpleframework.http.ContentType;
 import org.simpleframework.http.Path;
 import org.simpleframework.http.Query;
@@ -39,6 +41,7 @@ import org.simpleframework.transport.Server;
 import org.simpleframework.transport.connect.Connection;
 import org.simpleframework.transport.connect.SocketConnection;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -121,7 +124,7 @@ public class MockServer implements Container {
             if (directory.equalsIgnoreCase("/users/")) {
                 if (name.equalsIgnoreCase("register")) {
                     handleRequestUserRegister(request, body);
-                }else if (name.equalsIgnoreCase("connect")) {
+                } else if (name.equalsIgnoreCase("connect")) {
                     handleRequestUserConnect(request, body);
                 }
             }
@@ -148,15 +151,73 @@ public class MockServer implements Container {
     private void handleRequestUserRegister(final Request request, final PrintStream body) {
         System.out.println("handleRequestUserRegister()");
 
+        String jsonStr = null;
+        try {
+            jsonStr = request.getContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //FIXME : parse request message
+        JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); //get "user" object
+
+        String username = userObj.get("username").toString();
+        String name_last = userObj.get("name_last").toString();
+        String name_first = userObj.get("name_first").toString();
+        String email = "";
+        if (userObj.containsKey("email1")) {
+            email = userObj.get("email1").toString();
+        }
+        String status = "";
+        if (userObj.containsKey("status")) {
+            status = userObj.get("status").toString();
+        }
+        String addr_line1 = "";
+        if (userObj.containsKey("addr_line1")) {
+            addr_line1 = userObj.get("addr_line1").toString();
+        }
+        String addr_line2 = "";
+        if (userObj.containsKey("addr_line2")) {
+            addr_line2 = userObj.get("addr_line2").toString();
+        }
+        String addr_line3 = "";
+        if (userObj.containsKey("addr_line3")) {
+            addr_line3 = userObj.get("addr_line3").toString();
+        }
+        String postcode = "";
+        if (userObj.containsKey("postcode")) {
+            postcode = userObj.get("postcode").toString();
+        }
+        String phone_home = "";
+        if (userObj.containsKey("phone_home")) {
+            phone_home = userObj.get("phone_home").toString();
+        }
+        String phone_mobile = userObj.get("phone_mbl").toString();
 
 
         //FIXME : add user to database
+        String valuesStr = "'" + username + "'," +
+                "'" + name_first + "'," +
+                "'" + name_last + "'," +
+                "'" + email + "'," +
+                "'" + phone_mobile + "'," +
+                "'" + phone_home + "'," +
+                "'" + addr_line1 + "'," +
+                "'" + addr_line2 + "'," +
+                "'" + addr_line3 + "'," +
+                "'" + postcode + "'," +
+                "'ACCEPTED')";
+        try {
+            dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl,\n" +
+                    "  phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (" + valuesStr).execute();
 
-
-        // body.println("{" + getJsonString("key", "value") + "}");
-        //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
-        body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+            //body.println("{" + getJsonString("key", "value") + "}");
+            //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
+            body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user to database failed [" + e.getMessage() + "]\"}");
+        }
     }
 
     /**
@@ -165,6 +226,10 @@ public class MockServer implements Container {
      */
     private void handleRequestUserConnect(final Request request, final PrintStream body) {
         System.out.println("handleRequestUserConnect()");
+
+        //FIXME : parse request message
+
+
         // body.println("{" + getJsonString("key", "value") + "}");
         //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
         body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
