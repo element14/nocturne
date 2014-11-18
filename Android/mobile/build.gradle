@@ -19,8 +19,8 @@ android {
         applicationId 'com.projectnocturne'
         minSdkVersion 18
         targetSdkVersion 20
-        versionCode 1
-        versionName '0.0.1.0'
+        versionCode 2
+        versionName '0.0.2.0'
     }
     buildTypes {
         release {

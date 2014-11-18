@@ -7,8 +7,8 @@ This is the top level source directory for the Android app for Project Nocturne.
 Todo
 ----
 
-* [ ] 
-* [ ] 
+* [ ] MockServer : Add parsing user connection request
+* [ ] Android : Send user connection request to server
 * [ ] 
 * [ ] 
 * [ ] 
@@ -52,8 +52,9 @@ Frameworks in use:
 ====
 TestServer
 ----
- * Simple -  http://www.simpleframework.org/
-
+ * Simple      - http://www.simpleframework.org/
+ * json-simple - https://code.google.com/p/json-simple
+ * sqlite-jdbc -
 
 Android App
 ----

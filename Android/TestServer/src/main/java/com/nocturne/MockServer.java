@@ -47,6 +47,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -196,20 +197,36 @@ public class MockServer implements Container {
 
 
         //FIXME : add user to database
-        String valuesStr = "'" + username + "'," +
-                "'" + name_first + "'," +
-                "'" + name_last + "'," +
-                "'" + email + "'," +
-                "'" + phone_mobile + "'," +
-                "'" + phone_home + "'," +
-                "'" + addr_line1 + "'," +
-                "'" + addr_line2 + "'," +
-                "'" + addr_line3 + "'," +
-                "'" + postcode + "'," +
-                "'ACCEPTED')";
+        PreparedStatement insertStmt = null;
         try {
-            dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl,\n" +
-                    "  phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (" + valuesStr).execute();
+            insertStmt = dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl," +
+                    " phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (?,?,?,?,?,?,?,?,?,?, 'ACCEPTED')");
+            insertStmt.setString(1, username);
+            insertStmt.setString(2, name_first);
+            insertStmt.setString(3, name_last);
+            insertStmt.setString(4, email);
+            insertStmt.setString(5, phone_mobile);
+            insertStmt.setString(6, phone_home);
+            insertStmt.setString(7, addr_line1);
+            insertStmt.setString(8, addr_line2);
+            insertStmt.setString(9, addr_line3);
+            insertStmt.setString(10, postcode);
+            insertStmt.execute();
+
+            String valuesStr = "'" + username + "'," +
+                    "'" + name_first + "'," +
+                    "'" + name_last + "'," +
+                    "'" + email + "'," +
+                    "'" + phone_mobile + "'," +
+                    "'" + phone_home + "'," +
+                    "'" + addr_line1 + "'," +
+                    "'" + addr_line2 + "'," +
+                    "'" + addr_line3 + "'," +
+                    "'" + postcode + "'," +
+                    "'ACCEPTED')";
+
+            //dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl,\n" +
+            //        "  phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (" + valuesStr).execute();
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
@@ -257,7 +274,7 @@ public class MockServer implements Container {
             //rs.first();
             while (rs.next()) {
                 String tbleName = rs.getString("name");
-                if (tbleName == "nocturne_user_sensors") {
+                if (tbleName.equalsIgnoreCase("nocturne_user_sensors")) {
                     issetup = true;
                     break;
                 }
