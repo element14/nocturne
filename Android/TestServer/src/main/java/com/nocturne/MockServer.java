@@ -233,43 +233,46 @@ public class MockServer implements Container {
             jsonStr = request.getContent();
 
             //FIXME : parse request message
-            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); //get "user" object
+            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); 
 
-            String email1 = "";
-            if (userObj.containsKey("email1")) {
-                email1 = userObj.get("email1").toString();
+            String user1_email = "";
+            if (userObj.containsKey("user1_email")) {
+                user1_email = userObj.get("user1_email").toString();
             }
-            String email2 = "";
-            if (userObj.containsKey("email2")) {
-                email2 = userObj.get("email2").toString();
+            String user2_email = "";
+            if (userObj.containsKey("user2_email")) {
+                user2_email = userObj.get("user2_email").toString();
             }
-
+            String user1_role = "";
+            if (userObj.containsKey("user1_role")) {
+                user1_role = userObj.get("user1_role").toString();
+            }
+            String user2_role = "";
+            if (userObj.containsKey("user2_role")) {
+                user2_role = userObj.get("user2_role").toString();
+            }
 
             //FIXME : add user to database
             PreparedStatement insertStmt = null;
-            insertStmt = dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl," +
-                    " phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (?,?,?,?,?,?,?,?,?,?, 'ACCEPTED')");
-            insertStmt.setString(1, username);
-            insertStmt.setString(2, name_first);
-            insertStmt.setString(3, name_last);
-            insertStmt.setString(4, email);
-            insertStmt.setString(5, phone_mobile);
-            insertStmt.setString(6, phone_home);
-            insertStmt.setString(7, addr_line1);
-            insertStmt.setString(8, addr_line2);
-            insertStmt.setString(9, addr_line3);
-            insertStmt.setString(10, postcode);
+            insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (patient_user_id, caregiver_user_id) values (?,?)");
+            if ( user1_role.equalsIgnoreCase("PATIENT")) {
+                insertStmt.setString(1, user1_email);
+                insertStmt.setString(2, user2_email);
+            }else{
+                insertStmt.setString(1, user2_email);
+                insertStmt.setString(2, user1_email);
+            }
             insertStmt.execute();
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
-            body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+            body.println("{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"}");
         } catch (IOException e) {
             e.printStackTrace();
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
         } catch (SQLException e) {
             e.printStackTrace();
-            body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user to database failed\"}");
+            body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user connection to database failed\"}");
         }
     }
 
@@ -415,14 +418,19 @@ public class MockServer implements Container {
         Statement stmt = null;
         try {
             stmt = dbConnection.createStatement();
-            String sql = "INSERT INTO nocturne_users (" +
-                    "username," +
-                    "name_first,name_last," +
-                    "email1," +
-                    "phone_mbl," +
-                    "registration_status) " +
-                    "VALUES ('user2', 'Andy2', 'Aspell2', 'droidinactu@gmail.com', '07986', 'REGISTERED' );";
-            stmt.executeUpdate(sql);
+            stmt.execute( "INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " +
+                    "VALUES ('aspellclark@yahoo.co.uk', 'AndyY', 'Aspell-Clark', 'aspellclark@yahoo.co.uk', '07986', 'REGISTERED' );");
+            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " +
+                    "VALUES ('droidinactu@gmail.com', 'AndyD', 'Aspell-Clark', 'droidinactu@gmail.com', '07986', 'REGISTERED' );");
+
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Cancer', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Coronary Heart Disease', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Diabetes', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Dementia', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Depression', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Osteoporosis', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('High Blood Pressure', '' );");
+            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Parkinsons', '' );");
 
             stmt.close();
         } catch (Exception e) {
