@@ -156,47 +156,46 @@ public class MockServer implements Container {
         try {
             jsonStr = request.getContent();
 
-        //FIXME : parse request message
-        JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); //get "user" object
+            //FIXME : parse request message
+            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); //get "user" object
 
-        String username = userObj.get("username").toString();
-        String name_last = userObj.get("name_last").toString();
-        String name_first = userObj.get("name_first").toString();
-        String email = "";
-        if (userObj.containsKey("email1")) {
-            email = userObj.get("email1").toString();
-        }
-        String status = "";
-        if (userObj.containsKey("status")) {
-            status = userObj.get("status").toString();
-        }
-        String addr_line1 = "";
-        if (userObj.containsKey("addr_line1")) {
-            addr_line1 = userObj.get("addr_line1").toString();
-        }
-        String addr_line2 = "";
-        if (userObj.containsKey("addr_line2")) {
-            addr_line2 = userObj.get("addr_line2").toString();
-        }
-        String addr_line3 = "";
-        if (userObj.containsKey("addr_line3")) {
-            addr_line3 = userObj.get("addr_line3").toString();
-        }
-        String postcode = "";
-        if (userObj.containsKey("postcode")) {
-            postcode = userObj.get("postcode").toString();
-        }
-        String phone_home = "";
-        if (userObj.containsKey("phone_home")) {
-            phone_home = userObj.get("phone_home").toString();
-        }
-        String phone_mobile = userObj.get("phone_mbl").toString();
+            String username = userObj.get("username").toString();
+            String name_last = userObj.get("name_last").toString();
+            String name_first = userObj.get("name_first").toString();
+            String email = "";
+            if (userObj.containsKey("email1")) {
+                email = userObj.get("email1").toString();
+            }
+            String status = "";
+            if (userObj.containsKey("status")) {
+                status = userObj.get("status").toString();
+            }
+            String addr_line1 = "";
+            if (userObj.containsKey("addr_line1")) {
+                addr_line1 = userObj.get("addr_line1").toString();
+            }
+            String addr_line2 = "";
+            if (userObj.containsKey("addr_line2")) {
+                addr_line2 = userObj.get("addr_line2").toString();
+            }
+            String addr_line3 = "";
+            if (userObj.containsKey("addr_line3")) {
+                addr_line3 = userObj.get("addr_line3").toString();
+            }
+            String postcode = "";
+            if (userObj.containsKey("postcode")) {
+                postcode = userObj.get("postcode").toString();
+            }
+            String phone_home = "";
+            if (userObj.containsKey("phone_home")) {
+                phone_home = userObj.get("phone_home").toString();
+            }
+            String phone_mobile = userObj.get("phone_mbl").toString();
 
 
-        //FIXME : add user to database
-        PreparedStatement insertStmt = null;
-            insertStmt = dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl," +
-                    " phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (?,?,?,?,?,?,?,?,?,?, 'ACCEPTED')");
+            //FIXME : add user to database
+            PreparedStatement insertStmt = null;
+            insertStmt = dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl," + " phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (?,?,?,?,?,?,?,?,?,?, 'ACCEPTED')");
             insertStmt.setString(1, username);
             insertStmt.setString(2, name_first);
             insertStmt.setString(3, name_last);
@@ -233,7 +232,7 @@ public class MockServer implements Container {
             jsonStr = request.getContent();
 
             //FIXME : parse request message
-            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); 
+            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr);
 
             String user1_email = "";
             if (userObj.containsKey("user1_email")) {
@@ -252,13 +251,13 @@ public class MockServer implements Container {
                 user2_role = userObj.get("user2_role").toString();
             }
 
-            //FIXME : add user to database
+            //FIXME : add user connection to database
             PreparedStatement insertStmt = null;
             insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (patient_user_id, caregiver_user_id) values (?,?)");
-            if ( user1_role.equalsIgnoreCase("PATIENT")) {
+            if (user1_role.equalsIgnoreCase("PATIENT")) {
                 insertStmt.setString(1, user1_email);
                 insertStmt.setString(2, user2_email);
-            }else{
+            } else {
                 insertStmt.setString(1, user2_email);
                 insertStmt.setString(2, user1_email);
             }
@@ -418,10 +417,8 @@ public class MockServer implements Container {
         Statement stmt = null;
         try {
             stmt = dbConnection.createStatement();
-            stmt.execute( "INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " +
-                    "VALUES ('aspellclark@yahoo.co.uk', 'AndyY', 'Aspell-Clark', 'aspellclark@yahoo.co.uk', '07986', 'REGISTERED' );");
-            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " +
-                    "VALUES ('droidinactu@gmail.com', 'AndyD', 'Aspell-Clark', 'droidinactu@gmail.com', '07986', 'REGISTERED' );");
+            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " + "VALUES ('aspellclark@yahoo.co.uk', 'AndyY', 'Aspell-Clark', 'aspellclark@yahoo.co.uk', '07986', 'REGISTERED' );");
+            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " + "VALUES ('droidinactu@gmail.com', 'AndyD', 'Aspell-Clark', 'droidinactu@gmail.com', '07986', 'REGISTERED' );");
 
             stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Cancer', '' );");
             stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Coronary Heart Disease', '' );");

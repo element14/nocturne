@@ -73,6 +73,13 @@ public class ConnectToUserActivity extends Activity {
             swtchCarer = (ToggleButton) rootView.findViewById(R.id.connect_user_switch_carer);
             btnConnect = (Button) rootView.findViewById(R.id.connect_user_button_connect);
 
+            btnConnect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View pView) {
+
+                }
+            });
+
             readyFragment = true;
 
             return rootView;
