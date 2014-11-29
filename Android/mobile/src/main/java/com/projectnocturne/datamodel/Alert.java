@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,7 +13,7 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
 
@@ -24,102 +24,97 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public final class Alert {
 
-	@JsonProperty("alert_desc")
-	public String alert_desc;
+    @JsonProperty("alert_desc")
+    public String alert_desc;
 
-	@JsonProperty("alert_name")
-	public String alert_name;
+    @JsonProperty("alert_name")
+    public String alert_name;
 
-	@JsonProperty("response")
-	public String response;
+    @JsonProperty("response")
+    public String response;
 
-	@JsonProperty("response_sent")
-	public boolean response_sent = false;
+    @JsonProperty("response_sent")
+    public boolean response_sent = false;
 
-	@JsonProperty("user_Id")
-	public long user_Id;
+    @JsonProperty("user_Id")
+    public long user_Id;
 
-	public Alert() {
-		// TODO Auto-generated constructor stub
-	}
+    public Alert() {
+        // TODO Auto-generated constructor stub
+    }
 
-	/**
-	 * @return the alert_desc
-	 */
-	public String getAlert_desc() {
-		return alert_desc;
-	}
+    /**
+     * @return the alert_desc
+     */
+    public String getAlert_desc() {
+        return alert_desc;
+    }
 
-	/**
-	 * @return the alert_name
-	 */
-	public String getAlert_name() {
-		return alert_name;
-	}
+    /**
+     * @param alert_desc the alert_desc to set
+     */
+    public void setAlert_desc(final String alert_desc) {
+        this.alert_desc = alert_desc;
+    }
 
-	/**
-	 * @return the response
-	 */
-	public String getResponse() {
-		return response;
-	}
+    /**
+     * @return the alert_name
+     */
+    public String getAlert_name() {
+        return alert_name;
+    }
 
-	/**
-	 * @return the user_Id
-	 */
-	public long getUser_Id() {
-		return user_Id;
-	}
+    /**
+     * @param alert_name the alert_name to set
+     */
+    public void setAlert_name(final String alert_name) {
+        this.alert_name = alert_name;
+    }
 
-	/**
-	 * @return the response_sent
-	 */
-	public boolean isResponse_sent() {
-		return response_sent;
-	}
+    /**
+     * @return the response
+     */
+    public String getResponse() {
+        return response;
+    }
 
-	/**
-	 * @param alert_desc
-	 *            the alert_desc to set
-	 */
-	public void setAlert_desc(final String alert_desc) {
-		this.alert_desc = alert_desc;
-	}
+    /**
+     * @param response the response to set
+     */
+    public void setResponse(final String response) {
+        this.response = response;
+    }
 
-	/**
-	 * @param alert_name
-	 *            the alert_name to set
-	 */
-	public void setAlert_name(final String alert_name) {
-		this.alert_name = alert_name;
-	}
+    /**
+     * @return the user_Id
+     */
+    public long getUser_Id() {
+        return user_Id;
+    }
 
-	/**
-	 * @param response
-	 *            the response to set
-	 */
-	public void setResponse(final String response) {
-		this.response = response;
-	}
+    /**
+     * @param user_Id the user_Id to set
+     */
+    public void setUser_Id(final long user_Id) {
+        this.user_Id = user_Id;
+    }
 
-	/**
-	 * @param response_sent
-	 *            the response_sent to set
-	 */
-	public void setResponse_sent(final boolean response_sent) {
-		this.response_sent = response_sent;
-	}
+    /**
+     * @return the response_sent
+     */
+    public boolean isResponse_sent() {
+        return response_sent;
+    }
 
-	/**
-	 * @param user_Id
-	 *            the user_Id to set
-	 */
-	public void setUser_Id(final long user_Id) {
-		this.user_Id = user_Id;
-	}
+    /**
+     * @param response_sent the response_sent to set
+     */
+    public void setResponse_sent(final boolean response_sent) {
+        this.response_sent = response_sent;
+    }
 
-	@Override
-	public String toString() {
-		return null;
-	}
+    @Override
+    public String toString() {
+        return null;
+    }
 }

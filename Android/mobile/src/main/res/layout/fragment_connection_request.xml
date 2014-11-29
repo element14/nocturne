@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
         android:id="@+id/connect_req_Heading1"
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="@string/connect_req_Heading1"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
         android:id="@+id/connect_req_Heading2"
@@ -26,7 +26,7 @@
         android:layout_marginTop="18dp"
         android:gravity="center_horizontal"
         android:text="@string/connect_req_Heading2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
         android:id="@+id/connect_req_connection"
@@ -37,7 +37,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/connect_req_connection"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/connect_req_Heading3"
@@ -47,7 +47,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:text="@string/connect_req_Heading3"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <Button
         android:id="@+id/connect_req_BtnOkay"
@@ -60,7 +60,7 @@
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/connect_req_BtnOkay"
-        android:textColor="@color/connect_req_btn_textColour_okay" />
+        android:textColor="@color/connect_req_btn_textColour_okay"/>
 
     <Button
         android:id="@+id/connect_req_BtnNotOkay"
@@ -73,6 +73,6 @@
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/connect_req_BtnNotOkay"
-        android:textColor="@color/connect_req_btn_textColour_okay" />
+        android:textColor="@color/connect_req_btn_textColour_okay"/>
 
 </RelativeLayout>

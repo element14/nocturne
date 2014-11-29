@@ -17,13 +17,6 @@
  */
 package com.projectnocturne.datamodel;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-
-import org.joda.time.DateTime;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -40,228 +33,232 @@ import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.db.NocturneDatabaseHelper;
 import com.projectnocturne.views.NocturneFragment;
 
+import org.joda.time.DateTime;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 public final class DataModel extends Observable {
-	private static DataModel instance = new DataModel();
+    private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
+    private static DataModel instance = new DataModel();
+    private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
+    private Context ctx;
 
-	private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
+    private NocturneDatabaseHelper databaseHelper = null;
+    private SQLiteDatabase db;
+    private DataModel() {
+    }
 
-	public static DataModel getInstance(final Context ctx) {
-		instance.ctx = ctx;
-		return DataModel.instance;
-	}
+    public static DataModel getInstance(final Context ctx) {
+        instance.ctx = ctx;
+        return DataModel.instance;
+    }
 
-	private Context ctx;
+    public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
+        final ContentResolver cr = ctx.getContentResolver();
+        final ContentValues values = itm.getContentValues();
 
-	private NocturneDatabaseHelper databaseHelper = null;
-	private SQLiteDatabase db;
-	private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
+        final Uri insertedUri = cr.insert(NocturneSensorReadingContentProvider.CONTENT_URI, values);
+        // get the row id - it's the last path segment in the returned uri
+        // for the inserted record
+        final String lastPathSegment = insertedUri.getLastPathSegment();
+        // save the inserted record's row id in global variable
+        itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
 
-	private DataModel() {
-	}
+        return itm;
+    }
 
-	public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
-		final ContentResolver cr = ctx.getContentResolver();
-		final ContentValues values = itm.getContentValues();
+    public UserDb addUser(final UserDb itm) {
+        final ContentResolver cr = ctx.getContentResolver();
+        final ContentValues values = itm.getContentValues();
 
-		final Uri insertedUri = cr.insert(NocturneSensorReadingContentProvider.CONTENT_URI, values);
-		// get the row id - it's the last path segment in the returned uri
-		// for the inserted record
-		final String lastPathSegment = insertedUri.getLastPathSegment();
-		// save the inserted record's row id in global variable
-		itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
+        final Uri insertedUri = cr.insert(NocturneUserContentProvider.CONTENT_URI, values);
+        // get the row id - it's the last path segment in the returned uri
+        // for the inserted record
+        final String lastPathSegment = insertedUri.getLastPathSegment();
+        // save the inserted record's row id in global variable
+        itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
 
-		return itm;
-	}
+        return itm;
+    }
 
-	public UserDb addUser(final UserDb itm) {
-		final ContentResolver cr = ctx.getContentResolver();
-		final ContentValues values = itm.getContentValues();
+    public void destroy() {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "destroy()");
+        if (databaseHelper != null) {
+            databaseHelper.close();
+            databaseHelper = null;
+        }
+    }
 
-		final Uri insertedUri = cr.insert(NocturneUserContentProvider.CONTENT_URI, values);
-		// get the row id - it's the last path segment in the returned uri
-		// for the inserted record
-		final String lastPathSegment = insertedUri.getLastPathSegment();
-		// save the inserted record's row id in global variable
-		itm.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
+    private DbMetadata getDbMetadata() {
+        DbMetadata dbMetaDta = null;
 
-		return itm;
-	}
+        final String selectionSql = null;
+        final String[] selectionArgs = null;
+        final String groupBy = null;
+        final String having = null;
+        final String orderBy = null;
+        final Cursor results = db.query(DbMetadata.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy,
+                having, orderBy);
 
-	public void destroy() {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "destroy()");
-		if (databaseHelper != null) {
-			databaseHelper.close();
-			databaseHelper = null;
-		}
-	}
+        if (results.getCount() > 0) {
+            results.moveToFirst();
+            dbMetaDta = new DbMetadata(results);
+        }
+        results.close();
+        if (dbMetaDta == null) {
+            dbMetaDta = new DbMetadata();
+            dbMetaDta.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+            db.insert(DbMetadata.DATABASE_TABLE_NAME, null, dbMetaDta.getContentValues());
+            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getDbMetadata() new metadata object created");
+        }
+        return dbMetaDta;
+    }
 
-	private DbMetadata getDbMetadata() {
-		DbMetadata dbMetaDta = null;
+    public RegistrationStatus getRegistrationStatus() {
+        final DbMetadata dbMetaDta = getDbMetadata();
+        return dbMetaDta.registrationStatus;
+    }
 
-		final String selectionSql = null;
-		final String[] selectionArgs = null;
-		final String groupBy = null;
-		final String having = null;
-		final String orderBy = null;
-		final Cursor results = db.query(DbMetadata.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy,
-				having, orderBy);
+    public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
+        final DbMetadata metadata = getDbMetadata();
+        metadata.setRegistrationStatus(aRequestSent);
+        try {
+            final String selection = BaseColumns._ID + "=?";
+            final String[] selectionArgs = {String.valueOf(metadata.getUniqueIdentifier())};
+            metadata.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+            db.update(DbMetadata.DATABASE_TABLE_NAME, metadata.getContentValues(), selection, selectionArgs);
+            setChanged();
+            notifyObservers();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		if (results.getCount() > 0) {
-			results.moveToFirst();
-			dbMetaDta = new DbMetadata(results);
-		}
-		results.close();
-		if (dbMetaDta == null) {
-			dbMetaDta = new DbMetadata();
-			dbMetaDta.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-			db.insert(DbMetadata.DATABASE_TABLE_NAME, null, dbMetaDta.getContentValues());
-			NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getDbMetadata() new metadata object created");
-		}
-		return dbMetaDta;
-	}
+    public UserDb getUser(final int tagId) {
+        final String selectionSql = BaseColumns._ID + "=?";
+        final String[] selectionArgs = new String[]{"" + tagId};
+        final String groupBy = null;
+        final String having = null;
+        final String orderBy = UserDb.FIELD_NAME_name_first;
+        final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
+                orderBy);
 
-	public RegistrationStatus getRegistrationStatus() {
-		final DbMetadata dbMetaDta = getDbMetadata();
-		return dbMetaDta.registrationStatus;
-	}
+        UserDb tg = null;
+        if (results.getCount() > 0) {
+            results.moveToFirst();
+            tg = new UserDb(results);
+        }
+        results.close();
+        return tg;
+    }
 
-	public UserDb getUser(final int tagId) {
-		final String selectionSql = BaseColumns._ID + "=?";
-		final String[] selectionArgs = new String[] { "" + tagId };
-		final String groupBy = null;
-		final String having = null;
-		final String orderBy = UserDb.FIELD_NAME_name_first;
-		final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
-				orderBy);
+    public UserDb getUser(final String username) {
+        final String selectionSql = UserDb.FIELD_NAME_USERNAME + "=?";
+        final String[] projection = null;
+        final String[] selectionArgs = new String[]{username};
+        final String groupBy = null;
+        final String having = null;
+        final String orderBy = UserDb.FIELD_NAME_name_first;
+        // final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
+        // selectionSql, selectionArgs, groupBy, having,orderBy);
 
-		UserDb tg = null;
-		if (results.getCount() > 0) {
-			results.moveToFirst();
-			tg = new UserDb(results);
-		}
-		results.close();
-		return tg;
-	}
+        final ContentResolver cr = ctx.getContentResolver();
+        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
+                selectionArgs, orderBy);
 
-	public UserDb getUser(final String username) {
-		final String selectionSql = UserDb.FIELD_NAME_USERNAME + "=?";
-		final String[] projection = null;
-		final String[] selectionArgs = new String[] { username };
-		final String groupBy = null;
-		final String having = null;
-		final String orderBy = UserDb.FIELD_NAME_name_first;
-		// final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
-		// selectionSql, selectionArgs, groupBy, having,orderBy);
+        UserDb tg = null;
+        if (results.getCount() > 0) {
+            results.moveToFirst();
+            tg = new UserDb(results);
+        }
+        results.close();
+        return tg;
+    }
 
-		final ContentResolver cr = ctx.getContentResolver();
-		final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
-				selectionArgs, orderBy);
+    public List<UserDb> getUsers() {
+        final List<UserDb> users = new ArrayList<UserDb>();
+        final String[] projection = null;
+        final String selectionSql = null;
+        final String[] selectionArgs = new String[]{};
+        final String groupBy = null;
+        final String having = null;
+        final String orderBy = UserDb.FIELD_NAME_name_first;
+        // final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
+        // selectionSql, selectionArgs, groupBy, having, orderBy);
 
-		UserDb tg = null;
-		if (results.getCount() > 0) {
-			results.moveToFirst();
-			tg = new UserDb(results);
-		}
-		results.close();
-		return tg;
-	}
+        final ContentResolver cr = ctx.getContentResolver();
+        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
+                selectionArgs, orderBy);
 
-	public List<UserDb> getUsers() {
-		final List<UserDb> users = new ArrayList<UserDb>();
-		final String[] projection = null;
-		final String selectionSql = null;
-		final String[] selectionArgs = new String[] {};
-		final String groupBy = null;
-		final String having = null;
-		final String orderBy = UserDb.FIELD_NAME_name_first;
-		// final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
-		// selectionSql, selectionArgs, groupBy, having, orderBy);
+        results.moveToFirst();
+        UserDb tg = null;
+        final int nbrResults = results.getCount();
+        while (results.isAfterLast() == false) {
+            tg = new UserDb(results);
+            users.add(tg);
+            results.moveToNext();
+        }
+        results.close();
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsers() found [" + nbrResults + "] users");
+        return users;
+    }
 
-		final ContentResolver cr = ctx.getContentResolver();
-		final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
-				selectionArgs, orderBy);
+    public void initialise(final Context ctx) throws SQLException {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "initialise()");
+        if (databaseHelper == null) {
+            databaseHelper = new NocturneDatabaseHelper(ctx);
+        }
+        db = databaseHelper.getWritableDatabase();
+        final String logMsg = LOG_TAG + "initialise() db object " + (db == null ? "NOT" : "") + " created";
+        NocturneApplication.logMessage(Log.DEBUG, logMsg);
+    }
 
-		results.moveToFirst();
-		UserDb tg = null;
-		final int nbrResults = results.getCount();
-		while (results.isAfterLast() == false) {
-			tg = new UserDb(results);
-			users.add(tg);
-			results.moveToNext();
-		}
-		results.close();
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsers() found [" + nbrResults + "] users");
-		return users;
-	}
+    @Override
+    public void notifyObservers() {
+        // NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
+        // "notifyObservers() notifying [" + myObservers.size() +
+        // "] observers");
+        for (final NocturneFragment a : myObservers) {
+            a.update(DataModel.instance, a);
+        }
+    }
 
-	public void initialise(final Context ctx) throws SQLException {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "initialise()");
-		if (databaseHelper == null) {
-			databaseHelper = new NocturneDatabaseHelper(ctx);
-		}
-		db = databaseHelper.getWritableDatabase();
-		final String logMsg = LOG_TAG + "initialise() db object " + (db == null ? "NOT" : "") + " created";
-		NocturneApplication.logMessage(Log.DEBUG, logMsg);
-	}
+    public void shutdown() {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "shutdown()");
+    }
 
-	@Override
-	public void notifyObservers() {
-		// NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
-		// "notifyObservers() notifying [" + myObservers.size() +
-		// "] observers");
-		for (final NocturneFragment a : myObservers) {
-			a.update(DataModel.instance, a);
-		}
-	}
+    /**
+     * @param itm
+     * @return
+     */
+    public UserDb updateUser(final UserDb itm) {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
 
-	public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
-		final DbMetadata metadata = getDbMetadata();
-		metadata.setRegistrationStatus(aRequestSent);
-		try {
-			final String selection = BaseColumns._ID + "=?";
-			final String[] selectionArgs = { String.valueOf(metadata.getUniqueIdentifier()) };
-			metadata.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-			db.update(DbMetadata.DATABASE_TABLE_NAME, metadata.getContentValues(), selection, selectionArgs);
-			setChanged();
-			notifyObservers();
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-	}
+        // final String selection = BaseColumns._ID + "=?";
+        // final String[] selectionArgs = {
+        // String.valueOf(itm.getUniqueIdentifier()) };
+        // itm.lastUpdated = new
+        // DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+        // itm.localUpdates = true;
 
-	public void shutdown() {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "shutdown()");
-	}
+        // db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(),
+        // selection, selectionArgs);
+        // notifyObservers();
+        // return itm;
 
-	/**
-	 * @param itm
-	 * @return
-	 */
-	public UserDb updateUser(final UserDb itm) {
-		NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
+        final ContentResolver cr = ctx.getContentResolver();
+        final ContentValues values = itm.getContentValues();
 
-		// final String selection = BaseColumns._ID + "=?";
-		// final String[] selectionArgs = {
-		// String.valueOf(itm.getUniqueIdentifier()) };
-		// itm.lastUpdated = new
-		// DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-		// itm.localUpdates = true;
+        final String selection = BaseColumns._ID + "=?";
+        final String[] selectionArgs = {String.valueOf(itm.getUniqueIdentifier())};
 
-		// db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(),
-		// selection, selectionArgs);
-		// notifyObservers();
-		// return itm;
-
-		final ContentResolver cr = ctx.getContentResolver();
-		final ContentValues values = itm.getContentValues();
-
-		final String selection = BaseColumns._ID + "=?";
-		final String[] selectionArgs = { String.valueOf(itm.getUniqueIdentifier()) };
-
-		final int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection,
-				selectionArgs);
-		return itm;
-	}
+        final int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection,
+                selectionArgs);
+        return itm;
+    }
 
 }

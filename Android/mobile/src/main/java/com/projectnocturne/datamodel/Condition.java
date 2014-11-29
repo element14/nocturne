@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,21 +13,21 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
 
 
 public final class Condition {
 
-	public String condition_desc;
-	public String condition_name;
+    public String condition_desc;
+    public String condition_name;
 
-	public Condition() {
-	}
+    public Condition() {
+    }
 
-	@Override
-	public String toString() {
-		return null;
-	}
+    @Override
+    public String toString() {
+        return null;
+    }
 }

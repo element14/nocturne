@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,17 +13,17 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
 
 
 public final class UserConnect {
 
-	public long caregiver_user_id;
-	public long patient_user_id;
+    public long caregiver_user_id;
+    public long patient_user_id;
 
-	public UserConnect() {
-	}
+    public UserConnect() {
+    }
 
 }

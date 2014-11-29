@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -13,21 +13,21 @@
  *  </p><p>
  *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- * 
+ *
  */
 package com.projectnocturne.datamodel;
 
 public final class SensorReading {
 
-	public String sensor_id;
-	public String sensor_reading_time;
-	public String sensor_value;
+    public String sensor_id;
+    public String sensor_reading_time;
+    public String sensor_value;
 
-	public SensorReading() {
-	}
+    public SensorReading() {
+    }
 
-	@Override
-	public String toString() {
-		return null;
-	}
+    @Override
+    public String toString() {
+        return null;
+    }
 }

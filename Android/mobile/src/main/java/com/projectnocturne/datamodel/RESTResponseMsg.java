@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -87,18 +87,19 @@ public final class RESTResponseMsg implements Parcelable {
     public String getMessage() {
         return message;
     }
-    /**
-     * @return the message
-     */
-    public String getContent() {
-        return content;
-    }
 
     /**
      * @param message the message to set
      */
     public void setMessage(final String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getContent() {
+        return content;
     }
 
     /**
