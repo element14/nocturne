@@ -33,9 +33,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.DbMetadata;
-import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.SensorReading;
+import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.UserConnect;
 import com.projectnocturne.datamodel.UserDb;
 
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -53,7 +54,8 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
     private static final String LOG_TAG = SpringRestTask.class.getSimpleName() + "::";
     public static String URI_ALERTS_RESPOND = "/alerts/respond";
     public static String URI_ALERTS_SEND = "/alerts/send";
-    public static String URI_USER_REGISTER = "/users/register";
+    public static String URI_USERS_CONNECT = "/users/connect";
+    public static String URI_USERS_REGISTER = "/users/register";
     public static String URI_USERS_GET = "/users";
     private final Context ctx;
     private final Handler handler;
@@ -78,14 +80,20 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         url = getServerAddress(ctx) + uri;
 
         RESTResponseMsg retStr = null;
-        if (uri.equals(URI_USER_REGISTER)) {
+        if (uri.equals(URI_USERS_REGISTER)) {
             retStr = doUserRegister(reqMthd, url, (UserDb) params[2]);
+        } else if (uri.equals(URI_USERS_CONNECT)) {
+            retStr = doUserConnect(reqMthd, url, (UserConnect) params[2]);
         } else if (uri.equals(URI_USERS_GET)) {
             // retStr = doUserRegister(reqMthd, url, (User) params[2]);
         } else if (uri.equals(URI_SEND_SENSOR_READING)) {
             retStr = doSendSensorReading(reqMthd, url, (SensorReading) params[2]);
         }
         return retStr;
+    }
+
+    private RESTResponseMsg doUserConnect(final RequestMethod pReqMthd, final String pUrl, final UserConnect pParam) {
+        return null;
     }
 
     private RestTemplate getRestTemplate() {

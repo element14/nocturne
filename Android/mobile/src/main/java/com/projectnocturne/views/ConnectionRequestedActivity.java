@@ -14,9 +14,7 @@ public class ConnectionRequestedActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_request);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ConnectionRequestedFragment())
-                    .commit();
+            getFragmentManager().beginTransaction().add(R.id.container, new ConnectionRequestedFragment()).commit();
         }
     }
 

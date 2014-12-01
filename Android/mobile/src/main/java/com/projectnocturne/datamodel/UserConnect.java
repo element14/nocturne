@@ -20,8 +20,8 @@ package com.projectnocturne.datamodel;
 
 public final class UserConnect {
 
-    public long caregiver_user_id;
-    public long patient_user_id;
+    public String caregiver_email;
+    public String patient_email;
 
     public UserConnect() {
     }

@@ -29,6 +29,7 @@ import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.Alert;
 import com.projectnocturne.datamodel.Sensor;
 import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.UserConnectDb;
 import com.projectnocturne.datamodel.UserDb;
 import com.projectnocturne.server.HttpRequestTask;
 import com.projectnocturne.server.RestUriFactory;
@@ -100,11 +101,20 @@ public final class ServerCommsService {
                 SpringRestTask.URI_SEND_SENSOR_READING, obj);
     }
 
+    public void sendConnectToUserMessage(final Context ctx, final Handler handler, final UserConnectDb user) {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendConnectToUserMessage() for [" + user.getPatient_user_id()+"] and ["+user.getCaregiver_user_id()+"]");
+
+        final SpringRestTask restReq = new SpringRestTask(ctx, handler);
+        restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
+                SpringRestTask.URI_USERS_CONNECT, user);
+    }
+
     public void sendSubscriptionMessage(final Context ctx, final Handler handler, final UserDb user) {
         NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + user.getName_first());
 
         final SpringRestTask restReq = new SpringRestTask(ctx, handler);
         restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
-                SpringRestTask.URI_USER_REGISTER, user);
+                SpringRestTask.URI_USERS_REGISTER, user);
     }
+
 }

@@ -22,6 +22,8 @@ DerivedData
 # built application files
 *.apk
 *.ap_
+*.lock
+*.bin
 
 # files for the dex VM
 *.dex

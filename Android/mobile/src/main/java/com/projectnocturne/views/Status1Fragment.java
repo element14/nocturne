@@ -120,12 +120,7 @@ public class Status1Fragment extends NocturneFragment {
         boolean connected = false;
         int timeout = 1000;
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final String serverAddr = "http://"
-                + settings
-                .getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
-                + ":"
-                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
-                + "/";
+        final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
         try {
             URL serverURL = new URL(serverAddr);
             URLConnection urlconn = serverURL.openConnection();
