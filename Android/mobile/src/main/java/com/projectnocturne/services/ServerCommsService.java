@@ -101,20 +101,20 @@ public final class ServerCommsService {
                 SpringRestTask.URI_SEND_SENSOR_READING, obj);
     }
 
-    public void sendConnectToUserMessage(final Context ctx, final Handler handler, final UserConnectDb user) {
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendConnectToUserMessage() for [" + user.getPatient_user_id()+"] and ["+user.getCaregiver_user_id()+"]");
+    public void sendConnectToUserMessage(final Context ctx, final Handler handler, final UserConnectDb obj) {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendConnectToUserMessage() for [" + obj.getPatient_email()+"] and ["+obj.getCaregiver_email()+"]");
 
         final SpringRestTask restReq = new SpringRestTask(ctx, handler);
         restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
-                SpringRestTask.URI_USERS_CONNECT, user);
+                SpringRestTask.URI_USERS_CONNECT, obj);
     }
 
-    public void sendSubscriptionMessage(final Context ctx, final Handler handler, final UserDb user) {
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + user.getName_first());
+    public void sendSubscriptionMessage(final Context ctx, final Handler handler, final UserDb obj) {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendSubscriptionMessage() for " + obj.getName_first());
 
         final SpringRestTask restReq = new SpringRestTask(ctx, handler);
         restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),
-                SpringRestTask.URI_USERS_REGISTER, user);
+                SpringRestTask.URI_USERS_REGISTER, obj);
     }
 
 }
