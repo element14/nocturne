@@ -27,41 +27,49 @@ public final class UserConnectDb extends AbstractDataObj {
 
     public static final String DATABASE_TABLE_NAME = "UserConnect";
 
-    public static final String FIELD_NAME_caregiver_email = "caregiver_email";
-    public static final String FIELD_NAME_patient_email = "patient_email";
+    public static final String FIELD_NAME_user1_email = "user1_email";
+    public static final String FIELD_NAME_user2_email = "user2_email";
+    public static final String FIELD_NAME_user1_role = "user1_role";
+    public static final String FIELD_NAME_user2_role = "user2_role";
     public UserConnect userConnect;
 
     public UserConnectDb() {
     }
 
-
     public UserConnectDb(final Cursor results) {
         super(results);
-        userConnect.patient_email = results.getString(results.getColumnIndex(FIELD_NAME_patient_email));
-        userConnect.caregiver_email = results.getString(results.getColumnIndex(FIELD_NAME_caregiver_email));
+        userConnect.user1_email = results.getString(results.getColumnIndex(FIELD_NAME_user1_email));
+        userConnect.user2_email = results.getString(results.getColumnIndex(FIELD_NAME_user2_email));
+        userConnect.user1_role = results.getString(results.getColumnIndex(FIELD_NAME_user1_role));
+        userConnect.user2_role = results.getString(results.getColumnIndex(FIELD_NAME_user2_role));
     }
 
-    public String getCaregiver_email() {
-        return userConnect.caregiver_email;
+    public UserConnect getUserConnectObj() {
+        return userConnect;
     }
 
-    public void setCaregiver_email(final String pCaregiver_email) {
-        userConnect.caregiver_email = pCaregiver_email;
+    public void setUserConnect(UserConnect userConnect) {
+        this.userConnect = userConnect;
     }
 
-    public String getPatient_email() {
-        return userConnect.patient_email;
+    public void setUser1(final String pUserEmail, final String pUserRole) {
+        userConnect.user1_email = pUserEmail;
+        userConnect.user1_role = pUserRole;
     }
 
-    public void setPatient_email(final String pPatient_email) {
-        userConnect.patient_email = pPatient_email;
+    public void setUser2(final String pUserEmail, final String pUserRole) {
+        userConnect.user2_email = pUserEmail;
+        userConnect.user2_role = pUserRole;
     }
+
 
     @Override
     public ContentValues getContentValues() {
         final ContentValues cv = super.getContentValues();
-        cv.put(FIELD_NAME_patient_email, userConnect.patient_email);
-        cv.put(FIELD_NAME_caregiver_email, userConnect.caregiver_email);
+        cv.put(FIELD_NAME_user1_email, userConnect.user1_email);
+        cv.put(FIELD_NAME_user2_email, userConnect.user2_email);
+        cv.put(FIELD_NAME_user1_role, userConnect.user1_role);
+        cv.put(FIELD_NAME_user2_role, userConnect.user2_role);
         return cv;
     }
 
@@ -69,8 +77,10 @@ public final class UserConnectDb extends AbstractDataObj {
     public SparseArray<ArrayList<String>> getFields() {
         final SparseArray<ArrayList<String>> fldList = super.getFields();
         int x = fldList.size();
-        fldList.put(x++, getArrayList(FIELD_NAME_patient_email, "VARCHAR(255)"));
-        fldList.put(x++, getArrayList(FIELD_NAME_caregiver_email, "VARCHAR(255)"));
+        fldList.put(x++, getArrayList(FIELD_NAME_user1_email, "VARCHAR(255)"));
+        fldList.put(x++, getArrayList(FIELD_NAME_user2_email, "VARCHAR(255)"));
+        fldList.put(x++, getArrayList(FIELD_NAME_user1_role, "VARCHAR(255)"));
+        fldList.put(x++, getArrayList(FIELD_NAME_user2_role, "VARCHAR(255)"));
         return fldList;
     }
 

@@ -126,11 +126,11 @@ public class ConnectToUserFragment extends NocturneFragment {
         txtErrorMsg.setVisibility(View.INVISIBLE);
         UserConnectDb usrCnctDb = new UserConnectDb();
         if (swtchCarer.isChecked()) {
-            usrCnctDb.setPatient_email(txtEmailAddr.getText().toString());
-            usrCnctDb.setCaregiver_email(userDbObj.getEmail1());
+            usrCnctDb.setUser1(txtEmailAddr.getText().toString(), "PATIENT");
+            usrCnctDb.setUser2(userDbObj.getEmail1(), "CARER");
         } else {
-            usrCnctDb.setPatient_email(userDbObj.getEmail1());
-            usrCnctDb.setCaregiver_email(txtEmailAddr.getText().toString());
+            usrCnctDb.setUser1(txtEmailAddr.getText().toString(), "CARER");
+            usrCnctDb.setUser2(userDbObj.getEmail1(), "PATIENT");
         }
         NocturneApplication.getInstance().getServerComms().sendConnectToUserMessage(getActivity(), handler, usrCnctDb);
     }

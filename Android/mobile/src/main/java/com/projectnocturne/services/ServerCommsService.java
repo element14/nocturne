@@ -102,7 +102,7 @@ public final class ServerCommsService {
     }
 
     public void sendConnectToUserMessage(final Context ctx, final Handler handler, final UserConnectDb obj) {
-        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendConnectToUserMessage() for [" + obj.getPatient_email()+"] and ["+obj.getCaregiver_email()+"]");
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "sendConnectToUserMessage() for [" + obj.getUserConnectObj().user1_email+"] and ["+obj.getUserConnectObj().user2_email+"]");
 
         final SpringRestTask restReq = new SpringRestTask(ctx, handler);
         restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.POST.toString(),

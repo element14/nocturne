@@ -35,8 +35,9 @@ import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.DbMetadata;
 import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.SensorReading;
-import com.projectnocturne.datamodel.User;
+import com.projectnocturne.datamodel.SensorReadingDb;
 import com.projectnocturne.datamodel.UserConnect;
+import com.projectnocturne.datamodel.UserConnectDb;
 import com.projectnocturne.datamodel.UserDb;
 
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -83,17 +84,56 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         if (uri.equals(URI_USERS_REGISTER)) {
             retStr = doUserRegister(reqMthd, url, (UserDb) params[2]);
         } else if (uri.equals(URI_USERS_CONNECT)) {
-            retStr = doUserConnect(reqMthd, url, (UserConnect) params[2]);
+            retStr = doUserConnect(reqMthd, url, (UserConnectDb) params[2]);
         } else if (uri.equals(URI_USERS_GET)) {
             // retStr = doUserRegister(reqMthd, url, (User) params[2]);
         } else if (uri.equals(URI_SEND_SENSOR_READING)) {
-            retStr = doSendSensorReading(reqMthd, url, (SensorReading) params[2]);
+            retStr = doSendSensorReading(reqMthd, url, (SensorReadingDb) params[2]);
         }
         return retStr;
     }
 
-    private RESTResponseMsg doUserConnect(final RequestMethod pReqMthd, final String pUrl, final UserConnect pParam) {
-        return null;
+    private RESTResponseMsg doUserConnect(final RequestMethod pReqMthd, final String pUrl, final UserConnectDb pParam) {
+        NocturneApplication.d(LOG_TAG + "doUserConnect()");
+
+        String jsonStr = "";
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            jsonStr = mapper.writeValueAsString(pParam.getUserConnectObj());
+        } catch (final JsonProcessingException e1) {
+            NocturneApplication.e(LOG_TAG + "doUserConnect() exception converting user to json", e1);
+        }
+
+        // Create a new RestTemplate instance
+        final RestTemplate restTemplate = getRestTemplate();
+
+        // Make the HTTP POST request, marshaling the request to JSON, and the
+        // response to a String
+        RESTResponseMsg response = null;
+        Message msg;
+        try {
+            //response = restTemplate.postForObject("http://rest-service.guides.spring.io/greeting",pParam.getUserConnectObj(), RESTResponseMsg.class);
+
+            response = restTemplate.postForObject(url, pParam.getUserConnectObj(), RESTResponseMsg.class);
+            msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
+            final Bundle b = new Bundle();
+            b.putParcelable("RESTResponseMsg", response);
+            msg.setData(b);
+            NocturneApplication.d(LOG_TAG + "doUserConnect() success [" + response.toString() + "]");
+        } catch (final Exception e) {
+            NocturneApplication.e(LOG_TAG + "doUserConnect() exception posting request", e);
+            msg = handler.obtainMessage(DbMetadata.RegistrationStatus_DENIED);
+            response = new RESTResponseMsg();
+            response.setMessage("Server Connection Failed");
+            response.setMessage("[" + e.getMessage() + "]\nPlease Try Again");
+            final Bundle b = new Bundle();
+            b.putParcelable("RESTResponseMsg", response);
+            msg.setData(b);
+        }
+        handler.sendMessage(msg);
+
+        return response;
     }
 
     private RestTemplate getRestTemplate() {
@@ -115,7 +155,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
      * @param sensorReading
      * @return
      */
-    private RESTResponseMsg doSendSensorReading(final RequestMethod reqMthd, final String url, final SensorReading sensorReading) {
+    private RESTResponseMsg doSendSensorReading(final RequestMethod reqMthd, final String url, final SensorReadingDb sensorReading) {
         NocturneApplication.d(LOG_TAG + "doSendSensorReading()");
 
         // Create a new RestTemplate instance
