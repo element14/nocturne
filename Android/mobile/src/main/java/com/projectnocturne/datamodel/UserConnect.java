@@ -24,6 +24,7 @@ public final class UserConnect {
     public String user2_email;
     public String user1_role;
     public String user2_role;
+    public String status;
 
     public UserConnect() {
     }

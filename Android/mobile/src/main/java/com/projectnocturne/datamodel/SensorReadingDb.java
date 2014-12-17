@@ -32,7 +32,7 @@ public final class SensorReadingDb extends AbstractDataObj {
     private static final String FIELD_NAME_SENSOR_READING_TIME = "SENSOR_READING_TIME";
     private static final String FIELD_NAME_SENSOR_VALUE = "SENSOR_VALUE";
 
-    public SensorReading sensorReading=new SensorReading();
+    public SensorReading sensorReading = new SensorReading();
 
     public SensorReadingDb() {
     }

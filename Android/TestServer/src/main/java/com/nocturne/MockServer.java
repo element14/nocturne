@@ -251,21 +251,20 @@ public class MockServer implements Container {
                 user2_role = userObj.get("user2_role").toString();
             }
 
-            //FIXME : add user connection to database
             PreparedStatement insertStmt = null;
-            insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (patient_user_id, caregiver_user_id) values (?,?)");
-            if (user1_role.equalsIgnoreCase("PATIENT")) {
+            insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role) values (?,?)");
                 insertStmt.setString(1, user1_email);
-                insertStmt.setString(2, user2_email);
-            } else {
-                insertStmt.setString(1, user2_email);
-                insertStmt.setString(2, user1_email);
-            }
+                insertStmt.setString(2, user1_role);
+                insertStmt.setString(3, user2_email);
+                insertStmt.setString(4, user2_role);
             insertStmt.execute();
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
-            body.println("{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"}");
+            String respStr="{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
+            respStr+=jsonStr.substring(1,jsonStr.length()-2);
+            respStr+="}";
+            body.println(respStr);
         } catch (IOException e) {
             e.printStackTrace();
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
@@ -364,9 +363,11 @@ public class MockServer implements Container {
 
             dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_connect ;").execute();
             dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_connect (\n" +
-                    "  patient_user_id VARCHAR(45) NOT NULL,\n" +
-                    "  caregiver_user_id VARCHAR(45) NOT NULL,\n" +
-                    "  PRIMARY KEY (patient_user_id, caregiver_user_id));").execute();
+                    "  user1_email VARCHAR(45) NOT NULL,\n" +
+                    "  user1_role VARCHAR(45) NOT NULL,\n" +
+                    "  user2_email VARCHAR(45) NOT NULL,\n" +
+                    "  user2_role VARCHAR(45) NOT NULL,\n" +
+                    "  PRIMARY KEY (user1_email, user2_email));").execute();
 
             dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_alerts ;").execute();
             dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_alerts (\n" +

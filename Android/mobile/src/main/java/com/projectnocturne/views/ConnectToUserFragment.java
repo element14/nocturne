@@ -36,7 +36,7 @@ import com.projectnocturne.MainActivity;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 import com.projectnocturne.datamodel.DbMetadata;
-import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
+import com.projectnocturne.datamodel.DbMetadata.UserConnectionStatus;
 import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.UserConnectDb;
 import com.projectnocturne.datamodel.UserDb;
@@ -46,30 +46,10 @@ import java.util.List;
 public class ConnectToUserFragment extends NocturneFragment {
 
     private final String LOG_TAG = ConnectToUserFragment.class.getSimpleName() + "::";
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message msg) {
-            NocturneApplication.d(LOG_TAG + "handleMessage()");
-            txtErrorMsg.setVisibility(View.INVISIBLE);
-            final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-            if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
-                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
-                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
-                ((MainActivity) getActivity()).showScreen();
-
-            } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
-                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
-                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
-                txtErrorMsg.setText(rspnsMsg.getMessage());
-                txtErrorMsg.setVisibility(View.VISIBLE);
-            }
-        }
-    };
     public TextView txtErrorMsg;
     public EditText txtEmailAddr;
     public ToggleButton swtchCarer;
-
-    TextWatcher textChangedWtchr = new TextWatcher() {
+    private TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
             ConnectToUserFragment.this.enableButton();
@@ -87,6 +67,37 @@ public class ConnectToUserFragment extends NocturneFragment {
     private Button btnConnect;
     private boolean readyFragment;
     private UserDb userDbObj;
+    private UserConnectDb usrCnctDb = null;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            NocturneApplication.d(LOG_TAG + "handleMessage()");
+            txtErrorMsg.setVisibility(View.INVISIBLE);
+            if (usrCnctDb == null) {
+                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() Invalid");
+                usrCnctDb.setStatus(UserConnectionStatus.REQUEST_DENIED.toString());
+                NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
+                txtErrorMsg.setText("Invalid");
+                txtErrorMsg.setVisibility(View.VISIBLE);
+            } else {
+                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
+                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
+                    usrCnctDb.setStatus(UserConnectionStatus.REQUEST_ACCEPTED.toString());
+                    NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
+                    ((MainActivity) getActivity()).showScreen();
+
+                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
+                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
+                    usrCnctDb.setStatus(UserConnectionStatus.REQUEST_DENIED.toString());
+                    NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
+                    txtErrorMsg.setText(rspnsMsg.getMessage());
+                    txtErrorMsg.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    };
 
     public ConnectToUserFragment() {
     }
@@ -125,7 +136,7 @@ public class ConnectToUserFragment extends NocturneFragment {
 
     protected void sendConnectMessage() {
         txtErrorMsg.setVisibility(View.INVISIBLE);
-        UserConnectDb usrCnctDb = new UserConnectDb();
+        usrCnctDb = new UserConnectDb();
         if (swtchCarer.isChecked()) {
             usrCnctDb.setUser1(txtEmailAddr.getText().toString(), "PATIENT");
             usrCnctDb.setUser2(userDbObj.getEmail1(), "CARER");
@@ -133,6 +144,7 @@ public class ConnectToUserFragment extends NocturneFragment {
             usrCnctDb.setUser1(txtEmailAddr.getText().toString(), "CARER");
             usrCnctDb.setUser2(userDbObj.getEmail1(), "PATIENT");
         }
+        usrCnctDb=NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
         NocturneApplication.getInstance().getServerComms().sendConnectToUserMessage(getActivity(), handler, usrCnctDb);
     }
 

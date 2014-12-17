@@ -117,6 +117,14 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
         return lastSynced;
     }
 
+    /**
+     * @param dateStr the datetime that shows when this object's data was last
+     *                synchronised with the server db
+     */
+    public void setLastSynced(final DateTime dateStr) {
+        lastSynced = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
+    }
+
     public void setLastSynced(final String dateStr) {
         lastSynced = dateStr;
     }
@@ -126,6 +134,10 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
      */
     public String getLastUpdated() {
         return lastUpdated;
+    }
+
+    public void setLastUpdated(final long time) {
+        this.setLastUpdated("" + time);
     }
 
     /**
@@ -190,6 +202,10 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
         return uniqueIdentifier;
     }
 
+    public final void setUniqueIdentifier(final long value) {
+        uniqueIdentifier = value;
+    }
+
     public final void setUniqueIdentifier(final String value) {
         uniqueIdentifier = Long.parseLong(value);
     }
@@ -232,29 +248,13 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
     }
 
     /**
-     * @param dateStr the datetime that shows when this object's data was last
-     *                synchronised with the server db
-     */
-    public void setLastSynced(final DateTime dateStr) {
-        lastSynced = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
-    }
-
-    /**
      * @param lastUpdated the lastUpdated to set
      */
     public void setLastUpdated(final DateTime dateStr) {
         lastUpdated = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
     }
 
-    public void setLastUpdated(final long time) {
-        this.setLastUpdated("" + time);
-    }
-
     public final void setUniqueIdentifier(final int value) {
-        uniqueIdentifier = value;
-    }
-
-    public final void setUniqueIdentifier(final long value) {
         uniqueIdentifier = value;
     }
 

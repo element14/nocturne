@@ -31,9 +31,10 @@ public final class UserConnectDb extends AbstractDataObj {
     public static final String FIELD_NAME_user2_email = "user2_email";
     public static final String FIELD_NAME_user1_role = "user1_role";
     public static final String FIELD_NAME_user2_role = "user2_role";
-    public UserConnect userConnect=new UserConnect();
+    public static final String FIELD_NAME_status = "status";
+    public UserConnect userConnect = new UserConnect();
 
-    public UserConnectDb() {
+    public UserConnectDb() {userConnect.status= DbMetadata.UserConnectionStatus.REQUEST_DENIED.toString();
     }
 
     public UserConnectDb(final Cursor results) {
@@ -42,6 +43,7 @@ public final class UserConnectDb extends AbstractDataObj {
         userConnect.user2_email = results.getString(results.getColumnIndex(FIELD_NAME_user2_email));
         userConnect.user1_role = results.getString(results.getColumnIndex(FIELD_NAME_user1_role));
         userConnect.user2_role = results.getString(results.getColumnIndex(FIELD_NAME_user2_role));
+        userConnect.status = results.getString(results.getColumnIndex(FIELD_NAME_status));
     }
 
     public UserConnect getUserConnectObj() {
@@ -61,6 +63,9 @@ public final class UserConnectDb extends AbstractDataObj {
         userConnect.user2_email = pUserEmail;
         userConnect.user2_role = pUserRole;
     }
+    public void setStatus(final String pStatus) {
+        userConnect.status = pStatus;
+    }
 
 
     @Override
@@ -70,6 +75,7 @@ public final class UserConnectDb extends AbstractDataObj {
         cv.put(FIELD_NAME_user2_email, userConnect.user2_email);
         cv.put(FIELD_NAME_user1_role, userConnect.user1_role);
         cv.put(FIELD_NAME_user2_role, userConnect.user2_role);
+        cv.put(FIELD_NAME_status, userConnect.status);
         return cv;
     }
 
@@ -81,6 +87,7 @@ public final class UserConnectDb extends AbstractDataObj {
         fldList.put(x++, getArrayList(FIELD_NAME_user2_email, "VARCHAR(255)"));
         fldList.put(x++, getArrayList(FIELD_NAME_user1_role, "VARCHAR(255)"));
         fldList.put(x++, getArrayList(FIELD_NAME_user2_role, "VARCHAR(255)"));
+        fldList.put(x++, getArrayList(FIELD_NAME_status, "VARCHAR(45)"));
         return fldList;
     }
 

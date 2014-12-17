@@ -125,4 +125,8 @@ public class DbMetadata extends AbstractDataObj {
         NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
     }
 
+    public enum UserConnectionStatus {
+        REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
+    }
+
 }

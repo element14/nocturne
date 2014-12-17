@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.percolate.caffeine.ViewUtils;
@@ -60,6 +61,7 @@ public class Status1Fragment extends NocturneFragment {
     private TextView txtStatusScr1StatusItem3Value;
     private TextView txtStatusScr1StatusItem4;
     private TextView txtStatusScr1StatusItem4Value;
+    private ListView txtStatusScr1StatusConnectedTo;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class Status1Fragment extends NocturneFragment {
         txtStatusScr1StatusItem3Value = ViewUtils.findViewById(v, R.id.statusScr1StatusItem3_value);
         txtStatusScr1StatusItem4 = ViewUtils.findViewById(v, R.id.statusScr1StatusItem4);
         txtStatusScr1StatusItem4Value = ViewUtils.findViewById(v, R.id.statusScr1StatusItem4_value);
+
+        txtStatusScr1StatusConnectedTo = ViewUtils.findViewById(v, R.id.statusScr1Status_connectedto);
 
         // Instantiates a new SensorTagStatusReceiver
         SensorTagStatusReceiver mSensorTagStateReceiver = new SensorTagStatusReceiver();
@@ -109,34 +113,40 @@ public class Status1Fragment extends NocturneFragment {
             return;
         }
         Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "update() ready");
-
+        UserDb userDbObj = null;
         final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
-            UserDb userDbObj = users.get(0);
+            userDbObj = users.get(0);
             String text = String.format(getResources().getString(R.string.statusScr1Heading1), userDbObj.getName_first() + " " + userDbObj.getName_last());
             CharSequence styledText = Html.fromHtml(text);
             txtStatusScr1Heading1.setText(styledText);
         }
         new ServerConnectionAsyncTask().execute();
+
+        if (userDbObj != null) {
+            NocturneApplication.getInstance().getDataModel().getUsersConnected(userDbObj);
+        }
     }
 
     private class ServerConnectionAsyncTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void[] params) {
             boolean connected = false;
-            try {
-                int timeout = 1000;
-                final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
-                URL serverURL = new URL(serverAddr);
-                URLConnection urlconn = serverURL.openConnection();
-                urlconn.setConnectTimeout(timeout);
-                urlconn.connect();
-                connected = true;
-            } catch (IOException e) {
-                NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "update()", e);
-            } catch (IllegalStateException e) {
-                NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+            if (Status1Fragment.this.isAdded()) {
+                try {
+                    int timeout = 1000;
+                    final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                    final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
+                    URL serverURL = new URL(serverAddr);
+                    URLConnection urlconn = serverURL.openConnection();
+                    urlconn.setConnectTimeout(timeout);
+                    urlconn.connect();
+                    connected = true;
+                } catch (IOException e) {
+                    NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "update()", e);
+                } catch (IllegalStateException e) {
+                    NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+                }
             }
             return connected;
         }

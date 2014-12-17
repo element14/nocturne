@@ -71,6 +71,10 @@
             android:name="com.projectnocturne.contentprovider.NocturneUserContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
             android:exported="false" />
+        <provider
+            android:name="com.projectnocturne.contentprovider.NocturneUserConnectContentProvider"
+            android:authorities="com.projectnocturne.contentprovider.NocturneUserConnectContentProvider"
+            android:exported="false" />
 
         <activity
             android:name="com.projectnocturne.views.ConnectionRequest"

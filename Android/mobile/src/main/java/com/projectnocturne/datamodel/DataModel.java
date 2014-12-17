@@ -28,6 +28,7 @@ import android.util.Log;
 
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider;
+import com.projectnocturne.contentprovider.NocturneUserConnectContentProvider;
 import com.projectnocturne.contentprovider.NocturneUserContentProvider;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.db.NocturneDatabaseHelper;
@@ -48,6 +49,7 @@ public final class DataModel extends Observable {
 
     private NocturneDatabaseHelper databaseHelper = null;
     private SQLiteDatabase db;
+
     private DataModel() {
     }
 
@@ -70,7 +72,7 @@ public final class DataModel extends Observable {
         return itm;
     }
 
-    public UserDb addUser(final UserDb itm) {
+    public UserDb addUser( UserDb itm) {
         final ContentResolver cr = ctx.getContentResolver();
         final ContentValues values = itm.getContentValues();
 
@@ -136,6 +138,28 @@ public final class DataModel extends Observable {
         } catch (final Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public UserConnectDb setUserConnection(final UserConnectDb usrCnctDb) {
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setUserConnection()");
+        try {
+            usrCnctDb.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
+            if (usrCnctDb.getUniqueIdentifier() == -1) {
+                final ContentResolver cr = ctx.getContentResolver();
+                final Uri insertedUri = cr.insert(NocturneUserConnectContentProvider.CONTENT_URI, usrCnctDb.getContentValues());
+                final String lastPathSegment = insertedUri.getLastPathSegment();
+                usrCnctDb.setUniqueIdentifier(Integer.valueOf(lastPathSegment));
+            } else {
+                final String selection = BaseColumns._ID + "=?";
+                final String[] selectionArgs = {String.valueOf(usrCnctDb.getUniqueIdentifier())};
+                db.update(usrCnctDb.DATABASE_TABLE_NAME, usrCnctDb.getContentValues(), selection, selectionArgs);
+            }
+            setChanged();
+            notifyObservers();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+        return usrCnctDb;
     }
 
     public UserDb getUser(final int tagId) {
@@ -261,4 +285,6 @@ public final class DataModel extends Observable {
         return itm;
     }
 
+    public void getUsersConnected(//FIXME :  userDbObj) {
+    }
 }

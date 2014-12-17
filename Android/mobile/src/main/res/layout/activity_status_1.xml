@@ -146,6 +146,14 @@
         android:text="@string/statusScr1StatusItem4_value"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ListView
+        android:id="@+id/statusScr1Status_connectedto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/statusScr1Status_alertButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/statusScr1StatusItem4_value" />
 
     <Button
         android:id="@+id/statusScr1Status_alertButton"
