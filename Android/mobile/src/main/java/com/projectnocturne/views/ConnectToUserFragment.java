@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -65,7 +66,7 @@ public class ConnectToUserFragment extends NocturneFragment {
         }
     };
     public TextView txtErrorMsg;
-    public TextView txtEmailAddr;
+    public EditText txtEmailAddr;
     public ToggleButton swtchCarer;
 
     TextWatcher textChangedWtchr = new TextWatcher() {
@@ -103,7 +104,7 @@ public class ConnectToUserFragment extends NocturneFragment {
         View rootView = inflater.inflate(R.layout.fragment_connect_to_user, container, false);
 
         txtErrorMsg = (TextView) rootView.findViewById(R.id.connect_user_error_msg);
-        txtEmailAddr = (TextView) rootView.findViewById(R.id.connect_user_email);
+        txtEmailAddr = (EditText) rootView.findViewById(R.id.connect_user_email);
         swtchCarer = (ToggleButton) rootView.findViewById(R.id.connect_user_switch_carer);
         btnConnect = (Button) rootView.findViewById(R.id.connect_user_button_connect);
 

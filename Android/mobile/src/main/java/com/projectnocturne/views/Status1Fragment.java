@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -116,29 +117,42 @@ public class Status1Fragment extends NocturneFragment {
             CharSequence styledText = Html.fromHtml(text);
             txtStatusScr1Heading1.setText(styledText);
         }
+        new ServerConnectionAsyncTask().execute();
+    }
 
-        boolean connected = false;
-        int timeout = 1000;
-        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
-        try {
-            URL serverURL = new URL(serverAddr);
-            URLConnection urlconn = serverURL.openConnection();
-            urlconn.setConnectTimeout(timeout);
-            urlconn.connect();
-            connected = true;
-        } catch (IOException e) {
-            NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "update()", e);
-        } catch (IllegalStateException e) {
-            NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+    private class ServerConnectionAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void[] params) {
+            boolean connected = false;
+            try {
+                int timeout = 1000;
+                final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
+                URL serverURL = new URL(serverAddr);
+                URLConnection urlconn = serverURL.openConnection();
+                urlconn.setConnectTimeout(timeout);
+                urlconn.connect();
+                connected = true;
+            } catch (IOException e) {
+                NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "update()", e);
+            } catch (IllegalStateException e) {
+                NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+            }
+            return connected;
         }
 
-        if (connected) {
-            txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
-        } else {
-            txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+        @Override
+        protected void onPostExecute(Boolean connected) {
+            if (Status1Fragment.this.isAdded()) {
+                if (connected) {
+                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
         }
-
     }
 
     // Broadcast receiver for receiving status updates from the IntentService

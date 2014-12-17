@@ -28,7 +28,7 @@ public final class UserConditionDb extends AbstractDataObj {
 
     public static final String FIELD_NAME_CONDITION_ID = "condition_id";
     public static final String FIELD_NAME_USER_ID = "user_id";
-    public UserCondition userCondition;
+    public UserCondition userCondition=new UserCondition();
 
     public UserConditionDb() {
     }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
         android:id="@+id/alert_carer_Heading1"
@@ -22,7 +22,7 @@
         android:paddingTop="5dp"
         android:text="@string/alert_carer_Heading1"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/alert_carer_Heading2"
@@ -39,7 +39,7 @@
         android:text="@string/alert_carer_Heading2"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
-        android:typeface="serif"/>
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/alert_carer_OkayQuestion"
@@ -56,7 +56,7 @@
         android:text="@string/alert_carer_OkayQuestion"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="32sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/alert_carer_response"
@@ -67,7 +67,7 @@
         android:gravity="center_horizontal"
         android:minLines="3">
 
-        <requestFocus/>
+        <requestFocus />
     </EditText>
 
     <Button
@@ -82,7 +82,7 @@
         android:height="80dp"
         android:minWidth="80dp"
         android:text="@string/alert_carer_BtnOkay"
-        android:textColor="@color/alert_carer_btn_textColour_okay"/>
+        android:textColor="@color/alert_carer_btn_textColour_okay" />
 
     <Button
         android:id="@+id/alert_carer_BtnNotRespond"
@@ -94,6 +94,6 @@
         android:width="180dp"
         android:height="80dp"
         android:text="@string/alert_carer_BtnNotOkay"
-        android:textColor="@color/alert_carer_btn_textColour_notokay"/>
+        android:textColor="@color/alert_carer_btn_textColour_notokay" />
 
 </RelativeLayout>

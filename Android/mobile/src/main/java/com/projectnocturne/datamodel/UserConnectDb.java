@@ -31,7 +31,7 @@ public final class UserConnectDb extends AbstractDataObj {
     public static final String FIELD_NAME_user2_email = "user2_email";
     public static final String FIELD_NAME_user1_role = "user1_role";
     public static final String FIELD_NAME_user2_role = "user2_role";
-    public UserConnect userConnect;
+    public UserConnect userConnect=new UserConnect();
 
     public UserConnectDb() {
     }

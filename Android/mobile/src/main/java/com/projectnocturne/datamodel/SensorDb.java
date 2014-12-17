@@ -29,7 +29,7 @@ public final class SensorDb extends AbstractDataObj {
     private static final String FIELD_NAME_SENSOR_DESC = "SENSOR_DESC";
     private static final String FIELD_NAME_SENSOR_NAME = "SENSOR_NAME";
 
-    public Sensor sensor;
+    public Sensor sensor=new Sensor();
 
     public SensorDb() {
     }
