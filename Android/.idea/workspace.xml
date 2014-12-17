@@ -143,13 +143,19 @@
       <file leaf-file-name="DataModel.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mobile/src/main/java/com/projectnocturne/datamodel/DataModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.78916544" vertical-offset="3529" max-vertical-offset="4230">
-              <caret line="287" column="44" selection-start-line="287" selection-start-column="44" selection-end-line="287" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.3324138" vertical-offset="2675" max-vertical-offset="3456">
+              <caret line="279" column="100" selection-start-line="279" selection-start-column="100" selection-end-line="279" selection-end-column="100" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#destroy#0;class#DataModel#0" expanded="false" />
                 <element signature="method#getDbMetadata#0;class#DataModel#0" expanded="false" />
                 <element signature="method#setRegistrationStatus#0;class#DataModel#0" expanded="false" />
+                <element signature="method#getUsers#0;class#DataModel#0" expanded="false" />
+                <element signature="method#initialise#0;class#DataModel#0" expanded="false" />
+                <element signature="method#notifyObservers#0;class#DataModel#0" expanded="false" />
+                <element signature="docComment;method#updateUser#0;class#DataModel#0" expanded="false" />
+                <element signature="method#updateUser#0;class#DataModel#0" expanded="false" />
+                <element signature="e#11142#11157#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2597,7 +2603,7 @@
       <window_info id="Code Iris" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23068051" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1790393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1790393" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328541" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32751092" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2608,7 +2614,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18636848" sideWeight="0.49918434" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925683" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2144873" sideWeight="0.5" order="16" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22489083" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22489083" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21771611" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22198506" sideWeight="0.5008157" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3104,13 +3110,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/com/projectnocturne/datamodel/DataModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78916544" vertical-offset="3529" max-vertical-offset="4230">
-          <caret line="287" column="44" selection-start-line="287" selection-start-column="44" selection-end-line="287" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.3324138" vertical-offset="2675" max-vertical-offset="3456">
+          <caret line="279" column="100" selection-start-line="279" selection-start-column="100" selection-end-line="279" selection-end-column="100" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#destroy#0;class#DataModel#0" expanded="false" />
             <element signature="method#getDbMetadata#0;class#DataModel#0" expanded="false" />
             <element signature="method#setRegistrationStatus#0;class#DataModel#0" expanded="false" />
+            <element signature="method#getUsers#0;class#DataModel#0" expanded="false" />
+            <element signature="method#initialise#0;class#DataModel#0" expanded="false" />
+            <element signature="method#notifyObservers#0;class#DataModel#0" expanded="false" />
+            <element signature="docComment;method#updateUser#0;class#DataModel#0" expanded="false" />
+            <element signature="method#updateUser#0;class#DataModel#0" expanded="false" />
+            <element signature="e#11142#11157#0" expanded="true" />
           </folding>
         </state>
       </provider>

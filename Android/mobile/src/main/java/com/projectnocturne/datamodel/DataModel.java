@@ -72,7 +72,7 @@ public final class DataModel extends Observable {
         return itm;
     }
 
-    public UserDb addUser( UserDb itm) {
+    public UserDb addUser(UserDb itm) {
         final ContentResolver cr = ctx.getContentResolver();
         final ContentValues values = itm.getContentValues();
 
@@ -262,18 +262,6 @@ public final class DataModel extends Observable {
     public UserDb updateUser(final UserDb itm) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
 
-        // final String selection = BaseColumns._ID + "=?";
-        // final String[] selectionArgs = {
-        // String.valueOf(itm.getUniqueIdentifier()) };
-        // itm.lastUpdated = new
-        // DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-        // itm.localUpdates = true;
-
-        // db.update(DbMetadata.DATABASE_TABLE_NAME, itm.getContentValues(),
-        // selection, selectionArgs);
-        // notifyObservers();
-        // return itm;
-
         final ContentResolver cr = ctx.getContentResolver();
         final ContentValues values = itm.getContentValues();
 
@@ -285,6 +273,31 @@ public final class DataModel extends Observable {
         return itm;
     }
 
-    public void getUsersConnected(//FIXME :  userDbObj) {
+    public List<UserConnectDb> getUsersConnected(UserDb userDbObj) {
+        final List<UserConnectDb> userConnections = new ArrayList<UserConnectDb>();
+        final String[] projection = null;
+        final String selectionSql = UserDb._ID+ "=?";
+        final String[] selectionArgs = new String[]{String.valueOf(userDbObj.getUniqueIdentifier())};
+        final String groupBy = null;
+        final String having = null;
+        final String orderBy = UserDb.FIELD_NAME_name_first;
+        // final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null,
+        // selectionSql, selectionArgs, groupBy, having, orderBy);
+
+        final ContentResolver cr = ctx.getContentResolver();
+        final Cursor results = cr.query(NocturneUserConnectContentProvider.CONTENT_URI, projection, selectionSql,
+                selectionArgs, orderBy);
+
+        results.moveToFirst();
+        UserConnectDb tg = null;
+        final int nbrResults = results.getCount();
+        while (results.isAfterLast() == false) {
+            tg = new UserConnectDb(results);
+            userConnections.add(tg);
+            results.moveToNext();
+        }
+        results.close();
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getUsersConnected() found [" + nbrResults + "] connections");
+        return userConnections;
     }
 }
