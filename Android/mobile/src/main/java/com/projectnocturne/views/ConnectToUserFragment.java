@@ -144,7 +144,7 @@ public class ConnectToUserFragment extends NocturneFragment {
             usrCnctDb.setUser1(txtEmailAddr.getText().toString(), "CARER");
             usrCnctDb.setUser2(userDbObj.getEmail1(), "PATIENT");
         }
-        usrCnctDb=NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
+        usrCnctDb = NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
         NocturneApplication.getInstance().getServerComms().sendConnectToUserMessage(getActivity(), handler, usrCnctDb);
     }
 

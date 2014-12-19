@@ -34,9 +34,7 @@ import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.DbMetadata;
 import com.projectnocturne.datamodel.RESTResponseMsg;
-import com.projectnocturne.datamodel.SensorReading;
 import com.projectnocturne.datamodel.SensorReadingDb;
-import com.projectnocturne.datamodel.UserConnect;
 import com.projectnocturne.datamodel.UserConnectDb;
 import com.projectnocturne.datamodel.UserDb;
 
@@ -45,10 +43,17 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+
+import static org.springframework.web.util.UriComponentsBuilder.fromUriString;
+
 /**
  * @author andy
  */
 public final class SpringRestTask extends AsyncTask<Object, String, RESTResponseMsg> {
+
+    public static final int REST_REQUEST_SUCCESS=987655;
+    public static final int REST_REQUEST_FAILED=987654;
 
     public static final String URI_SEND_SENSOR_READING = "/sensors/reading";
     public static final Object URI_USER_CHECK_STATUS = "/users/user_check_status";
@@ -83,14 +88,56 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         RESTResponseMsg retStr = null;
         if (uri.equals(URI_USERS_REGISTER)) {
             retStr = doUserRegister(reqMthd, url, (UserDb) params[2]);
-        } else if (uri.equals(URI_USERS_CONNECT)) {
+        } else if (uri.equals(URI_USERS_CONNECT) && reqMthd.equals(RequestMethod.POST)) {
             retStr = doUserConnect(reqMthd, url, (UserConnectDb) params[2]);
+        } else if (uri.equals(URI_USERS_CONNECT) && reqMthd.equals(RequestMethod.GET)) {
+            retStr = doGetConnectedUsers(reqMthd, url, (UserDb) params[2]);
         } else if (uri.equals(URI_USERS_GET)) {
             // retStr = doUserRegister(reqMthd, url, (User) params[2]);
         } else if (uri.equals(URI_SEND_SENSOR_READING)) {
             retStr = doSendSensorReading(reqMthd, url, (SensorReadingDb) params[2]);
         }
         return retStr;
+    }
+
+    private RESTResponseMsg doGetConnectedUsers(final RequestMethod pReqMthd, final String pUrl, final UserDb pParam) {
+        NocturneApplication.d(LOG_TAG + "doGetConnectedUsers()");
+
+        String jsonStr = "";
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            jsonStr = mapper.writeValueAsString(pParam.getEmail1());
+        } catch (final JsonProcessingException e1) {
+            NocturneApplication.e(LOG_TAG + "doGetConnectedUsers() exception converting user to json", e1);
+        }
+
+        // Create a new RestTemplate instance
+        final RestTemplate restTemplate = getRestTemplate();
+
+        // Make the HTTP GET request, marshaling the request to JSON, and the
+        // response to a String
+        RESTResponseMsg response = new RESTResponseMsg();
+        Message msg;
+        try {
+            URI targetUrl = fromUriString(url).queryParam("user_email", pParam.getUserObj().getEmail1()).build().toUri();
+
+            String responseJson = restTemplate.getForObject(targetUrl, String.class);
+            msg = handler.obtainMessage(REST_REQUEST_SUCCESS);
+            response.setMessage(responseJson);
+            NocturneApplication.d(LOG_TAG + "doGetConnectedUsers() success [" + responseJson + "]");
+        } catch (final Exception e) {
+            NocturneApplication.e(LOG_TAG + "doGetConnectedUsers() exception posting request", e);
+            msg = handler.obtainMessage(REST_REQUEST_FAILED);
+            response.setMessage("Server Connection Failed");
+            response.setMessage("[" + e.getMessage() + "]\nPlease Try Again");
+        }
+        final Bundle b = new Bundle();
+        b.putParcelable("RESTResponseMsg", response);
+        msg.setData(b);
+        handler.sendMessage(msg);
+
+        return response;
     }
 
     private RESTResponseMsg doUserConnect(final RequestMethod pReqMthd, final String pUrl, final UserConnectDb pParam) {
@@ -117,9 +164,6 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
             response = restTemplate.postForObject(url, pParam.getUserConnectObj(), RESTResponseMsg.class);
             msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
-            final Bundle b = new Bundle();
-            b.putParcelable("RESTResponseMsg", response);
-            msg.setData(b);
             NocturneApplication.d(LOG_TAG + "doUserConnect() success [" + response.toString() + "]");
         } catch (final Exception e) {
             NocturneApplication.e(LOG_TAG + "doUserConnect() exception posting request", e);
@@ -127,10 +171,10 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
             response = new RESTResponseMsg();
             response.setMessage("Server Connection Failed");
             response.setMessage("[" + e.getMessage() + "]\nPlease Try Again");
-            final Bundle b = new Bundle();
-            b.putParcelable("RESTResponseMsg", response);
-            msg.setData(b);
         }
+        final Bundle b = new Bundle();
+        b.putParcelable("RESTResponseMsg", response);
+        msg.setData(b);
         handler.sendMessage(msg);
 
         return response;
@@ -197,9 +241,6 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
 
             response = restTemplate.postForObject(url, user.getUserObj(), RESTResponseMsg.class);
             msg = handler.obtainMessage(DbMetadata.RegistrationStatus_ACCEPTED);
-            final Bundle b = new Bundle();
-            b.putParcelable("RESTResponseMsg", response);
-            msg.setData(b);
             NocturneApplication.d(LOG_TAG + "doUserRegister() success [" + response.toString() + "]");
         } catch (final Exception e) {
             NocturneApplication.e(LOG_TAG + "doUserRegister() exception posting request", e);
@@ -207,10 +248,10 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
             response = new RESTResponseMsg();
             response.setMessage("Server Connection Failed");
             response.setMessage("[" + e.getMessage() + "]\nPlease Try Again");
-            final Bundle b = new Bundle();
-            b.putParcelable("RESTResponseMsg", response);
-            msg.setData(b);
         }
+        final Bundle b = new Bundle();
+        b.putParcelable("RESTResponseMsg", response);
+        msg.setData(b);
         handler.sendMessage(msg);
 
         return response;

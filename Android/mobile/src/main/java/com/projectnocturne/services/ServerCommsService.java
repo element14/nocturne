@@ -17,6 +17,7 @@
  */
 package com.projectnocturne.services;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -117,4 +118,11 @@ public final class ServerCommsService {
                 SpringRestTask.URI_USERS_REGISTER, obj);
     }
 
+    public void getConnectedUsers(final Activity ctx, final Handler handler, final UserDb obj) {
+        NocturneApplication.logMessage(Log.INFO, LOG_TAG + "getConnectedUsers() for " + obj.getName_first());
+
+        final SpringRestTask restReq = new SpringRestTask(ctx, handler);
+        restReq.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, SpringRestTask.RequestMethod.GET.toString(),
+                SpringRestTask.URI_USERS_CONNECT, obj);
+    }
 }

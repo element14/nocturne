@@ -46,8 +46,7 @@ public final class AlertDb extends AbstractDataObj {
         alert.alert_name = results.getString(results.getColumnIndex(FIELD_NAME_ALERT_NAME));
         alert.alert_desc = results.getString(results.getColumnIndex(FIELD_NAME_ALERT_DESC));
         alert.response = results.getString(results.getColumnIndex(FIELD_NAME_RESPONSE));
-        alert.response_sent = results.getString(results.getColumnIndex(FIELD_NAME_RESPONSE_SENT)).equalsIgnoreCase(
-                "TRUE");
+        alert.response_sent = results.getString(results.getColumnIndex(FIELD_NAME_RESPONSE_SENT)).equalsIgnoreCase("TRUE");
     }
 
     public AlertDb(final HashMap<String, String> aRow) {

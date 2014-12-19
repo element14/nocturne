@@ -70,8 +70,8 @@ public class MockServer implements Container {
 
         mockSvr.dbInitialise();
 
-        System.out.println("here we go");
         socketConnection.connect(address);
+        System.out.println("started listening on ["+address.toString()+"]");
     }
 
     private String getJsonString(final String key, final String value) {

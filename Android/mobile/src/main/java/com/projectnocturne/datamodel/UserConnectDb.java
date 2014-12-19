@@ -34,7 +34,8 @@ public final class UserConnectDb extends AbstractDataObj {
     public static final String FIELD_NAME_status = "status";
     public UserConnect userConnect = new UserConnect();
 
-    public UserConnectDb() {userConnect.status= DbMetadata.UserConnectionStatus.REQUEST_DENIED.toString();
+    public UserConnectDb() {
+        userConnect.status = DbMetadata.UserConnectionStatus.REQUEST_DENIED.toString();
     }
 
     public UserConnectDb(final Cursor results) {
@@ -63,6 +64,7 @@ public final class UserConnectDb extends AbstractDataObj {
         userConnect.user2_email = pUserEmail;
         userConnect.user2_role = pUserRole;
     }
+
     public void setStatus(final String pStatus) {
         userConnect.status = pStatus;
     }

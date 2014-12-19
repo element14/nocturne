@@ -238,4 +238,5 @@ public final class User {
     public String toString() {
         return null;
     }
+
 }

@@ -24,6 +24,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
@@ -38,7 +40,9 @@ import com.percolate.caffeine.ViewUtils;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
 import com.projectnocturne.SettingsActivity;
+import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.UserDb;
+import com.projectnocturne.server.SpringRestTask;
 import com.projectnocturne.services.SensorTagService;
 
 import java.io.IOException;
@@ -48,9 +52,21 @@ import java.util.List;
 
 public class Status1Fragment extends NocturneFragment {
     public static final String LOG_TAG = Status1Fragment.class.getSimpleName() + "::";
+    private Handler conenctedUsersHandler = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            NocturneApplication.d(LOG_TAG + "handleMessage()");
+            //FIXME : parse json response and populate listview
+            final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+            if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
+
+            }else{
+
+            }
+        }
+    };
 
     private boolean readyFragment;
-
     private TextView txtStatusScr1Heading1;
     private TextView txtStatusScr1Heading2;
     private TextView txtStatusScr1StatusItem1;
@@ -62,6 +78,7 @@ public class Status1Fragment extends NocturneFragment {
     private TextView txtStatusScr1StatusItem4;
     private TextView txtStatusScr1StatusItem4Value;
     private ListView txtStatusScr1StatusConnectedTo;
+    private UserDb userDbObj;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -113,7 +130,7 @@ public class Status1Fragment extends NocturneFragment {
             return;
         }
         Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "update() ready");
-        UserDb userDbObj = null;
+        userDbObj = null;
         final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userDbObj = users.get(0);
@@ -122,9 +139,20 @@ public class Status1Fragment extends NocturneFragment {
             txtStatusScr1Heading1.setText(styledText);
         }
         new ServerConnectionAsyncTask().execute();
+        new GetConnectedUsersAsyncTask().execute();
+    }
 
-        if (userDbObj != null) {
-            NocturneApplication.getInstance().getDataModel().getUsersConnected(userDbObj);
+    private class GetConnectedUsersAsyncTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void[] params) {
+            if (Status1Fragment.this.isAdded()) {
+                try {
+                    NocturneApplication.getInstance().getServerComms().getConnectedUsers(getActivity(), conenctedUsersHandler, userDbObj);
+                } catch (Exception e) {
+                    NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
+                }
+            }
+            return null;
         }
     }
 

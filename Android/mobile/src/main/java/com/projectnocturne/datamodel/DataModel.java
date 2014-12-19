@@ -102,8 +102,7 @@ public final class DataModel extends Observable {
         final String groupBy = null;
         final String having = null;
         final String orderBy = null;
-        final Cursor results = db.query(DbMetadata.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy,
-                having, orderBy);
+        final Cursor results = db.query(DbMetadata.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having, orderBy);
 
         if (results.getCount() > 0) {
             results.moveToFirst();
@@ -168,8 +167,7 @@ public final class DataModel extends Observable {
         final String groupBy = null;
         final String having = null;
         final String orderBy = UserDb.FIELD_NAME_name_first;
-        final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having,
-                orderBy);
+        final Cursor results = db.query(UserDb.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having, orderBy);
 
         UserDb tg = null;
         if (results.getCount() > 0) {
@@ -191,8 +189,7 @@ public final class DataModel extends Observable {
         // selectionSql, selectionArgs, groupBy, having,orderBy);
 
         final ContentResolver cr = ctx.getContentResolver();
-        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
-                selectionArgs, orderBy);
+        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql, selectionArgs, orderBy);
 
         UserDb tg = null;
         if (results.getCount() > 0) {
@@ -215,8 +212,7 @@ public final class DataModel extends Observable {
         // selectionSql, selectionArgs, groupBy, having, orderBy);
 
         final ContentResolver cr = ctx.getContentResolver();
-        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql,
-                selectionArgs, orderBy);
+        final Cursor results = cr.query(NocturneUserContentProvider.CONTENT_URI, projection, selectionSql, selectionArgs, orderBy);
 
         results.moveToFirst();
         UserDb tg = null;
@@ -268,15 +264,14 @@ public final class DataModel extends Observable {
         final String selection = BaseColumns._ID + "=?";
         final String[] selectionArgs = {String.valueOf(itm.getUniqueIdentifier())};
 
-        final int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection,
-                selectionArgs);
+        final int numberRecordsUpdated = cr.update(NocturneUserContentProvider.CONTENT_URI, values, selection, selectionArgs);
         return itm;
     }
 
     public List<UserConnectDb> getUsersConnected(UserDb userDbObj) {
         final List<UserConnectDb> userConnections = new ArrayList<UserConnectDb>();
         final String[] projection = null;
-        final String selectionSql = UserDb._ID+ "=?";
+        final String selectionSql = UserDb._ID + "=?";
         final String[] selectionArgs = new String[]{String.valueOf(userDbObj.getUniqueIdentifier())};
         final String groupBy = null;
         final String having = null;
@@ -285,8 +280,7 @@ public final class DataModel extends Observable {
         // selectionSql, selectionArgs, groupBy, having, orderBy);
 
         final ContentResolver cr = ctx.getContentResolver();
-        final Cursor results = cr.query(NocturneUserConnectContentProvider.CONTENT_URI, projection, selectionSql,
-                selectionArgs, orderBy);
+        final Cursor results = cr.query(NocturneUserConnectContentProvider.CONTENT_URI, projection, selectionSql, selectionArgs, orderBy);
 
         results.moveToFirst();
         UserConnectDb tg = null;

@@ -43,8 +43,7 @@ public class SensorTimePeriodsDb extends AbstractDataObj {
         sensorTimePeriods.sensor_id = results.getLong(results.getColumnIndex(FIELD_NAME_SENSOR_ID));
         sensorTimePeriods.start_time = results.getString(results.getColumnIndex(FIELD_NAME_START_TIME));
         sensorTimePeriods.stop_time = results.getString(results.getColumnIndex(FIELD_NAME_STOP_TIME));
-        sensorTimePeriods.sensor_value_expected = results.getString(results
-                .getColumnIndex(FIELD_NAME_SENSOR_VALUE_EXPECTED));
+        sensorTimePeriods.sensor_value_expected = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_VALUE_EXPECTED));
         sensorTimePeriods.sensor_warn_time = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_WARN_TIME));
         sensorTimePeriods.sensor_alert_time = results.getString(results.getColumnIndex(FIELD_NAME_SENSOR_ALERT_TIME));
     }

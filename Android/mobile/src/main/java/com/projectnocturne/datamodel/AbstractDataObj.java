@@ -136,15 +136,22 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
         return lastUpdated;
     }
 
-    public void setLastUpdated(final long time) {
-        this.setLastUpdated("" + time);
-    }
-
     /**
      * @param lastUpdated the lastUpdated to set
      */
     public void setLastUpdated(final String lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    /**
+     * @param lastUpdated the lastUpdated to set
+     */
+    public void setLastUpdated(final DateTime dateStr) {
+        lastUpdated = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
+    }
+
+    public void setLastUpdated(final long time) {
+        this.setLastUpdated("" + time);
     }
 
     public String getSelectAllSql() {
@@ -202,12 +209,16 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
         return uniqueIdentifier;
     }
 
-    public final void setUniqueIdentifier(final long value) {
+    public final void setUniqueIdentifier(final String value) {
+        uniqueIdentifier = Long.parseLong(value);
+    }
+
+    public final void setUniqueIdentifier(final int value) {
         uniqueIdentifier = value;
     }
 
-    public final void setUniqueIdentifier(final String value) {
-        uniqueIdentifier = Long.parseLong(value);
+    public final void setUniqueIdentifier(final long value) {
+        uniqueIdentifier = value;
     }
 
     /**
@@ -245,17 +256,6 @@ public abstract class AbstractDataObj extends Observable implements BaseColumns 
 
     public void resetUniqueIdentifier() {
         uniqueIdentifier = -1;
-    }
-
-    /**
-     * @param lastUpdated the lastUpdated to set
-     */
-    public void setLastUpdated(final DateTime dateStr) {
-        lastUpdated = dateStr.toString(NocturneApplication.simpleDateFmtStrDb);
-    }
-
-    public final void setUniqueIdentifier(final int value) {
-        uniqueIdentifier = value;
     }
 
     @Override

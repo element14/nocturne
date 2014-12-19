@@ -2,7 +2,7 @@
  * <p>
  * <u><b>Copyright Notice</b></u>
  * </p><p>
- * The copyright in this document is the property of 
+ * The copyright in this document is the property of
  * Bath Institute of Medical Engineering.
  * </p><p>
  * Without the written consent of Bath Institute of Medical Engineering
@@ -46,8 +46,7 @@ public class DbMetadata extends AbstractDataObj {
     public DbMetadata(final Cursor results) {
         timestamp = results.getLong(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
         version = results.getString(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_VERSION));
-        setRegistrationStatus(results.getInt(results
-                .getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
+        setRegistrationStatus(results.getInt(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
         setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
         setUniqueIdentifier(results.getInt(results.getColumnIndex(BaseColumns._ID)));
     }
