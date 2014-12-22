@@ -52,7 +52,7 @@ import java.util.List;
 
 public class Status1Fragment extends NocturneFragment {
     public static final String LOG_TAG = Status1Fragment.class.getSimpleName() + "::";
-    private Handler conenctedUsersHandler = new Handler() {
+    private Handler connectedUsersHandler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
             NocturneApplication.d(LOG_TAG + "handleMessage()");
@@ -147,7 +147,7 @@ public class Status1Fragment extends NocturneFragment {
         protected Void doInBackground(Void[] params) {
             if (Status1Fragment.this.isAdded()) {
                 try {
-                    NocturneApplication.getInstance().getServerComms().getConnectedUsers(getActivity(), conenctedUsersHandler, userDbObj);
+                    NocturneApplication.getInstance().getServerComms().getConnectedUsers(getActivity(), connectedUsersHandler, userDbObj);
                 } catch (Exception e) {
                     NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "update()", e);
                 }
