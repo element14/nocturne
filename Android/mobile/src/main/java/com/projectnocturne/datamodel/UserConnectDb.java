@@ -35,7 +35,7 @@ public final class UserConnectDb extends AbstractDataObj {
     public UserConnect userConnect = new UserConnect();
 
     public UserConnectDb() {
-        userConnect.status = DbMetadata.UserConnectionStatus.REQUEST_DENIED.toString();
+        userConnect.status = DbMetadata.UserConnectionStatus.REQUEST_SENT.toString();
     }
 
     public UserConnectDb(final Cursor results) {

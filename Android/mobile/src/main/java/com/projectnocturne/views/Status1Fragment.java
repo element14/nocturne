@@ -60,7 +60,7 @@ public class Status1Fragment extends NocturneFragment {
             final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
             if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
 
-            }else{
+            } else {
 
             }
         }

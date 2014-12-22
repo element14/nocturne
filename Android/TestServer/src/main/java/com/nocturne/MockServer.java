@@ -228,8 +228,12 @@ public class MockServer implements Container {
     private void handleRequestUserConnect(final Request request, final PrintStream body) {
         System.out.println("handleRequestUserConnect()");
 
-        String user_email = request.getValue("user_email");
-        if (user_email.length() > 0) {
+        Query reqQry = request.getQuery();
+        String user_email = null;
+        if (reqQry != null) {
+            user_email = reqQry.get("user_email");
+        }
+        if (user_email != null && user_email.length() > 0) {
             //No body data, so it's a GET???
             handleRequestGetConnectedUsers(request, body);
         } else {
@@ -257,13 +261,18 @@ public class MockServer implements Container {
                 if (userObj.containsKey("user2_role")) {
                     user2_role = userObj.get("user2_role").toString();
                 }
+                String status = "";
+                if (userObj.containsKey("status")) {
+                    status = userObj.get("status").toString();
+                }
 
                 PreparedStatement insertStmt = null;
-                insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role) values (?,?)");
+                insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role, status) values (?,?,?,?,?)");
                 insertStmt.setString(1, user1_email);
                 insertStmt.setString(2, user1_role);
                 insertStmt.setString(3, user2_email);
                 insertStmt.setString(4, user2_role);
+                insertStmt.setString(5, status);
                 insertStmt.execute();
 
                 //body.println("{" + getJsonString("key", "value") + "}");
@@ -286,20 +295,31 @@ public class MockServer implements Container {
 
         try {
             Statement stmt = dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
-            //rs.first();
-            String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": ";
-            while (rs.next()) {
-                respStr += "{";
-                respStr += "\"user1_email\":\"" + rs.getString("user1_email") + "\"";
-                respStr += "\"user1_role\":\"" + rs.getString("user1_role") + "\"";
-                respStr += "\"user2_email\":\"" + rs.getString("user2_email") + "\"";
-                respStr += "\"user2_role\":\"" + rs.getString("user2_role") + "\"";
-                respStr += "\"status\":\"" + rs.getString("status") + "\"";
-                respStr += "}";
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS rowcount FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
+            rs.next();
+            int rowCount = rs.getInt("rowcount");
+            rs.close();
+
+            String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": {\"user_connections\":";
+            if (rowCount == 0) {
+                respStr += "{}}}";
+            } else {
+                rs = stmt.executeQuery("SELECT * FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
+                //rs.first();
+
+                rs.beforeFirst();
+                while (rs.next()) {
+                    respStr += "{";
+                    respStr += "\"user1_email\":\"" + rs.getString("user1_email") + "\"";
+                    respStr += "\"user1_role\":\"" + rs.getString("user1_role") + "\"";
+                    respStr += "\"user2_email\":\"" + rs.getString("user2_email") + "\"";
+                    respStr += "\"user2_role\":\"" + rs.getString("user2_role") + "\"";
+                    respStr += "\"status\":\"" + rs.getString("status") + "\"";
+                    respStr += "}";
+                }
+                respStr += "}}";
+                respStr.replace("}{", "},{");
             }
-            respStr += "}";
-            respStr.replace("}{", "},{");
             body.println(respStr);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
