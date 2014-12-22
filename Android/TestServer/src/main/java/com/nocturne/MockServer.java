@@ -71,7 +71,7 @@ public class MockServer implements Container {
         mockSvr.dbInitialise();
 
         socketConnection.connect(address);
-        System.out.println("started listening on ["+address.toString()+"]");
+        System.out.println("started listening on [" + address.toString() + "]");
     }
 
     private String getJsonString(final String key, final String value) {
@@ -144,6 +144,7 @@ public class MockServer implements Container {
             }
         }
     }
+
 
     /**
      * @param request
@@ -227,50 +228,82 @@ public class MockServer implements Container {
     private void handleRequestUserConnect(final Request request, final PrintStream body) {
         System.out.println("handleRequestUserConnect()");
 
-        String jsonStr = null;
-        try {
-            jsonStr = request.getContent();
+        String user_email = request.getValue("user_email");
+        if (user_email.length() > 0) {
+            //No body data, so it's a GET???
+            handleRequestGetConnectedUsers(request, body);
+        } else {
 
-            //FIXME : parse request message
-            JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr);
+            String jsonStr = null;
+            try {
+                jsonStr = request.getContent();
 
-            String user1_email = "";
-            if (userObj.containsKey("user1_email")) {
-                user1_email = userObj.get("user1_email").toString();
-            }
-            String user2_email = "";
-            if (userObj.containsKey("user2_email")) {
-                user2_email = userObj.get("user2_email").toString();
-            }
-            String user1_role = "";
-            if (userObj.containsKey("user1_role")) {
-                user1_role = userObj.get("user1_role").toString();
-            }
-            String user2_role = "";
-            if (userObj.containsKey("user2_role")) {
-                user2_role = userObj.get("user2_role").toString();
-            }
+                //FIXME : parse request message
+                JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr);
 
-            PreparedStatement insertStmt = null;
-            insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role) values (?,?)");
+                String user1_email = "";
+                if (userObj.containsKey("user1_email")) {
+                    user1_email = userObj.get("user1_email").toString();
+                }
+                String user2_email = "";
+                if (userObj.containsKey("user2_email")) {
+                    user2_email = userObj.get("user2_email").toString();
+                }
+                String user1_role = "";
+                if (userObj.containsKey("user1_role")) {
+                    user1_role = userObj.get("user1_role").toString();
+                }
+                String user2_role = "";
+                if (userObj.containsKey("user2_role")) {
+                    user2_role = userObj.get("user2_role").toString();
+                }
+
+                PreparedStatement insertStmt = null;
+                insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role) values (?,?)");
                 insertStmt.setString(1, user1_email);
                 insertStmt.setString(2, user1_role);
                 insertStmt.setString(3, user2_email);
                 insertStmt.setString(4, user2_role);
-            insertStmt.execute();
+                insertStmt.execute();
 
-            //body.println("{" + getJsonString("key", "value") + "}");
-            //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
-            String respStr="{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
-            respStr+=jsonStr.substring(1,jsonStr.length()-2);
-            respStr+="}";
+                //body.println("{" + getJsonString("key", "value") + "}");
+                //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
+                String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
+                respStr += jsonStr.substring(1, jsonStr.length() - 2);
+                respStr += "}";
+                body.println(respStr);
+            } catch (IOException e) {
+                e.printStackTrace();
+                body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user connection to database failed\"}");
+            }
+        }
+    }
+
+    private void handleRequestGetConnectedUsers(final Request request, final PrintStream body) {
+
+        try {
+            Statement stmt = dbConnection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
+            //rs.first();
+            String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": ";
+            while (rs.next()) {
+                respStr += "{";
+                respStr += "\"user1_email\":\"" + rs.getString("user1_email") + "\"";
+                respStr += "\"user1_role\":\"" + rs.getString("user1_role") + "\"";
+                respStr += "\"user2_email\":\"" + rs.getString("user2_email") + "\"";
+                respStr += "\"user2_role\":\"" + rs.getString("user2_role") + "\"";
+                respStr += "\"status\":\"" + rs.getString("status") + "\"";
+                respStr += "}";
+            }
+            respStr += "}";
+            respStr.replace("}{", "},{");
             body.println(respStr);
-        } catch (IOException e) {
-            e.printStackTrace();
-            body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user connection to database failed\"}");
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
         }
     }
 
@@ -367,6 +400,7 @@ public class MockServer implements Container {
                     "  user1_role VARCHAR(45) NOT NULL,\n" +
                     "  user2_email VARCHAR(45) NOT NULL,\n" +
                     "  user2_role VARCHAR(45) NOT NULL,\n" +
+                    "  status VARCHAR(45) NOT NULL,\n" +
                     "  PRIMARY KEY (user1_email, user2_email));").execute();
 
             dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_alerts ;").execute();
