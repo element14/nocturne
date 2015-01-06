@@ -1,0 +1,643 @@
+:tasks
+
+------------------------------------------------------------
+All tasks runnable from root project
+------------------------------------------------------------
+
+Android tasks
+-------------
+mobile:androidDependencies - Displays the Android dependencies of the project
+wear:androidDependencies - Displays the Android dependencies of the project
+mobile:signingReport - Displays the signing info for each variant
+wear:signingReport - Displays the signing info for each variant
+
+Application tasks
+-----------------
+TestServer:distTar - Bundles the project as a JVM application with libs and OS specific scripts. [TestServer:jar]
+    TestServer:startScripts - Creates OS specific scripts to run the project as a JVM application.
+TestServer:distZip - Bundles the project as a JVM application with libs and OS specific scripts. [TestServer:jar]
+    TestServer:startScripts - Creates OS specific scripts to run the project as a JVM application.
+TestServer:installApp - Installs the project as a JVM application along with libs and OS specific scripts. [TestServer:jar]
+    TestServer:startScripts - Creates OS specific scripts to run the project as a JVM application.
+TestServer:run - Runs this project as a JVM application [TestServer:classes]
+
+Build tasks
+-----------
+mobile:assemble - Assembles all variants of all applications and secondary packages. [mobile:assembleDebug, mobile:assembleRelease]
+TestServer:assemble - Assembles the outputs of this project. [TestServer:jar]
+wear:assemble - Assembles all variants of all applications and secondary packages. [wear:assembleDebug, wear:assembleRelease]
+mobile:assembleDebug - Assembles all Debug builds
+    mobile:checkDebugManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugNdk
+    mobile:compileDebugRenderscript
+    mobile:dexDebug
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:packageDebug
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preDexDebug
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:processDebugJavaRes
+    mobile:processDebugManifest
+    mobile:processDebugResources
+    mobile:validateDebugSigning
+    mobile:zipalignDebug
+wear:assembleDebug - Assembles all Debug builds
+    wear:checkDebugManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugNdk
+    wear:compileDebugRenderscript
+    wear:dexDebug
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:packageDebug
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preDexDebug
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:processDebugJavaRes
+    wear:processDebugManifest
+    wear:processDebugResources
+    wear:validateDebugSigning
+    wear:zipalignDebug
+mobile:assembleDebugTest - Assembles the Test build for the Debug build
+    mobile:checkDebugManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugRenderscript
+    mobile:compileDebugTestAidl
+    mobile:compileDebugTestJava
+    mobile:compileDebugTestNdk
+    mobile:compileDebugTestRenderscript
+    mobile:dexDebugTest
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:generateDebugTestAssets
+    mobile:generateDebugTestBuildConfig
+    mobile:generateDebugTestResValues
+    mobile:generateDebugTestResources
+    mobile:generateDebugTestSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:mergeDebugTestAssets
+    mobile:mergeDebugTestResources
+    mobile:packageDebugTest
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preDebugTestBuild
+    mobile:preDexDebugTest
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:prepareDebugTestDependencies
+    mobile:processDebugManifest
+    mobile:processDebugResources
+    mobile:processDebugTestJavaRes
+    mobile:processDebugTestManifest
+    mobile:processDebugTestResources
+    mobile:validateDebugSigning
+wear:assembleDebugTest - Assembles the Test build for the Debug build
+    wear:checkDebugManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugRenderscript
+    wear:compileDebugTestAidl
+    wear:compileDebugTestJava
+    wear:compileDebugTestNdk
+    wear:compileDebugTestRenderscript
+    wear:dexDebugTest
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:generateDebugTestAssets
+    wear:generateDebugTestBuildConfig
+    wear:generateDebugTestResValues
+    wear:generateDebugTestResources
+    wear:generateDebugTestSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:mergeDebugTestAssets
+    wear:mergeDebugTestResources
+    wear:packageDebugTest
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preDebugTestBuild
+    wear:preDexDebugTest
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:prepareDebugTestDependencies
+    wear:processDebugManifest
+    wear:processDebugResources
+    wear:processDebugTestJavaRes
+    wear:processDebugTestManifest
+    wear:processDebugTestResources
+    wear:validateDebugSigning
+mobile:assembleRelease - Assembles all Release builds
+    mobile:checkReleaseManifest
+    mobile:compileReleaseAidl
+    mobile:compileReleaseJava
+    mobile:compileReleaseNdk
+    mobile:compileReleaseRenderscript
+    mobile:dexRelease
+    mobile:generateReleaseAssets
+    mobile:generateReleaseBuildConfig
+    mobile:generateReleaseResValues
+    mobile:generateReleaseResources
+    mobile:generateReleaseSources
+    mobile:lintVitalRelease - Runs lint on just the fatal issues in the Release build
+    mobile:mergeReleaseAssets
+    mobile:mergeReleaseResources
+    mobile:packageRelease
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareReleaseDependencies
+    mobile:processReleaseJavaRes
+    mobile:processReleaseManifest
+    mobile:processReleaseResources
+    mobile:proguardRelease
+wear:assembleRelease - Assembles all Release builds
+    wear:checkReleaseManifest
+    wear:compileReleaseAidl
+    wear:compileReleaseJava
+    wear:compileReleaseNdk
+    wear:compileReleaseRenderscript
+    wear:dexRelease
+    wear:generateReleaseAssets
+    wear:generateReleaseBuildConfig
+    wear:generateReleaseResValues
+    wear:generateReleaseResources
+    wear:generateReleaseSources
+    wear:lintVitalRelease - Runs lint on just the fatal issues in the Release build
+    wear:mergeReleaseAssets
+    wear:mergeReleaseResources
+    wear:packageRelease
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preDexRelease
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareReleaseDependencies
+    wear:processReleaseJavaRes
+    wear:processReleaseManifest
+    wear:processReleaseResources
+mobile:build - Assembles and tests this project. [mobile:assemble, mobile:check]
+TestServer:build - Assembles and tests this project. [TestServer:assemble, TestServer:check]
+wear:build - Assembles and tests this project. [wear:assemble, wear:check]
+mobile:buildDependents - Assembles and tests this project and all projects that depend on it. [mobile:build]
+TestServer:buildDependents - Assembles and tests this project and all projects that depend on it. [TestServer:build]
+wear:buildDependents - Assembles and tests this project and all projects that depend on it. [wear:build]
+mobile:buildNeeded - Assembles and tests this project and all projects it depends on. [mobile:build]
+TestServer:buildNeeded - Assembles and tests this project and all projects it depends on. [TestServer:build]
+wear:buildNeeded - Assembles and tests this project and all projects it depends on. [wear:build]
+TestServer:classes - Assembles classes 'main'.
+    TestServer:compileJava - Compiles Java source 'main:java'.
+    TestServer:processResources - Processes JVM resources 'main:resources'.
+mobile:clean - Deletes the build directory.
+TestServer:clean - Deletes the build directory.
+wear:clean - Deletes the build directory.
+TestServer:jar - Assembles a jar archive containing the main classes. [TestServer:classes]
+TestServer:testClasses - Assembles classes 'test'. [TestServer:classes]
+    TestServer:compileTestJava - Compiles Java source 'test:java'.
+    TestServer:processTestResources - Processes JVM resources 'test:resources'.
+
+Build Setup tasks
+-----------------
+init - Initializes a new Gradle build. [incubating]
+wrapper - Generates Gradle wrapper files. [incubating]
+
+Documentation tasks
+-------------------
+TestServer:javadoc - Generates Javadoc API documentation for the main source code. [TestServer:classes]
+
+Help tasks
+----------
+components - Displays the components produced by root project 'Android'. [incubating]
+mobile:components - Displays the components produced by project ':mobile'. [incubating]
+TestServer:components - Displays the components produced by project ':TestServer'. [incubating]
+wear:components - Displays the components produced by project ':wear'. [incubating]
+dependencies - Displays all dependencies declared in root project 'Android'.
+mobile:dependencies - Displays all dependencies declared in project ':mobile'.
+TestServer:dependencies - Displays all dependencies declared in project ':TestServer'.
+wear:dependencies - Displays all dependencies declared in project ':wear'.
+dependencyInsight - Displays the insight into a specific dependency in root project 'Android'.
+mobile:dependencyInsight - Displays the insight into a specific dependency in project ':mobile'.
+TestServer:dependencyInsight - Displays the insight into a specific dependency in project ':TestServer'.
+wear:dependencyInsight - Displays the insight into a specific dependency in project ':wear'.
+help - Displays a help message.
+mobile:help - Displays a help message.
+TestServer:help - Displays a help message.
+wear:help - Displays a help message.
+projects - Displays the sub-projects of root project 'Android'.
+mobile:projects - Displays the sub-projects of project ':mobile'.
+TestServer:projects - Displays the sub-projects of project ':TestServer'.
+wear:projects - Displays the sub-projects of project ':wear'.
+properties - Displays the properties of root project 'Android'.
+mobile:properties - Displays the properties of project ':mobile'.
+TestServer:properties - Displays the properties of project ':TestServer'.
+wear:properties - Displays the properties of project ':wear'.
+tasks - Displays the tasks runnable from root project 'Android' (some of the displayed tasks may belong to subprojects).
+mobile:tasks - Displays the tasks runnable from project ':mobile'.
+TestServer:tasks - Displays the tasks runnable from project ':TestServer'.
+wear:tasks - Displays the tasks runnable from project ':wear'.
+
+Install tasks
+-------------
+mobile:installDebug - Installs the Debug build [mobile:assembleDebug]
+wear:installDebug - Installs the Debug build [wear:assembleDebug]
+mobile:installDebugTest - Installs the Test build for the Debug build [mobile:assembleDebugTest]
+wear:installDebugTest - Installs the Test build for the Debug build [wear:assembleDebugTest]
+mobile:uninstallAll - Uninstall all applications. [mobile:uninstallDebug, mobile:uninstallDebugTest, mobile:uninstallRelease]
+wear:uninstallAll - Uninstall all applications. [wear:uninstallDebug, wear:uninstallDebugTest, wear:uninstallRelease]
+mobile:uninstallDebug - Uninstalls the Debug build
+wear:uninstallDebug - Uninstalls the Debug build
+mobile:uninstallDebugTest - Uninstalls the Test build for the Debug build
+wear:uninstallDebugTest - Uninstalls the Test build for the Debug build
+mobile:uninstallRelease - Uninstalls the Release build
+wear:uninstallRelease - Uninstalls the Release build
+
+Verification tasks
+------------------
+mobile:check - Runs all checks. [mobile:lint]
+TestServer:check - Runs all checks. [TestServer:test]
+wear:check - Runs all checks. [wear:lint]
+mobile:connectedAndroidTest - Installs and runs the tests for Build 'debug' on connected devices. [mobile:assembleDebug, mobile:assembleDebugTest]
+wear:connectedAndroidTest - Installs and runs the tests for Build 'debug' on connected devices. [wear:assembleDebug, wear:assembleDebugTest]
+mobile:connectedCheck - Runs all device checks on currently connected devices. [mobile:connectedAndroidTest]
+wear:connectedCheck - Runs all device checks on currently connected devices. [wear:connectedAndroidTest]
+mobile:deviceCheck - Runs all device checks using Device Providers and Test Servers.
+wear:deviceCheck - Runs all device checks using Device Providers and Test Servers.
+mobile:lint - Runs lint on all variants.
+    mobile:checkDebugManifest
+    mobile:checkReleaseManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugRenderscript
+    mobile:compileLint
+    mobile:compileReleaseAidl
+    mobile:compileReleaseJava
+    mobile:compileReleaseRenderscript
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:generateReleaseAssets
+    mobile:generateReleaseBuildConfig
+    mobile:generateReleaseResValues
+    mobile:generateReleaseResources
+    mobile:generateReleaseSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:mergeReleaseAssets
+    mobile:mergeReleaseResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:prepareReleaseDependencies
+    mobile:processDebugManifest
+    mobile:processDebugResources
+    mobile:processReleaseManifest
+    mobile:processReleaseResources
+wear:lint - Runs lint on all variants.
+    wear:checkDebugManifest
+    wear:checkReleaseManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugRenderscript
+    wear:compileLint
+    wear:compileReleaseAidl
+    wear:compileReleaseJava
+    wear:compileReleaseRenderscript
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:generateReleaseAssets
+    wear:generateReleaseBuildConfig
+    wear:generateReleaseResValues
+    wear:generateReleaseResources
+    wear:generateReleaseSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:mergeReleaseAssets
+    wear:mergeReleaseResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:prepareReleaseDependencies
+    wear:processDebugManifest
+    wear:processDebugResources
+    wear:processReleaseManifest
+    wear:processReleaseResources
+mobile:lintDebug - Runs lint on the Debug build
+    mobile:checkDebugManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugRenderscript
+    mobile:compileLint
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:processDebugManifest
+    mobile:processDebugResources
+wear:lintDebug - Runs lint on the Debug build
+    wear:checkDebugManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugRenderscript
+    wear:compileLint
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:processDebugManifest
+    wear:processDebugResources
+mobile:lintRelease - Runs lint on the Release build
+    mobile:checkReleaseManifest
+    mobile:compileLint
+    mobile:compileReleaseAidl
+    mobile:compileReleaseJava
+    mobile:compileReleaseRenderscript
+    mobile:generateReleaseAssets
+    mobile:generateReleaseBuildConfig
+    mobile:generateReleaseResValues
+    mobile:generateReleaseResources
+    mobile:generateReleaseSources
+    mobile:mergeReleaseAssets
+    mobile:mergeReleaseResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareReleaseDependencies
+    mobile:processReleaseManifest
+    mobile:processReleaseResources
+wear:lintRelease - Runs lint on the Release build
+    wear:checkReleaseManifest
+    wear:compileLint
+    wear:compileReleaseAidl
+    wear:compileReleaseJava
+    wear:compileReleaseRenderscript
+    wear:generateReleaseAssets
+    wear:generateReleaseBuildConfig
+    wear:generateReleaseResValues
+    wear:generateReleaseResources
+    wear:generateReleaseSources
+    wear:mergeReleaseAssets
+    wear:mergeReleaseResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareReleaseDependencies
+    wear:processReleaseManifest
+    wear:processReleaseResources
+TestServer:test - Runs the unit tests. [TestServer:classes, TestServer:testClasses]
+
+Other tasks
+-----------
+mobile:compileDebugSources
+    mobile:checkDebugManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugNdk
+    mobile:compileDebugRenderscript
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:processDebugManifest
+    mobile:processDebugResources
+wear:compileDebugSources
+    wear:checkDebugManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugNdk
+    wear:compileDebugRenderscript
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:processDebugManifest
+    wear:processDebugResources
+mobile:compileDebugTestSources
+    mobile:checkDebugManifest
+    mobile:compileDebugAidl
+    mobile:compileDebugJava
+    mobile:compileDebugRenderscript
+    mobile:compileDebugTestAidl
+    mobile:compileDebugTestJava
+    mobile:compileDebugTestNdk
+    mobile:compileDebugTestRenderscript
+    mobile:generateDebugAssets
+    mobile:generateDebugBuildConfig
+    mobile:generateDebugResValues
+    mobile:generateDebugResources
+    mobile:generateDebugSources
+    mobile:generateDebugTestAssets
+    mobile:generateDebugTestBuildConfig
+    mobile:generateDebugTestResValues
+    mobile:generateDebugTestResources
+    mobile:generateDebugTestSources
+    mobile:mergeDebugAssets
+    mobile:mergeDebugResources
+    mobile:mergeDebugTestAssets
+    mobile:mergeDebugTestResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preDebugTestBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareDebugDependencies
+    mobile:prepareDebugTestDependencies
+    mobile:processDebugManifest
+    mobile:processDebugResources
+    mobile:processDebugTestManifest
+    mobile:processDebugTestResources
+wear:compileDebugTestSources
+    wear:checkDebugManifest
+    wear:compileDebugAidl
+    wear:compileDebugJava
+    wear:compileDebugRenderscript
+    wear:compileDebugTestAidl
+    wear:compileDebugTestJava
+    wear:compileDebugTestNdk
+    wear:compileDebugTestRenderscript
+    wear:generateDebugAssets
+    wear:generateDebugBuildConfig
+    wear:generateDebugResValues
+    wear:generateDebugResources
+    wear:generateDebugSources
+    wear:generateDebugTestAssets
+    wear:generateDebugTestBuildConfig
+    wear:generateDebugTestResValues
+    wear:generateDebugTestResources
+    wear:generateDebugTestSources
+    wear:mergeDebugAssets
+    wear:mergeDebugResources
+    wear:mergeDebugTestAssets
+    wear:mergeDebugTestResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preDebugTestBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareDebugDependencies
+    wear:prepareDebugTestDependencies
+    wear:processDebugManifest
+    wear:processDebugResources
+    wear:processDebugTestManifest
+    wear:processDebugTestResources
+mobile:compileReleaseSources
+    mobile:checkReleaseManifest
+    mobile:compileReleaseAidl
+    mobile:compileReleaseJava
+    mobile:compileReleaseNdk
+    mobile:compileReleaseRenderscript
+    mobile:generateReleaseAssets
+    mobile:generateReleaseBuildConfig
+    mobile:generateReleaseResValues
+    mobile:generateReleaseResources
+    mobile:generateReleaseSources
+    mobile:mergeReleaseAssets
+    mobile:mergeReleaseResources
+    mobile:preBuild
+    mobile:preDebugBuild
+    mobile:preReleaseBuild
+    mobile:prepareComAndroidSupportSupportV42000Library - Prepare com.android.support:support-v4:20.0.0
+    mobile:prepareComGoogleAndroidGmsPlayServicesWearable5077Library - Prepare com.google.android.gms:play-services-wearable:5.0.77
+    mobile:prepareReleaseDependencies
+    mobile:processReleaseManifest
+    mobile:processReleaseResources
+wear:compileReleaseSources
+    wear:checkReleaseManifest
+    wear:compileReleaseAidl
+    wear:compileReleaseJava
+    wear:compileReleaseNdk
+    wear:compileReleaseRenderscript
+    wear:generateReleaseAssets
+    wear:generateReleaseBuildConfig
+    wear:generateReleaseResValues
+    wear:generateReleaseResources
+    wear:generateReleaseSources
+    wear:mergeReleaseAssets
+    wear:mergeReleaseResources
+    wear:preBuild
+    wear:preDebugBuild
+    wear:preReleaseBuild
+    wear:prepareComAndroidSupportRecyclerviewV72100Library - Prepare com.android.support:recyclerview-v7:21.0.0
+    wear:prepareComAndroidSupportSupportV42100Library - Prepare com.android.support:support-v4:21.0.0
+    wear:prepareComGoogleAndroidGmsPlayServicesBase6587Library - Prepare com.google.android.gms:play-services-base:6.5.87
+    wear:prepareComGoogleAndroidGmsPlayServicesWearable6587Library - Prepare com.google.android.gms:play-services-wearable:6.5.87
+    wear:prepareComGoogleAndroidSupportWearable110Library - Prepare com.google.android.support:wearable:1.1.0
+    wear:prepareReleaseDependencies
+    wear:processReleaseManifest
+    wear:processReleaseResources
+
+BUILD SUCCESSFUL
+
+Total time: 5.681 secs

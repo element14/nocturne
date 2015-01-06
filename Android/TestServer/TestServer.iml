@@ -26,9 +26,11 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="joda-time-2.6" level="project" />
     <orderEntry type="library" exported="" name="simple-5.1.6" level="project" />
     <orderEntry type="library" exported="" name="sqlite-jdbc-3.8.7" level="project" />
-    <orderEntry type="library" exported="" name="json-simple-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="org.json.simple-0.4" level="project" />
+    <orderEntry type="library" exported="" name="json-simple-1.1" level="project" />
   </component>
 </module>
 
