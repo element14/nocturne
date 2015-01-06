@@ -31,7 +31,8 @@ echo
 echo "Building TestServer classes"
 echo
 cd $GitDir/Android
-cp -F ./rpi-update.sh ${0}
+echo "changed to ["`pwd`"] directory"
+cp -F $GitDir/Android/rpi-update.sh ${0}
 chmod +x ${0}
 ./gradlew :TestServer:compileJava
 
