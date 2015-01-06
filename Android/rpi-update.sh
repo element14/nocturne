@@ -33,19 +33,14 @@ echo
 cd $GitDir/Android
 cp -F ./rpi-update.sh ${0}
 chmod +x ${0}
-#gradlew :TestServer:compileJava
-
-echo
-echo
-ls -lh /build/classes/main/com/nocturne/MockServer.class
-echo
+./gradlew :TestServer:compileJava
 
 echo
 echo "finished updating TestServer"
-echo "to execute use trhe command [gradlew :TestServer:run]"
+echo "to execute use the command [gradlew :TestServer:run]"
 echo
 echo "Executing TestServer"
 echo
-gradlew :TestServer:run
+./gradlew :TestServer:run
 
 
