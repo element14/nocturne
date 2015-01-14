@@ -18,13 +18,13 @@
         android:required="true" />
 
     <application
-        android:name="com.projectnocturne.NocturneApplication"
+        android:name=".NocturneApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.projectnocturne.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,48 +40,48 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.projectnocturne.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name="com.projectnocturne.views.HelpActivity"
+            android:name=".views.HelpActivity"
             android:label="@string/title_activity_help" />
 
         <!-- this is the Service that polls the SensorTag -->
         <service
-            android:name="com.projectnocturne.services.SensorTagService"
+            android:name=".services.SensorTagService"
             android:exported="false" />
 
         <!-- sets up the scheduled alarm at boot -->
         <receiver
-            android:name="com.projectnocturne.services.BootReceiver"
+            android:name=".services.BootReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.projectnocturne.alarmreceivers.BedAlarmReceiver"
+            android:name=".alarmreceivers.BedAlarmReceiver"
             android:enabled="true" />
 
         <provider
-            android:name="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
+            android:name=".contentprovider.NocturneSensorReadingContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
             android:exported="false" />
         <provider
-            android:name="com.projectnocturne.contentprovider.NocturneUserContentProvider"
+            android:name=".contentprovider.NocturneUserContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
             android:exported="false" />
         <provider
-            android:name="com.projectnocturne.contentprovider.NocturneUserConnectContentProvider"
+            android:name=".contentprovider.NocturneUserConnectContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserConnectContentProvider"
             android:exported="false" />
 
         <activity
-            android:name="com.projectnocturne.views.ConnectionRequest"
+            android:name=".views.ConnectionRequestedActivity"
             android:label="@string/title_activity_connection_request" >
         </activity>
         <activity
-            android:name="com.projectnocturne.views.ConnectToUserActivity"
+            android:name=".views.ConnectToUserActivity"
             android:label="@string/title_activity_connect_to_user" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -89,6 +89,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.BedSensorIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".services.BedSensorBleService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import com.projectnocturne.R;
 import com.projectnocturne.sensortag.ScanType;
 import com.projectnocturne.sensortag.Sensor;
 import com.projectnocturne.sensortag.WriteQueue;
+import com.projectnocturne.sensortag.constants.BleCharacteristics;
 import com.projectnocturne.sensortag.constants.SampleGattAttributes;
 
 import java.util.List;
@@ -38,16 +39,16 @@ import java.util.UUID;
 public class SensorTagService extends IntentService {
     public static final String LOG_TAG = SensorTagService.class.getSimpleName() + "::";
 
-    public final static String ACTION_GATT_CONNECTED = "com.projectnocturne.bluetooth.le.ACTION_GATT_CONNECTED";
-    public final static String ACTION_GATT_DISCONNECTED = "com.projectnocturne.bluetooth.le.ACTION_GATT_DISCONNECTED";
-    public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.projectnocturne.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-    public final static String ACTION_DATA_AVAILABLE = "com.projectnocturne.bluetooth.le.ACTION_DATA_AVAILABLE";
-    public final static String EXTRA_DATA = "com.projectnocturne.bluetooth.le.EXTRA_DATA";
-    public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+    public static final String ACTION_GATT_CONNECTED = "com.projectnocturne.bluetooth.le.ACTION_GATT_CONNECTED";
+    public static final String ACTION_GATT_DISCONNECTED = "com.projectnocturne.bluetooth.le.ACTION_GATT_DISCONNECTED";
+    public static final String ACTION_GATT_SERVICES_DISCOVERED = "com.projectnocturne.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
+    public static final String ACTION_DATA_AVAILABLE = "com.projectnocturne.bluetooth.le.ACTION_DATA_AVAILABLE";
+    public static final String EXTRA_DATA = "com.projectnocturne.bluetooth.le.EXTRA_DATA";
+    public static final UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
 
 
     // See ScanType enum's definition for details.
-    public final static ScanType scanType = Build.MODEL.equals("Nexus 4") ? ScanType.ONE_OFF : ScanType.CONTINUOUS;
+    public static final ScanType scanType = Build.MODEL.equals("Nexus 4") ? ScanType.ONE_OFF : ScanType.CONTINUOUS;
 
     private static final int STATE_DISCONNECTED = 0;
     private int mConnectionState = STATE_DISCONNECTED;
@@ -55,13 +56,13 @@ public class SensorTagService extends IntentService {
     private static final int STATE_CONNECTED = 2;
     // Stops scanning after 10 seconds.
     private static final long SCAN_PERIOD = 10000;
+    final WriteQueue writeQueue = new WriteQueue();
     public BluetoothGatt mBluetoothGatt;
     private List<BluetoothGattService> mServiceList;
-    final WriteQueue writeQueue = new WriteQueue();
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange()");
+            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onConnectionStateChange() [" + gatt.getDevice().getName() + "] ");
             String intentAction;
             //Connection established
             if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
@@ -96,7 +97,7 @@ public class SensorTagService extends IntentService {
         @Override
         // Result of a characteristic read operation
         public void onCharacteristicRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, final int status) {
-            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onCharacteristicRead()");
+            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onCharacteristicRead() [" + gatt.getDevice().getName() + "] ");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             } else {
@@ -107,12 +108,36 @@ public class SensorTagService extends IntentService {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered()");
+            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() [" + gatt.getDevice().getName() + "] ");
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() BluetoothGatt.GATT_SUCCESS");
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
                 mBluetoothGatt = gatt;
                 mServiceList = mBluetoothGatt.getServices();
+
+                UUID gattCharUuid = UUID.fromString(BleCharacteristics.NOCTURNE_BEDSENSOR_UUID);
+                BluetoothGattCharacteristic gattChar = null;
+
+                for (BluetoothGattService bgs : mServiceList) {
+                    NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() found service : " + bgs.getUuid());
+                    List<BluetoothGattCharacteristic> tmpCharList = bgs.getCharacteristics();
+
+                    for (BluetoothGattCharacteristic bchar : tmpCharList) {
+                        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "BluetoothGattCallback::onServicesDiscovered() service : " + bgs.getUuid() + " : has char : " + bchar.getUuid());
+                    }
+
+                    if (bgs.getUuid().equals(gattCharUuid)) {
+                        gattChar = bgs.getCharacteristic(gattCharUuid);
+                    }
+                }
+
+//                BluetoothGattCharacteristic gattChar = new BluetoothGattCharacteristic(gattCharUuid);
+                if (gattChar != null) {
+                    boolean charReadStatus = mBluetoothGatt.readCharacteristic(gattChar);
+                    Log.w(NocturneApplication.LOG_TAG, LOG_TAG +
+                            "BluetoothGattCallback::onServicesDiscovered() trying to read BedSensor characteristic [" +
+                            (charReadStatus ? "true" : "false") + "]");
+                }
 
                 // FIXME : What now??
             } else {
@@ -126,7 +151,7 @@ public class SensorTagService extends IntentService {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
             NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "LeScanCallback::onLeScan(" + device.getName() + ")");
-            if (device.getName().equalsIgnoreCase("sensortag")) {
+            if (device.getName().equalsIgnoreCase("sensortag") || device.getName().equalsIgnoreCase("BedSensor")) {
                 // make a connection to the sensortag
                 device.connectGatt(SensorTagService.this, true, mGattCallback);
                 scanLeDevice(false);
