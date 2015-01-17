@@ -6,6 +6,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.clerezza.ext/org.json.simple/0.4/256e7e9748abd3f7fad0bf9a4b8b70f7c739ddff/org.json.simple-0.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.clerezza.ext/org.json.simple/0.4/256e7e9748abd3f7fad0bf9a4b8b70f7c739ddff/org.json.simple-0.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
