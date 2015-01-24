@@ -30,36 +30,31 @@ package com.nocturne;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.simpleframework.http.ContentType;
-import org.simpleframework.http.Path;
-import org.simpleframework.http.Query;
-import org.simpleframework.http.Request;
-import org.simpleframework.http.Response;
+import org.simpleframework.http.*;
 import org.simpleframework.http.core.Container;
 import org.simpleframework.http.core.ContainerServer;
 import org.simpleframework.transport.Server;
 import org.simpleframework.transport.connect.Connection;
 import org.simpleframework.transport.connect.SocketConnection;
+import org.tmatesoft.sqljet.core.SqlJetException;
+import org.tmatesoft.sqljet.core.SqlJetTransactionMode;
+import org.tmatesoft.sqljet.core.table.ISqlJetCursor;
+import org.tmatesoft.sqljet.core.table.ISqlJetTable;
+import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
-
 
 /**
  * @author aspela
  */
 public class MockServer implements Container {
 
-    private java.sql.Connection dbConnection;
+    private static final String DB_NAME = "./mockserver.db";
+    private SqlJetDb db = null;
 
     public static void main(final String[] list) throws Exception {
         System.out.println("MockServer::main() starting");
@@ -80,7 +75,7 @@ public class MockServer implements Container {
 
     @Override
     public void handle(final Request request, final Response response) {
-        System.out.println("MockServer() handle() starting");
+        System.out.println("MockServer::handle() starting");
         PrintStream body = null;
         try {
             body = response.getPrintStream();
@@ -192,21 +187,10 @@ public class MockServer implements Container {
             }
             String phone_mobile = userObj.get("phone_mbl").toString();
 
-
-            //FIXME : add user to database
-            PreparedStatement insertStmt = null;
-            insertStmt = dbConnection.prepareStatement("insert into nocturne_users (username, name_first, name_last, email1, phone_mbl," + " phone_home, addr_line1, addr_line2, addr_line3, postcode, registration_status) values (?,?,?,?,?,?,?,?,?,?, 'ACCEPTED')");
-            insertStmt.setString(1, username);
-            insertStmt.setString(2, name_first);
-            insertStmt.setString(3, name_last);
-            insertStmt.setString(4, email);
-            insertStmt.setString(5, phone_mobile);
-            insertStmt.setString(6, phone_home);
-            insertStmt.setString(7, addr_line1);
-            insertStmt.setString(8, addr_line2);
-            insertStmt.setString(9, addr_line3);
-            insertStmt.setString(10, postcode);
-            insertStmt.execute();
+            db.beginTransaction(SqlJetTransactionMode.WRITE);
+            ISqlJetTable table = db.getTable("nocturne_users");
+            table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode);
+            db.close();
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
@@ -214,7 +198,7 @@ public class MockServer implements Container {
         } catch (IOException e) {
             e.printStackTrace();
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
-        } catch (SQLException e) {
+        } catch (SqlJetException e) {
             e.printStackTrace();
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user to database failed\"}");
         }
@@ -265,17 +249,11 @@ public class MockServer implements Container {
                     status = userObj.get("status").toString();
                 }
 
-                PreparedStatement insertStmt = null;
-                insertStmt = dbConnection.prepareStatement("insert into nocturne_user_connect (user1_email, user1_role, user2_email, user2_role, status) values (?,?,?,?,?)");
-                insertStmt.setString(1, user1_email);
-                insertStmt.setString(2, user1_role);
-                insertStmt.setString(3, user2_email);
-                insertStmt.setString(4, user2_role);
-                insertStmt.setString(5, status);
-                insertStmt.execute();
+                db.beginTransaction(SqlJetTransactionMode.WRITE);
+                ISqlJetTable table = db.getTable("nocturne_user_connect");
+                table.insert(user1_email, user1_role, user2_email, user2_role, status);
+                db.close();
 
-                //body.println("{" + getJsonString("key", "value") + "}");
-                //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
                 String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
                 respStr += jsonStr.substring(1, jsonStr.length() - 2);
                 respStr += "}";
@@ -283,7 +261,7 @@ public class MockServer implements Container {
             } catch (IOException e) {
                 e.printStackTrace();
                 body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
-            } catch (SQLException e) {
+            } catch (SqlJetException e) {
                 e.printStackTrace();
                 body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user connection to database failed\"}");
             }
@@ -291,37 +269,33 @@ public class MockServer implements Container {
     }
 
     private void handleRequestGetConnectedUsers(final Request request, final PrintStream body) {
-
         try {
-            Statement stmt = dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS rowcount FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
-            rs.next();
-            int rowCount = rs.getInt("rowcount");
-            rs.close();
+            db.beginTransaction(SqlJetTransactionMode.WRITE);
+            ISqlJetTable table = db.getTable("nocturne_user_connect");
+            ISqlJetCursor cursor = table.order("user1_email");
+            long rowCount = cursor.getRowCount();
 
             String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": {\"user_connections\":";
             if (rowCount == 0) {
                 respStr += "{}}}";
             } else {
-                rs = stmt.executeQuery("SELECT * FROM nocturne_user_connect WHERE user1_email='" + request.getValue("user_email") + "' OR user2_email='" + request.getValue("user_email") + "';");
-                //rs.first();
-
-                rs.beforeFirst();
-                while (rs.next()) {
+                do {
                     respStr += "{";
-                    respStr += "\"user1_email\":\"" + rs.getString("user1_email") + "\"";
-                    respStr += "\"user1_role\":\"" + rs.getString("user1_role") + "\"";
-                    respStr += "\"user2_email\":\"" + rs.getString("user2_email") + "\"";
-                    respStr += "\"user2_role\":\"" + rs.getString("user2_role") + "\"";
-                    respStr += "\"status\":\"" + rs.getString("status") + "\"";
+                    respStr += "\"user1_email\":\"" + cursor.getString("user1_email") + "\"";
+                    respStr += "\"user1_role\":\"" + cursor.getString("user1_role") + "\"";
+                    respStr += "\"user2_email\":\"" + cursor.getString("user2_email") + "\"";
+                    respStr += "\"user2_role\":\"" + cursor.getString("user2_role") + "\"";
+                    respStr += "\"status\":\"" + cursor.getString("status") + "\"";
                     respStr += "}";
-                }
+                } while (cursor.next());
                 respStr += "}}";
                 respStr.replace("}{", "},{");
             }
             body.println(respStr);
+            cursor.close();
+            db.commit();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.err.println(e.getClass().getName() + ": handleRequestGetConnectedUsers() " + e.getMessage());
             System.exit(0);
         }
     }
@@ -331,6 +305,9 @@ public class MockServer implements Container {
         try {
             dbOpenConnection();
             if (!isDbSetup()) {
+                dbCloseConnection();
+                dbFileDelete();
+                dbOpenConnection();
                 dbCreateTables();
                 dbCreateDummyData();
             }
@@ -340,24 +317,22 @@ public class MockServer implements Container {
         }
     }
 
+    private void dbFileDelete() {
+        File dbFile = new File(DB_NAME);
+        boolean deleted = dbFile.delete();
+    }
+
     public boolean isDbSetup() {
         System.out.println("isDbSetup()");
         boolean issetup = false;
-        Statement stmt = null;
         try {
-            stmt = dbConnection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table';");
-            //rs.first();
-            while (rs.next()) {
-                String tbleName = rs.getString("name");
-                if (tbleName.equalsIgnoreCase("nocturne_user_sensors")) {
-                    issetup = true;
-                    break;
-                }
+            db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
+            ISqlJetTable table = db.getTable("name");
+            if (table != null) {
+                issetup = true;
             }
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
+            System.err.println(e.getClass().getName() + ": isDbSetup() " + e.getMessage());
         }
         return issetup;
     }
@@ -365,32 +340,37 @@ public class MockServer implements Container {
     private void dbOpenConnection() {
         System.out.println("dbOpenConnection()");
         try {
-            Class.forName("org.sqlite.JDBC");
-            dbConnection = DriverManager.getConnection("jdbc:sqlite:./mockserver.db");
-            Properties clientInfo = dbConnection.getClientInfo();
-            DatabaseMetaData metadata = dbConnection.getMetaData();
-            String catalog = dbConnection.getCatalog();
-            System.out.println("database opened successfully");
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            File dbFile = new File(DB_NAME);
+            db = SqlJetDb.open(dbFile, true);
+            db.getOptions().setAutovacuum(true);
+            db.beginTransaction(SqlJetTransactionMode.WRITE);
+            try {
+                db.getOptions().setUserVersion(1);
+            } finally {
+                db.commit();
+            }
+        } catch (SqlJetException e) {
+            System.err.println(e.getClass().getName() + ": dbOpenConnection() " + e.getMessage());
             System.exit(0);
         }
     }
 
     private void dbCloseConnection() {
         try {
-            if (dbConnection != null) {
-                dbConnection.close();
+            if (db != null) {
+                db.close();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SqlJetException e) {
+            System.err.println(e.getClass().getName() + ": dbCloseConnection()" + e.getMessage());
         }
     }
 
     private void dbCreateTables() {
+        System.out.println("dbCreateTables()");
         try {
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_users ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_users (\n" +
+            db.beginTransaction(SqlJetTransactionMode.WRITE);
+
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_users (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  username VARCHAR(45) NOT NULL,\n" +
                     "  name_first VARCHAR(45) NOT NULL,\n" +
@@ -402,96 +382,90 @@ public class MockServer implements Container {
                     "  addr_line2 VARCHAR(45) ,\n" +
                     "  addr_line3 VARCHAR(45) ,\n" +
                     "  postcode VARCHAR(45),\n" +
-                    "  registration_status VARCHAR(45) NOT NULL)").execute();
+                    "  registration_status VARCHAR(45) NOT NULL)");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_conditions ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_conditions (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_conditions (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  condition_name VARCHAR(45) NOT NULL,\n" +
-                    "  condition_desc VARCHAR(45) NULL);").execute();
+                    "  condition_desc VARCHAR(45) NULL);");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_condition ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_condition (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_user_condition (\n" +
                     "  user_id INTEGER NOT NULL,\n" +
                     "  condition_id INTEGER NOT NULL,\n" +
-                    "  PRIMARY KEY (user_id, condition_id));").execute();
+                    "  PRIMARY KEY (user_id, condition_id));");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_connect ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_connect (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_user_connect (\n" +
                     "  user1_email VARCHAR(45) NOT NULL,\n" +
                     "  user1_role VARCHAR(45) NOT NULL,\n" +
                     "  user2_email VARCHAR(45) NOT NULL,\n" +
                     "  user2_role VARCHAR(45) NOT NULL,\n" +
                     "  status VARCHAR(45) NOT NULL,\n" +
-                    "  PRIMARY KEY (user1_email, user2_email));").execute();
+                    "  PRIMARY KEY (user1_email, user2_email));");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_alerts ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_alerts (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_alerts (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  user_Id INTEGER NOT NULL,\n" +
                     "  alert_name VARCHAR(45) NOT NULL,\n" +
                     "  alert_desc VARCHAR(45) NULL,\n" +
                     "  response VARCHAR(255) NULL,\n" +
-                    "  response_sent TINYINT(1) NULL);").execute();
+                    "  response_sent TINYINT(1) NULL);");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_sensor (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  sensor_name VARCHAR(45) NULL,\n" +
-                    "  sensor_desc VARCHAR(45) NULL);").execute();
+                    "  sensor_desc VARCHAR(45) NULL);");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor_timeperiods ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor_timeperiods (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_sensor_timeperiods (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  start_time VARCHAR(45) NULL,\n" +
                     "  stop_time VARCHAR(45) NULL,\n" +
                     "  sensor_value_exprected VARCHAR(45) NULL,\n" +
                     "  sensor_warm_time VARCHAR(45) NULL,\n" +
                     "  sensor_alert_time VARCHAR(45) NULL,\n" +
-                    "  sensor_id INTEGER NOT NULL);").execute();
+                    "  sensor_id INTEGER NOT NULL);");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_sensor_reading ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_sensor_reading (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_sensor_reading (\n" +
                     "  _id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     "  sensor_id INTEGER NOT NULL,\n" +
                     "  sensor_value VARCHAR(45) NOT NULL,\n" +
-                    "  sensor_reading_time VARCHAR(45) NOT NULL);").execute();
+                    "  sensor_reading_time VARCHAR(45) NOT NULL);");
 
-            dbConnection.prepareStatement("DROP TABLE IF EXISTS nocturne_user_sensors ;").execute();
-            dbConnection.prepareStatement("CREATE TABLE IF NOT EXISTS nocturne_user_sensors (\n" +
+            db.createTable("CREATE TABLE IF NOT EXISTS nocturne_user_sensors (\n" +
                     "  user_id INTEGER NOT NULL,\n" +
                     "  sensor_timeperiods_id INTEGER NOT NULL,\n" +
                     "  sensor_reading__id INTEGER NOT NULL,\n" +
                     "  sensor_reading_sensor_id INTEGER NOT NULL,\n" +
-                    "  PRIMARY KEY (user_id, sensor_timeperiods_id));").execute();
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            e.printStackTrace();
+                    "  PRIMARY KEY (user_id, sensor_timeperiods_id));");
+
+            db.commit();
+        } catch (SqlJetException e) {
+            System.err.println(e.getClass().getName() + ": dbCreateTables() " + e.getMessage());
         }
     }
 
     private void dbCreateDummyData() {
-        Statement stmt = null;
         try {
-            stmt = dbConnection.createStatement();
-            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " + "VALUES ('aspellclark@yahoo.co.uk', 'AndyY', 'Aspell-Clark', 'aspellclark@yahoo.co.uk', '07986', 'REGISTERED' );");
-            stmt.execute("INSERT INTO nocturne_users (username,name_first,name_last,email1,phone_mbl,registration_status) " + "VALUES ('droidinactu@gmail.com', 'AndyD', 'Aspell-Clark', 'droidinactu@gmail.com', '07986', 'REGISTERED' );");
+            db.beginTransaction(SqlJetTransactionMode.WRITE);
+            ISqlJetTable tblNocturneUsers = db.getTable("nocturne_users");
+            tblNocturneUsers.insert("aspellclark@yahoo.co.uk", "AndyY", "Aspell-Clark", "aspellclark@yahoo.co.uk", "07986", "0117", "22 smithcourt", "", "", "bs34", "REGISTERED");
+            tblNocturneUsers.insert("droidinactu@gmail.com", "AndyD", "Aspell-Clark", "droidinactu@gmail.com", "07986", "0117", "22 smithcourt", "", "", "bs34", "REGISTERED");
 
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Cancer', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Coronary Heart Disease', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Diabetes', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Dementia', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Depression', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Osteoporosis', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('High Blood Pressure', '' );");
-            stmt.execute("INSERT INTO nocturne_conditions (condition_name,condition_desc) VALUES ('Parkinsons', '' );");
-
-            stmt.close();
+            ISqlJetTable tblNocturneCondition = db.getTable("nocturne_conditions");
+            tblNocturneCondition.insert("Cancer", "");
+            tblNocturneCondition.insert("Coronary Heart Disease", "");
+            tblNocturneCondition.insert("Diabetes", "");
+            tblNocturneCondition.insert("Dementia", "");
+            tblNocturneCondition.insert("Depression", "");
+            tblNocturneCondition.insert("Osteoporosis", "");
+            tblNocturneCondition.insert("High Blood Pressure", "");
+            tblNocturneCondition.insert("Parkinsons", "");
+            db.commit();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.err.println(e.getClass().getName() + ": dbCreateDummyData() " + e.getMessage());
             System.exit(0);
         }
         System.out.println("Records created successfully");
     }
 
 }
+

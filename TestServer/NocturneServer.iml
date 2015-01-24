@@ -13,7 +13,7 @@
     <orderEntry type="library" name="json-simple-1.1" level="project" />
     <orderEntry type="library" name="org.apache.clerezza.ext:org.json.simple:0.4" level="project" />
     <orderEntry type="library" name="joda-time:joda-time:2.7" level="project" />
-    <orderEntry type="library" name="org.xerial:sqlite-jdbc:3.8.7" level="project" />
     <orderEntry type="library" name="org.simpleframework:simple:5.1.6" level="project" />
+    <orderEntry type="library" name="antlr-runtime-3.4" level="project" />
   </component>
 </module>
