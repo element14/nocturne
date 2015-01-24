@@ -5,8 +5,7 @@
 # ---------------------------------------------------------------------
 #
 export GRADLE_HOME=~/gradle-2.2.1
-export JAVA_HOME=/usr/lib/jvm/jdk-8-oracle-arm-vfp-hflt
-export JAVA_HOME=/usr/lib/jvm/jdk-7-oracle-armhf
+export JAVA_HOME~/jdk1.8.0_33
 
 export PATH=$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
 
