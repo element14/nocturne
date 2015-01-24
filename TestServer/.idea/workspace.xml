@@ -3,60 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="22f26559-a6a9-405d-89f2-63dfaa813e81" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/300lo.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/cb=gapi.loaded_0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/cb=gapi.loaded_1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/fastbutton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/home-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/icon-search.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/layers067.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/nav-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/postmessageRelay.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/prettify.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/sh180.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/sqlite-mini-logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/SQLite Java Tutorial_files/widget007.old.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/TestServer.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/dbtables.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/ME_logo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/download.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/help.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_add_method_menu.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_explorer_add.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_explorer_id.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_explorer_list.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_firefox_list.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_firefox_single.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_menu_item.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_method_add_customer.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_method_get_customer.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_method_get_customers.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_new_ws_menu.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_new_ws_page1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_poster.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_runas.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_servlet.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_test_menu.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_webservice_project_1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_webservice_project_2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_ws_class_end.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/rest_ws_class_start.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/tutorial.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/white_table.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/white_table_01.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Developing REST Web Services Tutorial_files/white_table_02.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/Simple 5.1.6.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/mock-server-master.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/resteasy-jaxrs-3.0.7.Final-all.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/simple-5.1.5.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/docs/tomashanacek mock-server.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/TestServer/src/main/java/com/nocturne/MockServer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/old.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Android/rpi-update.sh" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.properties" afterPath="$PROJECT_DIR$/build.properties" />
     </list>
     <ignored path="NocturneServer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,14 +28,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MockServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MockServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18965517" vertical-offset="480" max-vertical-offset="7080">
-              <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="7080">
+              <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.20689656" vertical-offset="0" max-vertical-offset="3360">
+              <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+              <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -97,6 +64,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/build.properties" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="31" />
@@ -416,11 +390,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18965517" vertical-offset="480" max-vertical-offset="7080">
-          <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="7080">
+          <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="2" column="49" selection-start-line="2" selection-start-column="49" selection-end-line="2" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20689656" vertical-offset="0" max-vertical-offset="3360">
+          <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
