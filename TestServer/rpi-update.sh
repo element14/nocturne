@@ -37,7 +37,8 @@ echo "Building TestServer classes"
 echo
 cd $GitDir/TestServer
 echo "changed to ["`pwd`"] directory"
-ant
+
+ant jar
 
 
 

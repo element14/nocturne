@@ -62,7 +62,7 @@ public class MockServer implements Container {
     private java.sql.Connection dbConnection;
 
     public static void main(final String[] list) throws Exception {
-        System.out.println("MockServer() main() starting");
+        System.out.println("MockServer::main() starting");
         final MockServer mockSvr = new MockServer();
         final Server server = new ContainerServer(mockSvr);
         final Connection socketConnection = new SocketConnection(server);
@@ -144,7 +144,6 @@ public class MockServer implements Container {
             }
         }
     }
-
 
     /**
      * @param request
@@ -328,6 +327,7 @@ public class MockServer implements Container {
     }
 
     public void dbInitialise() {
+        System.out.println("dbInitialise()");
         try {
             dbOpenConnection();
             if (!isDbSetup()) {
@@ -341,6 +341,7 @@ public class MockServer implements Container {
     }
 
     public boolean isDbSetup() {
+        System.out.println("isDbSetup()");
         boolean issetup = false;
         Statement stmt = null;
         try {
@@ -362,9 +363,10 @@ public class MockServer implements Container {
     }
 
     private void dbOpenConnection() {
+        System.out.println("dbOpenConnection()");
         try {
             Class.forName("org.sqlite.JDBC");
-            dbConnection = DriverManager.getConnection("jdbc:sqlite:mockserver.db");
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:./mockserver.db");
             Properties clientInfo = dbConnection.getClientInfo();
             DatabaseMetaData metadata = dbConnection.getMetaData();
             String catalog = dbConnection.getCatalog();
