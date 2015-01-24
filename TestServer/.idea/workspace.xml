@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="22f26559-a6a9-405d-89f2-63dfaa813e81" name="Default" comment="" />
+    <list default="true" id="22f26559-a6a9-405d-89f2-63dfaa813e81" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mockserver.db" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/nocturne/MockServer.java" afterPath="$PROJECT_DIR$/src/com/nocturne/MockServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="NocturneServer.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,18 +32,20 @@
       <file leaf-file-name="MockServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.824663" vertical-offset="1774" max-vertical-offset="3765">
-              <caret line="442" column="9" selection-start-line="442" selection-start-column="9" selection-end-line="442" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.49308756" vertical-offset="2229" max-vertical-offset="4545">
+              <caret line="322" column="67" selection-start-line="322" selection-start-column="67" selection-end-line="322" selection-end-column="67" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+                <element signature="e#2454#2455#0" expanded="true" />
+                <element signature="e#2512#2513#0" expanded="true" />
                 <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
                 <element signature="method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
                 <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
                 <element signature="method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
                 <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
                 <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
+                <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -349,7 +355,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="31" width="1920" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -364,14 +370,14 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25494507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -395,7 +401,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -411,13 +420,15 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+            <element signature="e#2454#2455#0" expanded="true" />
+            <element signature="e#2512#2513#0" expanded="true" />
             <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
             <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
+            <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -468,18 +479,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.824663" vertical-offset="1774" max-vertical-offset="3765">
-          <caret line="442" column="9" selection-start-line="442" selection-start-column="9" selection-end-line="442" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.49308756" vertical-offset="2229" max-vertical-offset="4545">
+          <caret line="322" column="67" selection-start-line="322" selection-start-column="67" selection-end-line="322" selection-end-column="67" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+            <element signature="e#2454#2455#0" expanded="true" />
+            <element signature="e#2512#2513#0" expanded="true" />
             <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
             <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
             <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
+            <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
           </folding>
         </state>
       </provider>

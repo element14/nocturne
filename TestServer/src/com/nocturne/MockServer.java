@@ -305,9 +305,7 @@ public class MockServer implements Container {
         try {
             dbOpenConnection();
             if (!isDbSetup()) {
-                dbCloseConnection();
-                dbFileDelete();
-                dbOpenConnection();
+                dbCreate();
                 dbCreateTables();
                 dbCreateDummyData();
             }
@@ -317,17 +315,12 @@ public class MockServer implements Container {
         }
     }
 
-    private void dbFileDelete() {
-        File dbFile = new File(DB_NAME);
-        boolean deleted = dbFile.delete();
-    }
-
     public boolean isDbSetup() {
         System.out.println("isDbSetup()");
         boolean issetup = false;
         try {
             db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
-            ISqlJetTable table = db.getTable("name");
+            ISqlJetTable table = db.getTable("nocturne_user_sensors");
             if (table != null) {
                 issetup = true;
             }
@@ -337,10 +330,12 @@ public class MockServer implements Container {
         return issetup;
     }
 
-    private void dbOpenConnection() {
+    private void dbCreate() {
         System.out.println("dbOpenConnection()");
         try {
             File dbFile = new File(DB_NAME);
+            boolean deleted = dbFile.delete();
+            dbCloseConnection();
             db = SqlJetDb.open(dbFile, true);
             db.getOptions().setAutovacuum(true);
             db.beginTransaction(SqlJetTransactionMode.WRITE);
@@ -352,6 +347,19 @@ public class MockServer implements Container {
         } catch (SqlJetException e) {
             System.err.println(e.getClass().getName() + ": dbOpenConnection() " + e.getMessage());
             System.exit(0);
+        }
+    }
+
+    private void dbOpenConnection() {
+        System.out.println("dbOpenConnection()");
+        if (db == null) {
+            try {
+                File dbFile = new File(DB_NAME);
+                db = SqlJetDb.open(dbFile, true);
+            } catch (SqlJetException e) {
+                System.err.println(e.getClass().getName() + ": dbOpenConnection() " + e.getMessage());
+                System.exit(0);
+            }
         }
     }
 
