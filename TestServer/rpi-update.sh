@@ -36,19 +36,9 @@ fi
 echo
 echo "Building TestServer classes"
 echo
-cd $GitDir/Android
+cd $GitDir/TestServer
 echo "changed to ["`pwd`"] directory"
-ls -lfH gradle/wrapper/gradle-wrapper.jar
-cp -F $GitDir/Android/rpi-update.sh ${0}
-chmod +x ${0}
-./gradlew :TestServer:compileJava
+ant
 
-echo
-echo "finished updating TestServer"
-echo "to execute use the command [gradlew :TestServer:run]"
-echo
-echo "Executing TestServer"
-echo
-./gradlew :TestServer:run
 
 
