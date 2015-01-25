@@ -1,7 +1,7 @@
 /**
  * SqlJetFileLockManager.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetFileLockManager {
 
@@ -66,28 +65,28 @@ public class SqlJetFileLockManager {
 
     private FileLock createLock(long position, long size, boolean shared, ILockCreator lockCreator)
             throws IOException {
-		synchronized (locks) {
-			final SqlJetFileLock lock = getLock(position, size);
-			if (lock != null) {
-				if (shared) {
-					lock.addLock();
-					return lock;
-				} else {
-					return null;
-				}
-			} else {
+        synchronized (locks) {
+            final SqlJetFileLock lock = getLock(position, size);
+            if (lock != null) {
+                if (shared) {
+                    lock.addLock();
+                    return lock;
+                } else {
+                    return null;
+                }
+            } else {
                 final FileLock fileLock;
                 try {
                     fileLock = lockCreator.createLock(position, size, shared);
                 } catch (OverlappingFileLockException e) {
                     SqlJetUtility.log(filesLogger, "Cannot lock (%d, %d, %s) of %s: the range overlaps with already existing lock;" +
-                            "this may be cause by loading %s class from several class loaders",
+                                    "this may be cause by loading %s class from several class loaders",
                             position, size, shared, filePath, getClass().getSimpleName());
                     return null;
                 }
                 return addLock(fileLock);
-			}
-		}
+            }
+        }
     }
 
     /**
@@ -99,11 +98,11 @@ public class SqlJetFileLockManager {
      * @throws IOException
      */
     public FileLock tryLock(long position, long size, boolean shared) throws IOException {
-		return createLock(position, size, shared, tryLockCreator);
+        return createLock(position, size, shared, tryLockCreator);
     }
 
     public FileLock lock(long position, long size, boolean shared) throws IOException {
-		return createLock(position, size, shared, lockCreator);
+        return createLock(position, size, shared, lockCreator);
     }
 
     private SqlJetFileLock getLock(long position, long size) {
@@ -135,14 +134,14 @@ public class SqlJetFileLockManager {
     }
 
     public void deleteLock(SqlJetFileLock lock) {
-		synchronized (locks) {
-			if (locks.containsKey(filePath)) {
-				final List<SqlJetFileLock> list = locks.get(filePath);
-				list.remove(lock);
-				if (list.size() == 0) {
-					locks.remove(filePath);
-				}
-			}
-		}
+        synchronized (locks) {
+            if (locks.containsKey(filePath)) {
+                final List<SqlJetFileLock> list = locks.get(filePath);
+                list.remove(lock);
+                if (list.size() == 0) {
+                    locks.remove(filePath);
+                }
+            }
+        }
     }
 }

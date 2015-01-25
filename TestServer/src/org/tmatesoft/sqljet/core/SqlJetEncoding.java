@@ -1,7 +1,7 @@
 /**
  * SqlJetEncoding.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -20,10 +20,9 @@ package org.tmatesoft.sqljet.core;
 /**
  * These constant define integer codes that represent the various text encodings
  * supported by SQLite.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public enum SqlJetEncoding {
 
@@ -42,13 +41,19 @@ public enum SqlJetEncoding {
      */
     UTF16BE("UTF-16be"), // 3
 
-    /** Use native byte order */
+    /**
+     * Use native byte order
+     */
     UTF16("UTF-16"), // 4
 
-    /** sqlite3_create_function only */
+    /**
+     * sqlite3_create_function only
+     */
     ANY, // 5
 
-    /** sqlite3_create_collation only */
+    /**
+     * sqlite3_create_collation only
+     */
     UTF16_ALIGNED; // 8
 
     private String charsetName = "error";
@@ -62,7 +67,7 @@ public enum SqlJetEncoding {
 
     /**
      * Get charset name.
-     * 
+     *
      * @return the charset name
      */
     public String getCharsetName() {
@@ -71,11 +76,10 @@ public enum SqlJetEncoding {
 
     /**
      * Get charset constant from string with charset name.
-     * 
-     * @param s
-     *            string with charset name
+     *
+     * @param s string with charset name
      * @return decoded charset constant or null if sring doesn't contains known
-     *         charser name
+     * charser name
      */
     public static SqlJetEncoding decode(String s) {
         if (UTF8.getCharsetName().equalsIgnoreCase(s)) {

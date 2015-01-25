@@ -17,100 +17,107 @@
  */
 package org.tmatesoft.sqljet.core.internal.vdbe;
 
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.getUnsignedByte;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.memcpy;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.memmove;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.memset;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.mutex_held;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.pointer;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.putUnsignedByte;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.strlen30;
+import org.tmatesoft.sqljet.core.SqlJetEncoding;
+import org.tmatesoft.sqljet.core.SqlJetErrorCode;
+import org.tmatesoft.sqljet.core.SqlJetException;
+import org.tmatesoft.sqljet.core.SqlJetValueType;
+import org.tmatesoft.sqljet.core.internal.*;
+import org.tmatesoft.sqljet.core.schema.SqlJetTypeAffinity;
 
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.tmatesoft.sqljet.core.SqlJetEncoding;
-import org.tmatesoft.sqljet.core.SqlJetErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.SqlJetValueType;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
-import org.tmatesoft.sqljet.core.internal.ISqlJetCallback;
-import org.tmatesoft.sqljet.core.internal.ISqlJetCollSeq;
-import org.tmatesoft.sqljet.core.internal.ISqlJetDbHandle;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFuncDef;
-import org.tmatesoft.sqljet.core.internal.ISqlJetLimits;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetRowSet;
-import org.tmatesoft.sqljet.core.internal.ISqlJetVdbeMem;
-import org.tmatesoft.sqljet.core.internal.SqlJetCloneable;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
-import org.tmatesoft.sqljet.core.schema.SqlJetTypeAffinity;
+import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.*;
 
 /**
  * Internally, the vdbe manipulates nearly all SQL values as Mem structures.
  * Each Mem struct may cache multiple representations (string, integer etc.) of
  * the same value. A value (and therefore Mem structure) has the following
  * properties:
- *
+ * <p/>
  * Each value has a manifest type. The manifest type of the value stored in a
  * Mem struct is returned by the MemType(Mem*) macro. The type is one of
  * SQLITE_NULL, SQLITE_INTEGER, SQLITE_REAL, SQLITE_TEXT or SQLITE_BLOB.
  *
- *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
-    
+
     public static long instanceCounter = 0;
 
     // union {
 
-    /** Integer value. */
+    /**
+     * Integer value.
+     */
     long i;
 
-    /** Used when bit MEM_Zero is set in flags */
+    /**
+     * Used when bit MEM_Zero is set in flags
+     */
     int nZero;
 
-    /** Used only when flags==MEM_Agg */
+    /**
+     * Used only when flags==MEM_Agg
+     */
     ISqlJetFuncDef pDef;
 
-    /** Used only when flags==MEM_RowSet */
+    /**
+     * Used only when flags==MEM_RowSet
+     */
     ISqlJetRowSet pRowSet;
 
     // } u;
 
-    /** Real value */
+    /**
+     * Real value
+     */
     double r;
 
-    /** The associated database connection */
+    /**
+     * The associated database connection
+     */
     ISqlJetDbHandle db;
 
-    /** String or BLOB value */
+    /**
+     * String or BLOB value
+     */
     ISqlJetMemoryPointer z;
 
-    /** Number of characters in string value, excluding '\0' */
+    /**
+     * Number of characters in string value, excluding '\0'
+     */
     int n;
 
-    /** Some combination of MEM_Null, MEM_Str, MEM_Dyn, etc. */
+    /**
+     * Some combination of MEM_Null, MEM_Str, MEM_Dyn, etc.
+     */
     EnumSet<SqlJetVdbeMemFlags> flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Null);
 
-    /** One of SQLITE_NULL, SQLITE_TEXT, SQLITE_INTEGER, etc */
+    /**
+     * One of SQLITE_NULL, SQLITE_TEXT, SQLITE_INTEGER, etc
+     */
     SqlJetValueType type = SqlJetValueType.NULL;
 
-    /** SQLITE_UTF8, SQLITE_UTF16BE, SQLITE_UTF16LE */
+    /**
+     * SQLITE_UTF8, SQLITE_UTF16BE, SQLITE_UTF16LE
+     */
     SqlJetEncoding enc;
 
-    /** If not null, call this function to delete Mem.z */
+    /**
+     * If not null, call this function to delete Mem.z
+     */
     ISqlJetCallback xDel;
 
-    /** Dynamic buffer allocated by sqlite3_malloc() */
+    /**
+     * Dynamic buffer allocated by sqlite3_malloc()
+     */
     ISqlJetMemoryPointer zMalloc;
 
     public static final SqlJetVdbeMemPool pool = new SqlJetVdbeMemPool();
-    
+
     public static SqlJetVdbeMem obtainInstance() {
         return pool.obtain();
     }
@@ -131,7 +138,7 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
         zMalloc = null;
         xDel = null;
     }
-    
+
     public void release() {
         i = 0;
         nZero = 0;
@@ -639,7 +646,7 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
         /* Data from the btree layer */
         ISqlJetMemoryPointer zData;
         /* Number of bytes available on the local btree page */
-        int[] available = { 0 };
+        int[] available = {0};
 
         if (key) {
             zData = pCur.keyFetch(available);
@@ -1123,7 +1130,7 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
 
     /**
      * Processing is determine by the affinity parameter:
-     *
+     * <p/>
      * <table>
      * <tr>
      * <td>
@@ -1155,7 +1162,7 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
      * <td></td>
      * <td>Convert value to a text representation.</td>
      * </tr>
-     *
+     * <p/>
      * <tr>
      * <td>
      * <ul>
@@ -1170,11 +1177,8 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
      * </tr>
      * </table>
      *
-     * @param affinity
-     *            The affinity to be applied
-     * @param enc
-     *            Use this text encoding
-     *
+     * @param affinity The affinity to be applied
+     * @param enc      Use this text encoding
      * @throws SqlJetException
      */
     public void applyAffinity(SqlJetTypeAffinity affinity, SqlJetEncoding enc) throws SqlJetException {
@@ -1211,7 +1215,7 @@ public class SqlJetVdbeMem extends SqlJetCloneable implements ISqlJetVdbeMem {
      */
     public void applyNumericAffinity() throws SqlJetException {
         if (!flags.contains(SqlJetVdbeMemFlags.Real) && !flags.contains(SqlJetVdbeMemFlags.Int)) {
-            boolean[] realnum = { false };
+            boolean[] realnum = {false};
             nulTerminate();
             if (flags.contains(SqlJetVdbeMemFlags.Str)
                     && SqlJetUtility.isNumber(SqlJetUtility.toString(z, enc), realnum)) {

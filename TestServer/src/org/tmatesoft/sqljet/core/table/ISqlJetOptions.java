@@ -1,7 +1,7 @@
 /**
  * ISqlJetOptions.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -24,10 +24,9 @@ import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
 
 /**
  * Database options.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetOptions {
 
@@ -65,7 +64,7 @@ public interface ISqlJetOptions {
 
     /**
      * File format of schema layer.
-     * 
+     *
      * @return the fileFormat
      */
     int getFileFormat() throws SqlJetException;
@@ -73,7 +72,7 @@ public interface ISqlJetOptions {
     /**
      * Set file format. It's allowed only on new empty data base. It can't be
      * performed in active transaction.
-     * 
+     *
      * @param fileFormat
      * @throws SqlJetException
      */
@@ -83,7 +82,7 @@ public interface ISqlJetOptions {
 
     /**
      * Use freelist if false. Autovacuum if true.
-     * 
+     *
      * @return the autovacuum
      */
     boolean isAutovacuum() throws SqlJetException;
@@ -91,7 +90,7 @@ public interface ISqlJetOptions {
     /**
      * Set autovacuum flag. It's allowed only on new empty data base. It can't
      * be performed in active transaction.
-     * 
+     *
      * @param autovacuum
      * @throws SqlJetException
      */
@@ -99,7 +98,7 @@ public interface ISqlJetOptions {
 
     /**
      * Incremental-vacuum flag.
-     * 
+     *
      * @return the incrementalVacuum
      */
     boolean isIncrementalVacuum() throws SqlJetException;
@@ -107,7 +106,7 @@ public interface ISqlJetOptions {
     /**
      * Set incremental vacuum flag. It's allowed only on new empty data base. It
      * can't be performed in active transaction.
-     * 
+     *
      * @param incrementalVacuum
      * @throws SqlJetException
      */
@@ -115,14 +114,14 @@ public interface ISqlJetOptions {
 
     /**
      * Size of the page cache.
-     * 
+     *
      * @return the pageCacheSize
      */
     int getCacheSize() throws SqlJetException;
 
     /**
      * Set page cache's size. It can be performed only in active transaction.
-     * 
+     *
      * @param pageCacheSize
      * @throws SqlJetException
      */
@@ -134,7 +133,7 @@ public interface ISqlJetOptions {
 
     /**
      * Db text encoding.
-     * 
+     *
      * @return the encoding
      */
     SqlJetEncoding getEncoding() throws SqlJetException;
@@ -142,7 +141,7 @@ public interface ISqlJetOptions {
     /**
      * Set encoding. It's allowed only on new empty data base. It can't be
      * performed in active transaction.
-     * 
+     *
      * @param encoding
      * @throws SqlJetException
      */
@@ -189,14 +188,14 @@ public interface ISqlJetOptions {
 
     /**
      * Schema cookie. Changes with each schema change.
-     * 
+     *
      * @return the schemaCookie
      */
     int getSchemaVersion() throws SqlJetException;
 
     /**
      * Set schema version. It can be performed only in active transaction.
-     * 
+     *
      * @param version
      * @throws SqlJetException
      */
@@ -209,27 +208,26 @@ public interface ISqlJetOptions {
 
     /**
      * Verify schema cookie and return true if it is unchanged by other process.
-     * 
+     * <p/>
      * If throwIfStale is true then throw exception if cookie is changed by
      * other process.
-     * 
+     *
      * @param throwIfStale
      * @return true of schema has not been changed
-     * 
      * @throws SqlJetException
      */
     boolean verifySchemaVersion(boolean throwIfStale) throws SqlJetException;
 
     /**
      * The user cookie. Used by the application.
-     * 
+     *
      * @return the userCookie
      */
     int getUserVersion() throws SqlJetException;
 
     /**
      * Set user's cookie. It can be performed only in active transaction.
-     * 
+     *
      * @param userCookie
      * @throws SqlJetException
      */

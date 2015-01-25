@@ -1,7 +1,7 @@
 /**
  * SqlJetMemoryManager.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,16 +17,11 @@
  */
 package org.tmatesoft.sqljet.core.internal.memory;
 
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryBuffer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryManager;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.SqlJetMemoryBufferType;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
 
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMemoryManager implements ISqlJetMemoryManager {
 
@@ -101,17 +96,17 @@ public class SqlJetMemoryManager implements ISqlJetMemoryManager {
         if (size >= 0) {
             final ISqlJetMemoryBuffer buffer;
             switch (bufferType) {
-            case ARRAY:
-                buffer = new SqlJetByteArrayBuffer();
-                break;
-            case BUFFER:
-                buffer = new SqlJetByteBuffer();
-                break;
-            case DIRECT:
-                buffer = new SqlJetDirectByteBuffer();
-                break;
-            default:
-                buffer = new SqlJetByteArrayBuffer();
+                case ARRAY:
+                    buffer = new SqlJetByteArrayBuffer();
+                    break;
+                case BUFFER:
+                    buffer = new SqlJetByteBuffer();
+                    break;
+                case DIRECT:
+                    buffer = new SqlJetDirectByteBuffer();
+                    break;
+                default:
+                    buffer = new SqlJetByteArrayBuffer();
             }
             buffer.allocate(size);
             return buffer;

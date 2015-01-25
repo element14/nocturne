@@ -1,7 +1,7 @@
 /**
  * SqlJetIOErrorCode.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -19,10 +19,9 @@ package org.tmatesoft.sqljet.core;
 
 /**
  * Extended error codes for {@link SqlJetErrorCode#IOERR}
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public enum SqlJetIOErrorCode {
 
@@ -41,5 +40,5 @@ public enum SqlJetIOErrorCode {
     IOERR_ACCESS,
     IOERR_CHECKRESERVEDLOCK,
     IOERR_LOCK
-    
+
 }

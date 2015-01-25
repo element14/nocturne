@@ -1,7 +1,7 @@
 /**
  * SqlJetFileSystem.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,6 +17,13 @@
  */
 package org.tmatesoft.sqljet.core.internal.fs;
 
+import org.tmatesoft.sqljet.core.SqlJetErrorCode;
+import org.tmatesoft.sqljet.core.SqlJetException;
+import org.tmatesoft.sqljet.core.SqlJetIOErrorCode;
+import org.tmatesoft.sqljet.core.SqlJetIOException;
+import org.tmatesoft.sqljet.core.internal.*;
+import org.tmatesoft.sqljet.core.internal.fs.util.SqlJetFileUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,24 +32,11 @@ import java.security.SecureRandom;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.tmatesoft.sqljet.core.SqlJetErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.SqlJetIOErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetIOException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFile;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFileSystem;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileAccesPermission;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileOpenPermission;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileType;
-import org.tmatesoft.sqljet.core.internal.fs.util.SqlJetFileUtil;
-
 /**
  * Default implementation of ISqlJetFileSystem.
- * 
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetFileSystem implements ISqlJetFileSystem {
 
@@ -52,18 +46,18 @@ public class SqlJetFileSystem implements ISqlJetFileSystem {
      * Temporary files are named starting with this prefix followed by random
      * alphanumeric characters, and no file extension. They are stored in the
      * OS's standard temporary file directory, and are deleted prior to exit.
-     * 
+     * <p/>
      * If SqlJet is being embedded in another program, you may wish to change
      * the prefix to reflect your program's name, so that if your program exits
      * prematurely, old temporary files can be easily identified.
-     * 
+     * <p/>
      * TODO - specify a way to change SQLJET_TEMP_FILE_PREFIX ( e.g. may be
      * system property name as SQLJET_TEMP_FILE_PREFIX ) .
-     * 
+     * <p/>
      * ********************************************************************
-     * 
+     * <p/>
      * Below some from SQLite comments:
-     * 
+     * <p/>
      * 2006-10-31: The default prefix used to be "sqlite_". But then Mcafee
      * started using SQLite in their anti-virus product and it started putting
      * files with the "sqlite" name in the c:/temp folder. This annoyed many
@@ -225,18 +219,18 @@ public class SqlJetFileSystem implements ISqlJetFileSystem {
         assert (null != permission);
 
         switch (permission) {
-        case EXISTS:
-            return path.exists();
+            case EXISTS:
+                return path.exists();
 
-        case READONLY:
-            return path.canRead() && !path.canWrite();
+            case READONLY:
+                return path.canRead() && !path.canWrite();
 
-        case READWRITE:
-            return path.canRead() && path.canWrite();
+            case READWRITE:
+                return path.canRead() && path.canWrite();
 
-        default:
-            throw new SqlJetException(SqlJetErrorCode.INTERNAL, "Unhandled SqlJetFileAccesPermission value :"
-                    + permission.name());
+            default:
+                throw new SqlJetException(SqlJetErrorCode.INTERNAL, "Unhandled SqlJetFileAccesPermission value :"
+                        + permission.name());
         }
 
     }

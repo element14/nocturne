@@ -1,7 +1,7 @@
 /**
  * SqlJetMapTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -19,12 +19,7 @@ package org.tmatesoft.sqljet.core.internal.map;
 
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.ISqlJetBtree;
-import org.tmatesoft.sqljet.core.map.ISqlJetMap;
-import org.tmatesoft.sqljet.core.map.ISqlJetMapCursor;
-import org.tmatesoft.sqljet.core.map.ISqlJetMapIndex;
-import org.tmatesoft.sqljet.core.map.ISqlJetMapTable;
-import org.tmatesoft.sqljet.core.map.ISqlJetMapTransaction;
-import org.tmatesoft.sqljet.core.map.SqlJetMapDb;
+import org.tmatesoft.sqljet.core.map.*;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
 import org.tmatesoft.sqljet.core.table.engine.ISqlJetEngineSynchronized;
 import org.tmatesoft.sqljet.core.table.engine.SqlJetEngine;
@@ -32,7 +27,6 @@ import org.tmatesoft.sqljet.core.table.engine.SqlJetEngine;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMap implements ISqlJetMap {
 
@@ -50,7 +44,7 @@ public class SqlJetMap implements ISqlJetMap {
      * @param writable
      */
     public SqlJetMap(final SqlJetMapDb mapDb, final ISqlJetBtree btree, final SqlJetMapDef mapDef,
-            boolean writable) {
+                     boolean writable) {
         this.mapDb = mapDb;
         this.btree = btree;
         this.mapDef = mapDef;

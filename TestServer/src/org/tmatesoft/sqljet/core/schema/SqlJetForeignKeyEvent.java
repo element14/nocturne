@@ -1,7 +1,7 @@
 /**
  * SqlJetForeignKeyEvent.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -15,7 +15,7 @@ package org.tmatesoft.sqljet.core.schema;
 
 /**
  * Foreign key's event.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Dmitry Stadnik (dtrace@seznam.cz)
  */
@@ -35,12 +35,12 @@ public enum SqlJetForeignKeyEvent {
 
     public String toString() {
         switch (this) {
-        case DELETE:
-            return "DELETE";
-        case UPDATE:
-            return "UPDATE";
-        case INSERT:
-            return "INSERT";
+            case DELETE:
+                return "DELETE";
+            case UPDATE:
+                return "UPDATE";
+            case INSERT:
+                return "INSERT";
         }
         return "";
     }

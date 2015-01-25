@@ -1,7 +1,7 @@
 /**
  * ISqlJetBinaryExpression.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,20 +17,20 @@ package org.tmatesoft.sqljet.core.schema;
  * <p>
  * Binary expression.
  * </p>
- * 
+ * <p/>
  * <p>
  * Binary expression is compound expression which consists from two expressions
  * combined by one operation {@link Operation}.
  * </p>
- * 
+ * <p/>
  * <p>
  * Format:
  * </p>
- * 
+ * <p/>
  * <p>
  * &lt;leftExpression&gt; &lt;operation&gt; &lt;rightExpression&gt;
  * </p>
- * 
+ *
  * @author TMate Software Ltd.
  * @author Dmitry Stadnik (dtrace@seznam.cz)
  */
@@ -39,10 +39,9 @@ public interface ISqlJetBinaryExpression extends ISqlJetExpression {
     /**
      * Operation which combine expressions in binary expression
      * {@link ISqlJetBinaryExpression}.
-     * 
+     *
      * @author TMate Software Ltd.
      * @author Dmitry Stadnik (dtrace@seznam.cz)
-     * 
      */
     public enum Operation {
 
@@ -138,11 +137,10 @@ public interface ISqlJetBinaryExpression extends ISqlJetExpression {
 
         /**
          * Decode operation from string.
-         * 
-         * @param s
-         *            string to decode
+         *
+         * @param s string to decode
          * @return decoded operation or null if string doesn't have known
-         *         operation.
+         * operation.
          */
         public static Operation decode(String s) {
             if ("or".equalsIgnoreCase(s)) {
@@ -192,42 +190,42 @@ public interface ISqlJetBinaryExpression extends ISqlJetExpression {
          */
         public String toString() {
             switch (this) {
-            case OR:
-                return "OR";
-            case AND:
-                return "AND";
-            case EQUALS:
-                return "=";
-            case NOT_EQUALS:
-                return "!=";
-            case LESS:
-                return "<";
-            case LESS_OR_EQ:
-                return "<=";
-            case GREATER:
-                return ">";
-            case GREATER_OR_EQ:
-                return ">=";
-            case SHIFT_LEFT:
-                return "<<";
-            case SHIFT_RIGHT:
-                return ">>";
-            case BIT_AND:
-                return "&";
-            case BIT_OR:
-                return "|";
-            case PLUS:
-                return "+";
-            case MINUS:
-                return "-";
-            case MULTIPLY:
-                return "*";
-            case DIVIDE:
-                return "/";
-            case MODULO:
-                return "%";
-            case CONCATENATE:
-                return "||";
+                case OR:
+                    return "OR";
+                case AND:
+                    return "AND";
+                case EQUALS:
+                    return "=";
+                case NOT_EQUALS:
+                    return "!=";
+                case LESS:
+                    return "<";
+                case LESS_OR_EQ:
+                    return "<=";
+                case GREATER:
+                    return ">";
+                case GREATER_OR_EQ:
+                    return ">=";
+                case SHIFT_LEFT:
+                    return "<<";
+                case SHIFT_RIGHT:
+                    return ">>";
+                case BIT_AND:
+                    return "&";
+                case BIT_OR:
+                    return "|";
+                case PLUS:
+                    return "+";
+                case MINUS:
+                    return "-";
+                case MULTIPLY:
+                    return "*";
+                case DIVIDE:
+                    return "/";
+                case MODULO:
+                    return "%";
+                case CONCATENATE:
+                    return "||";
             }
             return "";
         }
@@ -235,21 +233,21 @@ public interface ISqlJetBinaryExpression extends ISqlJetExpression {
 
     /**
      * Operation.
-     * 
+     *
      * @return operation
      */
     public Operation getOperation();
 
     /**
      * Left expression.
-     * 
+     *
      * @return left expression
      */
     public ISqlJetExpression getLeftExpression();
 
     /**
      * Right expression.
-     * 
+     *
      * @return right expression
      */
     public ISqlJetExpression getRightExpression();

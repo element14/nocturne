@@ -17,22 +17,22 @@
  */
 package org.tmatesoft.sqljet.core.internal;
 
-import java.io.File;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.SqlJetTransactionMode;
 import org.tmatesoft.sqljet.core.internal.schema.SqlJetSchema;
 
+import java.io.File;
+import java.util.Set;
+
 /**
  * A Btree handle
- *
+ * <p/>
  * A database connection contains a pointer to an instance of this object for
  * every database file that it has open. This structure is opaque to the
  * database connection. The database connection cannot see the internals of this
  * structure and only deals with pointers to this structure.
- *
+ * <p/>
  * For some database files, the same underlying database cache might be shared
  * between multiple connections. In that case, each contection has it own
  * pointer to this object. But each instance of this object points to the same
@@ -41,7 +41,6 @@ import org.tmatesoft.sqljet.core.internal.schema.SqlJetSchema;
  *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public interface ISqlJetBtree {
 
@@ -59,26 +58,21 @@ public interface ISqlJetBtree {
 
     /**
      * Open a database file.
-     *
+     * <p/>
      * zFilename is the name of the database file. If zFilename is NULL a new
      * database with a random name is created. This randomly named database file
      * will be deleted when sqlite3BtreeClose() is called. If zFilename is
      * ":memory:" then an in-memory database is created that is automatically
      * destroyed when it is closed.
      *
-     *
-     * @param filename
-     *            Name of database file to open
-     * @param db
-     *            Associated database connection
-     * @param flags
-     *            Flags
-     * @param fsFlags
-     *            Flags passed through to VFS open
+     * @param filename Name of database file to open
+     * @param db       Associated database connection
+     * @param flags    Flags
+     * @param fsFlags  Flags passed through to VFS open
      * @return
      */
     void open(File filename, ISqlJetDbHandle db, Set<SqlJetBtreeFlags> flags, final SqlJetFileType type,
-            final Set<SqlJetFileOpenPermission> permissions) throws SqlJetException;
+              final Set<SqlJetFileOpenPermission> permissions) throws SqlJetException;
 
     /**
      * Close an open database and invalidate all cursors.
@@ -89,7 +83,7 @@ public interface ISqlJetBtree {
 
     /**
      * Change the limit on the number of pages allowed in the cache.
-     *
+     * <p/>
      * The maximum number of cache pages is set to the absolute value of mxPage.
      * If mxPage is negative, the pager will operate asynchronously - it will
      * not stop to do fsync()s to insure data is written to the disk surface
@@ -133,16 +127,16 @@ public interface ISqlJetBtree {
 
     /**
      * Change the default pages size and the number of reserved bytes per page.
-     *
+     * <p/>
      * The page size must be a power of 2 between 512 and 65536. If the page
      * size supplied does not meet this constraint then the page size is not
      * changed.
-     *
+     * <p/>
      * Page sizes are constrained to be a power of two so that the region of the
      * database file used for locking (beginning at PENDING_BYTE, the first byte
      * past the 1GB boundary, 0x40000000) needs to occur at the beginning of a
      * page.
-     *
+     * <p/>
      * If parameter nReserve is less than zero, then the number of reserved
      * bytes per page is left unchanged.
      *
@@ -205,20 +199,20 @@ public interface ISqlJetBtree {
      * no other process is allowed to access the database. A preexisting
      * transaction may not be upgraded to exclusive by calling this routine a
      * second time - the exclusivity flag only works for a new transaction.
-     *
+     * <p/>
      * A write-transaction must be started before attempting any changes to the
      * database. None of the following routines will work unless a transaction
      * is started first:
-     *
+     * <p/>
      * createTable() createIndex() clearTable() dropTable() insert() delete()
      * updateMeta()
-     *
+     * <p/>
      * If an initial attempt to acquire the lock fails because of lock
      * contention and the database was previously unlocked, then invoke the busy
      * handler if there is one. But if there was previously a read-lock, do not
      * invoke the busy handler - just return BUSY. BUSY is returned when there
      * is already a read-lock in order to avoid a deadlock.
-     *
+     * <p/>
      * Suppose there are two processes A and B. A has a read lock and B has a
      * reserved lock. B tries to promote to exclusive but is blocked because of
      * A's read lock. A tries to promote to reserved but is blocked by B. One or
@@ -242,17 +236,17 @@ public interface ISqlJetBtree {
      * call, the rollback journal still exists on the disk and we are still
      * holding all locks, so the transaction has not committed. See
      * sqlite3BtreeCommit() for the second phase of the commit process.
-     *
+     * <p/>
      * This call is a no-op if no write-transaction is currently active on pBt.
-     *
+     * <p/>
      * Otherwise, sync the database file for the btree pBt. zMaster points to
      * the name of a master journal file that should be written into the
      * individual journal file, or is NULL, indicating no master journal file
      * (single database transaction).
-     *
+     * <p/>
      * When this is called, the master journal should already have been created,
      * populated with this journal pointer and synced to disk.
-     *
+     * <p/>
      * Once this is routine has returned, the only thing required to commit the
      * write-transaction for this database file is to delete the journal.
      *
@@ -263,7 +257,7 @@ public interface ISqlJetBtree {
 
     /**
      * Commit the transaction currently in progress.
-     *
+     * <p/>
      * This routine implements the second phase of a 2-phase commit. The
      * sqlite3BtreeSync() routine does the first phase and should be invoked
      * prior to calling this routine. The sqlite3BtreeSync() routine did all the
@@ -271,7 +265,7 @@ public interface ISqlJetBtree {
      * they are written onto the disk platter. All this routine has to do is
      * delete or truncate the rollback journal (which causes the transaction to
      * commit) and drop locks.
-     *
+     * <p/>
      * This will release the write lock on the database file. If there are no
      * active cursors, it also releases the read lock.
      *
@@ -290,7 +284,7 @@ public interface ISqlJetBtree {
      * Rollback the transaction in progress. All cursors will be invalided by
      * this operation. Any attempt to use a cursor that was open at the
      * beginning of this operation will result in an error.
-     *
+     * <p/>
      * This will release the write lock on the database file. If there are no
      * active cursors, it also releases the read lock.
      *
@@ -303,10 +297,10 @@ public interface ISqlJetBtree {
      * back independently of the main transaction. You must start a transaction
      * before starting a subtransaction. The subtransaction is ended
      * automatically if the main transaction commits or rolls back.
-     *
+     * <p/>
      * Only one subtransaction may be active at a time. It is an error to try to
      * start a new subtransaction if another subtransaction is already active.
-     *
+     * <p/>
      * Statement subtransactions are used around individual SQL statements that
      * are contained within a BEGIN...COMMIT block. If a constraint error occurs
      * within the statement, the effect of that one statement can be rolled back
@@ -327,7 +321,7 @@ public interface ISqlJetBtree {
     /**
      * Rollback the active statement subtransaction. If no subtransaction is
      * active this routine is a no-op.
-     *
+     * <p/>
      * All cursors will be invalidated by this operation. Any attempt to use a
      * cursor that was open at the beginning of this operation will result in an
      * error.
@@ -339,11 +333,11 @@ public interface ISqlJetBtree {
     /**
      * Create a new BTree table. Returns the page number for the root page of
      * the new table.
-     *
+     * <p/>
      * The type of type is determined by the flags parameter. Only the following
      * values of flags are currently in use. Other values for flags might not
      * work:
-     *
+     * <p/>
      * INTKEY|LEAFDATA Used for SQL tables with rowid keys ZERODATA Used for SQL
      * indices
      *
@@ -413,7 +407,7 @@ public interface ISqlJetBtree {
      * SAVEPOINT_RELEASE. This function either releases or rolls back the
      * savepoint identified by parameter iSavepoint, depending on the value of
      * op.
-     *
+     * <p/>
      * Normally, iSavepoint is greater than or equal to zero. However, if op is
      * SAVEPOINT_ROLLBACK, then iSavepoint may also be -1. In this case the
      * contents of the entire transaction are rolled back. This is different
@@ -428,7 +422,7 @@ public interface ISqlJetBtree {
 
     /**
      * Return the full pathname of the underlying database file.
-     *
+     * <p/>
      * The pager filename is invariant as long as the pager is open so it is
      * safe to access without the BtShared mutex.
      *
@@ -438,7 +432,7 @@ public interface ISqlJetBtree {
 
     /**
      * Return the pathname of the directory that contains the database file.
-     *
+     * <p/>
      * The pager directory name is invariant as long as the pager is open so it
      * is safe to access without the BtShared mutex.
      *
@@ -450,7 +444,7 @@ public interface ISqlJetBtree {
      * Return the pathname of the journal file for this database. The return
      * value of this routine is the same regardless of whether the journal file
      * has been created or not.
-     *
+     * <p/>
      * The pager journal filename is invariant as long as the pager is open so
      * it is safe to access without the BtShared mutex.
      *
@@ -461,10 +455,10 @@ public interface ISqlJetBtree {
     /**
      * Copy the complete content of from. A transaction must be active for both
      * files.
-     *
+     * <p/>
      * The size of file may be reduced by this operation. If anything goes
      * wrong, the transaction is rolled back.
-     *
+     * <p/>
      * If successful, commitPhaseOne() may be called before returning. The
      * caller should finish committing the transaction by calling commit().
      *
@@ -476,7 +470,7 @@ public interface ISqlJetBtree {
     /**
      * A write-transaction must be opened before calling this function. It
      * performs a single unit of work towards an incremental vacuum.
-     *
+     * <p/>
      * If the incremental vacuum is finished after this function has run, DONE
      * is thrown. If it is not finished, but no error occured, none isn't
      * thrown. Otherwise an SQLite error code.
@@ -489,10 +483,10 @@ public interface ISqlJetBtree {
      * Erase all information in a table and add the root of the table to the
      * freelist. Except, the root of the principle table (the one on page 1) is
      * never added to the freelist.
-     *
+     * <p/>
      * This routine will fail with LOCKED if there are any open cursors on the
      * table.
-     *
+     * <p/>
      * If AUTOVACUUM is enabled and the page at table is not the last root page
      * in the database file, then the last root page in the database file is
      * moved into the slot formerly occupied by table and that last slot
@@ -514,10 +508,10 @@ public interface ISqlJetBtree {
      * Delete all information from a single table in the database. Table is the
      * page number of the root of the table. After this routine returns, the
      * root page is empty, but still exists.
-     *
+     * <p/>
      * This routine will fail with LOCKED if there are any open read cursors on
      * the table. Open write cursors are moved to the root of the table.
-     *
+     * <p/>
      * If nChange is not NULL, then table table must be an intkey table. The
      * integer value pointed to by nChange[0] is incremented by the number of
      * entries in the table.
@@ -533,7 +527,7 @@ public interface ISqlJetBtree {
      * of free pages currently in the database. Meta[1] through meta[15] are
      * available for use by higher layers. Meta[0] is read-only, the others are
      * read/write.
-     *
+     * <p/>
      * The schema layer numbers meta values differently. At the schema layer
      * (and the SetCookie and ReadCookie opcodes) the number of free pages is
      * not visible. So Cookie[0] is the same as Meta[1].
@@ -557,10 +551,10 @@ public interface ISqlJetBtree {
     /**
      * This routine sets the state to CURSOR_FAULT and the error code to errCode
      * for every cursor on BtShared that pBtree references.
-     *
+     * <p/>
      * Every cursor is tripped, including cursors that belong to other database
      * connections that happen to be sharing the cache with pBtree.
-     *
+     * <p/>
      * This routine gets called when a rollback occurs. All cursors using the
      * same cache must be tripped to prevent them from trying to use the btree
      * after the rollback. The rollback may have deleted tables or moved root
@@ -576,7 +570,7 @@ public interface ISqlJetBtree {
      * This routine does a complete check of the given BTree file. aRoot[] is an
      * array of pages numbers were each page number is the root page of a table.
      * nRoot is the number of entries in aRoot.
-     *
+     * <p/>
      * Write the number of error seen in nErr[0]. Except for some memory
      * allocation errors, an error message held in memory obtained from malloc
      * is returned if nErr[0] is non-zero. If nErr[0]==0 then NULL is returned.
@@ -598,37 +592,34 @@ public interface ISqlJetBtree {
     /**
      * Create a new cursor for the BTree whose root is on the page iTable. The
      * act of acquiring a cursor gets a read lock on the database file.
-     *
+     * <p/>
      * If wrFlag==0, then the cursor can only be used for reading. If wrFlag==1,
      * then the cursor can be used for reading or for writing if other
      * conditions for writing are also met. These are the conditions that must
      * be met in order for writing to be allowed:
-     *
+     * <p/>
      * 1: The cursor must have been opened with wrFlag==1
-     *
+     * <p/>
      * 2: Other database connections that share the same pager cache but which
      * are not in the READ_UNCOMMITTED state may not have cursors open with
      * wrFlag==0 on the same table. Otherwise the changes made by this write
      * cursor would be visible to the read cursors in the other database
      * connection.
-     *
+     * <p/>
      * 3: The database must be writable (not on read-only media)
-     *
+     * <p/>
      * 4: There must be an active transaction.
-     *
+     * <p/>
      * No checking is done to make sure that page iTable really is the root page
      * of a b-tree. If it is not, then the cursor acquired will not work
      * correctly.
-     *
+     * <p/>
      * It is assumed that the sqlite3BtreeCursorSize() bytes of memory pointed
      * to by pCur have been zeroed by the caller.
      *
-     * @param table
-     *            Index of root page
-     * @param wrFlag
-     *            true for writing. false for read-only
-     * @param keyInfo
-     *            First argument to compare function
+     * @param table   Index of root page
+     * @param wrFlag  true for writing. false for read-only
+     * @param keyInfo First argument to compare function
      * @return
      * @throws SqlJetException
      */
@@ -636,12 +627,12 @@ public interface ISqlJetBtree {
 
     /**
      * Enter a mutex on the given BTree object.
-     *
+     * <p/>
      * If the object is not sharable, then no mutex is ever required and this
      * routine is a no-op. The underlying mutex is non-recursive. But we keep a
      * reference count in Btree.wantToLock so the behavior of this interface is
      * recursive.
-     *
+     * <p/>
      * To avoid deadlocks, multiple Btrees are locked in the same order by all
      * database connections. The p->pNext is a list of other Btrees belonging to
      * the same database connection as the p Btree which need to be locked after

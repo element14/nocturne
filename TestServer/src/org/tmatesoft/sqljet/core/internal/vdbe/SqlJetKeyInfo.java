@@ -1,7 +1,7 @@
 /**
  * SqlJetKeyInfo.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -20,17 +20,11 @@ package org.tmatesoft.sqljet.core.internal.vdbe;
 import org.tmatesoft.sqljet.core.SqlJetEncoding;
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetCollSeq;
-import org.tmatesoft.sqljet.core.internal.ISqlJetDbHandle;
-import org.tmatesoft.sqljet.core.internal.ISqlJetKeyInfo;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.SqlJetUnpackedRecordFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
 
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetKeyInfo implements ISqlJetKeyInfo {
 
@@ -115,25 +109,25 @@ public class SqlJetKeyInfo implements ISqlJetKeyInfo {
     public void setEnc(SqlJetEncoding enc) {
         this.enc = enc;
     }
-    
+
     public void setSortOrder(int i, boolean desc) throws SqlJetException {
-        if(i>=nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
-        this.aSortOrder[i]=desc;
+        if (i >= nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
+        this.aSortOrder[i] = desc;
     }
-    
+
     public boolean getSortOrder(int i) throws SqlJetException {
-        if(i>=nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
+        if (i >= nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
         return this.aSortOrder[i];
     }
 
     public void setCollating(int i, ISqlJetCollSeq coll) throws SqlJetException {
-        if(i>=nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
-        this.aColl[i]=coll;
+        if (i >= nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
+        this.aColl[i] = coll;
     }
-    
+
     public ISqlJetCollSeq getCollating(int i) throws SqlJetException {
-        if(i>=nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
+        if (i >= nField) throw new SqlJetException(SqlJetErrorCode.ERROR);
         return this.aColl[i];
     }
-    
+
 }

@@ -67,8 +67,8 @@ public abstract class SqlJetExpression implements ISqlJetExpression {
             return new SqlJetUnaryExpression(ast);
         } else if ("collate".equals(op)) {
             return new SqlJetCollateExpression(ast);
-        } else if("true".equals(op)||"false".equals(op)) {
-        	return new SqlJetBoolLiteral(ast);
+        } else if ("true".equals(op) || "false".equals(op)) {
+            return new SqlJetBoolLiteral(ast);
         }
         throw new SqlJetException(SqlJetErrorCode.ERROR, "Invalid expression");
     }

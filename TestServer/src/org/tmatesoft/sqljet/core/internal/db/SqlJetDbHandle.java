@@ -1,7 +1,7 @@
 /**
  * SqlJetDbHandle.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,27 +17,21 @@
  */
 package org.tmatesoft.sqljet.core.internal.db;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.ISqlJetMutex;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBackend;
-import org.tmatesoft.sqljet.core.internal.ISqlJetConfig;
-import org.tmatesoft.sqljet.core.internal.ISqlJetDbHandle;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFileSystem;
-import org.tmatesoft.sqljet.core.internal.SqlJetDbFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
 import org.tmatesoft.sqljet.core.internal.fs.SqlJetFileSystemsManager;
 import org.tmatesoft.sqljet.core.internal.mutex.SqlJetEmptyMutex;
 import org.tmatesoft.sqljet.core.internal.mutex.SqlJetMutex;
 import org.tmatesoft.sqljet.core.table.ISqlJetBusyHandler;
 import org.tmatesoft.sqljet.core.table.ISqlJetOptions;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetDbHandle implements ISqlJetDbHandle {
 
@@ -56,9 +50,9 @@ public class SqlJetDbHandle implements ISqlJetDbHandle {
     }
 
     public SqlJetDbHandle(ISqlJetFileSystem fs) {
-    	this();
-		this.fileSystem = fs;
-	}
+        this();
+        this.fileSystem = fs;
+    }
 
     /*
      * (non-Javadoc)
@@ -79,8 +73,7 @@ public class SqlJetDbHandle implements ISqlJetDbHandle {
     }
 
     /**
-     * @param busyHandler
-     *            the busyHandler to set
+     * @param busyHandler the busyHandler to set
      */
     public void setBusyHandler(ISqlJetBusyHandler busyHandler) {
         this.busyHandler = busyHandler;

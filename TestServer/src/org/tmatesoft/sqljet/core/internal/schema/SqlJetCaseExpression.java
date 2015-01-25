@@ -1,7 +1,7 @@
 /**
  * SqlJetCaseExpression.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -13,14 +13,14 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.schema.ISqlJetCaseExpression;
 import org.tmatesoft.sqljet.core.schema.ISqlJetExpression;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author TMate Software Ltd.

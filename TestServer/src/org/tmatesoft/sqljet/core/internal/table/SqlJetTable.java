@@ -1,7 +1,7 @@
 /**
  * SqlJetDataTableCursor.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,11 +17,6 @@
  */
 package org.tmatesoft.sqljet.core.internal.table;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.ISqlJetBtree;
@@ -29,19 +24,18 @@ import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
 import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
-import org.tmatesoft.sqljet.core.table.ISqlJetCursor;
-import org.tmatesoft.sqljet.core.table.ISqlJetRunnableWithLock;
-import org.tmatesoft.sqljet.core.table.ISqlJetTable;
-import org.tmatesoft.sqljet.core.table.ISqlJetTransaction;
-import org.tmatesoft.sqljet.core.table.SqlJetDb;
-import org.tmatesoft.sqljet.core.table.SqlJetScope;
+import org.tmatesoft.sqljet.core.table.*;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implementation of {@link ISqlJetTable}.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetTable implements ISqlJetTable {
 
@@ -79,7 +73,9 @@ public class SqlJetTable implements ISqlJetTable {
 
     public ISqlJetTableDef getDefinition() throws SqlJetException {
         return btree.getSchema().getTable(tableName);
-    };
+    }
+
+    ;
 
     /*
      * (non-Javadoc)
@@ -228,7 +224,7 @@ public class SqlJetTable implements ISqlJetTable {
      * @see org.tmatesoft.sqljet.core.table.ISqlJetTable#scope(java.lang.String,
      * java.lang.Object[], java.lang.Object[])
      */
-    public ISqlJetCursor scope(final String indexName, SqlJetScope scope)  throws SqlJetException {
+    public ISqlJetCursor scope(final String indexName, SqlJetScope scope) throws SqlJetException {
         final SqlJetScope adjustedScope = SqlJetUtility.adjustScopeNumberTypes(scope);
         return (ISqlJetCursor) db.runWithLock(new ISqlJetRunnableWithLock() {
             public Object runWithLock(SqlJetDb db) throws SqlJetException {
@@ -263,7 +259,7 @@ public class SqlJetTable implements ISqlJetTable {
     private boolean isNeedReverse(final ISqlJetBtreeIndexTable indexTable, SqlJetScope scope) throws SqlJetException {
         Object[] firstKey = scope.getLeftBound() != null ? scope.getLeftBound().getValue() : null;
         Object[] lastKey = scope.getRightBound() != null ? scope.getRightBound().getValue() : null;
-        
+
         if (firstKey != null && lastKey != null && firstKey.length > 0 && lastKey.length > 0) {
             if (indexTable != null) {
                 return indexTable.compareKeys(firstKey, lastKey) < 0;

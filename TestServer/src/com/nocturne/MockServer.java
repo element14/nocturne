@@ -28,6 +28,8 @@
  */
 package com.nocturne;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.simpleframework.http.*;
@@ -53,11 +55,15 @@ import java.net.SocketAddress;
  */
 public class MockServer implements Container {
 
+    private static final Logger logger = LogManager.getLogger(MockServer.class.getName());
+
     private static final String DB_NAME = "./mockserver.db";
     private SqlJetDb db = null;
 
     public static void main(final String[] list) throws Exception {
-        System.out.println("MockServer::main() starting");
+        logger.entry();
+        logger.info("MockServer::main() starting");
+
         final MockServer mockSvr = new MockServer();
         final Server server = new ContainerServer(mockSvr);
         final Connection socketConnection = new SocketConnection(server);
@@ -66,7 +72,8 @@ public class MockServer implements Container {
         mockSvr.dbInitialise();
 
         socketConnection.connect(address);
-        System.out.println("started listening on [" + address.toString() + "]");
+        logger.info("started listening on [" + address.toString() + "]");
+        logger.exit();
     }
 
     private String getJsonString(final String key, final String value) {
@@ -75,7 +82,8 @@ public class MockServer implements Container {
 
     @Override
     public void handle(final Request request, final Response response) {
-        System.out.println("MockServer::handle() starting");
+        logger.entry();
+        logger.info("MockServer::handle() starting");
         PrintStream body = null;
         try {
             body = response.getPrintStream();
@@ -90,7 +98,7 @@ public class MockServer implements Container {
 
             final ContentType type = request.getContentType();
             if (type != null) {
-                System.out.println("request context-type was [" + type.toString() + "]");
+                logger.info("request context-type was [" + type.toString() + "]");
                 final String primary = type.getPrimary();
                 final String secondary = type.getSecondary();
                 final String charset = type.getCharset();
@@ -99,19 +107,19 @@ public class MockServer implements Container {
             final long length = request.getContentLength();
             final String contentBody = request.getContent();
             final boolean persistent = request.isKeepAlive();
-            System.out.println("MockServer() handle() contentBody [" + contentBody + "]");
+            logger.info("MockServer() handle() contentBody [" + contentBody + "]");
 
             final Path path = request.getPath();
             final String directory = path.getDirectory();
             final String name = path.getName();
             final String[] segments = path.getSegments();
 
-            System.out.println("MockServer() handle() path [" + path + "]");
-            System.out.println("MockServer() handle() directory [" + directory + "]");
-            System.out.println("MockServer() handle() name [" + name + "]");
+            logger.info("MockServer() handle() path [" + path + "]");
+            logger.info("MockServer() handle() directory [" + directory + "]");
+            logger.info("MockServer() handle() name [" + name + "]");
 
             for (String seg : segments) {
-                System.out.println("MockServer() handle() Segment [" + seg + "]");
+                logger.info("MockServer() handle() Segment [" + seg + "]");
             }
 
             final Query query = request.getQuery();
@@ -127,7 +135,7 @@ public class MockServer implements Container {
 
             //body.println("Hello World");
 
-            System.out.println("MockServer() handle() sending response [" + response.toString() + "]");
+            logger.info("MockServer() handle() sending response [" + response.toString() + "]");
             response.commit();
             body.close();
         } catch (final Exception e) {
@@ -138,6 +146,7 @@ public class MockServer implements Container {
                 body.close();
             }
         }
+        logger.exit();
     }
 
     /**
@@ -145,7 +154,7 @@ public class MockServer implements Container {
      * @param body
      */
     private void handleRequestUserRegister(final Request request, final PrintStream body) {
-        System.out.println("handleRequestUserRegister()");
+        logger.info("handleRequestUserRegister()");
 
         String jsonStr = null;
         try {
@@ -196,10 +205,10 @@ public class MockServer implements Container {
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
             body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("handleRequestUserRegister() Exception : ", e);
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
         } catch (SqlJetException e) {
-            e.printStackTrace();
+            logger.error("handleRequestUserRegister() Exception : ", e);
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user to database failed\"}");
         }
     }
@@ -209,7 +218,7 @@ public class MockServer implements Container {
      * @param body
      */
     private void handleRequestUserConnect(final Request request, final PrintStream body) {
-        System.out.println("handleRequestUserConnect()");
+        logger.info("handleRequestUserConnect()");
 
         Query reqQry = request.getQuery();
         String user_email = null;
@@ -259,10 +268,10 @@ public class MockServer implements Container {
                 respStr += "}";
                 body.println(respStr);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("handleRequestUserConnect() Exception : ", e);
                 body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
             } catch (SqlJetException e) {
-                e.printStackTrace();
+                logger.error("handleRequestUserConnect() Exception : ", e);
                 body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"Adding user connection to database failed\"}");
             }
         }
@@ -295,13 +304,13 @@ public class MockServer implements Container {
             cursor.close();
             db.commit();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": handleRequestGetConnectedUsers() " + e.getMessage());
+            logger.error(e.getClass().getName() + ": handleRequestGetConnectedUsers() ", e);
             System.exit(0);
         }
     }
 
     public void dbInitialise() {
-        System.out.println("dbInitialise()");
+        logger.info("dbInitialise()");
         try {
             dbOpenConnection();
             if (!isDbSetup()) {
@@ -310,13 +319,13 @@ public class MockServer implements Container {
                 dbCreateDummyData();
             }
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            logger.error(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
     }
 
     public boolean isDbSetup() {
-        System.out.println("isDbSetup()");
+        logger.info("isDbSetup()");
         boolean issetup = false;
         try {
             db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
@@ -325,13 +334,13 @@ public class MockServer implements Container {
                 issetup = true;
             }
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": isDbSetup() " + e.getMessage());
+            logger.error(e.getClass().getName() + ": isDbSetup() ", e);
         }
         return issetup;
     }
 
     private void dbCreate() {
-        System.out.println("dbOpenConnection()");
+        logger.info("dbOpenConnection()");
         try {
             File dbFile = new File(DB_NAME);
             boolean deleted = dbFile.delete();
@@ -345,19 +354,19 @@ public class MockServer implements Container {
                 db.commit();
             }
         } catch (SqlJetException e) {
-            System.err.println(e.getClass().getName() + ": dbOpenConnection() " + e.getMessage());
+            logger.error(e.getClass().getName() + ": dbOpenConnection() ", e);
             System.exit(0);
         }
     }
 
     private void dbOpenConnection() {
-        System.out.println("dbOpenConnection()");
+        logger.info("dbOpenConnection()");
         if (db == null) {
             try {
                 File dbFile = new File(DB_NAME);
                 db = SqlJetDb.open(dbFile, true);
             } catch (SqlJetException e) {
-                System.err.println(e.getClass().getName() + ": dbOpenConnection() " + e.getMessage());
+                logger.error(e.getClass().getName() + ": dbOpenConnection() ", e);
                 System.exit(0);
             }
         }
@@ -369,12 +378,12 @@ public class MockServer implements Container {
                 db.close();
             }
         } catch (SqlJetException e) {
-            System.err.println(e.getClass().getName() + ": dbCloseConnection()" + e.getMessage());
+            logger.error(e.getClass().getName() + ": dbCloseConnection()", e);
         }
     }
 
     private void dbCreateTables() {
-        System.out.println("dbCreateTables()");
+        logger.info("dbCreateTables()");
         try {
             db.beginTransaction(SqlJetTransactionMode.WRITE);
 
@@ -447,7 +456,7 @@ public class MockServer implements Container {
 
             db.commit();
         } catch (SqlJetException e) {
-            System.err.println(e.getClass().getName() + ": dbCreateTables() " + e.getMessage());
+            logger.error(e.getClass().getName() + ": dbCreateTables() ", e);
         }
     }
 
@@ -469,10 +478,10 @@ public class MockServer implements Container {
             tblNocturneCondition.insert("Parkinsons", "");
             db.commit();
         } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": dbCreateDummyData() " + e.getMessage());
+            logger.error(e.getClass().getName() + ": dbCreateDummyData() ", e);
             System.exit(0);
         }
-        System.out.println("Records created successfully");
+        logger.info("Records created successfully");
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * ISqlJetMapIterator.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -22,13 +22,12 @@ import org.tmatesoft.sqljet.core.SqlJetException;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public interface ISqlJetMapIterator {
 
     /**
      * Tests whether this cursor is positioned behind the last record.
-     * 
+     *
      * @return true if the cursor is not on a record and fields can't be read.
      * @throws SqlJetException
      */
@@ -36,7 +35,7 @@ public interface ISqlJetMapIterator {
 
     /**
      * Goes to the first record.
-     * 
+     *
      * @return true if there is at least one record.
      * @throws SqlJetException
      */
@@ -44,7 +43,7 @@ public interface ISqlJetMapIterator {
 
     /**
      * Goes to the last record.
-     * 
+     *
      * @return true if there is at least one record.
      * @throws SqlJetException
      */
@@ -52,18 +51,18 @@ public interface ISqlJetMapIterator {
 
     /**
      * Goes to the next record.
-     * 
+     *
      * @return true if there is at least one record and end of cursor is not
-     *         reached yet
+     * reached yet
      * @throws SqlJetException
      */
     boolean next() throws SqlJetException;
 
     /**
      * Goes to the previous record.
-     * 
+     *
      * @return true if there is at least one record and begin of cursor is not
-     *         reached yet
+     * reached yet
      * @throws SqlJetException
      */
     boolean previous() throws SqlJetException;

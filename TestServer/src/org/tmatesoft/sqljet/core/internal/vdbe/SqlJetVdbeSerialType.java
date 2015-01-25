@@ -1,7 +1,7 @@
 /**
  * SqlJetSerialType.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -24,14 +24,13 @@ import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetVdbeSerialType {
 
-    private static final byte aSize[] = { 0, 1, 2, 3, 4, 6, 8, 8, 0, 0, 0, 0 };
+    private static final byte aSize[] = {0, 1, 2, 3, 4, 6, 8, 8, 0, 0, 0, 0};
 
     /**
-     ** Return the length of the data corresponding to the supplied serial-type.
+     * * Return the length of the data corresponding to the supplied serial-type.
      */
     public static int serialTypeLen(int serial_type) {
         if (serial_type >= 12) {
@@ -44,13 +43,10 @@ public class SqlJetVdbeSerialType {
     /**
      * Deserialize the data blob pointed to by buf as serial type serial_type
      * and store the result in pMem. Return the number of bytes read.
-     * 
-     * @param buf
-     *            Buffer to deserialize from
-     * @param serial_type
-     *            Serial type to deserialize
-     * @param pMem
-     *            Memory cell to write value into
+     *
+     * @param buf         Buffer to deserialize from
+     * @param serial_type Serial type to deserialize
+     * @param pMem        Memory cell to write value into
      * @return
      */
     public static int serialGet(ISqlJetMemoryPointer buf, int serial_type, SqlJetVdbeMem pMem) {
@@ -59,105 +55,105 @@ public class SqlJetVdbeSerialType {
 
     public static int serialGet(ISqlJetMemoryPointer buf, int offset, int serial_type, SqlJetVdbeMem pMem) {
         switch (serial_type) {
-        case 10: /* Reserved for future use */
-        case 11: /* Reserved for future use */
-        case 0: { /* NULL */
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Null);
-            pMem.type = SqlJetValueType.NULL;
-            break;
-        }
-        case 1: { /* 1-byte signed integer */
-            pMem.i = buf.getByte(offset);
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 1;
-        }
-        case 2: { /* 2-byte signed integer */
-            pMem.i = SqlJetUtility
-                    .fromUnsigned((int) ((SqlJetUtility.getUnsignedByte(buf, offset) << 8) | SqlJetUtility
-                            .getUnsignedByte(buf, offset + 1)));
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 2;
-        }
-        case 3: { /* 3-byte signed integer */
-            pMem.i = (buf.getByte(offset) << 16) | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 8)
-                    | SqlJetUtility.getUnsignedByte(buf, offset + 2);
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 3;
-        }
-        case 4: { /* 4-byte signed integer */
-            pMem.i = SqlJetUtility.fromUnsigned((long) ((SqlJetUtility.getUnsignedByte(buf, offset) << 24)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 16)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 8) | SqlJetUtility.getUnsignedByte(buf,
-                    offset + 3)));
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 4;
-        }
-        case 5: { /* 6-byte signed integer */
-            long x = (SqlJetUtility.getUnsignedByte(buf, offset) << 8) | SqlJetUtility.getUnsignedByte(buf, offset + 1);
-            int y = (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 24)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 3) << 16)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 4) << 8)
-                    | SqlJetUtility.getUnsignedByte(buf, offset + 5);
-            x = ((long) (short) x << 32) | SqlJetUtility.toUnsigned(y);
-            pMem.i = x;
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 6;
-        }
-        case 6: /* 8-byte signed integer */
-        case 7: { /* IEEE floating point */
-            long x;
-            int y;
-            x = (SqlJetUtility.getUnsignedByte(buf, offset) << 24)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 16)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 8)
-                    | SqlJetUtility.getUnsignedByte(buf, offset + 3);
-            y = (SqlJetUtility.getUnsignedByte(buf, offset + 4) << 24)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 5) << 16)
-                    | (SqlJetUtility.getUnsignedByte(buf, offset + 6) << 8)
-                    | SqlJetUtility.getUnsignedByte(buf, offset + 7);
-            x = ((long) (int) x << 32) | SqlJetUtility.toUnsigned(y);
-            if (serial_type == 6) {
+            case 10: /* Reserved for future use */
+            case 11: /* Reserved for future use */
+            case 0: { /* NULL */
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Null);
+                pMem.type = SqlJetValueType.NULL;
+                break;
+            }
+            case 1: { /* 1-byte signed integer */
+                pMem.i = buf.getByte(offset);
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                pMem.type = SqlJetValueType.INTEGER;
+                return 1;
+            }
+            case 2: { /* 2-byte signed integer */
+                pMem.i = SqlJetUtility
+                        .fromUnsigned((int) ((SqlJetUtility.getUnsignedByte(buf, offset) << 8) | SqlJetUtility
+                                .getUnsignedByte(buf, offset + 1)));
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                pMem.type = SqlJetValueType.INTEGER;
+                return 2;
+            }
+            case 3: { /* 3-byte signed integer */
+                pMem.i = (buf.getByte(offset) << 16) | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 8)
+                        | SqlJetUtility.getUnsignedByte(buf, offset + 2);
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                pMem.type = SqlJetValueType.INTEGER;
+                return 3;
+            }
+            case 4: { /* 4-byte signed integer */
+                pMem.i = SqlJetUtility.fromUnsigned((long) ((SqlJetUtility.getUnsignedByte(buf, offset) << 24)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 16)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 8) | SqlJetUtility.getUnsignedByte(buf,
+                        offset + 3)));
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                pMem.type = SqlJetValueType.INTEGER;
+                return 4;
+            }
+            case 5: { /* 6-byte signed integer */
+                long x = (SqlJetUtility.getUnsignedByte(buf, offset) << 8) | SqlJetUtility.getUnsignedByte(buf, offset + 1);
+                int y = (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 24)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 3) << 16)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 4) << 8)
+                        | SqlJetUtility.getUnsignedByte(buf, offset + 5);
+                x = ((long) (short) x << 32) | SqlJetUtility.toUnsigned(y);
                 pMem.i = x;
                 pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
                 pMem.type = SqlJetValueType.INTEGER;
-            } else {
-                // assert( sizeof(x)==8 && sizeof(pMem->r)==8 );
-                // swapMixedEndianFloat(x);
-                // memcpy(&pMem->r, &x, sizeof(x));
-                // pMem.r = ByteBuffer.allocate(8).putLong(x).getDouble();
-                pMem.r = Double.longBitsToDouble(x);
-                pMem.flags = SqlJetUtility.of(pMem.r == Double.NaN ? SqlJetVdbeMemFlags.Null : SqlJetVdbeMemFlags.Real);
-                pMem.type = pMem.r == Double.NaN ? SqlJetValueType.NULL : SqlJetValueType.FLOAT;
+                return 6;
             }
-            return 8;
-        }
-        case 8: /* Integer 0 */
-        case 9: { /* Integer 1 */
-            pMem.i = serial_type - 8;
-            pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
-            pMem.type = SqlJetValueType.INTEGER;
-            return 0;
-        }
-        default: {
-            int len = (serial_type - 12) / 2;
-            pMem.z = SqlJetUtility.pointer(buf, offset);
-            pMem.z.limit(len);
-            pMem.n = len;
-            pMem.xDel = null;
-            if ((serial_type & 0x01) != 0) {
-                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Str, SqlJetVdbeMemFlags.Ephem);
-                pMem.type = SqlJetValueType.TEXT;
-            } else {
-                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Blob, SqlJetVdbeMemFlags.Ephem);
-                pMem.type = SqlJetValueType.BLOB;
+            case 6: /* 8-byte signed integer */
+            case 7: { /* IEEE floating point */
+                long x;
+                int y;
+                x = (SqlJetUtility.getUnsignedByte(buf, offset) << 24)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 1) << 16)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 2) << 8)
+                        | SqlJetUtility.getUnsignedByte(buf, offset + 3);
+                y = (SqlJetUtility.getUnsignedByte(buf, offset + 4) << 24)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 5) << 16)
+                        | (SqlJetUtility.getUnsignedByte(buf, offset + 6) << 8)
+                        | SqlJetUtility.getUnsignedByte(buf, offset + 7);
+                x = ((long) (int) x << 32) | SqlJetUtility.toUnsigned(y);
+                if (serial_type == 6) {
+                    pMem.i = x;
+                    pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                    pMem.type = SqlJetValueType.INTEGER;
+                } else {
+                    // assert( sizeof(x)==8 && sizeof(pMem->r)==8 );
+                    // swapMixedEndianFloat(x);
+                    // memcpy(&pMem->r, &x, sizeof(x));
+                    // pMem.r = ByteBuffer.allocate(8).putLong(x).getDouble();
+                    pMem.r = Double.longBitsToDouble(x);
+                    pMem.flags = SqlJetUtility.of(pMem.r == Double.NaN ? SqlJetVdbeMemFlags.Null : SqlJetVdbeMemFlags.Real);
+                    pMem.type = pMem.r == Double.NaN ? SqlJetValueType.NULL : SqlJetValueType.FLOAT;
+                }
+                return 8;
             }
-            return len;
-        }
+            case 8: /* Integer 0 */
+            case 9: { /* Integer 1 */
+                pMem.i = serial_type - 8;
+                pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Int);
+                pMem.type = SqlJetValueType.INTEGER;
+                return 0;
+            }
+            default: {
+                int len = (serial_type - 12) / 2;
+                pMem.z = SqlJetUtility.pointer(buf, offset);
+                pMem.z.limit(len);
+                pMem.n = len;
+                pMem.xDel = null;
+                if ((serial_type & 0x01) != 0) {
+                    pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Str, SqlJetVdbeMemFlags.Ephem);
+                    pMem.type = SqlJetValueType.TEXT;
+                } else {
+                    pMem.flags = SqlJetUtility.of(SqlJetVdbeMemFlags.Blob, SqlJetVdbeMemFlags.Ephem);
+                    pMem.type = SqlJetValueType.BLOB;
+                }
+                return len;
+            }
         }
         return 0;
     }
@@ -208,7 +204,7 @@ public class SqlJetVdbeSerialType {
      * Write the serialized data blob for the value stored in pMem into buf. It
      * is assumed that the caller has allocated sufficient space. Return the
      * number of bytes written.
-     * 
+     * <p/>
      * nBuf is the amount of space left in buf[]. nBuf must always be large
      * enough to hold the entire field. Except, if the field is a blob with a
      * zero-filled tail, then buf[] might be just the right size to hold
@@ -216,7 +212,7 @@ public class SqlJetVdbeSerialType {
      * to hold the non-zero prefix, then only write that prefix into buf[]. But
      * if buf[] is large enough to hold both the prefix and the tail then write
      * the prefix and set the tail to all zeros.
-     * 
+     * <p/>
      * Return the number of bytes actually written into buf[]. The number of
      * bytes in the zero-filled tail is included in the return value only if
      * those bytes were zeroed in buf[].

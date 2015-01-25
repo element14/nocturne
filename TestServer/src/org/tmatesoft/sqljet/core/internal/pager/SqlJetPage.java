@@ -1,7 +1,7 @@
 /**
  * Page.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,48 +17,53 @@
  */
 package org.tmatesoft.sqljet.core.internal.pager;
 
-import java.util.BitSet;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPage;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPager;
-import org.tmatesoft.sqljet.core.internal.SqlJetMemoryBufferType;
-import org.tmatesoft.sqljet.core.internal.SqlJetPageFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetPagerJournalMode;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
+
+import java.util.BitSet;
+import java.util.Set;
 
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetPage implements ISqlJetPage {
 
     /**
-     * 
+     *
      */
     public static final SqlJetMemoryBufferType BUFFER_TYPE = SqlJetUtility.getEnumSysProp(
             "SqlJetPage.BUFFER_TYPE", SqlJetMemoryBufferType.ARRAY);
 
-    /** Content of this page */
+    /**
+     * Content of this page
+     */
     ISqlJetMemoryPointer pData;
 
-    /** Extra content */
+    /**
+     * Extra content
+     */
     Object pExtra;
 
-    /** Transient list of dirty pages */
+    /**
+     * Transient list of dirty pages
+     */
     SqlJetPage pDirty;
 
-    /** Page number for this page */
+    /**
+     * Page number for this page
+     */
     int pgno;
 
-    /** The pager this page is part of */
+    /**
+     * The pager this page is part of
+     */
     SqlJetPager pPager;
 
-    /** Hash of page content */
+    /**
+     * Hash of page content
+     */
     long pageHash;
 
     Set<SqlJetPageFlags> flags = SqlJetUtility.noneOf(SqlJetPageFlags.class);
@@ -68,26 +73,34 @@ public class SqlJetPage implements ISqlJetPage {
      * should not be accessed by other modules.
      */
 
-    /** Number of users of this page */
+    /**
+     * Number of users of this page
+     */
     int nRef;
 
-    /** Cache that owns this page */
+    /**
+     * Cache that owns this page
+     */
     SqlJetPageCache pCache;
 
-    /** Next element in list of dirty pages */
+    /**
+     * Next element in list of dirty pages
+     */
     SqlJetPage pDirtyNext;
 
-    /** Previous element in list of dirty pages */
+    /**
+     * Previous element in list of dirty pages
+     */
     SqlJetPage pDirtyPrev;
 
     /**
-     * 
+     *
      */
     public SqlJetPage() {
     }
 
     /**
-     * 
+     *
      */
     SqlJetPage(int szPage) {
         pData = SqlJetUtility.allocatePtr(szPage, BUFFER_TYPE);
@@ -280,7 +293,7 @@ public class SqlJetPage implements ISqlJetPage {
         }
 
         pPager.pageCache.move(this, pageNumber);
-        
+
         pPager.pageCache.makeDirty(this);
         pPager.dirtyCache = true;
         pPager.dbModified = true;
@@ -443,20 +456,19 @@ public class SqlJetPage implements ISqlJetPage {
      * Mark a data page as writeable. The page is written into the journal if it
      * is not there already. This routine must be called before making changes
      * to a page.
-     * 
+     * <p/>
      * The first time this routine is called, the pager creates a new journal
      * and acquires a RESERVED lock on the database. If the RESERVED lock could
      * not be acquired, this routine returns SQLITE_BUSY. The calling routine
      * must check for that return value and be careful not to change any page
      * data until this routine returns SQLITE_OK.
-     * 
+     * <p/>
      * If the journal file could not be written because the disk is full, then
      * this routine returns SQLITE_FULL and does an immediate rollback. All
      * subsequent write attempts also return SQLITE_FULL until there is a call
      * to sqlite3PagerCommit() or sqlite3PagerRollback() to reset.
-     * 
+     *
      * @throws SqlJetException
-     * 
      */
     private void doWrite() throws SqlJetException {
 
@@ -530,7 +542,7 @@ public class SqlJetPage implements ISqlJetPage {
                             pPager.journalOff += pPager.pageSize + 4;
                         }
                         try {
-                            SqlJetPager.write32bitsUnsigned( pPager.jfd, pPager.journalOff, cksum );
+                            SqlJetPager.write32bitsUnsigned(pPager.jfd, pPager.journalOff, cksum);
                         } finally {
                             pPager.journalOff += 4;
                         }
@@ -701,12 +713,12 @@ public class SqlJetPage implements ISqlJetPage {
     public int getRefCount() {
         return nRef;
     }
-    
+
     /* (non-Javadoc)
      * @see org.tmatesoft.sqljet.core.ISqlJetPage#isWriteable()
      */
     public boolean isWriteable() {
-        return flags.contains( SqlJetPageFlags.DIRTY );
+        return flags.contains(SqlJetPageFlags.DIRTY);
     }
 
     /* (non-Javadoc)

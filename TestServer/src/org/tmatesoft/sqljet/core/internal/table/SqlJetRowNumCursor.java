@@ -24,7 +24,6 @@ import org.tmatesoft.sqljet.core.table.SqlJetDb;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public abstract class SqlJetRowNumCursor extends SqlJetCursor {
 
@@ -51,8 +50,7 @@ public abstract class SqlJetRowNumCursor extends SqlJetCursor {
     }
 
     /**
-     * @param limit
-     *            the limit to set
+     * @param limit the limit to set
      * @throws SqlJetException
      */
     public void setLimit(long limit) throws SqlJetException {

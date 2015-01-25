@@ -1,7 +1,7 @@
 /**
  * SqlJetMapTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -30,7 +30,6 @@ import org.tmatesoft.sqljet.core.table.engine.SqlJetEngine;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMapIndex implements ISqlJetMapIndex {
 

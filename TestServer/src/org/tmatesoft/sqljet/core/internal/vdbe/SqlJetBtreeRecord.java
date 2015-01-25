@@ -1,7 +1,7 @@
 /**
  * SqlJetRawTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,6 +17,14 @@
  */
 package org.tmatesoft.sqljet.core.internal.vdbe;
 
+import org.tmatesoft.sqljet.core.SqlJetEncoding;
+import org.tmatesoft.sqljet.core.SqlJetErrorCode;
+import org.tmatesoft.sqljet.core.SqlJetException;
+import org.tmatesoft.sqljet.core.internal.*;
+import org.tmatesoft.sqljet.core.internal.memory.SqlJetMemoryPointer;
+import org.tmatesoft.sqljet.core.internal.table.ISqlJetBtreeRecord;
+import org.tmatesoft.sqljet.core.table.ISqlJetOptions;
+
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -24,24 +32,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.tmatesoft.sqljet.core.SqlJetEncoding;
-import org.tmatesoft.sqljet.core.SqlJetErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
-import org.tmatesoft.sqljet.core.internal.ISqlJetLimits;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetVdbeMem;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
-import org.tmatesoft.sqljet.core.internal.memory.SqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.table.ISqlJetBtreeRecord;
-import org.tmatesoft.sqljet.core.table.ISqlJetOptions;
-
 /**
  * Implements {@link ISqlJetBtreeRecord}.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
 
@@ -139,7 +134,7 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
     /**
      * Read and parse the table header. Store the results of the parse into the
      * record header cache fields of the cursor.
-     * 
+     *
      * @throws SqlJetException
      */
     private void read() throws SqlJetException {
@@ -172,9 +167,9 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
                                            * Pointer to first byte after the
                                            * header
                                            */
-            int[] offset = { 0 }; /* Offset into the data */
+            int[] offset = {0}; /* Offset into the data */
             int szHdrSz; /* Size of the header size field at start of record */
-            int[] avail = { 0 }; /* Number of bytes of available data */
+            int[] avail = {0}; /* Number of bytes of available data */
 
             assert (aType != null);
             assert (aOffset != null);
@@ -216,7 +211,7 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
             for (i = 0; i < ISqlJetLimits.SQLJET_MAX_COLUMN && zIdx.getPointer() < zEndHdr.getPointer()
                     && offset[0] <= payloadSize; i++, fieldsCount++) {
                 aOffset.add(i, offset[0]);
-                int[] a = { 0 };
+                int[] a = {0};
                 SqlJetUtility.movePtr(zIdx, SqlJetUtility.getVarint32(zIdx, a));
                 aType.add(i, a[0]);
                 offset[0] += SqlJetVdbeSerialType.serialTypeLen(a[0]);
@@ -245,29 +240,24 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
 
     /**
      * Opcode: Column P1 P2 P3 P4 *
-     * 
+     * <p/>
      * Interpret the data that cursor P1 points to as a structure built using
      * the MakeRecord instruction. (See the MakeRecord opcode for additional
      * information about the format of the data.) Extract the P2-th column from
      * this record. If there are less that (P2+1) values in the record, extract
      * a NULL.
-     * 
+     * <p/>
      * The value extracted is stored in register P3.
-     * 
+     * <p/>
      * If the column contains fewer than P2 fields, then extract a NULL. Or, if
      * the P4 argument is a P4_MEM use the value of the P4 argument as the
      * result.
-     * 
-     * @param pCrsr
-     *            The BTree cursor
-     * @param fieldNum
-     *            column number to retrieve
-     * @param isIndex
-     *            True if an index containing keys only - no data
-     * @param aType
-     *            Type values for all entries in the record
-     * @param aOffset
-     *            Cached offsets to the start of each columns data
+     *
+     * @param pCrsr    The BTree cursor
+     * @param fieldNum column number to retrieve
+     * @param isIndex  True if an index containing keys only - no data
+     * @param aType    Type values for all entries in the record
+     * @param aOffset  Cached offsets to the start of each columns data
      * @param pDest
      * @throws SqlJetException
      */
@@ -387,7 +377,7 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
 
     /**
      * Assuming the record contains N fields, the record format looks like this:
-     * 
+     * <p/>
      * <table border="1">
      * <tr>
      * <td>hdr-size</td>
@@ -400,7 +390,7 @@ public class SqlJetBtreeRecord implements ISqlJetBtreeRecord {
      * <td>data N-1</td>
      * </tr>
      * </table>
-     * 
+     * <p/>
      * Each type field is a varint representing the serial type of the
      * corresponding data element (see sqlite3VdbeSerialType()). The hdr-size
      * field is also a varint which is the offset from the beginning of the

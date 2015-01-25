@@ -1,7 +1,7 @@
 /**
  * ISqlJetSchema.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,13 +17,13 @@
  */
 package org.tmatesoft.sqljet.core.schema;
 
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
+
+import java.util.Set;
 
 /**
  * Database schema interface.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
  */
@@ -31,7 +31,7 @@ public interface ISqlJetSchema {
 
     /**
      * Get tables names.
-     * 
+     *
      * @return tables names.
      * @throws SqlJetException
      */
@@ -39,9 +39,8 @@ public interface ISqlJetSchema {
 
     /**
      * Get table definition by name.
-     * 
-     * @param name
-     *            table name
+     *
+     * @param name table name
      * @return table definition
      * @throws SqlJetException
      */
@@ -49,7 +48,7 @@ public interface ISqlJetSchema {
 
     /**
      * Get indices names.
-     * 
+     *
      * @return indices names.
      * @throws SqlJetException
      */
@@ -57,9 +56,8 @@ public interface ISqlJetSchema {
 
     /**
      * Get index definition by name.
-     * 
-     * @param name
-     *            index name
+     *
+     * @param name index name
      * @return index definition
      * @throws SqlJetException
      */
@@ -67,9 +65,8 @@ public interface ISqlJetSchema {
 
     /**
      * Get indices related with table.
-     * 
-     * @param tableName
-     *            table name
+     *
+     * @param tableName table name
      * @return indices of table
      * @throws SqlJetException
      */
@@ -77,7 +74,6 @@ public interface ISqlJetSchema {
 
     /**
      * @return Set of virtual table names defined in this schema.
-     * 
      * @throws SqlJetException
      */
     Set<String> getVirtualTableNames() throws SqlJetException;
@@ -85,16 +81,14 @@ public interface ISqlJetSchema {
     /**
      * @param name
      * @return definition of the virtual table <code>name</code>.
-     * 
      * @throws SqlJetException
      */
     ISqlJetVirtualTableDef getVirtualTable(String name) throws SqlJetException;
 
     /**
      * Get view definition by name.
-     * 
-     * @param name
-     *            view name
+     *
+     * @param name view name
      * @return view definition
      * @throws SqlJetException
      */
@@ -102,16 +96,14 @@ public interface ISqlJetSchema {
 
     /**
      * @return Set of view names defined in this schema.
-     * 
      * @throws SqlJetException
      */
     Set<String> getViewNames() throws SqlJetException;
 
     /**
      * Get trigger definition by name.
-     * 
-     * @param name
-     *            trigger name
+     *
+     * @param name trigger name
      * @return trigger definition
      * @throws SqlJetException
      */
@@ -119,7 +111,6 @@ public interface ISqlJetSchema {
 
     /**
      * @return Set of trigger names defined in this schema.
-     * 
      * @throws SqlJetException
      */
     Set<String> getTriggerNames() throws SqlJetException;

@@ -2,7 +2,278 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="22f26559-a6a9-405d-89f2-63dfaa813e81" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/300lo.json" afterPath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/300lo.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/CommonTreeDumper.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/CommonTreeDumper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Developing REST Web Services Tutorial.html" afterPath="$PROJECT_DIR$/docs/Developing REST Web Services Tutorial.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBackend.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBackend.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBetweenExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBetweenExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBinaryExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBinaryExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBindParameter.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBindParameter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBlobLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetBlobLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBtree.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBtree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBtreeCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetBtreeCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeDataTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeDataTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeIndexTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeIndexTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeRecord.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeRecord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeSchemaTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeSchemaTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/ISqlJetBtreeTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetBusyHandler.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetBusyHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetCallback.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCaseExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCaseExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCastExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCastExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetCollSeq.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetCollSeq.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCollateExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetCollateExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnCheck.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnCollate.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnCollate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnDefault.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnDefault.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnNotNull.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnNotNull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnPrimaryKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnPrimaryKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnUnique.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetColumnUnique.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetConfig.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetDbHandle.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetDbHandle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/ISqlJetEngineSynchronized.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/ISqlJetEngineSynchronized.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/ISqlJetEngineTransaction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/ISqlJetEngineTransaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFile.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFileSystem.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFileSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFileSystemsManager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFileSystemsManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFloatLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFloatLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyDeferrable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyDeferrable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyMatchAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyMatchAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyUpdateAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetForeignKeyUpdateAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFuncDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetFuncDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFunctionExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFunctionExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFunctionLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetFunctionLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInTableExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInTableExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInValuesExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetInValuesExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIndexDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIndexDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIndexedColumn.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIndexedColumn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIntegerLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIntegerLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIsNullExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetIsNullExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetKeyInfo.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetKeyInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetLimits.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetLimits.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetLiteralValue.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetLiteralValue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMap.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIndex.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIndex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIndexCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIndexCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIterator.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapIterator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTableCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTableCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTransaction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/ISqlJetMapTransaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetMatchExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetMatchExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryBuffer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryManager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryPointer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetMemoryPointer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/ISqlJetMutex.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/ISqlJetMutex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetNullLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetNullLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetOptions.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetOptions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPage.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPageCache.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPageCache.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPageCallback.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPageCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetRaiseExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetRaiseExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetReleasable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetReleasable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetRowSet.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetRowSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetRunnableWithLock.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetRunnableWithLock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetSchema.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetSchema.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetStringLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetStringLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableCheck.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTablePrimaryKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTablePrimaryKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableUnique.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTableUnique.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetTransaction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/ISqlJetTransaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTriggerDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTriggerDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTypeDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetTypeDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetUnaryExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetUnaryExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetUnpackedRecord.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetUnpackedRecord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetVdbeMem.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/ISqlJetVdbeMem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetViewDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetViewDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetVirtualTableDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/ISqlJetVirtualTableDef.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/nocturne/MockServer.java" afterPath="$PROJECT_DIR$/src/com/nocturne/MockServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NocturneServer.iml" afterPath="$PROJECT_DIR$/NocturneServer.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/SQLite Java Tutorial.html" afterPath="$PROJECT_DIR$/docs/SQLite Java Tutorial.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/Simple 5.1.6.html" afterPath="$PROJECT_DIR$/docs/Simple 5.1.6.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetAlterTableDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetAlterTableDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetAutoVacuumMode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetAutoVacuumMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetBackend.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetBackend.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBaseIndexDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBaseIndexDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBetweenExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBetweenExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBinaryExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBinaryExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBindParameter.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBindParameter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBlobLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBlobLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBoolLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetBoolLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtree.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeCellInfo.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeCellInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeDataTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeDataTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetBtreeFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetBtreeFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeIndexTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeIndexTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeLock.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeLock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeLockMode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeLockMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetBtreeRecord.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetBtreeRecord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeSchemaTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeSchemaTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeShared.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetBtreeShared.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetBtreeTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetBtreeTableCreateFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetBtreeTableCreateFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetBusyHandler.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetBusyHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetByteArrayBuffer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetByteArrayBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetByteBuffer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetByteBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetBytesUtility.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetBytesUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCaseExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCaseExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCastExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCastExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetCloneable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetCloneable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCollateExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetCollateExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnCheck.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnCollate.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnCollate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnDefault.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnDefault.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnIndexConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnIndexConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnNotNull.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnNotNull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnNull.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnNull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnPrimaryKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnPrimaryKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnUnique.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetColumnUnique.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetConfig.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetConflictAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetConflictAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetConnection.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetConsole.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetConsole.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetDb.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetDb.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetDbFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetDbFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetDbHandle.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/db/SqlJetDbHandle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetDefaultBusyHandler.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetDefaultBusyHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetDeviceCharacteristics.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetDeviceCharacteristics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetDirectByteBuffer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetDirectByteBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/mutex/SqlJetEmptyMutex.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/mutex/SqlJetEmptyMutex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetEncoding.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetEncoding.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/SqlJetEngine.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/engine/SqlJetEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetError.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetErrorCode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetErrorCode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetException.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetExecCallback.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetExecCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFile.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileAccesPermission.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileAccesPermission.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileLock.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileLock.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileLockManager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileLockManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileOpenPermission.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileOpenPermission.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileSystem.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileSystemsManager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetFileSystemsManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileType.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFileType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/util/SqlJetFileUtil.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/util/SqlJetFileUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFloatLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFloatLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyDeferrable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyDeferrable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetForeignKeyEvent.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetForeignKeyEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyMatchAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyMatchAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetForeignKeyUpdate.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetForeignKeyUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyUpdateAction.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetForeignKeyUpdateAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFuncDefFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetFuncDefFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFunctionExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFunctionExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFunctionLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetFunctionLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetIOErrorCode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetIOErrorCode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetIOException.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetIOException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetInTableExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetInTableExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetInValuesExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetInValuesExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIndexDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIndexDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetIndexOrderCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetIndexOrderCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetIndexScopeCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetIndexScopeCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIndexedColumn.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIndexedColumn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIntegerLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIntegerLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIsNullExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetIsNullExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetKeyInfo.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetKeyInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetLockType.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetLockType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetLogDefinitions.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetLogDefinitions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMap.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/SqlJetMapDb.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/map/SqlJetMapDb.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapIndex.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapIndex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapIndexCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapIndexCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapTableCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/map/SqlJetMapTableCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetMatchExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetMatchExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetMemJournal.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/fs/SqlJetMemJournal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetMemPage.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/btree/SqlJetMemPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetMemoryManager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetMemoryManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetMemoryPointer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/memory/SqlJetMemoryPointer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/mutex/SqlJetMutex.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/mutex/SqlJetMutex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetNullLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetNullLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetOptions.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetOptions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPage.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPageCache.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPageCache.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPageFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPageFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPager.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerJournalMode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerJournalMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerLockingMode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetPagerLockingMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPagerState.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/pager/SqlJetPagerState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetParserException.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetParserException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetPragmasHandler.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetPragmasHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetPreparedStatement.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlJetPreparedStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetRaiseExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetRaiseExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetReverseOrderCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetReverseOrderCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetRowNumCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetRowNumCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetRowSet.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetRowSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSafetyLevel.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSafetyLevel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSavepointOperation.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSavepointOperation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetSchema.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetSchema.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetScope.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetScope.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetSortingOrder.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetSortingOrder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetStringLiteral.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetStringLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSyncFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetSyncFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetTable.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableCheck.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableCheck.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetTableDataCursor.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/table/SqlJetTableDataCursor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableForeignKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableForeignKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableIndexConstraint.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableIndexConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTablePrimaryKey.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTablePrimaryKey.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableUnique.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTableUnique.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetTimeoutBusyHandler.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/SqlJetTimeoutBusyHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetTransactionMode.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetTransactionMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetTransactionState.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetTransactionState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTriggerDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTriggerDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetTypeAffinity.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/SqlJetTypeAffinity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTypeDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetTypeDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetUnaryExpression.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetUnaryExpression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetUnpackedRecord.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetUnpackedRecord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetUnpackedRecordFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetUnpackedRecordFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetUtility.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/SqlJetUtility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetValueType.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetValueType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMem.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMemFlags.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMemFlags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMemPool.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeMemPool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeSerialType.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/vdbe/SqlJetVdbeSerialType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetVersion.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/SqlJetVersion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetViewDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetViewDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetVirtualTableDef.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/schema/SqlJetVirtualTableDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlLexer.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlLexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlParser.java" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/internal/lang/SqlParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/fastbutton.html" afterPath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/fastbutton.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/package.html" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/package.html" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/schema/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/package.html" afterPath="$PROJECT_DIR$/src/org/tmatesoft/sqljet/core/table/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/postmessageRelay.html" afterPath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/postmessageRelay.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/sh180.html" afterPath="$PROJECT_DIR$/docs/SQLite Java Tutorial_files/sh180.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/tomashanacek mock-server.html" afterPath="$PROJECT_DIR$/docs/tomashanacek mock-server.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Android/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NocturneServer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,25 +298,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MockServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MockServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64890283" vertical-offset="2376" max-vertical-offset="4470">
-              <caret line="258" column="31" selection-start-line="258" selection-start-column="31" selection-end-line="258" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="7320">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+                <element signature="e#2664#2665#0" expanded="true" />
+                <element signature="e#2722#2723#0" expanded="true" />
                 <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
                 <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
-                <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
-                <element signature="method#dbInitialise#0;class#MockServer#0" expanded="false" />
-                <element signature="method#isDbSetup#0;class#MockServer#0" expanded="false" />
-                <element signature="method#dbCreate#0;class#MockServer#0" expanded="false" />
-                <element signature="method#dbOpenConnection#0;class#MockServer#0" expanded="false" />
-                <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
-                <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="log4j2.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/log4j2.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.32258064" vertical-offset="0" max-vertical-offset="651">
+              <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="870">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,9 +344,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/build.properties" />
-        <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/rpi-update.sh" />
+        <option value="$PROJECT_DIR$/log4j.xml" />
+        <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/src/com/nocturne/MockServer.java" />
+        <option value="$PROJECT_DIR$/log4j2.xml" />
       </list>
     </option>
   </component>
@@ -93,6 +380,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -149,8 +438,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,7 +461,7 @@
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build.xml" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/antlr-runtime-3.4.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/log4j-core-2.1.jar!/" />
     <property name="options.lastSelected" value="preferences.keymap" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -188,7 +475,7 @@
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.nocturne.MockServer" />
-      <option name="VM_PARAMETERS" value="" />
+      <option name="VM_PARAMETERS" value="-Dlog4j.configurationFile=./log4j2.xml" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -227,6 +514,17 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -374,15 +672,15 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1765625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25494507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25494507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -418,21 +716,30 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4470">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2664#2665#0" expanded="true" />
+            <element signature="e#2722#2723#0" expanded="true" />
+            <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
+            <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4545">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+            <element signature="e#2664#2665#0" expanded="true" />
+            <element signature="e#2722#2723#0" expanded="true" />
             <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
-            <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbInitialise#0;class#MockServer#0" expanded="false" />
-            <element signature="method#isDbSetup#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreate#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbOpenConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -444,16 +751,10 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+            <element signature="e#2664#2665#0" expanded="true" />
+            <element signature="e#2722#2723#0" expanded="true" />
             <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
-            <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbInitialise#0;class#MockServer#0" expanded="false" />
-            <element signature="method#isDbSetup#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreate#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbOpenConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -488,30 +789,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74745184" vertical-offset="0" max-vertical-offset="883">
-          <caret line="44" column="15" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="38" max-vertical-offset="870">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/nocturne/MockServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64890283" vertical-offset="2376" max-vertical-offset="4470">
-          <caret line="258" column="31" selection-start-line="258" selection-start-column="31" selection-end-line="258" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="7320">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="method#handle#0;class#MockServer#0" expanded="false" />
+            <element signature="e#2664#2665#0" expanded="true" />
+            <element signature="e#2722#2723#0" expanded="true" />
             <element signature="docComment;method#handleRequestUserRegister#0;class#MockServer#0" expanded="false" />
             <element signature="docComment;method#handleRequestUserConnect#0;class#MockServer#0" expanded="false" />
-            <element signature="method#handleRequestGetConnectedUsers#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbInitialise#0;class#MockServer#0" expanded="false" />
-            <element signature="method#isDbSetup#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreate#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbOpenConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCloseConnection#0;class#MockServer#0" expanded="false" />
-            <element signature="method#dbCreateDummyData#0;class#MockServer#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log4j2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32258064" vertical-offset="0" max-vertical-offset="651">
+          <caret line="14" column="55" selection-start-line="14" selection-start-column="55" selection-end-line="14" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -572,7 +875,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -580,7 +882,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>antlr-runtime-3.4</last-edited>
+          <last-edited>log4j-api-2.1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

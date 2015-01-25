@@ -1,7 +1,7 @@
 /**
  * PCache.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,27 +17,16 @@
  */
 package org.tmatesoft.sqljet.core.internal.pager;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPage;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPageCache;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPageCallback;
-import org.tmatesoft.sqljet.core.internal.SqlJetPageFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
+
+import java.util.*;
 
 /**
  * A complete page cache is an instance of this structure.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetPageCache implements ISqlJetPageCache {
 
@@ -50,21 +39,37 @@ public class SqlJetPageCache implements ISqlJetPageCache {
 
     private static final int N_SORT_BUCKET = 25;
 
-    /** List of dirty pages in LRU order */
+    /**
+     * List of dirty pages in LRU order
+     */
     SqlJetPage pDirty, pDirtyTail;
-    /** Last synced page in dirty page list */
+    /**
+     * Last synced page in dirty page list
+     */
     SqlJetPage pSynced;
-    /** Number of pinned pages */
+    /**
+     * Number of pinned pages
+     */
     int nRef;
-    /** Configured cache size */
+    /**
+     * Configured cache size
+     */
     int nMax = PAGE_CACHE_SIZE_DEFAULT;
-    /** Configured minimum cache size */
+    /**
+     * Configured minimum cache size
+     */
     int nMin = PAGE_CACHE_SIZE_MINIMUM;
-    /** Size of every page in this cache */
+    /**
+     * Size of every page in this cache
+     */
     int szPage;
-    /** True if pages are on backing store */
+    /**
+     * True if pages are on backing store
+     */
     boolean bPurgeable;
-    /** Call to try make a page clean */
+    /**
+     * Call to try make a page clean
+     */
     ISqlJetPageCallback xStress;
     PCache pCache = new PCache();
     ISqlJetPage pPage1;
@@ -545,12 +550,16 @@ public class SqlJetPageCache implements ISqlJetPageCache {
 
     class PCache {
 
-        /** Hash table for fast lookup by key */
+        /**
+         * Hash table for fast lookup by key
+         */
         private Map<Integer, SqlJetPage> apHash = new LinkedHashMap<Integer, SqlJetPage>();
 
         private Set<Integer> unpinned = new LinkedHashSet<Integer>();
 
-        /** Largest key seen since xTruncate() */
+        /**
+         * Largest key seen since xTruncate()
+         */
         private int iMaxKey;
 
         public synchronized int getPageCount() {
@@ -559,42 +568,42 @@ public class SqlJetPageCache implements ISqlJetPageCache {
 
         /**
          * Fetch a page by key value.
-         * 
+         * <p/>
          * Whether or not a new page may be allocated by this function depends
          * on the value of the createFlag argument.
-         * 
+         * <p/>
          * There are three different approaches to obtaining space for a page,
          * depending on the value of parameter createFlag (which may be 0, 1 or
          * 2).
-         * 
+         * <p/>
          * 1. Regardless of the value of createFlag, the cache is searched for a
          * copy of the requested page. If one is found, it is returned.
-         * 
+         * <p/>
          * 2. If createFlag==0 and the page is not already in the cache, NULL is
          * returned.
-         * 
+         * <p/>
          * 3. If createFlag is 1, the cache is marked as purgeable and the page
          * is not already in the cache, and if either of the following are true,
          * return NULL:
-         * 
+         * <p/>
          * (a) the number of pages pinned by the cache is greater than
          * PCache1.nMax, or (b) the number of pages pinned by the cache is
          * greater than the sum of nMax for all purgeable caches, less the sum
          * of nMin for all other purgeable caches.
-         * 
+         * <p/>
          * 4. If none of the first three conditions apply and the cache is
          * marked as purgeable, and if one of the following is true:
-         * 
+         * <p/>
          * (a) The number of pages allocated for the cache is already
          * PCache1.nMax, or
-         * 
+         * <p/>
          * (b) The number of pages allocated for all purgeable caches is already
          * equal to or greater than the sum of nMax for all purgeable caches,
-         * 
+         * <p/>
          * then attempt to recycle a page from the LRU list. If it is the right
          * size, return the recycled buffer. Otherwise, free the buffer and
          * proceed to step 5.
-         * 
+         * <p/>
          * 5. Otherwise, allocate and return a new page buffer.
          */
         public synchronized SqlJetPage fetch(final int key, final boolean createFlag) {
@@ -645,7 +654,7 @@ public class SqlJetPageCache implements ISqlJetPageCache {
 
         /**
          * Mark a page as unpinned (eligible for asynchronous recycling).
-         * 
+         * <p/>
          * xUnpin() is called by SQLite with a pointer to a currently pinned
          * page as its second argument. If the third parameter, discard, is
          * non-zero, then the page should be evicted from the cache. In this
@@ -656,11 +665,10 @@ public class SqlJetPageCache implements ISqlJetPageCache {
          * pages at any time. SQLite assumes that next time the page is
          * retrieved from the cache it will either be zeroed, or contain the
          * same data that it did when it was unpinned.
-         * 
+         * <p/>
          * The cache is not required to perform any reference counting. A single
          * call to xUnpin() unpins the page regardless of the number of prior
          * calls to xFetch().
-         * 
          */
         public synchronized void unpin(ISqlJetPage page, boolean discard) {
             final int pageNumber = page.getPageNumber();
@@ -677,7 +685,6 @@ public class SqlJetPageCache implements ISqlJetPageCache {
          * cache previously contains an entry associated with newKey, it should
          * be discarded. Any prior cache entry associated with newKey is
          * guaranteed not to be pinned.
-         * 
          */
         public synchronized void rekey(ISqlJetPage page, int oldKey, int newKey) {
 
@@ -701,7 +708,6 @@ public class SqlJetPageCache implements ISqlJetPageCache {
          * to the value of the iLimit parameter passed to xTruncate(). If any of
          * these pages are pinned, they are implicitly unpinned, meaning that
          * they can be safely discarded.
-         * 
          */
         public synchronized void truncate(int iLimit) {
             if (iLimit <= iMaxKey) {
@@ -730,7 +736,7 @@ public class SqlJetPageCache implements ISqlJetPageCache {
         }
 
         /**
-         * 
+         *
          */
         public void cleanUnpinned() {
             final Iterator<Integer> i = unpinned.iterator();
@@ -745,9 +751,9 @@ public class SqlJetPageCache implements ISqlJetPageCache {
                     i.remove();
                     continue;
                 }
-                if(p.getRefCount()>0){
+                if (p.getRefCount() > 0) {
                     i.remove();
-                    continue;                    
+                    continue;
                 }
                 final Set<SqlJetPageFlags> flags = p.getFlags();
                 if (flags.contains(SqlJetPageFlags.DIRTY) || flags.contains(SqlJetPageFlags.NEED_SYNC)) {

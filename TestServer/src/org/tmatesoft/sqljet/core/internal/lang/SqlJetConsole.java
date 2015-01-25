@@ -1,7 +1,7 @@
 /**
  * SqlJetConsole.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,11 +17,11 @@
  */
 package org.tmatesoft.sqljet.core.internal.lang;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.schema.SqlJetBlobLiteral;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * @author TMate Software Ltd.
@@ -100,21 +100,21 @@ public class SqlJetConsole implements SqlJetExecCallback {
                 buffer.append("|");
             }
             switch (stmt.getColumnType(i)) {
-            case INTEGER:
-                buffer.append(stmt.getInteger(i));
-                break;
-            case FLOAT:
-                buffer.append(stmt.getFloat(i));
-                break;
-            case TEXT:
-                buffer.append(String.valueOf(stmt.getText(i)));
-                break;
-            case BLOB:
-                buffer.append(asBlob(stmt.getBlobAsArray(i)));
-                break;
-            case NULL:
-                buffer.append("NULL");
-                break;
+                case INTEGER:
+                    buffer.append(stmt.getInteger(i));
+                    break;
+                case FLOAT:
+                    buffer.append(stmt.getFloat(i));
+                    break;
+                case TEXT:
+                    buffer.append(String.valueOf(stmt.getText(i)));
+                    break;
+                case BLOB:
+                    buffer.append(asBlob(stmt.getBlobAsArray(i)));
+                    break;
+                case NULL:
+                    buffer.append("NULL");
+                    break;
             }
         }
         println(buffer.toString());

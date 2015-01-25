@@ -1,7 +1,7 @@
 /**
  * SqlJetConflictAction.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -15,7 +15,7 @@ package org.tmatesoft.sqljet.core.schema;
 
 /**
  * "ON CONFLICT" action.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Dmitry Stadnik (dtrace@seznam.cz)
  */
@@ -40,7 +40,7 @@ public enum SqlJetConflictAction {
     ABORT,
 
     /**
-     *When a constraint violation occurs, the command aborts with a return code
+     * When a constraint violation occurs, the command aborts with a return code
      * SQLITE_CONSTRAINT. But any changes to the database that the command made
      * prior to encountering the constraint violation are preserved and are not
      * backed out. For example, if an UPDATE statement encountered a constraint
@@ -67,7 +67,7 @@ public enum SqlJetConflictAction {
      * value for that column. If the column has no default value, then the ABORT
      * algorithm is used. If a CHECK constraint violation occurs then the IGNORE
      * algorithm is used.
-     * 
+     * <p/>
      * When this conflict resolution strategy deletes rows in order to satisfy a
      * constraint, it does not invoke delete triggers on those rows. Nor is the
      * update hook invoked. The exceptional behaviors defined in this paragraph
@@ -92,16 +92,16 @@ public enum SqlJetConflictAction {
 
     public String toString() {
         switch (this) {
-        case ROLLBACK:
-            return "ROLLBACK";
-        case ABORT:
-            return "ABORT";
-        case FAIL:
-            return "FAIL";
-        case IGNORE:
-            return "IGNORE";
-        case REPLACE:
-            return "REPLACE";
+            case ROLLBACK:
+                return "ROLLBACK";
+            case ABORT:
+                return "ABORT";
+            case FAIL:
+                return "FAIL";
+            case IGNORE:
+                return "IGNORE";
+            case REPLACE:
+                return "REPLACE";
         }
         return "";
     }

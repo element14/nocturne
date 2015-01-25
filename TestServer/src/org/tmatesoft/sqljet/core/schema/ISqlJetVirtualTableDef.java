@@ -1,7 +1,7 @@
 /**
  * ISqlJetVirtualTableDef.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -21,10 +21,9 @@ import java.util.List;
 
 /**
  * Virtual table schema definition.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetVirtualTableDef {
 
@@ -54,8 +53,7 @@ public interface ISqlJetVirtualTableDef {
     int getPage();
 
     /**
-     * @param page
-     *            the page to set
+     * @param page the page to set
      */
     void setPage(int page);
 
@@ -65,8 +63,7 @@ public interface ISqlJetVirtualTableDef {
     long getRowId();
 
     /**
-     * @param rowId
-     *            the rowId to set
+     * @param rowId the rowId to set
      */
     void setRowId(long rowId);
 

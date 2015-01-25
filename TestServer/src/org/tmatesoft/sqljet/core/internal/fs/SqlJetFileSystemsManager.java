@@ -1,7 +1,7 @@
 /**
  * SqlJetFileSystemsManager.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,20 +17,19 @@
  */
 package org.tmatesoft.sqljet.core.internal.fs;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.ISqlJetFileSystem;
 import org.tmatesoft.sqljet.core.internal.ISqlJetFileSystemsManager;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Singleton implementation of {@link ISqlJetFileSystemsManager}.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetFileSystemsManager implements ISqlJetFileSystemsManager {
 
@@ -38,10 +37,10 @@ public class SqlJetFileSystemsManager implements ISqlJetFileSystemsManager {
     private ISqlJetFileSystem defaultFileSystem = null;
     private Map<String, ISqlJetFileSystem> fileSystems = new ConcurrentHashMap<String, ISqlJetFileSystem>();
 
-    private static SqlJetFileSystemsManager manager = new SqlJetFileSystemsManager(); 
-    
+    private static SqlJetFileSystemsManager manager = new SqlJetFileSystemsManager();
+
     /**
-     * Protected constructor 
+     * Protected constructor
      */
     protected SqlJetFileSystemsManager() {
         try {
@@ -50,10 +49,10 @@ public class SqlJetFileSystemsManager implements ISqlJetFileSystemsManager {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Singleton accessor.
-     * 
+     *
      * @return the manager
      */
     public static SqlJetFileSystemsManager getManager() {
@@ -115,17 +114,17 @@ public class SqlJetFileSystemsManager implements ISqlJetFileSystemsManager {
 
     /**
      * Check FS parameter
-     * 
+     *
      * @param fs
      * @throws SqlJetExceptionRemove
      */
     private void checkFS(final ISqlJetFileSystem fs) throws SqlJetException {
-        if(null==fs) 
+        if (null == fs)
             throw new SqlJetException(SqlJetErrorCode.BAD_PARAMETER,
-                "Prameter 'fs' must be not null");
-        if(null==fs.getName()) 
+                    "Prameter 'fs' must be not null");
+        if (null == fs.getName())
             throw new SqlJetException(SqlJetErrorCode.BAD_PARAMETER,
-                "fs.getName() must return not null value");
+                    "fs.getName() must return not null value");
     }
-    
+
 }

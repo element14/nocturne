@@ -11,7 +11,7 @@
 
     <property name="main-class" value="com.nocturne.MockServer"/>
 
-    <property name="lib.dir"     value="lib"/>
+    <property name="lib.dir" value="lib"/>
 
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -37,7 +37,7 @@
 
     <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
-  <jvmarg value="-Xdebug" />
+            <jvmarg value="-Xdebug -Dlog4j.configurationFile=./log4j2.xml"/>
             <classpath>
                 <path refid="classpath"/>
                 <path location="${jar.dir}/${ant.project.name}.jar"/>

@@ -13,25 +13,13 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.lang.SqlParser;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnConstraint;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnNotNull;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnPrimaryKey;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnUnique;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableConstraint;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTablePrimaryKey;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableUnique;
+import org.tmatesoft.sqljet.core.schema.*;
+
+import java.util.*;
 
 /**
  * @author TMate Software Ltd.
@@ -68,7 +56,7 @@ public class SqlJetTableDef implements ISqlJetTableDef {
     private final List<ISqlJetColumnDef> notNullColumnsCache = new ArrayList<ISqlJetColumnDef>();
 
     SqlJetTableDef(String name, String databaseName, boolean temporary, boolean ifNotExists,
-            List<ISqlJetColumnDef> columns, List<ISqlJetTableConstraint> constraints, int page, long rowid) throws SqlJetException {
+                   List<ISqlJetColumnDef> columns, List<ISqlJetTableConstraint> constraints, int page, long rowid) throws SqlJetException {
         this.name = SqlParser.unquoteId(name);
         this.quotedName = name;
         this.databaseName = databaseName;
@@ -136,7 +124,7 @@ public class SqlJetTableDef implements ISqlJetTableDef {
     private void resolveConstraints() throws SqlJetException {
         int columnIndex = 0, autoindexNumber = 0;
         for (ISqlJetColumnDef column : columns) {
-            ((SqlJetColumnDef)column).setIndex(columnIndex);
+            ((SqlJetColumnDef) column).setIndex(columnIndex);
             boolean notNull = false;
             for (ISqlJetColumnConstraint constraint : column.getConstraints()) {
                 if (constraint instanceof ISqlJetColumnPrimaryKey) {
@@ -218,7 +206,7 @@ public class SqlJetTableDef implements ISqlJetTableDef {
     }
 
     public String getQuotedName() {
-    	return quotedName;
+        return quotedName;
     }
 
     public String getDatabaseName() {

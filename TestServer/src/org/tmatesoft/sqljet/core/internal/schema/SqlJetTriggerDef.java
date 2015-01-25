@@ -1,7 +1,7 @@
 /**
  * VirtualTablesTest.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -21,9 +21,9 @@ import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTriggerDef;
 
 public class SqlJetTriggerDef implements ISqlJetTriggerDef {
-    
+
     private String name;
-    
+
     private boolean temporary;
     private boolean ifNotExists;
     private String databaseName;
@@ -40,7 +40,7 @@ public class SqlJetTriggerDef implements ISqlJetTriggerDef {
         ifNotExists = SqlJetTableDef.hasOption(optionsNode, "exists");
 
         CommonTree nameNode = (CommonTree) ast.getChild(1);
-        
+
         name = nameNode.getText();
         tableName = nameNode.getChildCount() > 0 ? nameNode.getChild(0).getText() : null;
         databaseName = nameNode.getChildCount() > 1 ? nameNode.getChild(1).getText() : null;
@@ -61,11 +61,11 @@ public class SqlJetTriggerDef implements ISqlJetTriggerDef {
     public boolean isKeepExisting() {
         return ifNotExists;
     }
-    
+
     public String toSQL() {
         return sqlStatement;
     }
-    
+
     @Override
     public String toString() {
         return toSQL();
@@ -74,7 +74,7 @@ public class SqlJetTriggerDef implements ISqlJetTriggerDef {
     public long getRowId() {
         return rowId;
     }
-    
+
     public void setRowId(long rowId) {
         this.rowId = rowId;
     }

@@ -1,7 +1,7 @@
 /**
  * ISqlJetTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,26 +17,25 @@
  */
 package org.tmatesoft.sqljet.core.table;
 
-import java.util.Map;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
 import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Interface which represents database table.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetTable {
 
     /**
      * Get database connection.
-     * 
+     *
      * @return the database connection.
      */
     SqlJetDb getDataBase();
@@ -47,9 +46,9 @@ public interface ISqlJetTable {
      * in {@link #lookup(String, Object...)},
      * {@link #scope(String, Object[], Object[])} or {@link #order(String)}
      * methods at first parameter.
-     * 
+     *
      * @return the primaryKeyIndex name of index or null if table haven't
-     *         primary key or have INTEGER PRIMARY KEY.
+     * primary key or have INTEGER PRIMARY KEY.
      */
     String getPrimaryKeyIndexName() throws SqlJetException;
 
@@ -60,7 +59,7 @@ public interface ISqlJetTable {
 
     /**
      * Returns definitions of indices used in this table.
-     * 
+     *
      * @return definitions of indices used in this table.
      * @throws SqlJetException
      */
@@ -68,7 +67,7 @@ public interface ISqlJetTable {
 
     /**
      * Get table indexes names.
-     * 
+     *
      * @return names of table indexes.
      * @throws SqlJetException
      */
@@ -76,9 +75,8 @@ public interface ISqlJetTable {
 
     /**
      * Get definition of index by name.
-     * 
-     * @param name
-     *            name of index.
+     *
+     * @param name name of index.
      * @return definition of index.
      * @throws SqlJetException
      */
@@ -88,12 +86,12 @@ public interface ISqlJetTable {
      * <p>
      * Open cursor for all table records.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Cursors can be opened only within active transaction. When transaction
      * ends all cursors will be closed.
      * </p>
-     * 
+     *
      * @return cursor for all table records.
      * @throws SqlJetException
      */
@@ -103,21 +101,19 @@ public interface ISqlJetTable {
      * <p>
      * Open cursor for records which have found by key on index.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If indexName is NULL then primary key will be used.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Cursors can be opened only within active transaction. When transaction
      * ends all cursors will be closed.
      * </p>
-     * 
-     * @param indexName
-     *            Name of the searched index. If null then primary key will be
-     *            used.
-     * @param key
-     *            Key for the index lookup.
+     *
+     * @param indexName Name of the searched index. If null then primary key will be
+     *                  used.
+     * @param key       Key for the index lookup.
      * @return cursor for records which have found by key on index.
      * @throws SqlJetException
      */
@@ -127,19 +123,18 @@ public interface ISqlJetTable {
      * <p>
      * Open cursors which sorts table by index.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If indexName is NULL then primary key will be used.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Cursors can be opened only within active transaction. When transaction
      * ends all cursors will be closed.
      * </p>
-     * 
+     *
      * @param indexName name of index which defines ordering.If null then primary key
      *                  will be used.
-     *                  
      * @return cursor sorted by index.
      * @throws SqlJetException
      */
@@ -149,7 +144,7 @@ public interface ISqlJetTable {
      * <p>
      * Open cursor which restricts table to some scope of index values.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Scope is specified as pair of index keys. First key means start of scope
      * and last key means end of scope. One of these keys (or even both) could
@@ -157,19 +152,16 @@ public interface ISqlJetTable {
      * first key is less of last key then cursor will be in reversed order. If
      * indexName is NULL then primary key will be used.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Cursors can be opened only within active transaction. When transaction
      * ends all cursors will be closed.
      * </p>
-     * 
-     * @param indexName
-     *            Name of the searched index. If null then primary key will be
-     *            used.
-     * @param firstKey
-     *            first key of scope. Could be NULL.
-     * @param lastKey
-     *            first key of scope. Could be NULL.
+     *
+     * @param indexName Name of the searched index. If null then primary key will be
+     *                  used.
+     * @param firstKey  first key of scope. Could be NULL.
+     * @param lastKey   first key of scope. Could be NULL.
      * @return cursor which have defined scope of rows.
      * @throws SqlJetException
      */
@@ -179,7 +171,7 @@ public interface ISqlJetTable {
      * <p>
      * Open cursor which restricts table to some scope of index values.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Scope is specified as pair of index keys. First key means start of scope
      * and last key means end of scope. One of these keys (or even both) could
@@ -187,18 +179,15 @@ public interface ISqlJetTable {
      * first key is less of last key then cursor will be in reversed order. If
      * indexName is NULL then primary key will be used.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Cursors can be opened only within active transaction. When transaction
      * ends all cursors will be closed.
      * </p>
-     * 
-     * @param indexName
-     *            Name of the searched index. If null then primary key will be
-     *            used.
-     * @param scope 
-     *          structure that contains both left and right bounds of the requested scope.
-
+     *
+     * @param indexName Name of the searched index. If null then primary key will be
+     *                  used.
+     * @param scope     structure that contains both left and right bounds of the requested scope.
      * @return cursor which have defined scope of rows.
      * @throws SqlJetException
      */
@@ -208,33 +197,32 @@ public interface ISqlJetTable {
      * <p>
      * Add new record to the table with specified values.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Values must be specified by position in table structure. If table have
      * INTEGER PRIMARY KEY column then this column could be null and in this
      * case it value will be defined automatically.
      * <p/>
-     * 
+     * <p/>
      * <p>
      * If field has DEFAULT value then it could be passed as null. If fields
      * have DEFAULT value and are last in table structure then they could be not
      * specified.
      * <p/>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
-     * @param values
-     *            Values for the new record.
+     *
+     * @param values Values for the new record.
      * @return ROWID of inserted record.
      */
     long insert(Object... values) throws SqlJetException;
@@ -243,34 +231,33 @@ public interface ISqlJetTable {
      * <p>
      * Insert record by values by names of fields.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If table have INTEGER PRIMARY KEY column then this column could be null
      * or even not specified and in this case it value will be defined
      * automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * The ROWID of record could be passed by any of this names: ROWID, _ROWID_,
      * OID. ROWID could be specified even if table haven't INTEGER PRIMARY KEY
      * column.
      * </p>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * <p/>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
-     * @param values
-     *            map of field names with values.
+     *
+     * @param values map of field names with values.
      * @return ROWID of inserted record.
      * @throws SqlJetException
      */
@@ -281,37 +268,35 @@ public interface ISqlJetTable {
      * Inserts record at specified rowId. If rowId is 0 then it generates new
      * rowId.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If table has INTEGER PRIMARY KEY column and rowId isn't 0 then value for
      * this field will be ignored and could be specified just as null. If table
      * has INTEGER PRIMARY KEY column and rowId is 0 then value for this field
      * used as rowId.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If field has DEFAULT value then it could be passed as null. If fields
      * have DEFAULT value and are last in table structure then they could be not
      * specified.
      * </p>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
-     * @param rowId
-     *            ROWID of record.
-     * @param values
-     *            Values for the new record.
+     *
+     * @param rowId  ROWID of record.
+     * @param values Values for the new record.
      * @throws SqlJetException
      */
     long insertWithRowId(long rowId, Object... values) throws SqlJetException;
@@ -320,46 +305,43 @@ public interface ISqlJetTable {
      * <p>
      * Add new record to the table with specified values.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Values must be specified by position in table structure.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If table have INTEGER PRIMARY KEY column then this column could be null
      * and in this case it value will be defined automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If field has DEFAULT value then it could be passed as null. If fields
      * have DEFAULT value and are last in table structure then they could be not
      * specified.
      * </p>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Implements ON CONFLICT clause. See {@link SqlJetConflictAction}.
      * </p>
-     * 
-     * @param onConflict
-     *            {@link SqlJetConflictAction}.
-     * @param values
-     *            Values for the new record.
+     *
+     * @param onConflict {@link SqlJetConflictAction}.
+     * @param values     Values for the new record.
      * @return ROWID of inserted record.
      * @throws SqlJetException
-     * 
      */
     long insertOr(SqlJetConflictAction onConflict, Object... values) throws SqlJetException;
 
@@ -367,40 +349,38 @@ public interface ISqlJetTable {
      * <p>
      * Insert record by values by names of fields.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If table have INTEGER PRIMARY KEY column then this column could be null
      * or even not specified and in this case it value will be defined
      * automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * The ROWID of record could be passed by any of this names: ROWID, _ROWID_,
      * OID. ROWID could be specified even if table haven't INTEGER PRIMARY KEY
      * column.
      * </p>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Implements ON CONFLICT clause. See {@link SqlJetConflictAction}.
      * </p>
-     * 
-     * @param onConflict
-     *            {@link SqlJetConflictAction}.
-     * @param values
-     *            Values for the new record.
+     *
+     * @param onConflict {@link SqlJetConflictAction}.
+     * @param values     Values for the new record.
      * @return ROWID of inserted record.
      * @throws SqlJetException
      */
@@ -410,47 +390,44 @@ public interface ISqlJetTable {
      * <p>
      * Inserts record at specified rowId.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If rowId is 0 then it generates new rowId.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If table has INTEGER PRIMARY KEY column and rowId isn't 0 then value for
      * this field will be ignored and could be specified just as null. If table
      * has INTEGER PRIMARY KEY column and rowId is 0 then value for this field
      * used as rowId.
      * </p>
-     * 
+     * <p/>
      * <p>
      * If field has DEFAULT value then it could be passed as null. If fields
      * have DEFAULT value and are last in table structure then they could be not
      * specified.
      * </p>
-     * 
+     * <p/>
      * <p>
      * All relevant indexes are updated automatically.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Returns ROWID of inserted record.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Can be used without of active transaction, in this case method begins and
      * ends own internal transaction.
      * </p>
-     * 
+     * <p/>
      * <p>
      * Implements ON CONFLICT clause. See {@link SqlJetConflictAction}.
      * </p>
-     * 
-     * @param onConflict
-     *            {@link SqlJetConflictAction}.
-     * @param rowId
-     *            ROWID of record.
-     * @param values
-     *            Values for the new record.
+     *
+     * @param onConflict {@link SqlJetConflictAction}.
+     * @param rowId      ROWID of record.
+     * @param values     Values for the new record.
      * @return ROWID of inserted record.
      * @throws SqlJetException
      */
@@ -458,7 +435,7 @@ public interface ISqlJetTable {
 
     /**
      * Clear table. It fast delete of all rows in table.
-     * 
+     *
      * @throws SqlJetException
      */
     void clear() throws SqlJetException;

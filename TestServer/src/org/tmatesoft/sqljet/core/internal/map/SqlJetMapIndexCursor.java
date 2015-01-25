@@ -1,7 +1,7 @@
 /**
  * SqlJetMapTableCursor.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -16,8 +16,6 @@
  * contact TMate Software at support@sqljet.com
  */
 package org.tmatesoft.sqljet.core.internal.map;
-
-import java.util.Set;
 
 import org.tmatesoft.sqljet.core.SqlJetEncoding;
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
@@ -34,10 +32,11 @@ import org.tmatesoft.sqljet.core.map.ISqlJetMapIndexCursor;
 import org.tmatesoft.sqljet.core.map.SqlJetMapDb;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
 
+import java.util.Set;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMapIndexCursor extends SqlJetBtreeTable implements ISqlJetMapIndexCursor {
 
@@ -146,7 +145,7 @@ public class SqlJetMapIndexCursor extends SqlJetBtreeTable implements ISqlJetMap
                 try {
                     final SqlJetEncoding encoding = mapDb.getOptions().getEncoding();
                     final ISqlJetBtreeRecord rec = SqlJetBtreeRecord.getRecord(encoding,
-                            SqlJetUtility.addArrays(key, new Object[] { value }));
+                            SqlJetUtility.addArrays(key, new Object[]{value}));
                     final ISqlJetMemoryPointer zKey = rec.getRawRecord();
                     getCursor().insert(zKey, zKey.remaining(), SqlJetUtility.allocatePtr(0), 0, 0, true);
                     clearRecordCache();

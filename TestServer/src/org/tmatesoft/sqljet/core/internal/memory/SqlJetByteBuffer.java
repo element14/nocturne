@@ -1,7 +1,7 @@
 /**
  * SqlJetByteBuffer.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,20 +17,19 @@
  */
 package org.tmatesoft.sqljet.core.internal.memory;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-
 import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryBuffer;
 import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryManager;
 import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
 import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetByteBuffer implements ISqlJetMemoryBuffer {
 
@@ -378,7 +377,7 @@ public class SqlJetByteBuffer implements ISqlJetMemoryBuffer {
      * org.tmatesoft.sqljet.core.internal.ISqlJetMemoryBuffer, int, int)
      */
     public void copyFrom(int dstPos, ISqlJetMemoryBuffer src, int srcPos, int count) {
-        if (src instanceof SqlJetByteBuffer&& !(src instanceof SqlJetDirectByteBuffer)) {
+        if (src instanceof SqlJetByteBuffer && !(src instanceof SqlJetDirectByteBuffer)) {
             final SqlJetByteBuffer srcBuf = (SqlJetByteBuffer) src;
             System.arraycopy(srcBuf.buffer.array(), srcPos, buffer.array(), dstPos, count);
         } else {

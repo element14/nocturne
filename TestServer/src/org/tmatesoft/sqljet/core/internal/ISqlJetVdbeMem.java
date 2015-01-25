@@ -1,7 +1,7 @@
 /**
  * ISqlJetVdbeMem.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,18 +17,17 @@
  */
 package org.tmatesoft.sqljet.core.internal;
 
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.SqlJetEncoding;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.SqlJetValueType;
 import org.tmatesoft.sqljet.core.internal.vdbe.SqlJetVdbeMemFlags;
 import org.tmatesoft.sqljet.core.schema.SqlJetTypeAffinity;
 
+import java.util.Set;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetVdbeMem extends ISqlJetReleasable {
 
@@ -36,7 +35,6 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * Release any memory held by the Mem. This may leave the Mem in an
      * inconsistent state, for example with (Mem.z==0) and
      * (Mem.type==SQLITE_TEXT).
-     * 
      */
     void reset();
 
@@ -44,15 +42,15 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * If pMem is an object with a valid string representation, this routine
      * ensures the internal encoding for the string representation is
      * 'desiredEnc', one of SQLITE_UTF8, SQLITE_UTF16LE or SQLITE_UTF16BE.
-     * 
+     * <p/>
      * If pMem is not a string object, or the encoding of the string
      * representation is already stored using the requested encoding, then this
      * routine is a no-op.
-     * 
+     * <p/>
      * SQLITE_OK is returned if the conversion is successful (or not required).
      * SQLITE_NOMEM may be returned if a malloc() fails during conversion
      * between formats.
-     * 
+     *
      * @param enc
      * @throws SqlJetException
      */
@@ -62,7 +60,7 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * This routine transforms the internal text encoding used by pMem to
      * desiredEnc. It is an error if the string is already of the desired
      * encoding, or if *pMem does not contain a string value.
-     * 
+     *
      * @param desiredEnc
      * @throws SqlJetException
      */
@@ -73,7 +71,7 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * string stored in *pMem. If one is present, it is removed and the encoding
      * of the Mem adjusted. This routine does not do any byte-swapping, it just
      * sets Mem.enc appropriately.
-     * 
+     * <p/>
      * The allocation (static, dynamic etc.) and encoding of the Mem may be
      * changed by this function.
      */
@@ -82,7 +80,6 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     /**
      * If the given Mem* has a zero-filled tail, turn it into an ordinary blob
      * stored in dynamically allocated space.
-     * 
      */
     void expandBlob();
 
@@ -91,11 +88,11 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * external API. It works in a similar way to sqlite3_value_text(), except
      * the data returned is in the encoding specified by the second parameter,
      * which must be one of SQLITE_UTF16BE, SQLITE_UTF16LE or SQLITE_UTF8.
-     * 
+     * <p/>
      * (2006-02-16:) The enc value can be or-ed with SQLITE_UTF16_ALIGNED. If
      * that is the case, then the result must be aligned on an even byte
      * boundary.
-     * 
+     *
      * @param enc
      * @return
      * @throws SqlJetException
@@ -104,15 +101,15 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
 
     /**
      * Make sure pMem->z points to a writable allocation of at least n bytes.
-     * 
+     * <p/>
      * If the memory cell currently contains string or blob data and the third
      * argument passed to this function is true, the current content of the cell
      * is preserved. Otherwise, it may be discarded.
-     * 
+     * <p/>
      * This function sets the MEM_Dyn flag and clears any xDel callback. It also
      * clears MEM_Ephem and MEM_Static. If the preserve flag is not set, Mem.n
      * is zeroed.
-     * 
+     *
      * @param n
      * @param preserve
      */
@@ -124,20 +121,17 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * offset and amt determine what portion of the data or key to retrieve. key
      * is true to get the key or false to get data. The result is written into
      * the pMem element.
-     * 
+     * <p/>
      * The pMem structure is assumed to be uninitialized. Any prior content is
      * overwritten without being freed.
-     * 
+     * <p/>
      * If this routine fails for any reason (malloc returns NULL or unable to
      * read from the disk) then the pMem is left in an inconsistent state.
-     * 
+     *
      * @param pCur
-     * @param offset
-     *            Offset from the start of data to return bytes from.
-     * @param amt
-     *            Number of bytes to return.
-     * @param key
-     *            If true, retrieve from the btree key, not data.
+     * @param offset Offset from the start of data to return bytes from.
+     * @param amt    Number of bytes to return.
+     * @param key    If true, retrieve from the btree key, not data.
      * @return
      * @throws SqlJetException
      */
@@ -157,7 +151,7 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * value returned is the integer part. If pMem is a string or blob, then we
      * make an attempt to convert it into a integer and return that. If pMem is
      * NULL, return 0.
-     * 
+     * <p/>
      * If pMem is a string, its encoding might be changed.
      */
     long intValue();
@@ -169,12 +163,12 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
 
     /**
      * Change the value of a Mem to be a string or a BLOB.
-     * 
+     * <p/>
      * The memory management strategy depends on the value of the xDel
      * parameter. If the value passed is SQLITE_TRANSIENT, then the string is
      * copied into a (possibly existing) buffer managed by the Mem structure.
      * Otherwise, any existing buffer is freed and the pointer copied.
-     * 
+     *
      * @throws SqlJetException
      */
     void setStr(ISqlJetMemoryPointer z, SqlJetEncoding enc) throws SqlJetException;
@@ -187,7 +181,6 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
 
     /**
      * Make sure the given Mem is nul terminated.
-     * 
      */
     void nulTerminate();
 
@@ -195,15 +188,15 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * Add MEM_Str to the set of representations for the given Mem. Numbers are
      * converted using sqlite3_snprintf(). Converting a BLOB to a string is a
      * no-op.
-     * 
+     * <p/>
      * Existing representations MEM_Int and MEM_Real are *not* invalidated.
-     * 
+     * <p/>
      * A MEM_Null value will never be passed to this function. This function is
      * used for converting values to text for returning to the user (i.e. via
      * sqlite3_value_text()), or for ensuring that values to be used as btree
      * keys are strings. In the former case a NULL pointer is returned the user
      * and the later is an internal programming error.
-     * 
+     *
      * @param enc
      * @throws SqlJetException
      */
@@ -265,12 +258,11 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     boolean isTooBig();
 
     /**
-     ** Make an shallow copy. The pFrom->z field is not duplicated. If pFrom->z
+     * * Make an shallow copy. The pFrom->z field is not duplicated. If pFrom->z
      * is used, then pTo->z points to the same thing as pFrom->z and flags gets
      * srcType (either MEM_Ephem or MEM_Static).
-     * 
+     *
      * @param srcType
-     * 
      * @throws SqlJetException
      */
     ISqlJetVdbeMem shallowCopy(SqlJetVdbeMemFlags srcType) throws SqlJetException;
@@ -278,7 +270,7 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     /**
      * Make a full copy of pFrom into pTo. Prior contents of pTo are freed
      * before the copy is made.
-     * 
+     *
      * @throws SqlJetException
      */
     ISqlJetVdbeMem copy() throws SqlJetException;
@@ -286,9 +278,9 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     /**
      * Transfer the contents of pFrom to pTo. Any existing value in pTo is
      * freed. If pFrom contains ephemeral data, a copy is made.
-     * 
+     * <p/>
      * pFrom contains an SQL NULL when this routine returns.
-     * 
+     *
      * @throws SqlJetException
      */
     ISqlJetVdbeMem move() throws SqlJetException;
@@ -302,14 +294,14 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     /**
      * Return the number of bytes in the sqlite3_value object assuming that it
      * uses the encoding "enc"
-     * 
+     *
      * @throws SqlJetException
      */
     int valueBytes(SqlJetEncoding enc) throws SqlJetException;
 
     /**
      * Clear any existing type flags from a Mem and replace them with f
-     * 
+     *
      * @param real
      */
     void setTypeFlag(SqlJetVdbeMemFlags f);
@@ -329,10 +321,9 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
     /**
      * Converts the object V into a BLOB and then returns a pointer to the
      * converted value.
-     * 
+     *
      * @return
-     * 
-     * @throws SqlJetException 
+     * @throws SqlJetException
      */
     ISqlJetMemoryPointer valueBlob() throws SqlJetException;
 
@@ -342,5 +333,5 @@ public interface ISqlJetVdbeMem extends ISqlJetReleasable {
      * @throws SqlJetException
      */
     void applyAffinity(SqlJetTypeAffinity affinity, SqlJetEncoding enc) throws SqlJetException;
-    
+
 }

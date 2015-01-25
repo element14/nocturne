@@ -7,7 +7,7 @@ import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
  * about a cell.  The parseCellPtr() function fills in this structure
  * based on information extract from the raw disk page.
  */
-class SqlJetBtreeCellInfo{
+class SqlJetBtreeCellInfo {
     ISqlJetMemoryPointer pCell;     /* Pointer to the start of cell content */
     long nKey;      /* The key for INTKEY tables, or number of bytes in key */
     int nData;     /* Number of bytes of data */

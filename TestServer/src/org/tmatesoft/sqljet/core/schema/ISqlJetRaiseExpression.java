@@ -1,7 +1,7 @@
 /**
  * ISqlJetRaiseExpression.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -15,7 +15,7 @@ package org.tmatesoft.sqljet.core.schema;
 
 /**
  * "RAISE" expression.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Dmitry Stadnik (dtrace@seznam.cz)
  */
@@ -23,7 +23,7 @@ public interface ISqlJetRaiseExpression extends ISqlJetExpression {
 
     /**
      * "RAISE" expression's action.
-     * 
+     *
      * @author TMate Software Ltd.
      * @author Dmitry Stadnik (dtrace@seznam.cz)
      */
@@ -45,14 +45,14 @@ public interface ISqlJetRaiseExpression extends ISqlJetExpression {
 
         public String toString() {
             switch (this) {
-            case IGNORE:
-                return "IGNORE";
-            case ROLLBACK:
-                return "ROLLBACK";
-            case ABORT:
-                return "ABORT";
-            case FAIL:
-                return "FAIL";
+                case IGNORE:
+                    return "IGNORE";
+                case ROLLBACK:
+                    return "ROLLBACK";
+                case ABORT:
+                    return "ABORT";
+                case FAIL:
+                    return "FAIL";
             }
             return "";
         }

@@ -1,7 +1,7 @@
 /**
  * ISqlJetFunctionLiteral.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -15,7 +15,7 @@ package org.tmatesoft.sqljet.core.schema;
 
 /**
  * Function literal.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Dmitry Stadnik (dtrace@seznam.cz)
  */
@@ -23,7 +23,7 @@ public interface ISqlJetFunctionLiteral extends ISqlJetExpression {
 
     /**
      * Functions literal function.
-     * 
+     *
      * @author TMate Software Ltd.
      * @author Dmitry Stadnik (dtrace@seznam.cz)
      */
@@ -43,12 +43,12 @@ public interface ISqlJetFunctionLiteral extends ISqlJetExpression {
 
         public String toString() {
             switch (this) {
-            case CURRENT_TIME:
-                return "CURRENT_TIME";
-            case CURRENT_DATE:
-                return "CURRENT_DATE";
-            case CURRENT_TIMESTAMP:
-                return "CURRENT_TIMESTAMP";
+                case CURRENT_TIME:
+                    return "CURRENT_TIME";
+                case CURRENT_DATE:
+                    return "CURRENT_DATE";
+                case CURRENT_TIMESTAMP:
+                    return "CURRENT_TIMESTAMP";
             }
             return "";
         }

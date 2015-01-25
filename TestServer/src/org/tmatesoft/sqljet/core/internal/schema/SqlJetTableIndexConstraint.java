@@ -1,7 +1,7 @@
 /**
  * SqlJetTableIndexConstraint.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -13,12 +13,12 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
+import org.antlr.runtime.tree.CommonTree;
+import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.antlr.runtime.tree.CommonTree;
-import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
 
 /**
  * @author TMate Software Ltd.

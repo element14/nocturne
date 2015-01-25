@@ -167,11 +167,11 @@ public class SqlJetPragmasHandler {
 
     private Object readPragmaValue(Tree node) {
         String type = node.getText().toLowerCase();
-        if(type.equals("true")||type.equals("false")) {
-        	return Boolean.parseBoolean(type);
+        if (type.equals("true") || type.equals("false")) {
+            return Boolean.parseBoolean(type);
         }
-        if(node.getChild(0)==null) {
-        	return null;
+        if (node.getChild(0) == null) {
+            return null;
         }
         String value = node.getChild(0).getText();
         if ("float_literal".equals(type)) {
@@ -186,7 +186,7 @@ public class SqlJetPragmasHandler {
 
     protected boolean toBooleanValue(Object value) throws SqlJetException {
         if (value instanceof Boolean) {
-        	return ((Boolean) value).booleanValue();
+            return ((Boolean) value).booleanValue();
         } else if (value instanceof Number) {
             int i = ((Number) value).intValue();
             if (i == 0) {

@@ -17,23 +17,7 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.ParserRuleReturnScope;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RuleReturnScope;
+import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
@@ -43,27 +27,10 @@ import org.tmatesoft.sqljet.core.internal.SqlJetBtreeTableCreateFlags;
 import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
 import org.tmatesoft.sqljet.core.internal.lang.SqlLexer;
 import org.tmatesoft.sqljet.core.internal.lang.SqlParser;
-import org.tmatesoft.sqljet.core.internal.table.ISqlJetBtreeDataTable;
-import org.tmatesoft.sqljet.core.internal.table.ISqlJetBtreeSchemaTable;
-import org.tmatesoft.sqljet.core.internal.table.SqlJetBtreeDataTable;
-import org.tmatesoft.sqljet.core.internal.table.SqlJetBtreeIndexTable;
-import org.tmatesoft.sqljet.core.internal.table.SqlJetBtreeSchemaTable;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnConstraint;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDefault;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnNotNull;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnPrimaryKey;
-import org.tmatesoft.sqljet.core.schema.ISqlJetColumnUnique;
-import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetIndexedColumn;
-import org.tmatesoft.sqljet.core.schema.ISqlJetSchema;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableConstraint;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTablePrimaryKey;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTableUnique;
-import org.tmatesoft.sqljet.core.schema.ISqlJetTriggerDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetViewDef;
-import org.tmatesoft.sqljet.core.schema.ISqlJetVirtualTableDef;
+import org.tmatesoft.sqljet.core.internal.table.*;
+import org.tmatesoft.sqljet.core.schema.*;
+
+import java.util.*;
 
 /**
  * @author TMate Software Ltd.
@@ -694,7 +661,6 @@ public class SqlJetSchema implements ISqlJetSchema {
     /**
      * @param schemaTable
      * @param generateAutoIndexName
-     *
      * @throws SqlJetException
      */
     private ISqlJetIndexDef createAutoIndex(ISqlJetBtreeSchemaTable schemaTable, String tableName, String autoIndexName)
@@ -1151,7 +1117,7 @@ public class SqlJetSchema implements ISqlJetSchema {
      * @throws SqlJetException
      */
     private void renameTablesIndices(final ISqlJetBtreeSchemaTable schemaTable, String tableName, String newTableName,
-            String alterTableName) throws SqlJetException {
+                                     String alterTableName) throws SqlJetException {
 
         final Set<ISqlJetIndexDef> indexes = getIndexes(tableName);
         if (null == indexes || 0 == indexes.size()) {

@@ -1,7 +1,7 @@
 /**
  * ISqlJet.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,17 +17,16 @@
  */
 package org.tmatesoft.sqljet.core.internal;
 
-import java.util.List;
-import java.util.Set;
-
 import org.tmatesoft.sqljet.core.ISqlJetMutex;
 import org.tmatesoft.sqljet.core.table.ISqlJetBusyHandler;
 import org.tmatesoft.sqljet.core.table.ISqlJetOptions;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetDbHandle {
 
@@ -45,14 +44,14 @@ public interface ISqlJetDbHandle {
 
     /**
      * Get config
-     * 
+     *
      * @return
      */
     ISqlJetConfig getConfig();
 
     /**
      * Set config
-     * 
+     *
      * @param config
      */
     void setConfig(ISqlJetConfig config);

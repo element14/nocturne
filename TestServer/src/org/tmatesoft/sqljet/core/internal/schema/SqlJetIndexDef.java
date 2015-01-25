@@ -1,7 +1,7 @@
 /**
  * SqlJetIndexDef.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -13,14 +13,14 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDef;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexedColumn;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author TMate Software Ltd.
@@ -34,7 +34,7 @@ public class SqlJetIndexDef extends SqlJetBaseIndexDef {
     private final List<ISqlJetIndexedColumn> columns;
 
     SqlJetIndexDef(final String name, final String tableName, final int page, final String databaseName,
-            final boolean unique, final boolean ifNotExists, final List<ISqlJetIndexedColumn> columns) {
+                   final boolean unique, final boolean ifNotExists, final List<ISqlJetIndexedColumn> columns) {
         super(name, tableName, page);
         this.databaseName = databaseName;
         this.unique = unique;

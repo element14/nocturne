@@ -1,7 +1,7 @@
 /**
  * ISqlJetPointer.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -22,148 +22,147 @@ import java.io.RandomAccessFile;
 
 /**
  * Pointer in SqlJet's memory buffer.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
+ *
  */
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetMemoryPointer {
 
     /**
      * Get buffer which contains pointer.
-     * 
+     *
      * @return
      */
     ISqlJetMemoryBuffer getBuffer();
 
     /**
      * Get pointer address (offset in buffer).
-     * 
+     *
      * @return
      */
     int getPointer();
 
     /**
      * Set pointer address (offset in buffer).
-     * 
+     *
      * @param pointer
      */
     void setPointer(int pointer);
 
     /**
      * Move pointer. Add some count to pointer address. Count may be negative.
-     * 
-     * @param count
-     *            count which added to address. May be negative.
+     *
+     * @param count count which added to address. May be negative.
      */
     void movePointer(int count);
 
     /**
      * Read byte at current address.
-     * 
+     *
      * @return
      */
     byte getByte();
 
     /**
      * Write byte at current address.
-     * 
+     *
      * @param value
      */
     void putByte(byte value);
 
     /**
      * Read short at current address.
-     * 
+     *
      * @return
      */
     short getShort();
 
     /**
      * Write short at current address.
-     * 
+     *
      * @param value
      */
     void putShort(short value);
 
     /**
      * Read int at current address.
-     * 
+     *
      * @return
      */
     int getInt();
 
     /**
      * Write int at current address.
-     * 
+     *
      * @param value
      */
     void putInt(int value);
 
     /**
      * Read long at current address.
-     * 
+     *
      * @return
      */
     long getLong();
 
     /**
      * Write long at current address.
-     * 
+     *
      * @param value
      */
     void putLong(long value);
 
     /**
      * Read unsigned byte at current address.
-     * 
+     *
      * @return
      */
     int getByteUnsigned();
 
     /**
      * Write unsigned byte at current address.
-     * 
+     *
      * @param value
      */
     void putByteUnsigned(int value);
 
     /**
      * Read unsigned short at current address.
-     * 
+     *
      * @return
      */
     int getShortUnsigned();
 
     /**
      * Write unsigned short at current address.
-     * 
+     *
      * @param value
      */
     void putShortUnsigned(int value);
 
     /**
      * Read unsigned int at current address.
-     * 
+     *
      * @return
      */
     long getIntUnsigned();
 
     /**
      * Write unsigned int at current address.
-     * 
+     *
      * @param value
      */
     void putIntUnsigned(long value);
 
     /**
      * Read from file at current address.
-     * 
+     *
      * @param file
      * @param position
      * @param count
@@ -174,7 +173,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write to file at current address.
-     * 
+     *
      * @param file
      * @param position
      * @param count
@@ -185,7 +184,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read byte at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -193,7 +192,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write byte at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -201,7 +200,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read short at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -209,7 +208,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write short at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -217,7 +216,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read int at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -225,7 +224,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write int at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -233,7 +232,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read long at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -241,7 +240,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write long at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -249,7 +248,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read unsigned byte at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -257,7 +256,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write unsigned byte at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -265,7 +264,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read unsigned short at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -273,7 +272,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write unsigned short at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -281,7 +280,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Read unsigned int at pointer.
-     * 
+     *
      * @param pointer
      * @return
      */
@@ -289,7 +288,7 @@ public interface ISqlJetMemoryPointer {
 
     /**
      * Write unsigned int at pointer.
-     * 
+     *
      * @param pointer
      * @param value
      */
@@ -298,7 +297,7 @@ public interface ISqlJetMemoryPointer {
     /**
      * Read from file into memory chunk at pointer. Method isn't synchronized on
      * file.
-     * 
+     *
      * @param pointer
      * @param file
      * @param position
@@ -311,7 +310,7 @@ public interface ISqlJetMemoryPointer {
     /**
      * Write from memory chunk at pointer to file. Method isn't synchronized on
      * file.
-     * 
+     *
      * @param pointer
      * @param file
      * @param position
@@ -344,6 +343,7 @@ public interface ISqlJetMemoryPointer {
      * @param value
      */
     void fill(int from, int count, byte value);
+
     /**
      * @param from
      * @param count
@@ -365,7 +365,7 @@ public interface ISqlJetMemoryPointer {
      * @param bytes
      */
     void getBytes(int pointer, byte[] bytes, int count);
-    
+
     /**
      * @param bytes
      */
@@ -385,7 +385,7 @@ public interface ISqlJetMemoryPointer {
      * @param bytes
      */
     void putBytes(int pointer, byte[] bytes, int count);
-    
+
     /**
      * @param bytes
      */
@@ -403,7 +403,7 @@ public interface ISqlJetMemoryPointer {
     void limit(int n);
 
     int getLimit();
-    
+
     ISqlJetMemoryPointer getIdentic();
 
     ISqlJetMemoryPointer getMoved(int count);

@@ -1,7 +1,7 @@
 /**
  * SqlJetIndexedColumn.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -82,12 +82,12 @@ public class SqlJetIndexedColumn implements ISqlJetIndexedColumn {
     public void setTableColumn(ISqlJetColumnDef tableColumn) {
         this.tableColumn = tableColumn;
     }
-    
+
     /**
      * @return the tableColumn
      */
     public ISqlJetColumnDef getTableColumn() {
         return tableColumn;
     }
-    
+
 }

@@ -1,7 +1,7 @@
 /**
  * SqlJetDirectByteBuffer.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -23,7 +23,6 @@ import java.util.Arrays;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetDirectByteBuffer extends SqlJetByteBuffer {
 
@@ -59,7 +58,7 @@ public class SqlJetDirectByteBuffer extends SqlJetByteBuffer {
         getBytes(0, b, 0, b.length);
         return b;
     }
-    
+
     /* (non-Javadoc)
      * @see org.tmatesoft.sqljet.core.internal.memory.SqlJetByteBuffer#fill(int, int, byte)
      */
@@ -67,32 +66,36 @@ public class SqlJetDirectByteBuffer extends SqlJetByteBuffer {
     public void fill(int from, int count, byte value) {
         final byte[] b = new byte[count];
         Arrays.fill(b, value);
-        putBytes(from,b,0,count);
+        putBytes(from, b, 0, count);
 
     }
-    
+
     /* (non-Javadoc)
      * @see org.tmatesoft.sqljet.core.internal.memory.SqlJetByteBuffer#getBytes(int, byte[], int, int)
      */
     @Override
     public void getBytes(int pointer, byte[] bytes, int to, int count) {
         final int position = buffer.position();
-        try{
+        try {
             buffer.position(pointer);
             buffer.get(bytes, to, count);
-        } finally {buffer.position(position);}
+        } finally {
+            buffer.position(position);
+        }
     }
-    
+
     /* (non-Javadoc)
      * @see org.tmatesoft.sqljet.core.internal.memory.SqlJetByteBuffer#putBytes(int, byte[], int, int)
      */
     @Override
     public void putBytes(int pointer, byte[] bytes, int from, int count) {
         final int position = buffer.position();
-        try{
+        try {
             buffer.position(pointer);
             buffer.put(bytes, from, count);
-        } finally {buffer.position(position);}
+        } finally {
+            buffer.position(position);
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * SqlJetTableWrapper.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -13,27 +13,21 @@
  */
 package org.tmatesoft.sqljet.core.internal.table;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Stack;
-
 import org.tmatesoft.sqljet.core.SqlJetEncoding;
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.SqlJetValueType;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtree;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetVdbeMem;
-import org.tmatesoft.sqljet.core.internal.SqlJetBtreeTableCreateFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
 import org.tmatesoft.sqljet.core.internal.vdbe.SqlJetBtreeRecord;
 import org.tmatesoft.sqljet.core.internal.vdbe.SqlJetKeyInfo;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Stack;
 
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetBtreeTable implements ISqlJetBtreeTable {
 
@@ -48,27 +42,27 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
     private SqlJetBtreeRecord recordCache;
     private Object[] valueCache;
     private Object[] valuesCache;
-    
+
     private Stack<State> states;
-    
+
     protected static class State {
 
         private ISqlJetBtreeCursor cursor;
         private SqlJetKeyInfo keyInfo;
-        
+
         public State(ISqlJetBtreeCursor cursor, SqlJetKeyInfo keyInfo) {
             this.cursor = cursor;
             this.keyInfo = keyInfo;
         }
-        
+
         public ISqlJetBtreeCursor getCursor() {
             return cursor;
         }
-        
+
         public SqlJetKeyInfo getKeyInfo() {
             return keyInfo;
         }
-        
+
         public void close() throws SqlJetException {
             if (cursor != null) {
                 cursor.closeCursor();
@@ -108,20 +102,20 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
         pushState();
         first();
     }
-    
+
     private State getCurrentState() {
         assert !states.isEmpty();
         return states.peek();
     }
-    
+
     protected ISqlJetBtreeCursor getCursor() {
         return getCurrentState().getCursor();
     }
-    
+
     protected SqlJetKeyInfo getKeyInfo() {
         return getCurrentState().getKeyInfo();
     }
-    
+
     public void pushState() throws SqlJetException {
         SqlJetKeyInfo keyInfo = null;
         if (index) {
@@ -133,7 +127,7 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
         clearRecordCache();
         adjustKeyInfo();
     }
-    
+
     protected void adjustKeyInfo() throws SqlJetException {
     }
 
@@ -153,7 +147,8 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
      * @see org.tmatesoft.sqljet.core.internal.btree.ISqlJetBtreeTable#close()
      */
     public void close() throws SqlJetException {
-        while(popState()) {}
+        while (popState()) {
+        }
 
         clearRecordCache();
         getCurrentState().close();
@@ -336,18 +331,18 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
         if (value == null || value.isNull())
             return null;
         switch (value.getType()) {
-        case INTEGER:
-            return value.intValue();
-        case FLOAT:
-            return value.realValue();
-        case TEXT:
-            return SqlJetUtility.toString(value.valueText(getEncoding()), getEncoding());
-        case BLOB:
-            return value.valueBlob();
-        case NULL:
-            break;
-        default:
-            break;
+            case INTEGER:
+                return value.intValue();
+            case FLOAT:
+                return value.realValue();
+            case TEXT:
+                return SqlJetUtility.toString(value.valueText(getEncoding()), getEncoding());
+            case BLOB:
+                return value.valueBlob();
+            case NULL:
+                break;
+            default:
+                break;
         }
         return null;
     }
@@ -475,12 +470,12 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
      * table. The record number is not previously used as a key in the database
      * table that cursor P1 points to. The new record number is written written
      * to register P2.
-     * 
+     * <p/>
      * Prev is the largest previously generated record number. No new record
      * numbers are allowed to be less than this value. When this value reaches
      * its maximum, a SQLITE_FULL error is generated. This mechanism is used to
      * help implement the AUTOINCREMENT feature.
-     * 
+     *
      * @param prev
      * @return
      * @throws SqlJetException
@@ -608,14 +603,13 @@ public class SqlJetBtreeTable implements ISqlJetBtreeTable {
      * @throws SqlJetException
      */
     public void insert(ISqlJetMemoryPointer pKey, long nKey, ISqlJetMemoryPointer pData, int nData, int nZero,
-            boolean bias) throws SqlJetException {
+                       boolean bias) throws SqlJetException {
         clearRecordCache();
         getCursor().insert(pKey, nKey, pData, nData, nZero, bias);
     }
 
     /**
      * @throws SqlJetException
-     * 
      */
     public void delete() throws SqlJetException {
         clearRecordCache();

@@ -1,7 +1,7 @@
 /**
  * SqlJetMemJournal.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,24 +17,16 @@
  */
 package org.tmatesoft.sqljet.core.internal.fs;
 
-import java.util.Set;
+import org.tmatesoft.sqljet.core.internal.*;
 
-import org.tmatesoft.sqljet.core.internal.ISqlJetFile;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.SqlJetDeviceCharacteristics;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileOpenPermission;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileType;
-import org.tmatesoft.sqljet.core.internal.SqlJetLockType;
-import org.tmatesoft.sqljet.core.internal.SqlJetSyncFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import java.util.Set;
 
 /**
  * This subclass is a subclass of sqlite3_file. Each open memory-journal is an
  * instance of this class.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMemJournal implements ISqlJetFile {
 
@@ -64,11 +56,17 @@ public class SqlJetMemJournal implements ISqlJetFile {
      * The rollback journal is composed of a linked list of these structures.
      */
     private static class FileChunk {
-        /** Next chunk in the journal */
+        /**
+         * Next chunk in the journal
+         */
         FileChunk pNext;
-        /** Content of this chunk */
+        /**
+         * Content of this chunk
+         */
         ISqlJetMemoryPointer zChunk = SqlJetUtility.allocatePtr(JOURNAL_CHUNKSIZE);
-    };
+    }
+
+    ;
 
     /*
      * * An instance of this object serves as a cursor into the rollback
@@ -77,7 +75,9 @@ public class SqlJetMemJournal implements ISqlJetFile {
     private static class FilePoint {
         long iOffset; /* Offset from the beginning of the file */
         FileChunk pChunk; /* Specific chunk into which cursor points */
-    };
+    }
+
+    ;
 
     FileChunk pFirst; /* Head of in-memory chunk-list */
     FilePoint endpoint = new FilePoint(); /* Pointer to the end of the file */

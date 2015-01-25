@@ -28,7 +28,6 @@ import org.tmatesoft.sqljet.core.table.engine.SqlJetEngine;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetIndexScopeCursor extends SqlJetIndexOrderCursor {
 

@@ -6,16 +6,15 @@ import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
  * <p>
  * Implementation of SQLJet busy handlers. Used by default in SqlJetDb.
  * </p>
- * 
+ * <p/>
  * <p>
  * Performs some number of retries (by default 10 or SQLJET_BUSY_RETRIES system
  * property value) per every time interval (by default 100 milliseconds or
  * SQLJET_BUSY_SLEEP system property value in milliseconds).
  * </p>
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
@@ -46,9 +45,9 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Creates busy handler with custom parameters.
-     * 
+     *
      * @param retries number of retries to perform
-     * @param sleep sleep time interval in milliseconds between retries to lock database.
+     * @param sleep   sleep time interval in milliseconds between retries to lock database.
      */
     public SqlJetDefaultBusyHandler(final int retries, final int sleep) {
         if (retries > 0) {
@@ -65,7 +64,7 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Returns number of attempts to make to lock database.
-     * 
+     *
      * @return number of attempts.
      */
     public int getRetries() {
@@ -74,7 +73,7 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Sets number of attempts to make to lock database.
-     * 
+     *
      * @param retries number of attempts.
      */
     public void setRetries(int retries) {
@@ -83,7 +82,7 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Returns sleep time interval in milliseconds between retries to lock database.
-     * 
+     *
      * @return sleep interval time in milliseconds.
      */
     public int getSleep() {
@@ -92,7 +91,7 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Sets sleep time interval in milliseconds between retries to lock database.
-     * 
+     *
      * @param sleep interval time in milliseconds.
      */
     public void setSleep(int sleep) {
@@ -102,9 +101,8 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
     /**
      * Allow cancel urgently busy retries. To cancel set it to true - in this
      * case busy handler will not wait in next retry.
-     * 
-     * @param cancel
-     *            if true then busy handler will not wait.
+     *
+     * @param cancel if true then busy handler will not wait.
      */
     public void setCancel(boolean cancel) {
         this.cancel = cancel;
@@ -112,7 +110,7 @@ public class SqlJetDefaultBusyHandler implements ISqlJetBusyHandler {
 
     /**
      * Check is busy handler to cancel.
-     * 
+     *
      * @return true if lock attempts should be cancelled.
      */
     public boolean isCancel() {

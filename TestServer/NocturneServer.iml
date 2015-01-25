@@ -15,5 +15,6 @@
     <orderEntry type="library" name="joda-time:joda-time:2.7" level="project" />
     <orderEntry type="library" name="org.simpleframework:simple:5.1.6" level="project" />
     <orderEntry type="library" name="antlr-runtime-3.4" level="project" />
+    <orderEntry type="library" name="log4j-api-2.1" level="project" />
   </component>
 </module>

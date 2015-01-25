@@ -17,6 +17,17 @@
  */
 package org.tmatesoft.sqljet.core.internal.btree;
 
+import org.tmatesoft.sqljet.core.SqlJetErrorCode;
+import org.tmatesoft.sqljet.core.SqlJetException;
+import org.tmatesoft.sqljet.core.SqlJetLogDefinitions;
+import org.tmatesoft.sqljet.core.SqlJetTransactionMode;
+import org.tmatesoft.sqljet.core.internal.*;
+import org.tmatesoft.sqljet.core.internal.btree.SqlJetBtreeCursor.CursorState;
+import org.tmatesoft.sqljet.core.internal.mutex.SqlJetMutex;
+import org.tmatesoft.sqljet.core.internal.pager.SqlJetPager;
+import org.tmatesoft.sqljet.core.internal.schema.SqlJetSchema;
+import org.tmatesoft.sqljet.core.table.ISqlJetBusyHandler;
+
 import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,42 +35,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.tmatesoft.sqljet.core.SqlJetErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.SqlJetLogDefinitions;
-import org.tmatesoft.sqljet.core.SqlJetTransactionMode;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBackend;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtree;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
-import org.tmatesoft.sqljet.core.internal.ISqlJetDbHandle;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFile;
-import org.tmatesoft.sqljet.core.internal.ISqlJetFileSystem;
-import org.tmatesoft.sqljet.core.internal.ISqlJetKeyInfo;
-import org.tmatesoft.sqljet.core.internal.ISqlJetLimits;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPage;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPageCallback;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPager;
-import org.tmatesoft.sqljet.core.internal.SqlJetAutoVacuumMode;
-import org.tmatesoft.sqljet.core.internal.SqlJetBtreeFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetBtreeTableCreateFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetDbFlags;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileOpenPermission;
-import org.tmatesoft.sqljet.core.internal.SqlJetFileType;
-import org.tmatesoft.sqljet.core.internal.SqlJetPagerJournalMode;
-import org.tmatesoft.sqljet.core.internal.SqlJetSafetyLevel;
-import org.tmatesoft.sqljet.core.internal.SqlJetSavepointOperation;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
-import org.tmatesoft.sqljet.core.internal.btree.SqlJetBtreeCursor.CursorState;
-import org.tmatesoft.sqljet.core.internal.mutex.SqlJetMutex;
-import org.tmatesoft.sqljet.core.internal.pager.SqlJetPager;
-import org.tmatesoft.sqljet.core.internal.schema.SqlJetSchema;
-import org.tmatesoft.sqljet.core.table.ISqlJetBusyHandler;
-
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetBtree implements ISqlJetBtree {
 
@@ -74,18 +52,22 @@ public class SqlJetBtree implements ISqlJetBtree {
         }
     }
 
-    private static final ISqlJetMemoryPointer PAGE1_21 = SqlJetUtility.wrapPtr(new byte[] { (byte) 0100, (byte) 040,
-            (byte) 040 });
+    private static final ISqlJetMemoryPointer PAGE1_21 = SqlJetUtility.wrapPtr(new byte[]{(byte) 0100, (byte) 040,
+            (byte) 040});
 
-    /** The database connection holding this btree */
+    /**
+     * The database connection holding this btree
+     */
     ISqlJetDbHandle db;
 
-    /** Sharable content of this btree */
+    /**
+     * Sharable content of this btree
+     */
     SqlJetBtreeShared pBt;
 
     /**
      * Btree.inTrans may take one of the following values.
-     *
+     * <p/>
      * If the shared-data extension is enabled, there may be multiple users of
      * the Btree structure. At most one of these may open a write transaction,
      * but any number may have active read transactions.
@@ -94,22 +76,34 @@ public class SqlJetBtree implements ISqlJetBtree {
         NONE, READ, WRITE
     }
 
-    /** TRANS_NONE, TRANS_READ or TRANS_WRITE */
+    /**
+     * TRANS_NONE, TRANS_READ or TRANS_WRITE
+     */
     TransMode inTrans;
 
-    /** True if we can share pBt with another db */
+    /**
+     * True if we can share pBt with another db
+     */
     boolean sharable;
 
-    /** True if db currently has pBt locked */
+    /**
+     * True if db currently has pBt locked
+     */
     boolean locked;
 
-    /** Number of nested calls to sqlite3BtreeEnter() */
+    /**
+     * Number of nested calls to sqlite3BtreeEnter()
+     */
     int wantToLock;
 
-    /** List of other sharable Btrees from the same db */
+    /**
+     * List of other sharable Btrees from the same db
+     */
     SqlJetBtree pNext;
 
-    /** Back pointer of the same list */
+    /**
+     * Back pointer of the same list
+     */
     SqlJetBtree pPrev;
 
     private SqlJetTransactionMode transMode = null;
@@ -243,10 +237,10 @@ public class SqlJetBtree implements ISqlJetBtree {
 
     /**
      * Return true if the BtShared mutex is held on the btree.
-     *
+     * <p/>
      * This routine makes no determination one why or another if the database
      * connection mutex is held.
-     *
+     * <p/>
      * This routine is used only from within assert() statements.
      */
     boolean holdsMutex() {
@@ -261,7 +255,7 @@ public class SqlJetBtree implements ISqlJetBtree {
      * org.tmatesoft.sqljet.core.SqlJetFileType, java.util.Set)
      */
     public void open(File filename, ISqlJetDbHandle db, Set<SqlJetBtreeFlags> flags, final SqlJetFileType type,
-            final Set<SqlJetFileOpenPermission> permissions) throws SqlJetException {
+                     final Set<SqlJetFileOpenPermission> permissions) throws SqlJetException {
 
         ISqlJetFileSystem pVfs; /* The VFS to use for this btree */
         SqlJetBtreeShared pBt = null; /* Shared part of btree structure */
@@ -561,7 +555,7 @@ public class SqlJetBtree implements ISqlJetBtree {
             leave();
         }
     }
-    
+
     public SqlJetSafetyLevel getSafetyLevel() {
         assert (db.getMutex().held());
         enter();
@@ -581,7 +575,7 @@ public class SqlJetBtree implements ISqlJetBtree {
             leave();
         }
     }
-    
+
     public SqlJetPagerJournalMode getJournalMode() {
         assert (db.getMutex().held());
         enter();
@@ -714,7 +708,7 @@ public class SqlJetBtree implements ISqlJetBtree {
     /**
      * Get a reference to pPage1 of the database file. This will also acquire a
      * readlock on that file.
-     *
+     * <p/>
      * SQLITE_OK is returned on success. If the file is not a well-formed
      * database file, then SQLITE_CORRUPT is returned. SQLITE_BUSY is returned
      * if the database is locked. SQLITE_NOMEM is returned if we run out of
@@ -905,7 +899,7 @@ public class SqlJetBtree implements ISqlJetBtree {
 
             if (mode == SqlJetTransactionMode.EXCLUSIVE) {
                 Iterator<SqlJetBtreeLock> pIter;
-                for (pIter = pBt.pLock.iterator(); pIter.hasNext();) {
+                for (pIter = pBt.pLock.iterator(); pIter.hasNext(); ) {
                     if (pIter.next().pBtree != this) {
                         throw new SqlJetException(SqlJetErrorCode.BUSY);
                     }
@@ -915,7 +909,7 @@ public class SqlJetBtree implements ISqlJetBtree {
             int nBusy = 0;
             do {
                 rc = null;
-                
+
                 try {
 
                     if (pBt.pPage1 == null) {
@@ -1012,7 +1006,6 @@ public class SqlJetBtree implements ISqlJetBtree {
     /**
      * Release all the table locks (locks obtained via calls to the lockTable()
      * procedure) held by Btree handle p.
-     *
      */
     private void unlockAllTables() {
 
@@ -1267,7 +1260,7 @@ public class SqlJetBtree implements ISqlJetBtree {
      * During a rollback, when the pager reloads information into the cache so
      * that the cache is restored to its original state at the start of the
      * transaction, for each page restored this routine is called.
-     *
+     * <p/>
      * This routine needs to reset the extra data section at the end of the page
      * to agree with the restored data.
      *
@@ -1358,8 +1351,8 @@ public class SqlJetBtree implements ISqlJetBtree {
                  * * by extending the file), the current page at position
                  * pgnoMove* is already journaled.
                  */
-                short[] eType = { 0 };
-                int[] iPtrPage = { 0 };
+                short[] eType = {0};
+                int[] iPtrPage = {0};
 
                 SqlJetMemPage.releasePage(pPageMove);
 
@@ -1504,7 +1497,6 @@ public class SqlJetBtree implements ISqlJetBtree {
      *
      * @param iTab
      * @param eLock
-     *
      * @throws SqlJetException
      */
     private boolean queryTableLock(int iTab, SqlJetBtreeLockMode eLock) {
@@ -1572,7 +1564,7 @@ public class SqlJetBtree implements ISqlJetBtree {
     /**
      * Add a lock on the table with root-page iTable to the shared-btree used by
      * Btree handle p. Parameter eLock must be either READ_LOCK or WRITE_LOCK.
-     *
+     * <p/>
      * SQLITE_OK is returned if the lock is added successfully. SQLITE_BUSY and
      * SQLITE_NOMEM may also be returned.
      *
@@ -1714,10 +1706,10 @@ public class SqlJetBtree implements ISqlJetBtree {
     /**
      * Copy the complete content of pBtFrom into pBtTo. A transaction must be
      * active for both files.
-     *
+     * <p/>
      * The size of file pTo may be reduced by this operation. If anything goes
      * wrong, the transaction on pTo is rolled back.
-     *
+     * <p/>
      * If successful, CommitPhaseOne() may be called on pTo before returning.
      * The caller should finish committing the transaction on pTo by calling
      * sqlite3BtreeCommit().
@@ -1807,7 +1799,7 @@ public class SqlJetBtree implements ISqlJetBtree {
                 pToPage = pBtTo.pPager.getPage(i);
                 pToPage.write();
 
-                for (iOff = (i - 1) * (long)nToPageSize; iOff < i * (long)nToPageSize; iOff += nFromPageSize) {
+                for (iOff = (i - 1) * (long) nToPageSize; iOff < i * (long) nToPageSize; iOff += nFromPageSize) {
                     ISqlJetPage pFromPage = null;
                     int iFrom = (int) (iOff / nFromPageSize) + 1;
 
@@ -1949,10 +1941,10 @@ public class SqlJetBtree implements ISqlJetBtree {
      * Erase all information in a table and add the root of the table to the
      * freelist. Except, the root of the principle table (the one on page 1) is
      * never added to the freelist.
-     *
+     * <p/>
      * This routine will fail with SQLITE_LOCKED if there are any open cursors
      * on the table.
-     *
+     * <p/>
      * If AUTOVACUUM is enabled and the page at iTable is not the last root page
      * in the database file, then the last root page in the database file is
      * moved into the slot formerly occupied by iTable and that last slot
@@ -2100,33 +2092,33 @@ public class SqlJetBtree implements ISqlJetBtree {
      * connection (a database connection that shares the pager cache with the
      * current connection) and that other connection is not in the
      * ReadUncommmitted state, then this routine returns SQLITE_LOCKED.
-     *
+     * <p/>
      * As well as cursors with wrFlag==0, cursors with wrFlag==1 and
      * isIncrblobHandle==1 are also considered 'read' cursors. Incremental blob
      * cursors are used for both reading and writing.
-     *
+     * <p/>
      * When pgnoRoot is the root page of an intkey table, this function is also
      * responsible for invalidating incremental blob cursors when the table row
      * on which they are opened is deleted or modified. Cursors are invalidated
      * according to the following rules:
-     *
+     * <p/>
      * <ol>
-     *
+     * <p/>
      * <li>When BtreeClearTable() is called to completely delete the contents of
      * a B-Tree table, pExclude is set to zero and parameter iRow is set to
      * non-zero. In this case all incremental blob cursors open on the table
      * rooted at pgnoRoot are invalidated.</li>
-     *
+     * <p/>
      * <li>When BtreeInsert(), BtreeDelete() or BtreePutData() is called to
      * modify a table row via an SQL statement, pExclude is set to the write
      * cursor used to do the modification and parameter iRow is set to the
      * integer row id of the B-Tree entry being modified. Unless pExclude is
      * itself an incremental blob cursor, then all incremental blob cursors open
      * on row iRow of the B-Tree are invalidated.</li>
-     *
+     * <p/>
      * <li>If both pExclude and iRow are set to zero, no incremental blob
      * cursors are invalidated.</li>
-     *
+     * <p/>
      * </ol>
      */
     boolean checkReadLocks(int pgnoRoot, SqlJetBtreeCursor pExclude, long iRow) {

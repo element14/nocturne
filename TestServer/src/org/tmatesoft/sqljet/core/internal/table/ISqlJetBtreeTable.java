@@ -1,7 +1,7 @@
 /**
  * ISqlJetBtreeTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -24,23 +24,22 @@ import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
 
 /**
  * Interface of table over B-Tree.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetBtreeTable {
 
     /**
      * Close B-Tree table cursor.
-     * 
+     *
      * @throws SqlJetException
      */
     void close() throws SqlJetException;
 
     /**
      * Lock B-Tree table cursor's mutex.
-     * 
+     *
      * @throws SqlJetException
      */
     void lock() throws SqlJetException;
@@ -52,7 +51,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Check of end of B-Tree table cursor.
-     * 
+     *
      * @return true if there is not more records.
      * @throws SqlJetException
      */
@@ -60,7 +59,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Go to first record.
-     * 
+     *
      * @return true if there is at least one record.
      * @throws SqlJetException
      */
@@ -68,7 +67,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Go to last record.
-     * 
+     *
      * @return true if there is at least one record.
      * @throws SqlJetException
      */
@@ -76,18 +75,18 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Go to next record.
-     * 
+     *
      * @return true if there is at least one record and end of cursor is not
-     *         reached yet
+     * reached yet
      * @throws SqlJetException
      */
     boolean next() throws SqlJetException;
 
     /**
      * Go to previous record.
-     * 
+     *
      * @return true if there is at least one record and begin of cursor is not
-     *         reached yet
+     * reached yet
      * @throws SqlJetException
      */
     boolean previous() throws SqlJetException;
@@ -111,7 +110,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get count of fields in current record.
-     * 
+     *
      * @return count of fields
      * @throws SqlJetException
      */
@@ -119,9 +118,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get type of field.
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return type of field
      * @throws SqlJetException
      */
@@ -129,9 +127,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Check to field has null value.
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return true if field value is null
      * @throws SqlJetException
      */
@@ -139,9 +136,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get field's value as string.
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return field's value as string
      * @throws SqlJetException
      */
@@ -149,9 +145,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get field's value as integer.
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return field's value as integer
      * @throws SqlJetException
      */
@@ -159,9 +154,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get field's value as real (float).
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return field's value as real
      * @throws SqlJetException
      */
@@ -169,9 +163,8 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get field's value as BLOB.
-     * 
-     * @param field
-     *            number of field begin from zero
+     *
+     * @param field number of field begin from zero
      * @return field's value as BLOB
      * @throws SqlJetException
      */
@@ -179,7 +172,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get values as objects.
-     * 
+     *
      * @return
      * @throws SqlJetException
      */
@@ -187,7 +180,7 @@ public interface ISqlJetBtreeTable {
 
     /**
      * Get value as object.
-     * 
+     *
      * @param field
      * @return
      * @throws SqlJetException
@@ -197,7 +190,7 @@ public interface ISqlJetBtreeTable {
     /**
      * Returns true if cursor has been moved. Side effect of this is restore
      * position of cursor.
-     * 
+     *
      * @return
      * @throws SqlJetException
      */
@@ -252,19 +245,19 @@ public interface ISqlJetBtreeTable {
      * @throws SqlJetException
      */
     long newRowId() throws SqlJetException;
-    
+
     /**
      * Saves current state of this table and sets it
      * to point to the first record.
-     * 
+     *
      * @throws SqlJetException
      */
     void pushState() throws SqlJetException;
-    
+
     /**
      * Restores previously saved state if there any.
-     * @return 
-     * 
+     *
+     * @return
      * @throws SqlJetException
      */
     boolean popState() throws SqlJetException;

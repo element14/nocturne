@@ -17,35 +17,21 @@
  */
 package org.tmatesoft.sqljet.core.internal.btree;
 
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.get2byte;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.get4byte;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.memcpy;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.mutex_held;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.pointer;
-import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.put4byte;
-import static org.tmatesoft.sqljet.core.internal.btree.SqlJetBtree.TRACE;
-
-import java.util.Arrays;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
-import org.tmatesoft.sqljet.core.internal.ISqlJetConfig;
-import org.tmatesoft.sqljet.core.internal.ISqlJetDbHandle;
-import org.tmatesoft.sqljet.core.internal.ISqlJetKeyInfo;
-import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
-import org.tmatesoft.sqljet.core.internal.ISqlJetPage;
-import org.tmatesoft.sqljet.core.internal.ISqlJetUnpackedRecord;
-import org.tmatesoft.sqljet.core.internal.SqlJetCloneable;
-import org.tmatesoft.sqljet.core.internal.SqlJetUtility;
+import org.tmatesoft.sqljet.core.internal.*;
 import org.tmatesoft.sqljet.core.internal.btree.SqlJetBtree.TransMode;
 import org.tmatesoft.sqljet.core.internal.memory.SqlJetMemoryPointer;
 import org.tmatesoft.sqljet.core.internal.vdbe.SqlJetUnpackedRecord;
 
+import java.util.Arrays;
+
+import static org.tmatesoft.sqljet.core.internal.SqlJetUtility.*;
+import static org.tmatesoft.sqljet.core.internal.btree.SqlJetBtree.TRACE;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCursor {
 
@@ -60,45 +46,73 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * and UPDATE performance.* The value of NN appears to give the best results
      * overall.
      */
-    /** Number of neighbors on either side of pPage */
+    /**
+     * Number of neighbors on either side of pPage
+     */
     private static final int NN = 1;
-    /** Total pages involved in the balance */
+    /**
+     * Total pages involved in the balance
+     */
     private static final int NB = (NN * 2 + 1);
 
-    /** The Btree to which this cursor belongs */
+    /**
+     * The Btree to which this cursor belongs
+     */
     SqlJetBtree pBtree;
 
-    /** The BtShared this cursor points to */
+    /**
+     * The BtShared this cursor points to
+     */
     SqlJetBtreeShared pBt;
 
-    /** Forms a linked list of all cursors */
+    /**
+     * Forms a linked list of all cursors
+     */
     SqlJetBtreeCursor pNext, pPrev;
 
-    /** Argument passed to comparison function */
+    /**
+     * Argument passed to comparison function
+     */
     ISqlJetKeyInfo pKeyInfo;
 
-    /** The root page of this tree */
+    /**
+     * The root page of this tree
+     */
     int pgnoRoot;
 
-    /** A parse of the cell we are pointing at */
+    /**
+     * A parse of the cell we are pointing at
+     */
     SqlJetBtreeCellInfo info = new SqlJetBtreeCellInfo();
 
-    /** True if writable */
+    /**
+     * True if writable
+     */
     boolean wrFlag;
 
-    /** Cursor pointing to the last entry */
+    /**
+     * Cursor pointing to the last entry
+     */
     boolean atLast;
 
-    /** True if info.nKey is valid */
+    /**
+     * True if info.nKey is valid
+     */
     boolean validNKey;
 
-    /** One of the CURSOR_XXX constants (see below) */
+    /**
+     * One of the CURSOR_XXX constants (see below)
+     */
     CursorState eState;
 
-    /** Saved key that was cursor's last known position */
+    /**
+     * Saved key that was cursor's last known position
+     */
     ISqlJetMemoryPointer pKey;
 
-    /** Size of pKey, or last integer key */
+    /**
+     * Size of pKey, or last integer key
+     */
     long nKey;
 
     SqlJetErrorCode error;
@@ -108,16 +122,24 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      */
     int skip;
 
-    /** True if this cursor is an incr. io handle */
+    /**
+     * True if this cursor is an incr. io handle
+     */
     boolean isIncrblobHandle;
 
-    /** Cache of overflow page locations */
+    /**
+     * Cache of overflow page locations
+     */
     int[] aOverflow;
 
-    /** True if Btree pages are rearranged by balance() */
+    /**
+     * True if Btree pages are rearranged by balance()
+     */
     boolean pagesShuffled;
 
-    /** Index of current page in apPage */
+    /**
+     * Index of current page in apPage
+     */
     int iPage;
 
     /**
@@ -125,39 +147,40 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      */
     SqlJetMemPage[] apPage = new SqlJetMemPage[BTCURSOR_MAX_DEPTH];
 
-    /** Current index in apPage[i] */
+    /**
+     * Current index in apPage[i]
+     */
     int[] aiIdx = new int[BTCURSOR_MAX_DEPTH];
 
     /**
      * Potential values for BtCursor.eState.
-     *
+     * <p/>
      * <ul>
-     *
+     * <p/>
      * <li>
      * CURSOR_VALID: Cursor points to a valid entry. getPayload() etc. may be
      * called.</li>
-     *
+     * <p/>
      * <li>
      * CURSOR_INVALID: Cursor does not point to a valid entry. This can happen
      * (for example) because the table is empty or because BtreeCursorFirst()
      * has not been called.</li>
-     *
+     * <p/>
      * <li>
      * CURSOR_REQUIRESEEK: The table that this cursor was opened on still
      * exists, but has been modified since the cursor was last used. The cursor
      * position is saved in variables BtCursor.pKey and BtCursor.nKey. When a
      * cursor is in this state, restoreCursorPosition() can be called to attempt
      * to seek the cursor to the saved position.</li>
-     *
+     * <p/>
      * <li>
      * CURSOR_FAULT: A unrecoverable error (an I/O error or a malloc failure)
      * has occurred on a different connection that shares the BtShared cache
      * with this cursor. The error has left the cache in an inconsistent state.
      * Do nothing else with this cursor. Any attempt to use the cursor should
      * return the error code stored in BtCursor.skip</li>
-     *
+     * <p/>
      * </ul>
-     *
      */
     static enum CursorState {
         INVALID, // 0
@@ -170,37 +193,35 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     /**
      * Create a new cursor for the BTree whose root is on the page iTable. The
      * act of acquiring a cursor gets a read lock on the database file.
-     *
+     * <p/>
      * If wrFlag==0, then the cursor can only be used for reading. If wrFlag==1,
      * then the cursor can be used for reading or for writing if other
      * conditions for writing are also met. These are the conditions that must
      * be met in order for writing to be allowed:
-     *
+     * <p/>
      * 1: The cursor must have been opened with wrFlag==1
-     *
+     * <p/>
      * 2: Other database connections that share the same pager cache but which
      * are not in the READ_UNCOMMITTED state may not have cursors open with
      * wrFlag==0 on the same table. Otherwise the changes made by this write
      * cursor would be visible to the read cursors in the other database
      * connection.
-     *
+     * <p/>
      * 3: The database must be writable (not on read-only media)
-     *
+     * <p/>
      * 4: There must be an active transaction.
-     *
+     * <p/>
      * No checking is done to make sure that page iTable really is the root page
      * of a b-tree. If it is not, then the cursor acquired will not work
      * correctly.
-     *
+     * <p/>
      * It is assumed that the sqlite3BtreeCursorSize() bytes of memory pointed
      * to by pCur have been zeroed by the caller.
-     *
      *
      * @param sqlJetBtree
      * @param table
      * @param wrFlag2
      * @param keyInfo
-     *
      * @throws SqlJetException
      */
     public SqlJetBtreeCursor(SqlJetBtree btree, int table, boolean wrFlag, ISqlJetKeyInfo keyInfo)
@@ -437,10 +458,9 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     /**
      * Make sure the BtCursor has a valid BtCursor.info structure. If it is not
      * already valid, call sqlite3BtreeParseCell() to fill it in.
-     *
+     * <p/>
      * BtCursor.info is a cache of the information in the current cell. Using
      * this cache reduces the number of calls to sqlite3BtreeParseCell().
-     *
      */
     private void getCellInfo() {
         if (this.info.nSize == 0) {
@@ -455,22 +475,20 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * skipKey==0 and it points to the beginning of data if skipKey==1. The
      * number of bytes of available key/data is written into *pAmt. If *pAmt==0,
      * then the value returned will not be a valid pointer.
-     *
+     * <p/>
      * This routine is an optimization. It is common for the entire key and data
      * to fit on the local page and for there to be no overflow pages. When that
      * is so, this routine can be used to access the key and data without making
      * a copy. If the key and/or data spills onto overflow pages, then
      * accessPayload() must be used to reassembly the key/data and copy it into
      * a preallocated buffer.
-     *
+     * <p/>
      * The pointer returned by this routine looks directly into the cached page
      * of the database. The data might change or move the next time any btree
      * routine is called.
      *
-     * @param pAmt
-     *            Write the number of available bytes here
-     * @param skipKey
-     *            read beginning at data if this is true
+     * @param pAmt    Write the number of available bytes here
+     * @param skipKey read beginning at data if this is true
      * @return
      */
     private ISqlJetMemoryPointer fetchPayload(int[] pAmt, boolean skipKey) {
@@ -538,7 +556,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
             return -1;
         }
         assert (this.apPage[0].intKey || pIdxKey != null);
-        for (;;) {
+        for (; ; ) {
             int lwr, upr;
             int chldPg;
             SqlJetMemPage pPage = this.apPage[this.iPage];
@@ -553,7 +571,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
             } else {
                 this.aiIdx[this.iPage] = ((upr + lwr) / 2);
             }
-            for (;;) {
+            for (; ; ) {
                 ISqlJetMemoryPointer pCellKey;
                 long[] nCellKey = new long[1];
                 int idx = this.aiIdx[this.iPage];
@@ -677,44 +695,44 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * @see org.tmatesoft.sqljet.core.ISqlJetBtreeCursor#delete()
      */
     public void delete() throws SqlJetException {
-    	  SqlJetBtreeCursor pCur = this;
-    	  SqlJetBtree p = pCur.pBtree;
-    	  SqlJetBtreeShared pBt = p.pBt;
+        SqlJetBtreeCursor pCur = this;
+        SqlJetBtree p = pCur.pBtree;
+        SqlJetBtreeShared pBt = p.pBt;
 //    	  SqlJetException rc;
-    	  /* Page to delete cell from */
-    	  SqlJetMemPage pPage;
+          /* Page to delete cell from */
+        SqlJetMemPage pPage;
     	  /* Pointer to cell to delete */
-    	  ISqlJetMemoryPointer pCell;
+        ISqlJetMemoryPointer pCell;
     	  /* Index of cell to delete */
-    	  int iCellIdx;
+        int iCellIdx;
     	  /* Depth of node containing pCell */
-    	  int iCellDepth;
+        int iCellDepth;
 
-          assert (pCur.holdsMutex());
-          assert (pBt.inTransaction == TransMode.WRITE);
-          assert (!pBt.readOnly);
-          assert (pCur.wrFlag);
+        assert (pCur.holdsMutex());
+        assert (pBt.inTransaction == TransMode.WRITE);
+        assert (!pBt.readOnly);
+        assert (pCur.wrFlag);
 
-    	  //assert( hasSharedCacheTableLock(p, pCur->pgnoRoot, pCur->pKeyInfo!=0, 2) );
-    	  //assert( !hasReadConflicts(p, pCur->pgnoRoot) );
+        //assert( hasSharedCacheTableLock(p, pCur->pgnoRoot, pCur->pKeyInfo!=0, 2) );
+        //assert( !hasReadConflicts(p, pCur->pgnoRoot) );
 
-    	  if( pCur.aiIdx[pCur.iPage]>=pCur.apPage[pCur.iPage].nCell
-    	   || pCur.eState!= CursorState.VALID
-    	  ){
+        if (pCur.aiIdx[pCur.iPage] >= pCur.apPage[pCur.iPage].nCell
+                || pCur.eState != CursorState.VALID
+                ) {
     		  /* Something has gone awry. */
-    		  throw new SqlJetException(SqlJetErrorCode.ERROR);
-    	  }
+            throw new SqlJetException(SqlJetErrorCode.ERROR);
+        }
 
     	  /* If this is a delete operation to remove a row from a table b-tree,
     	   invalidate any incrblob cursors open on the row being deleted.  */
-    	  //if( pCur.pKeyInfo==null ){
-    	  //    p.invalidateIncrblobCursors(pCur.info.nKey, 0);
-    	  //}
+        //if( pCur.pKeyInfo==null ){
+        //    p.invalidateIncrblobCursors(pCur.info.nKey, 0);
+        //}
 
-    	  iCellDepth = pCur.iPage;
-    	  iCellIdx = pCur.aiIdx[iCellDepth];
-    	  pPage = pCur.apPage[iCellDepth];
-    	  pCell = pPage.findCell(iCellIdx);
+        iCellDepth = pCur.iPage;
+        iCellIdx = pCur.aiIdx[iCellDepth];
+        pPage = pCur.apPage[iCellDepth];
+        pCell = pPage.findCell(iCellIdx);
 
     	  /* If the page containing the entry to delete is not a leaf page, move
     	   the cursor to the largest entry in the tree that is smaller than
@@ -723,41 +741,41 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	   of the 'next' entry, as the previous entry is always a part of the
     	   sub-tree headed by the child page of the cell being deleted. This makes
     	   balancing the tree following the delete operation easier.  */
-    	  if( !pPage.leaf ){
-    		  pCur.previous();
-    	  }
+        if (!pPage.leaf) {
+            pCur.previous();
+        }
 
     	  /* Save the positions of any other cursors open on this table before
     	  ** making any modifications. Make the page containing the entry to be
     	  ** deleted writable. Then free any overflow pages associated with the
     	  ** entry and finally remove the cell itself from within the page.
     	  */
-    	  pBt.saveAllCursors(pCur.pgnoRoot, pCur);
-    	  pPage.pDbPage.write();
-    	  pPage.clearCell(pCell);
-    	  pPage.dropCell(iCellIdx, pPage.cellSizePtr(pCell));
+        pBt.saveAllCursors(pCur.pgnoRoot, pCur);
+        pPage.pDbPage.write();
+        pPage.clearCell(pCell);
+        pPage.dropCell(iCellIdx, pPage.cellSizePtr(pCell));
 
     	  /* If the cell deleted was not located on a leaf page, then the cursor
     	   is currently pointing to the largest entry in the sub-tree headed
     	   by the child-page of the cell that was just deleted from an internal
     	   node. The cell from the leaf node needs to be moved to the internal
     	   node to replace the deleted cell.  */
-    	  if( !pPage.leaf ){
-    		  SqlJetMemPage pLeaf = pCur.apPage[pCur.iPage];
-    		  int nCell;
-    		  int n = pCur.apPage[iCellDepth+1].pgno;
+        if (!pPage.leaf) {
+            SqlJetMemPage pLeaf = pCur.apPage[pCur.iPage];
+            int nCell;
+            int n = pCur.apPage[iCellDepth + 1].pgno;
 
-    		  pCell = pLeaf.findCell(pLeaf.nCell-1);
-    		  nCell = pLeaf.cellSizePtr(pCell);
-    		  assert(pBt.MX_CELL_SIZE()>=nCell);
+            pCell = pLeaf.findCell(pLeaf.nCell - 1);
+            nCell = pLeaf.cellSizePtr(pCell);
+            assert (pBt.MX_CELL_SIZE() >= nCell);
 
-    		  pBt.allocateTempSpace();
-    		  ISqlJetMemoryPointer pTmp = pBt.pTmpSpace;
+            pBt.allocateTempSpace();
+            ISqlJetMemoryPointer pTmp = pBt.pTmpSpace;
 
-    		  pLeaf.pDbPage.write();
-    		  pPage.insertCell(iCellIdx, pCell.getMoved(-4), nCell+4, pTmp, n);
-    		  pLeaf.dropCell(pLeaf.nCell-1, nCell);
-    	  }
+            pLeaf.pDbPage.write();
+            pPage.insertCell(iCellIdx, pCell.getMoved(-4), nCell + 4, pTmp, n);
+            pLeaf.dropCell(pLeaf.nCell - 1, nCell);
+        }
 
     	  /* Balance the tree. If the entry deleted was located on a leaf page,
     	   then the cursor still points to that page. In this case the first
@@ -774,21 +792,21 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	   been corrected, so be it. Otherwise, after balancing the leaf node,
     	   walk the cursor up the tree to the internal node and balance it as
     	   well.  */
-    	  pCur.balance(false);
-    	  if(  pCur.iPage>iCellDepth ){
-    	    while( pCur.iPage>iCellDepth ){
-    	    	SqlJetMemPage.releasePage(pCur.apPage[pCur.iPage--]);
-    	    }
-    	    pCur.balance(false);
-    	  }
-    	  pCur.moveToRoot();
+        pCur.balance(false);
+        if (pCur.iPage > iCellDepth) {
+            while (pCur.iPage > iCellDepth) {
+                SqlJetMemPage.releasePage(pCur.apPage[pCur.iPage--]);
+            }
+            pCur.balance(false);
+        }
+        pCur.moveToRoot();
     }
 
     /**
      * The page that pCur currently points to has just been modified in some
      * way. This function figures out if this modification means the tree needs
      * to be balanced, and if so calls the appropriate balancing routine.
-     *
+     * <p/>
      * Parameter isInsert is true if a new cell was just inserted into the page,
      * or false otherwise.
      *
@@ -796,47 +814,47 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * @throws SqlJetException
      */
     private void balance(boolean isInsert) throws SqlJetException {
-    	  SqlJetBtreeCursor pCur = this;
-    	  final int nMin = pCur.pBt.usableSize * 2 / 3;
-    	  ISqlJetMemoryPointer aBalanceQuickSpace = SqlJetUtility.allocatePtr(13);
+        SqlJetBtreeCursor pCur = this;
+        final int nMin = pCur.pBt.usableSize * 2 / 3;
+        ISqlJetMemoryPointer aBalanceQuickSpace = SqlJetUtility.allocatePtr(13);
 
-    	  int balance_quick_called = 0; //TESTONLY
-    	  int balance_deeper_called = 0; //TESTONLY
+        int balance_quick_called = 0; //TESTONLY
+        int balance_deeper_called = 0; //TESTONLY
 
-    	  do {
-    	    int iPage = pCur.iPage;
-    	    SqlJetMemPage pPage = pCur.apPage[iPage];
+        do {
+            int iPage = pCur.iPage;
+            SqlJetMemPage pPage = pCur.apPage[iPage];
 
-    	    if( iPage==0 ){
-    	      if( pPage.nOverflow>0 ){
+            if (iPage == 0) {
+                if (pPage.nOverflow > 0) {
     	        /* The root page of the b-tree is overfull. In this case call the
     	        ** balance_deeper() function to create a new child for the root-page
     	        ** and copy the current contents of the root-page to it. The
     	        ** next iteration of the do-loop will balance the child page.
     	        */
-    	        assert( (balance_deeper_called++)==0 );
-    	        pCur.apPage[1] = balance_deeper(pPage);
-    	        pCur.iPage = 1;
-    	        pCur.aiIdx[0] = 0;
-    	        pCur.aiIdx[1] = 0;
-    	        assert( pCur.apPage[1].nOverflow>0 );
-    	      }else{
-    	        break;
-    	      }
-    	    }else if( pPage.nOverflow==0 && pPage.nFree<=nMin ){
-    	      break;
-    	    }else{
-    	      final SqlJetMemPage pParent = pCur.apPage[iPage-1];
-    	      final int iIdx = pCur.aiIdx[iPage-1];
+                    assert ((balance_deeper_called++) == 0);
+                    pCur.apPage[1] = balance_deeper(pPage);
+                    pCur.iPage = 1;
+                    pCur.aiIdx[0] = 0;
+                    pCur.aiIdx[1] = 0;
+                    assert (pCur.apPage[1].nOverflow > 0);
+                } else {
+                    break;
+                }
+            } else if (pPage.nOverflow == 0 && pPage.nFree <= nMin) {
+                break;
+            } else {
+                final SqlJetMemPage pParent = pCur.apPage[iPage - 1];
+                final int iIdx = pCur.aiIdx[iPage - 1];
 
-    	      pParent.pDbPage.write();
+                pParent.pDbPage.write();
 
-              if( pPage.hasData
-    	         && pPage.nOverflow==1
-    	         && pPage.aOvfl[0].idx==pPage.nCell
-    	         && pParent.pgno!=1
-    	         && pParent.nCell==iIdx
-    	        ){
+                if (pPage.hasData
+                        && pPage.nOverflow == 1
+                        && pPage.aOvfl[0].idx == pPage.nCell
+                        && pParent.pgno != 1
+                        && pParent.nCell == iIdx
+                        ) {
     	          /* Call balance_quick() to create a new sibling of pPage on which
     	          ** to store the overflow cell. balance_quick() inserts a new cell
     	          ** into pParent, which may cause pParent overflow. If this
@@ -850,10 +868,9 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	          ** function. If this were not verified, a subtle bug involving reuse
     	          ** of the aBalanceQuickSpace[] might sneak in.
     	          */
-    	          assert( (balance_quick_called++)==0 );
-    	          balance_quick(pParent, pPage, aBalanceQuickSpace);
-    	        }else
-    	        {
+                    assert ((balance_quick_called++) == 0);
+                    balance_quick(pParent, pPage, aBalanceQuickSpace);
+                } else {
     	          /* In this case, call balance_nonroot() to redistribute cells
     	          ** between pPage and up to 2 of its sibling pages. This involves
     	          ** modifying the contents of pParent, which may cause pParent to
@@ -871,118 +888,117 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	          ** copied either into the body of a database page or into the new
     	          ** pSpace buffer passed to the latter call to balance_nonroot().
     	          */
-    	          ISqlJetMemoryPointer pSpace = SqlJetUtility.allocatePtr(pCur.pBt.pageSize);
-    	          balance_nonroot(pParent, iIdx, pSpace, iPage==1);
-    	        }
+                    ISqlJetMemoryPointer pSpace = SqlJetUtility.allocatePtr(pCur.pBt.pageSize);
+                    balance_nonroot(pParent, iIdx, pSpace, iPage == 1);
+                }
 
-    	      pPage.nOverflow = 0;
+                pPage.nOverflow = 0;
 
     	      /* The next iteration of the do-loop balances the parent page. */
-    	      SqlJetMemPage.releasePage(pPage);
-    	      pCur.iPage--;
-    	    }
-    	  }while( true );
+                SqlJetMemPage.releasePage(pPage);
+                pCur.iPage--;
+            }
+        } while (true);
 
     }
 
-	/**
-	 * This routine redistributes cells on the iParentIdx'th child of pParent
-	 * (hereafter "the page") and up to 2 siblings so that all pages have about
-	 * the same amount of free space. Usually a single sibling on either side of
-	 * the page are used in the balancing, though both siblings might come from
-	 * one side if the page is the first or last child of its parent. If the
-	 * page has fewer than 2 siblings (something which can only happen if the
-	 * page is a root page or a child of a root page) then all available
-	 * siblings participate in the balancing.
-	 *
-	 * The number of siblings of the page might be increased or decreased by one
-	 * or two in an effort to keep pages nearly full but not over full.
-	 *
-	 * Note that when this routine is called, some of the cells on the page
-	 * might not actually be stored in MemPage.aData[]. This can happen if the
-	 * page is overfull. This routine ensures that all cells allocated to the
-	 * page and its siblings fit into MemPage.aData[] before returning.
-	 *
-	 * In the course of balancing the page and its siblings, cells may be
-	 * inserted into or removed from the parent page (pParent). Doing so may
-	 * cause the parent page to become overfull or underfull. If this happens,
-	 * it is the responsibility of the caller to invoke the correct balancing
-	 * routine to fix this problem (see the balance() routine).
-	 *
-	 * If this routine fails for any reason, it might leave the database in a
-	 * corrupted state. So if this routine fails, the database should be rolled
-	 * back.
-	 *
-	 * The third argument to this function, aOvflSpace, is a pointer to a buffer
-	 * big enough to hold one page. If while inserting cells into the parent
-	 * page (pParent) the parent page becomes overfull, this buffer is used to
-	 * store the parent's overflow cells. Because this function inserts a
-	 * maximum of four divider cells into the parent page, and the maximum size
-	 * of a cell stored within an internal node is always less than 1/4 of the
-	 * page-size, the aOvflSpace[] buffer is guaranteed to be large enough for
-	 * all overflow cells.
-	 *
-	 * If aOvflSpace is set to a null pointer, this function returns
-	 * SQLITE_NOMEM.
-	 *
-	 * @param pParent
-	 *            Parent page of siblings being balanced
-	 * @param iParentIdx
-	 *            Index of "the page" in pParent
-	 * @param aOvflSpace
-	 *            page-size bytes of space for parent ovfl
-	 * @param isRoot
-	 *            True if pParent is a root-page
-	 *
-	 * @throws SqlJetException
-	 */
-	private void balance_nonroot(SqlJetMemPage pParent, int iParentIdx,
-			ISqlJetMemoryPointer aOvflSpace, boolean isRoot) throws SqlJetException {
+    /**
+     * This routine redistributes cells on the iParentIdx'th child of pParent
+     * (hereafter "the page") and up to 2 siblings so that all pages have about
+     * the same amount of free space. Usually a single sibling on either side of
+     * the page are used in the balancing, though both siblings might come from
+     * one side if the page is the first or last child of its parent. If the
+     * page has fewer than 2 siblings (something which can only happen if the
+     * page is a root page or a child of a root page) then all available
+     * siblings participate in the balancing.
+     * <p/>
+     * The number of siblings of the page might be increased or decreased by one
+     * or two in an effort to keep pages nearly full but not over full.
+     * <p/>
+     * Note that when this routine is called, some of the cells on the page
+     * might not actually be stored in MemPage.aData[]. This can happen if the
+     * page is overfull. This routine ensures that all cells allocated to the
+     * page and its siblings fit into MemPage.aData[] before returning.
+     * <p/>
+     * In the course of balancing the page and its siblings, cells may be
+     * inserted into or removed from the parent page (pParent). Doing so may
+     * cause the parent page to become overfull or underfull. If this happens,
+     * it is the responsibility of the caller to invoke the correct balancing
+     * routine to fix this problem (see the balance() routine).
+     * <p/>
+     * If this routine fails for any reason, it might leave the database in a
+     * corrupted state. So if this routine fails, the database should be rolled
+     * back.
+     * <p/>
+     * The third argument to this function, aOvflSpace, is a pointer to a buffer
+     * big enough to hold one page. If while inserting cells into the parent
+     * page (pParent) the parent page becomes overfull, this buffer is used to
+     * store the parent's overflow cells. Because this function inserts a
+     * maximum of four divider cells into the parent page, and the maximum size
+     * of a cell stored within an internal node is always less than 1/4 of the
+     * page-size, the aOvflSpace[] buffer is guaranteed to be large enough for
+     * all overflow cells.
+     * <p/>
+     * If aOvflSpace is set to a null pointer, this function returns
+     * SQLITE_NOMEM.
+     *
+     * @param pParent    Parent page of siblings being balanced
+     * @param iParentIdx Index of "the page" in pParent
+     * @param aOvflSpace page-size bytes of space for parent ovfl
+     * @param isRoot     True if pParent is a root-page
+     * @throws SqlJetException
+     */
+    private void balance_nonroot(SqlJetMemPage pParent, int iParentIdx,
+                                 ISqlJetMemoryPointer aOvflSpace, boolean isRoot) throws SqlJetException {
 
-		  SqlJetBtreeShared pBt;               /* The whole database */
-		  int nCell = 0;               /* Number of cells in apCell[] */
-		  int nMaxCells = 0;           /* Allocated size of apCell, szCell, aFrom. */
-		  int nNew = 0;                /* Number of pages in apNew[] */
-		  int nOld = 0;                    /* Number of pages in apOld[] */
-		  int i, j, k;                 /* Loop counters */
-		  int nxDiv;                   /* Next divider slot in pParent->aCell[] */
-		  int leafCorrection;          /* 4 if pPage is a leaf.  0 if not */
-		  boolean leafData;                /* True if pPage is a leaf of a LEAFDATA tree */
-		  int usableSpace;             /* Bytes in pPage beyond the header */
-		  int pageFlags;               /* Value of pPage->aData[0] */
-		  int subtotal;                /* Subtotal of bytes in cells on one page */
-		  int iSpace1 = 0;             /* First unused byte of aSpace1[] */
-		  int iOvflSpace = 0;          /* First unused byte of aOvflSpace[] */
-		  //int szScratch;               /* Size of scratch memory requested */
-		  SqlJetMemPage[] apOld = new SqlJetMemPage[NB];          /* pPage and up to two siblings */
-		  SqlJetMemPage[] apCopy = new SqlJetMemPage[NB];         /* Private copies of apOld[] pages */
-		  SqlJetMemPage[] apNew = new SqlJetMemPage[NB+2];        /* pPage and up to NB siblings after balancing */
-		  /*u8*/ISqlJetMemoryPointer pRight;                  /* Location in parent of right-sibling pointer */
-		  /*u8*/ISqlJetMemoryPointer[] apDiv = new ISqlJetMemoryPointer[NB-1];             /* Divider cells in pParent */
-		  int[] cntNew=new int[NB+2];            /* Index in aCell[] of cell after i-th page */
-		  int[] szNew=new int[NB+2];             /* Combined size of cells place on i-th page */
-		  /*u8*/ ISqlJetMemoryPointer[] apCell;             /* All cells begin balanced */
-		  /*u16*/ int[] szCell;                 /* Local size of all cells in apCell[] */
+        SqlJetBtreeShared pBt;               /* The whole database */
+        int nCell = 0;               /* Number of cells in apCell[] */
+        int nMaxCells = 0;           /* Allocated size of apCell, szCell, aFrom. */
+        int nNew = 0;                /* Number of pages in apNew[] */
+        int nOld = 0;                    /* Number of pages in apOld[] */
+        int i, j, k;                 /* Loop counters */
+        int nxDiv;                   /* Next divider slot in pParent->aCell[] */
+        int leafCorrection;          /* 4 if pPage is a leaf.  0 if not */
+        boolean leafData;                /* True if pPage is a leaf of a LEAFDATA tree */
+        int usableSpace;             /* Bytes in pPage beyond the header */
+        int pageFlags;               /* Value of pPage->aData[0] */
+        int subtotal;                /* Subtotal of bytes in cells on one page */
+        int iSpace1 = 0;             /* First unused byte of aSpace1[] */
+        int iOvflSpace = 0;          /* First unused byte of aOvflSpace[] */
+        //int szScratch;               /* Size of scratch memory requested */
+        SqlJetMemPage[] apOld = new SqlJetMemPage[NB];          /* pPage and up to two siblings */
+        SqlJetMemPage[] apCopy = new SqlJetMemPage[NB];         /* Private copies of apOld[] pages */
+        SqlJetMemPage[] apNew = new SqlJetMemPage[NB + 2];        /* pPage and up to NB siblings after balancing */
+		  /*u8*/
+        ISqlJetMemoryPointer pRight;                  /* Location in parent of right-sibling pointer */
+		  /*u8*/
+        ISqlJetMemoryPointer[] apDiv = new ISqlJetMemoryPointer[NB - 1];             /* Divider cells in pParent */
+        int[] cntNew = new int[NB + 2];            /* Index in aCell[] of cell after i-th page */
+        int[] szNew = new int[NB + 2];             /* Combined size of cells place on i-th page */
+		  /*u8*/
+        ISqlJetMemoryPointer[] apCell;             /* All cells begin balanced */
+		  /*u16*/
+        int[] szCell;                 /* Local size of all cells in apCell[] */
 		  /*u8*/ //SqlJetMemPage[] aSpace1;                 /* Space for copies of dividers cells */
-		  int pgno;                   /* Temp var to store a page number in */
+        int pgno;                   /* Temp var to store a page number in */
 
-		  pBt = pParent.pBt;
-		  assert(mutex_held(pBt.mutex) );
-		  assert(pParent.pDbPage.isWriteable());
+        pBt = pParent.pBt;
+        assert (mutex_held(pBt.mutex));
+        assert (pParent.pDbPage.isWriteable());
 
 		  /* At this point pParent may have at most one overflow cell. And if
 		  ** this overflow cell is present, it must be the cell with
 		  ** index iParentIdx. This scenario comes about when this function
 		  ** is called (indirectly) from sqlite3BtreeDelete().
 		  */
-		  assert( pParent.nOverflow==0 || pParent.nOverflow==1 );
-		  assert( pParent.nOverflow==0 || pParent.aOvfl[0].idx==iParentIdx );
+        assert (pParent.nOverflow == 0 || pParent.nOverflow == 1);
+        assert (pParent.nOverflow == 0 || pParent.aOvfl[0].idx == iParentIdx);
 
-		  if( aOvflSpace==null ){
-		    throw new SqlJetException(SqlJetErrorCode.NOMEM);
-		  }
+        if (aOvflSpace == null) {
+            throw new SqlJetException(SqlJetErrorCode.NOMEM);
+        }
 
-		  try{
+        try {
 
 
 		  /* Find the sibling pages to balance. Also locate the cells in pParent
@@ -996,41 +1012,41 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		  ** overflow cells in the parent page, since if any existed they will
 		  ** have already been removed.
 		  */
-		  i = pParent.nOverflow + pParent.nCell;
-		  if( i<2 ){
-		    nxDiv = 0;
-		    nOld = i+1;
-		  }else{
-		    nOld = 3;
-		    if( iParentIdx==0 ){
-		      nxDiv = 0;
-		    }else if( iParentIdx==i ){
-		      nxDiv = i-2;
-		    }else{
-		      nxDiv = iParentIdx-1;
-		    }
-		    i = 2;
-		  }
-		  if( (i+nxDiv-pParent.nOverflow)==pParent.nCell ){
-		    pRight = pParent.aData.getMoved(pParent.hdrOffset+8);
-		  }else{
-		    pRight = pParent.findCell(i+nxDiv-pParent.nOverflow);
-		  }
-		  pgno = get4byte(pRight);
-		  while( true ){
-			apOld[i] = pBt.getAndInitPage(pgno);
-		    nMaxCells += 1+apOld[i].nCell+apOld[i].nOverflow;
-		    if( (i--)==0 ) break;
+            i = pParent.nOverflow + pParent.nCell;
+            if (i < 2) {
+                nxDiv = 0;
+                nOld = i + 1;
+            } else {
+                nOld = 3;
+                if (iParentIdx == 0) {
+                    nxDiv = 0;
+                } else if (iParentIdx == i) {
+                    nxDiv = i - 2;
+                } else {
+                    nxDiv = iParentIdx - 1;
+                }
+                i = 2;
+            }
+            if ((i + nxDiv - pParent.nOverflow) == pParent.nCell) {
+                pRight = pParent.aData.getMoved(pParent.hdrOffset + 8);
+            } else {
+                pRight = pParent.findCell(i + nxDiv - pParent.nOverflow);
+            }
+            pgno = get4byte(pRight);
+            while (true) {
+                apOld[i] = pBt.getAndInitPage(pgno);
+                nMaxCells += 1 + apOld[i].nCell + apOld[i].nOverflow;
+                if ((i--) == 0) break;
 
-		    if( i+nxDiv==pParent.aOvfl[0].idx && pParent.nOverflow>0 ){
-		      apDiv[i] = pParent.aOvfl[0].pCell;
-		      pgno = get4byte(apDiv[i]);
-		      szNew[i] = pParent.cellSizePtr(apDiv[i]);
-		      pParent.nOverflow = 0;
-		    }else{
-		      apDiv[i] = pParent.findCell(i+nxDiv-pParent.nOverflow);
-		      pgno = get4byte(apDiv[i]);
-		      szNew[i] = pParent.cellSizePtr(apDiv[i]);
+                if (i + nxDiv == pParent.aOvfl[0].idx && pParent.nOverflow > 0) {
+                    apDiv[i] = pParent.aOvfl[0].pCell;
+                    pgno = get4byte(apDiv[i]);
+                    szNew[i] = pParent.cellSizePtr(apDiv[i]);
+                    pParent.nOverflow = 0;
+                } else {
+                    apDiv[i] = pParent.findCell(i + nxDiv - pParent.nOverflow);
+                    pgno = get4byte(apDiv[i]);
+                    szNew[i] = pParent.cellSizePtr(apDiv[i]);
 
 		      /* Drop the cell from the parent page. apDiv[i] still points to
 		      ** the cell within the parent, even though it has been dropped.
@@ -1044,40 +1060,40 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		      ** In this case, temporarily copy the cell into the aOvflSpace[]
 		      ** buffer. It will be copied out again as soon as the aSpace[] buffer
 		      ** is allocated.  */
-		      if( ISqlJetConfig.SECURE_DELETE ){
-		        int iOff;
+                    if (ISqlJetConfig.SECURE_DELETE) {
+                        int iOff;
 
-		        iOff = apDiv[i].getPointer() - pParent.aData.getPointer();
-		        if( (iOff+szNew[i])>(int)pBt.usableSize ){
-				  Arrays.fill(apOld, 0, i, null);
-		          //rc = SqlJetErrorCode.CORRUPT;
-				  //goto balance_cleanup;
-				  throw new SqlJetException(SqlJetErrorCode.CORRUPT);
-		        }else{
-		          memcpy(aOvflSpace.getMoved(iOff), apDiv[i], szNew[i]);
-		          apDiv[i] = aOvflSpace.getMoved(apDiv[i].getPointer() - pParent.aData.getPointer());
-		        }
-		      }
-		      try {
-		    	  pParent.dropCell( i+nxDiv-pParent.nOverflow, szNew[i]);
-		      } catch(SqlJetException e) {
-		    	  //rc = e.getErrorCode();
-		          TRACE("exception in dropCell call: %s", e.getMessage());
-		    	  // e.printStackTrace();
-		      }
-		    }
-		  }
+                        iOff = apDiv[i].getPointer() - pParent.aData.getPointer();
+                        if ((iOff + szNew[i]) > (int) pBt.usableSize) {
+                            Arrays.fill(apOld, 0, i, null);
+                            //rc = SqlJetErrorCode.CORRUPT;
+                            //goto balance_cleanup;
+                            throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+                        } else {
+                            memcpy(aOvflSpace.getMoved(iOff), apDiv[i], szNew[i]);
+                            apDiv[i] = aOvflSpace.getMoved(apDiv[i].getPointer() - pParent.aData.getPointer());
+                        }
+                    }
+                    try {
+                        pParent.dropCell(i + nxDiv - pParent.nOverflow, szNew[i]);
+                    } catch (SqlJetException e) {
+                        //rc = e.getErrorCode();
+                        TRACE("exception in dropCell call: %s", e.getMessage());
+                        // e.printStackTrace();
+                    }
+                }
+            }
 
 		  /* Make nMaxCells a multiple of 4 in order to preserve 8-byte
 		   ** alignment */
-		  nMaxCells = (nMaxCells + 3)&~3;
+            nMaxCells = (nMaxCells + 3) & ~3;
 
 		  /*
 		  ** Allocate space for memory structures
 		  */
-		  apCell = new SqlJetMemoryPointer[nMaxCells];
-		  szCell = new int[nMaxCells];
-		  //aSpace1 = new SqlJetMemPage[nMaxCells];
+            apCell = new SqlJetMemoryPointer[nMaxCells];
+            szCell = new int[nMaxCells];
+            //aSpace1 = new SqlJetMemPage[nMaxCells];
 
 		  /*
 		  ** Load pointers to all cells on sibling pages and the divider cells
@@ -1095,67 +1111,67 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		  ** leafCorrection:  4 if pPage is a leaf.  0 if pPage is not a leaf.
 		  **       leafData:  1 if pPage holds key+data and pParent holds only keys.
 		  */
-		  leafCorrection = apOld[0].leaf?4:0;
-		  leafData = apOld[0].hasData;
-		  for(i=0; i<nOld; i++){
-		    int limit;
+            leafCorrection = apOld[0].leaf ? 4 : 0;
+            leafData = apOld[0].hasData;
+            for (i = 0; i < nOld; i++) {
+                int limit;
 
 		    /* Before doing anything else, take a copy of the i'th original sibling
 		    ** The rest of this function will use data from the copies rather
 		    ** that the original pages since the original pages will be in the
 		    ** process of being overwritten.  */
-		    SqlJetMemPage pOld = apCopy[i] = memcpy(apOld[i]);
-		    pOld.aData.copyFrom(apOld[i].aData,pBt.pageSize);
+                SqlJetMemPage pOld = apCopy[i] = memcpy(apOld[i]);
+                pOld.aData.copyFrom(apOld[i].aData, pBt.pageSize);
 
-		    limit = pOld.nCell+pOld.nOverflow;
-		    if( pOld.nOverflow>0 ){
-		      for(j=0; j<limit; j++){
-		        assert( nCell<nMaxCells );
-		        apCell[nCell] = pOld.findOverflowCell(j);
-		        szCell[nCell] = pOld.cellSizePtr( apCell[nCell]);
-		        nCell++;
-		      }
-		    }else{
-		      ISqlJetMemoryPointer aData = pOld.aData;
-		      int maskPage = pOld.maskPage;
-		      int cellOffset = pOld.cellOffset;
-		      for(j=0; j<limit; j++){
-		        assert( nCell<nMaxCells );
-		        apCell[nCell] = findCellv2(aData, maskPage, cellOffset, j);
-		        szCell[nCell] = pOld.cellSizePtr(apCell[nCell]);
-		        nCell++;
-		      }
-		    }
-		    if( i<nOld-1 && !leafData){
-		      int sz =szNew[i];
-		      ISqlJetMemoryPointer pTemp;
-		      assert( nCell<nMaxCells );
-		      szCell[nCell] = sz;
-		      pTemp = SqlJetUtility.allocatePtr(sz);
-		      //pTemp = &aSpace1[iSpace1];
-		      iSpace1 += sz;
-		      assert( sz<=pBt.maxLocal+23 );
-		      assert( iSpace1 <= (int)pBt.pageSize );
-		      memcpy(pTemp, apDiv[i], sz);
-		      apCell[nCell] = pTemp.getMoved(leafCorrection);
-		      assert( leafCorrection==0 || leafCorrection==4 );
-		      szCell[nCell] = szCell[nCell] - leafCorrection;
-		      if( !pOld.leaf ){
-		        assert( leafCorrection==0 );
-		        assert( pOld.hdrOffset==0 );
+                limit = pOld.nCell + pOld.nOverflow;
+                if (pOld.nOverflow > 0) {
+                    for (j = 0; j < limit; j++) {
+                        assert (nCell < nMaxCells);
+                        apCell[nCell] = pOld.findOverflowCell(j);
+                        szCell[nCell] = pOld.cellSizePtr(apCell[nCell]);
+                        nCell++;
+                    }
+                } else {
+                    ISqlJetMemoryPointer aData = pOld.aData;
+                    int maskPage = pOld.maskPage;
+                    int cellOffset = pOld.cellOffset;
+                    for (j = 0; j < limit; j++) {
+                        assert (nCell < nMaxCells);
+                        apCell[nCell] = findCellv2(aData, maskPage, cellOffset, j);
+                        szCell[nCell] = pOld.cellSizePtr(apCell[nCell]);
+                        nCell++;
+                    }
+                }
+                if (i < nOld - 1 && !leafData) {
+                    int sz = szNew[i];
+                    ISqlJetMemoryPointer pTemp;
+                    assert (nCell < nMaxCells);
+                    szCell[nCell] = sz;
+                    pTemp = SqlJetUtility.allocatePtr(sz);
+                    //pTemp = &aSpace1[iSpace1];
+                    iSpace1 += sz;
+                    assert (sz <= pBt.maxLocal + 23);
+                    assert (iSpace1 <= (int) pBt.pageSize);
+                    memcpy(pTemp, apDiv[i], sz);
+                    apCell[nCell] = pTemp.getMoved(leafCorrection);
+                    assert (leafCorrection == 0 || leafCorrection == 4);
+                    szCell[nCell] = szCell[nCell] - leafCorrection;
+                    if (!pOld.leaf) {
+                        assert (leafCorrection == 0);
+                        assert (pOld.hdrOffset == 0);
 		        /* The right pointer of the child page pOld becomes the left
 		        ** pointer of the divider cell */
-		        memcpy(apCell[nCell], pOld.aData.getMoved(8), 4);
-		      }else{
-		        assert( leafCorrection==4 );
-		        if( szCell[nCell]<4 ){
+                        memcpy(apCell[nCell], pOld.aData.getMoved(8), 4);
+                    } else {
+                        assert (leafCorrection == 4);
+                        if (szCell[nCell] < 4) {
 		          /* Do not allow any cells smaller than 4 bytes. */
-		          szCell[nCell] = 4;
-		        }
-		      }
-		      nCell++;
-		    }
-		  }
+                            szCell[nCell] = 4;
+                        }
+                    }
+                    nCell++;
+                }
+            }
 
 		  /*
 		  ** Figure out the number of pages needed to hold all nCell cells.
@@ -1173,25 +1189,27 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		  ** usableSpace: Number of bytes of space available on each sibling.
 		  **
 		  */
-		  usableSpace = pBt.usableSize - 12 + leafCorrection;
-		  for(subtotal=k=i=0; i<nCell; i++){
-		    assert( i<nMaxCells );
-		    subtotal += szCell[i] + 2;
-		    if( subtotal > usableSpace ){
-		      szNew[k] = subtotal - szCell[i];
-		      cntNew[k] = i;
-		      if( leafData ){ i--; }
-		      subtotal = 0;
-		      k++;
-		      if( k>NB+1 ){
-		    	  //rc = SqlJetErrorCode.CORRUPT; break balance_cleanup;
-		    	  throw new SqlJetException(SqlJetErrorCode.CORRUPT);
-		      }
-		    }
-		  }
-		  szNew[k] = subtotal;
-		  cntNew[k] = nCell;
-		  k++;
+            usableSpace = pBt.usableSize - 12 + leafCorrection;
+            for (subtotal = k = i = 0; i < nCell; i++) {
+                assert (i < nMaxCells);
+                subtotal += szCell[i] + 2;
+                if (subtotal > usableSpace) {
+                    szNew[k] = subtotal - szCell[i];
+                    cntNew[k] = i;
+                    if (leafData) {
+                        i--;
+                    }
+                    subtotal = 0;
+                    k++;
+                    if (k > NB + 1) {
+                        //rc = SqlJetErrorCode.CORRUPT; break balance_cleanup;
+                        throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+                    }
+                }
+            }
+            szNew[k] = subtotal;
+            cntNew[k] = nCell;
+            k++;
 
 		  /*
 		  ** The packing computed by the previous block is biased toward the siblings
@@ -1203,80 +1221,80 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		  ** be so out of balance as to be illegal.  For example, the right-most
 		  ** sibling might be completely empty.  This adjustment is not optional.
 		  */
-		  for(i=k-1; i>0; i--){
-		    int szRight = szNew[i];  /* Size of sibling on the right */
-		    int szLeft = szNew[i-1]; /* Size of sibling on the left */
-		    int r;              /* Index of right-most cell in left sibling */
-		    int d;              /* Index of first cell to the left of right sibling */
+            for (i = k - 1; i > 0; i--) {
+                int szRight = szNew[i];  /* Size of sibling on the right */
+                int szLeft = szNew[i - 1]; /* Size of sibling on the left */
+                int r;              /* Index of right-most cell in left sibling */
+                int d;              /* Index of first cell to the left of right sibling */
 
-		    r = cntNew[i-1] - 1;
-		    d = r + 1 - (leafData?1:0);
-		    assert( d<nMaxCells );
-		    assert( r<nMaxCells );
-		    while( szRight==0 || szRight+szCell[d]+2<=szLeft-(szCell[r]+2) ){
-		      szRight += szCell[d] + 2;
-		      szLeft -= szCell[r] + 2;
-		      cntNew[i-1]--;
-		      r = cntNew[i-1] - 1;
-		      d = r + 1 - (leafData?1:0);
-		    }
-		    szNew[i] = szRight;
-		    szNew[i-1] = szLeft;
-		  }
+                r = cntNew[i - 1] - 1;
+                d = r + 1 - (leafData ? 1 : 0);
+                assert (d < nMaxCells);
+                assert (r < nMaxCells);
+                while (szRight == 0 || szRight + szCell[d] + 2 <= szLeft - (szCell[r] + 2)) {
+                    szRight += szCell[d] + 2;
+                    szLeft -= szCell[r] + 2;
+                    cntNew[i - 1]--;
+                    r = cntNew[i - 1] - 1;
+                    d = r + 1 - (leafData ? 1 : 0);
+                }
+                szNew[i] = szRight;
+                szNew[i - 1] = szLeft;
+            }
 
 		  /* Either we found one or more cells (cntnew[0])>0) or pPage is
 		  ** a virtual root page.  A virtual root page is when the real root
 		  ** page is page 1 and we are the only child of that page.
 		  */
-		  assert( cntNew[0]>0 || (pParent.pgno==1 && pParent.nCell==0) );
+            assert (cntNew[0] > 0 || (pParent.pgno == 1 && pParent.nCell == 0));
 
-		  TRACE("BALANCE: old: %d %d %d  ",
-		    apOld[0].pgno,
-		    nOld>=2 ? apOld[1].pgno : 0,
-		    nOld>=3 ? apOld[2].pgno : 0
-		  );
+            TRACE("BALANCE: old: %d %d %d  ",
+                    apOld[0].pgno,
+                    nOld >= 2 ? apOld[1].pgno : 0,
+                    nOld >= 3 ? apOld[2].pgno : 0
+            );
 
 		  /*
 		  ** Allocate k new pages.  Reuse old pages where possible.
 		  */
-		  if( apOld[0].pgno<=1 ){
-		    //rc = SqlJetErrorCode.CORRUPT;
-		    //break balance_cleanup;
-			throw new SqlJetException(SqlJetErrorCode.CORRUPT);
-		  }
-		  pageFlags = apOld[0].aData.getByteUnsigned(0);
-		  for(i=0; i<k; i++){
-		    SqlJetMemPage pNew;
-		    if( i<nOld ){
-		      pNew = apNew[i] = apOld[i];
-		      apOld[i] = null;
-		      nNew++;
-	    	  pNew.pDbPage.write();
-		    }else{
-		      assert( i>0 );
+            if (apOld[0].pgno <= 1) {
+                //rc = SqlJetErrorCode.CORRUPT;
+                //break balance_cleanup;
+                throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+            }
+            pageFlags = apOld[0].aData.getByteUnsigned(0);
+            for (i = 0; i < k; i++) {
+                SqlJetMemPage pNew;
+                if (i < nOld) {
+                    pNew = apNew[i] = apOld[i];
+                    apOld[i] = null;
+                    nNew++;
+                    pNew.pDbPage.write();
+                } else {
+                    assert (i > 0);
 
-	    	  int[] p = {0};
-	    	  pNew = pBt.allocatePage(p, pgno, false);
-	    	  pgno = p[0];
+                    int[] p = {0};
+                    pNew = pBt.allocatePage(p, pgno, false);
+                    pgno = p[0];
 
-		      apNew[i] = pNew;
-		      nNew++;
+                    apNew[i] = pNew;
+                    nNew++;
 
 		      /* Set the pointer-map entry for the new sibling page. */
-		      if( pBt.autoVacuum ){
-	    		  pBt.ptrmapPut(pNew.pgno, SqlJetBtreeShared.PTRMAP_BTREE, pParent.pgno);
-		      }
-		    }
-		  }
+                    if (pBt.autoVacuum) {
+                        pBt.ptrmapPut(pNew.pgno, SqlJetBtreeShared.PTRMAP_BTREE, pParent.pgno);
+                    }
+                }
+            }
 
 		  /* Free any old pages that were not reused as new pages.
 		  */
-		  while( i<nOld ){
-			  apOld[i].freePage();
-			  SqlJetMemPage.releasePage(apOld[i]);
-			  apOld[i] = null;
-			  i++;
-		  }
+            while (i < nOld) {
+                apOld[i].freePage();
+                SqlJetMemPage.releasePage(apOld[i]);
+                apOld[i] = null;
+                i++;
+            }
 
 		  /*
 		  ** Put the new pages in accending order.  This helps to
@@ -1292,79 +1310,79 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		  ** When NB==3, this one optimization makes the database
 		  ** about 25% faster for large insertions and deletions.
 		  */
-		  for(i=0; i<k-1; i++){
-		    int minV = apNew[i].pgno;
-		    int minI = i;
-		    for(j=i+1; j<k; j++){
-		      if( apNew[j].pgno</*(unsigned)*/minV ){
-		        minI = j;
-		        minV = apNew[j].pgno;
-		      }
-		    }
-		    if( minI>i ){
-		      SqlJetMemPage pT;
-		      pT = apNew[i];
-		      apNew[i] = apNew[minI];
-		      apNew[minI] = pT;
-		    }
-		  }
-		  TRACE("new: %d(%d) %d(%d) %d(%d) %d(%d) %d(%d)\n",
-		    apNew[0].pgno, szNew[0],
-		    nNew>=2 ? apNew[1].pgno : 0, nNew>=2 ? szNew[1] : 0,
-		    nNew>=3 ? apNew[2].pgno : 0, nNew>=3 ? szNew[2] : 0,
-		    nNew>=4 ? apNew[3].pgno : 0, nNew>=4 ? szNew[3] : 0,
-		    nNew>=5 ? apNew[4].pgno : 0, nNew>=5 ? szNew[4] : 0);
+            for (i = 0; i < k - 1; i++) {
+                int minV = apNew[i].pgno;
+                int minI = i;
+                for (j = i + 1; j < k; j++) {
+                    if (apNew[j].pgno </*(unsigned)*/minV) {
+                        minI = j;
+                        minV = apNew[j].pgno;
+                    }
+                }
+                if (minI > i) {
+                    SqlJetMemPage pT;
+                    pT = apNew[i];
+                    apNew[i] = apNew[minI];
+                    apNew[minI] = pT;
+                }
+            }
+            TRACE("new: %d(%d) %d(%d) %d(%d) %d(%d) %d(%d)\n",
+                    apNew[0].pgno, szNew[0],
+                    nNew >= 2 ? apNew[1].pgno : 0, nNew >= 2 ? szNew[1] : 0,
+                    nNew >= 3 ? apNew[2].pgno : 0, nNew >= 3 ? szNew[2] : 0,
+                    nNew >= 4 ? apNew[3].pgno : 0, nNew >= 4 ? szNew[3] : 0,
+                    nNew >= 5 ? apNew[4].pgno : 0, nNew >= 5 ? szNew[4] : 0);
 
-		  assert( pParent.pDbPage.isWriteable() );
-		  put4byte(pRight, apNew[nNew-1].pgno);
+            assert (pParent.pDbPage.isWriteable());
+            put4byte(pRight, apNew[nNew - 1].pgno);
 
 		  /*
 		  ** Evenly distribute the data in apCell[] across the new pages.
 		  ** Insert divider cells into pParent as necessary.
 		  */
-		  j = 0;
-		  for(i=0; i<nNew; i++){
+            j = 0;
+            for (i = 0; i < nNew; i++) {
 		    /* Assemble the new sibling page. */
-		    SqlJetMemPage pNew = apNew[i];
-		    assert( j<nMaxCells );
-		    pNew.zeroPage(pageFlags);
-		    pNew.assemblePage(cntNew[i]-j, apCell,j, szCell,j);
-		    assert( pNew.nCell>0 || (nNew==1 && cntNew[0]==0) );
-		    assert( pNew.nOverflow==0 );
+                SqlJetMemPage pNew = apNew[i];
+                assert (j < nMaxCells);
+                pNew.zeroPage(pageFlags);
+                pNew.assemblePage(cntNew[i] - j, apCell, j, szCell, j);
+                assert (pNew.nCell > 0 || (nNew == 1 && cntNew[0] == 0));
+                assert (pNew.nOverflow == 0);
 
-		    j = cntNew[i];
+                j = cntNew[i];
 
 		    /* If the sibling page assembled above was not the right-most sibling,
 		    ** insert a divider cell into the parent page.
 		    */
-		    assert( i<nNew-1 || j==nCell );
-		    if( j<nCell ){
-		      ISqlJetMemoryPointer pCell;
-		      ISqlJetMemoryPointer pTemp;
-		      int sz;
+                assert (i < nNew - 1 || j == nCell);
+                if (j < nCell) {
+                    ISqlJetMemoryPointer pCell;
+                    ISqlJetMemoryPointer pTemp;
+                    int sz;
 
-		      assert( j<nMaxCells );
-		      pCell = apCell[j];
-		      sz = szCell[j] + leafCorrection;
-		      pTemp = aOvflSpace.getMoved(iOvflSpace);
-		      if( !pNew.leaf ){
-		        memcpy(pNew.aData.getMoved(8), pCell, 4);
-		      }else if( leafData ){
+                    assert (j < nMaxCells);
+                    pCell = apCell[j];
+                    sz = szCell[j] + leafCorrection;
+                    pTemp = aOvflSpace.getMoved(iOvflSpace);
+                    if (!pNew.leaf) {
+                        memcpy(pNew.aData.getMoved(8), pCell, 4);
+                    } else if (leafData) {
 		        /* If the tree is a leaf-data tree, and the siblings are leaves,
 		        ** then there is no divider cell in apCell[]. Instead, the divider
 		        ** cell consists of the integer key for the right-most cell of
 		        ** the sibling-page assembled above only.
 		        */
-		    	SqlJetBtreeCellInfo info;
-		        j--;
-		        info = pNew.parseCellPtr(apCell[j]);
-		        pCell = pTemp;
-		        sz = 4 + SqlJetUtility.putVarint(pCell.getMoved(4), info.nKey);
-		        // XXX there is no such code in sqlite.
-		        put4byte(pCell, pNew.pgno);
-		        pTemp = null;
-		      }else{
-		        pCell = SqlJetUtility.getMoved(j > 0 ? apCell[j - 1] : null, pCell, -4);
+                        SqlJetBtreeCellInfo info;
+                        j--;
+                        info = pNew.parseCellPtr(apCell[j]);
+                        pCell = pTemp;
+                        sz = 4 + SqlJetUtility.putVarint(pCell.getMoved(4), info.nKey);
+                        // XXX there is no such code in sqlite.
+                        put4byte(pCell, pNew.pgno);
+                        pTemp = null;
+                    } else {
+                        pCell = SqlJetUtility.getMoved(j > 0 ? apCell[j - 1] : null, pCell, -4);
 		        /* Obscure case for non-leaf-data trees: If the cell at pCell was
 		        ** previously stored on a leaf node, and its reported size was 4
 		        ** bytes, then it may actually be smaller than this
@@ -1376,30 +1394,30 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		        ** cells are at least 4 bytes. It only happens in b-trees used
 		        ** to evaluate "IN (SELECT ...)" and similar clauses.
 		        */
-		        if( szCell[j]==4 ){
-		          assert(leafCorrection==4);
-		          sz = pParent.cellSizePtr(pCell);
-		        }
-		      }
-		      iOvflSpace += sz;
-		      assert( sz<=pBt.maxLocal+23 );
-		      assert( iOvflSpace <= (int)pBt.pageSize );
-		      pParent.insertCell(nxDiv, pCell, sz, pTemp, pNew.pgno);
-		      assert( pParent.pDbPage.isWriteable() );
+                        if (szCell[j] == 4) {
+                            assert (leafCorrection == 4);
+                            sz = pParent.cellSizePtr(pCell);
+                        }
+                    }
+                    iOvflSpace += sz;
+                    assert (sz <= pBt.maxLocal + 23);
+                    assert (iOvflSpace <= (int) pBt.pageSize);
+                    pParent.insertCell(nxDiv, pCell, sz, pTemp, pNew.pgno);
+                    assert (pParent.pDbPage.isWriteable());
 
-		      j++;
-		      nxDiv++;
-		    }
-		  }
-		  assert( j==nCell );
-		  assert( nOld>0 );
-		  assert( nNew>0 );
-		  if( (pageFlags & SqlJetMemPage.PTF_LEAF)==0 ){
-		    ISqlJetMemoryPointer zChild = apCopy[nOld-1].aData.getMoved(8);
-		    memcpy(apNew[nNew-1].aData.getMoved(8), zChild, 4);
-		  }
+                    j++;
+                    nxDiv++;
+                }
+            }
+            assert (j == nCell);
+            assert (nOld > 0);
+            assert (nNew > 0);
+            if ((pageFlags & SqlJetMemPage.PTF_LEAF) == 0) {
+                ISqlJetMemoryPointer zChild = apCopy[nOld - 1].aData.getMoved(8);
+                memcpy(apNew[nNew - 1].aData.getMoved(8), zChild, 4);
+            }
 
-		  if( isRoot && pParent.nCell==0 && pParent.hdrOffset<=apNew[0].nFree ){
+            if (isRoot && pParent.nCell == 0 && pParent.hdrOffset <= apNew[0].nFree) {
 		    /* The root page of the b-tree now contains no cells. The only sibling
 		    ** page is the right-child of the parent. Copy the contents of the
 		    ** child page into the parent, decreasing the overall height of the
@@ -1414,13 +1432,13 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		    ** (it must be, as it was just reconstructed using assemblePage()). This
 		    ** is important if the parent page happens to be page 1 of the database
 		    ** image.  */
-		    assert( nNew==1 );
-		    assert( apNew[0].nFree ==
-		        (get2byte(apNew[0].aData.getMoved(5))-apNew[0].cellOffset-apNew[0].nCell*2)
-		    );
-		    apNew[0].copyNodeContent( pParent );
-		    apNew[0].freePage();
-		  }else if( pBt.autoVacuum ){
+                assert (nNew == 1);
+                assert (apNew[0].nFree ==
+                        (get2byte(apNew[0].aData.getMoved(5)) - apNew[0].cellOffset - apNew[0].nCell * 2)
+                );
+                apNew[0].copyNodeContent(pParent);
+                apNew[0].freePage();
+            } else if (pBt.autoVacuum) {
 		    /* Fix the pointer-map entries for all the cells that were shifted around.
 		    ** There are several different types of pointer-map entries that need to
 		    ** be dealt with by this routine. Some of these have been set already, but
@@ -1452,153 +1470,153 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 		    ** setting a pointer map entry is a relatively expensive operation, this
 		    ** code only sets pointer map entries for child or overflow pages that have
 		    ** actually moved between pages.  */
-		    SqlJetMemPage pNew = apNew[0];
-		    SqlJetMemPage pOld = apCopy[0];
-		    int nOverflow = pOld.nOverflow;
-		    int iNextOld = pOld.nCell + nOverflow;
-		    int iOverflow = (nOverflow>0 ? pOld.aOvfl[0].idx : -1);
-		    j = 0;                             /* Current 'old' sibling page */
-		    k = 0;                             /* Current 'new' sibling page */
-		    boolean isDivider = false;
-		    for(i=0; i<nCell; i++){
-		      while( i==iNextOld ){
+                SqlJetMemPage pNew = apNew[0];
+                SqlJetMemPage pOld = apCopy[0];
+                int nOverflow = pOld.nOverflow;
+                int iNextOld = pOld.nCell + nOverflow;
+                int iOverflow = (nOverflow > 0 ? pOld.aOvfl[0].idx : -1);
+                j = 0;                             /* Current 'old' sibling page */
+                k = 0;                             /* Current 'new' sibling page */
+                boolean isDivider = false;
+                for (i = 0; i < nCell; i++) {
+                    while (i == iNextOld) {
 		        /* Cell i is the cell immediately following the last cell on old
 		        ** sibling page j. If the siblings are not leaf pages of an
 		        ** intkey b-tree, then cell i was a divider cell. */
-		        assert( j+1 < apCopy.length );
-		        pOld = apCopy[++j];
-		        iNextOld = i + (!leafData?1:0) + pOld.nCell + pOld.nOverflow;
-		        if( pOld.nOverflow>0 ){
-		          nOverflow = pOld.nOverflow;
-		          iOverflow = i + (!leafData?1:0) + pOld.aOvfl[0].idx;
-		        }
-		        isDivider = !leafData;
-		      }
+                        assert (j + 1 < apCopy.length);
+                        pOld = apCopy[++j];
+                        iNextOld = i + (!leafData ? 1 : 0) + pOld.nCell + pOld.nOverflow;
+                        if (pOld.nOverflow > 0) {
+                            nOverflow = pOld.nOverflow;
+                            iOverflow = i + (!leafData ? 1 : 0) + pOld.aOvfl[0].idx;
+                        }
+                        isDivider = !leafData;
+                    }
 
-		      assert(nOverflow>0 || iOverflow<i );
-		      assert(nOverflow<2 || pOld.aOvfl[0].idx==pOld.aOvfl[1].idx-1);
-		      assert(nOverflow<3 || pOld.aOvfl[1].idx==pOld.aOvfl[2].idx-1);
-		      if( i==iOverflow ){
-		        isDivider = true;
-		        if( (--nOverflow)>0 ){
-		          iOverflow++;
-		        }
-		      }
+                    assert (nOverflow > 0 || iOverflow < i);
+                    assert (nOverflow < 2 || pOld.aOvfl[0].idx == pOld.aOvfl[1].idx - 1);
+                    assert (nOverflow < 3 || pOld.aOvfl[1].idx == pOld.aOvfl[2].idx - 1);
+                    if (i == iOverflow) {
+                        isDivider = true;
+                        if ((--nOverflow) > 0) {
+                            iOverflow++;
+                        }
+                    }
 
-		      if( i==cntNew[k] ){
+                    if (i == cntNew[k]) {
 		        /* Cell i is the cell immediately following the last cell on new
 		        ** sibling page k. If the siblings are not leaf pages of an
 		        ** intkey b-tree, then cell i is a divider cell.  */
-		        pNew = apNew[++k];
-		        if( !leafData ) continue;
-		      }
-		      assert( j<nOld );
-		      assert( k<nNew );
+                        pNew = apNew[++k];
+                        if (!leafData) continue;
+                    }
+                    assert (j < nOld);
+                    assert (k < nNew);
 
 		      /* If the cell was originally divider cell (and is not now) or
 		      ** an overflow cell, or if the cell was located on a different sibling
 		      ** page before the balancing, then the pointer map entries associated
 		      ** with any child or overflow pages need to be updated.  */
-		      if( isDivider || pOld.pgno!=pNew.pgno ){
-		        if( !(leafCorrection>0) ){
-		        	pBt.ptrmapPut(get4byte(apCell[i]), SqlJetBtreeShared.PTRMAP_BTREE, pNew.pgno);
-		        }
-		        if( szCell[i]>pNew.minLocal ){
-		        	pBt.ptrmapPutOvflPtr(pNew, apCell[i]);
-		        }
-		      }
-		    }
+                    if (isDivider || pOld.pgno != pNew.pgno) {
+                        if (!(leafCorrection > 0)) {
+                            pBt.ptrmapPut(get4byte(apCell[i]), SqlJetBtreeShared.PTRMAP_BTREE, pNew.pgno);
+                        }
+                        if (szCell[i] > pNew.minLocal) {
+                            pBt.ptrmapPutOvflPtr(pNew, apCell[i]);
+                        }
+                    }
+                }
 
-		    if( !(leafCorrection>0) ){
-		      for(i=0; i<nNew; i++){
-		        int key = get4byte(apNew[i].aData.getMoved(8));
-		        pBt.ptrmapPut(key, SqlJetBtreeShared.PTRMAP_BTREE, apNew[i].pgno);
-		      }
-		    }
+                if (!(leafCorrection > 0)) {
+                    for (i = 0; i < nNew; i++) {
+                        int key = get4byte(apNew[i].aData.getMoved(8));
+                        pBt.ptrmapPut(key, SqlJetBtreeShared.PTRMAP_BTREE, apNew[i].pgno);
+                    }
+                }
 
-		  }
+            }
 
-		  assert( pParent.isInit );
-		  TRACE("BALANCE: finished: old=%d new=%d cells=%d\n",
-		          nOld, nNew, nCell);
+            assert (pParent.isInit);
+            TRACE("BALANCE: finished: old=%d new=%d cells=%d\n",
+                    nOld, nNew, nCell);
 
-	} finally {
+        } finally {
 		  /*
 		  ** Cleanup before returning.
 		  */
-		  // balance_cleanup:
-		  //sqlite3ScratchFree(apCell);
-		  for(i=0; i<nOld; i++){
-		    SqlJetMemPage.releasePage(apOld[i]);
-		  }
-		  for(i=0; i<nNew; i++){
-			  SqlJetMemPage.releasePage(apNew[i]);
-		  }
-	}
+            // balance_cleanup:
+            //sqlite3ScratchFree(apCell);
+            for (i = 0; i < nOld; i++) {
+                SqlJetMemPage.releasePage(apOld[i]);
+            }
+            for (i = 0; i < nNew; i++) {
+                SqlJetMemPage.releasePage(apNew[i]);
+            }
+        }
 
 
-	} // balance_nonroot()
+    } // balance_nonroot()
 
-	//#define findCellv2(D,M,O,I) (D+(M&get2byte(D+(O+2*(I)))))
+    //#define findCellv2(D,M,O,I) (D+(M&get2byte(D+(O+2*(I)))))
     private ISqlJetMemoryPointer findCellv2(ISqlJetMemoryPointer D, int M, int O, int I) {
-    	return (D.getMoved(M&get2byte(D.getMoved(O+2*(I)))));
-	}
+        return (D.getMoved(M & get2byte(D.getMoved(O + 2 * (I)))));
+    }
 
     /**
-    * This version of balance() handles the common special case where
-    * a new entry is being inserted on the extreme right-end of the
-    * tree, in other words, when the new entry will become the largest
-    * entry in the tree.
-    *
-    * Instead of trying to balance the 3 right-most leaf pages, just add
-    * a new page to the right-hand side and put the one new entry in
-    * that page.  This leaves the right side of the tree somewhat
-    * unbalanced.  But odds are that we will be inserting new entries
-    * at the end soon afterwards so the nearly empty page will quickly
-    * fill up.  On average.
-    *
-    * pPage is the leaf page which is the right-most page in the tree.
-    * pParent is its parent.  pPage must have a single overflow entry
-    * which is also the right-most entry on the page.
-    *
-    * The pSpace buffer is used to store a temporary copy of the divider
-    * cell that will be inserted into pParent. Such a cell consists of a 4
-    * byte page number followed by a variable length integer. In other
-    * words, at most 13 bytes. Hence the pSpace buffer must be at
-    * least 13 bytes in size.
-    */
+     * This version of balance() handles the common special case where
+     * a new entry is being inserted on the extreme right-end of the
+     * tree, in other words, when the new entry will become the largest
+     * entry in the tree.
+     * <p/>
+     * Instead of trying to balance the 3 right-most leaf pages, just add
+     * a new page to the right-hand side and put the one new entry in
+     * that page.  This leaves the right side of the tree somewhat
+     * unbalanced.  But odds are that we will be inserting new entries
+     * at the end soon afterwards so the nearly empty page will quickly
+     * fill up.  On average.
+     * <p/>
+     * pPage is the leaf page which is the right-most page in the tree.
+     * pParent is its parent.  pPage must have a single overflow entry
+     * which is also the right-most entry on the page.
+     * <p/>
+     * The pSpace buffer is used to store a temporary copy of the divider
+     * cell that will be inserted into pParent. Such a cell consists of a 4
+     * byte page number followed by a variable length integer. In other
+     * words, at most 13 bytes. Hence the pSpace buffer must be at
+     * least 13 bytes in size.
+     */
     private void balance_quick(SqlJetMemPage pParent, SqlJetMemPage pPage, ISqlJetMemoryPointer pSpace) throws SqlJetException {
 
-    	  final SqlJetBtreeShared pBt = pPage.pBt;    /* B-Tree Database */
-    	  SqlJetMemPage pNew;                       /* Newly allocated page */
-    	  int[] pgnoNew = {0};                        /* Page number of pNew */
+        final SqlJetBtreeShared pBt = pPage.pBt;    /* B-Tree Database */
+        SqlJetMemPage pNew;                       /* Newly allocated page */
+        int[] pgnoNew = {0};                        /* Page number of pNew */
 
-    	  assert( mutex_held(pPage.pBt.mutex) );
-    	  assert( pParent.pDbPage.isWriteable() );
-    	  assert( pPage.nOverflow==1 );
+        assert (mutex_held(pPage.pBt.mutex));
+        assert (pParent.pDbPage.isWriteable());
+        assert (pPage.nOverflow == 1);
 
     	  /* This error condition is now caught prior to reaching this function */
-    	  if( pPage.nCell<=0 ) {
-    		  throw new SqlJetException(SqlJetErrorCode.CORRUPT);
-    	  }
+        if (pPage.nCell <= 0) {
+            throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+        }
 
     	  /* Allocate a new page. This page will become the right-sibling of
     	  ** pPage. Make the parent page writable, so that the new divider cell
     	  ** may be inserted. If both these operations are successful, proceed.
     	  */
-    	  pNew = pBt.allocatePage(pgnoNew, 0, false);
+        pNew = pBt.allocatePage(pgnoNew, 0, false);
 
-    	  try{
+        try {
 
-    		ISqlJetMemoryPointer pOut = pSpace.getMoved(4);
-    		ISqlJetMemoryPointer pCell = pPage.aOvfl[0].pCell;
-    	    int szCell = pPage.cellSizePtr(pCell);
-    	    ISqlJetMemoryPointer pStop;
+            ISqlJetMemoryPointer pOut = pSpace.getMoved(4);
+            ISqlJetMemoryPointer pCell = pPage.aOvfl[0].pCell;
+            int szCell = pPage.cellSizePtr(pCell);
+            ISqlJetMemoryPointer pStop;
 
-    	    assert( pNew.pDbPage.isWriteable() );
-    	    assert( pPage.aData.getByteUnsigned(0)==(SqlJetMemPage.PTF_INTKEY|SqlJetMemPage.PTF_LEAFDATA|SqlJetMemPage.PTF_LEAF) );
-    	    pNew.zeroPage(SqlJetMemPage.PTF_INTKEY|SqlJetMemPage.PTF_LEAFDATA|SqlJetMemPage.PTF_LEAF);
-    	    pNew.assemblePage(1, new ISqlJetMemoryPointer[] { pCell }, 0, new int[] { szCell }, 0);
+            assert (pNew.pDbPage.isWriteable());
+            assert (pPage.aData.getByteUnsigned(0) == (SqlJetMemPage.PTF_INTKEY | SqlJetMemPage.PTF_LEAFDATA | SqlJetMemPage.PTF_LEAF));
+            pNew.zeroPage(SqlJetMemPage.PTF_INTKEY | SqlJetMemPage.PTF_LEAFDATA | SqlJetMemPage.PTF_LEAF);
+            pNew.assemblePage(1, new ISqlJetMemoryPointer[]{pCell}, 0, new int[]{szCell}, 0);
 
     	    /* If this is an auto-vacuum database, update the pointer map
     	    ** with entries for the new page, and any pointer from the
@@ -1609,12 +1627,12 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	    ** be marked as dirty. Returning an error code will cause a
     	    ** rollback, undoing any changes made to the parent page.
     	    */
-    	    if( pBt.autoVacuum ){
-    	    	pBt.ptrmapPut(pgnoNew[0], SqlJetBtreeShared.PTRMAP_BTREE, pParent.pgno);
-    	    	if( szCell>pNew.minLocal ){
-    	    		pNew.ptrmapPutOvflPtr(pCell);
-    	    	}
-    	    }
+            if (pBt.autoVacuum) {
+                pBt.ptrmapPut(pgnoNew[0], SqlJetBtreeShared.PTRMAP_BTREE, pParent.pgno);
+                if (szCell > pNew.minLocal) {
+                    pNew.ptrmapPutOvflPtr(pCell);
+                }
+            }
 
     	    /* Create a divider cell to insert into pParent. The divider cell
     	    ** consists of a 4-byte page number (the page number of pPage) and
@@ -1629,56 +1647,56 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     	    ** field. The second while(...) loop copies the key value from the
     	    ** cell on pPage into the pSpace buffer.
     	    */
-    	    pCell = pPage.findCell(pPage.nCell-1);
-    	    pStop = pCell.getMoved(9);
-    	    //while( (*(pCell++)&0x80) && pCell<pStop );
-    	    do{
-    	    	boolean b = (pCell.getByteUnsigned()&0x80)==0;
-    	    	pCell.movePointer(1);
-				if(b) {
-    	    		break;
-    	    	}
-    	    } while( pCell.getPointer()<pStop.getPointer() );
-    	    pStop = pCell.getMoved(9);
-    	    //while( ((*(pOut++) = *(pCell++))&0x80) && pCell<pStop );
-    	    do{
-    	    	pOut.putByteUnsigned(pCell.getByteUnsigned());
-    	    	pOut.movePointer(1);
-    	    	boolean b = (pCell.getByteUnsigned()&0x80)==0;
-    	    	pCell.movePointer(1);
-				if(b) {
-    	    		break;
-    	    	}
-    	    } while( pCell.getPointer()<pStop.getPointer() );
+            pCell = pPage.findCell(pPage.nCell - 1);
+            pStop = pCell.getMoved(9);
+            //while( (*(pCell++)&0x80) && pCell<pStop );
+            do {
+                boolean b = (pCell.getByteUnsigned() & 0x80) == 0;
+                pCell.movePointer(1);
+                if (b) {
+                    break;
+                }
+            } while (pCell.getPointer() < pStop.getPointer());
+            pStop = pCell.getMoved(9);
+            //while( ((*(pOut++) = *(pCell++))&0x80) && pCell<pStop );
+            do {
+                pOut.putByteUnsigned(pCell.getByteUnsigned());
+                pOut.movePointer(1);
+                boolean b = (pCell.getByteUnsigned() & 0x80) == 0;
+                pCell.movePointer(1);
+                if (b) {
+                    break;
+                }
+            } while (pCell.getPointer() < pStop.getPointer());
 
     	    /* Insert the new divider cell into pParent. */
-    	    pParent.insertCell( pParent.nCell, pSpace, (int)(pOut.getPointer()-pSpace.getPointer()),
-    	               null, pPage.pgno);
+            pParent.insertCell(pParent.nCell, pSpace, (int) (pOut.getPointer() - pSpace.getPointer()),
+                    null, pPage.pgno);
 
     	    /* Set the right-child pointer of pParent to point to the new page. */
-    	    SqlJetUtility.put4byte(pParent.aData.getMoved(pParent.hdrOffset+8), pgnoNew[0]);
+            SqlJetUtility.put4byte(pParent.aData.getMoved(pParent.hdrOffset + 8), pgnoNew[0]);
 
-    	  } finally {
+        } finally {
     	    /* Release the reference to the new page. */
-    	    SqlJetMemPage.releasePage(pNew);
-    	  }
+            SqlJetMemPage.releasePage(pNew);
+        }
 
     }
 
     /**
      * This function is called when the root page of a b-tree structure is
      * overfull (has one or more overflow pages).
-     *
+     * <p/>
      * A new child page is allocated and the contents of the current root
      * page, including overflow cells, are copied into the child. The root
      * page is then overwritten to make it an empty page with the right-child
      * pointer pointing to the new page.
-     *
+     * <p/>
      * Before returning, all pointer-map entries corresponding to pages
      * that the new child-page now contains pointers to are updated. The
      * entry corresponding to the new right-child pointer of the root
      * page is also updated.
-     *
+     * <p/>
      * If successful, *ppChild is set to contain a reference to the child
      * page and SQLITE_OK is returned. In this case the caller is required
      * to call releasePage() on *ppChild exactly once. If an error occurs,
@@ -1686,43 +1704,43 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      */
     private SqlJetMemPage balance_deeper(SqlJetMemPage pRoot) throws SqlJetException {
 
-    	  SqlJetMemPage pChild = null;           /* Pointer to a new child page */
-    	  int[] pgnoChild = {0};            /* Page number of the new child page */
-    	  SqlJetBtreeShared pBt = pRoot.pBt;    /* The BTree */
+        SqlJetMemPage pChild = null;           /* Pointer to a new child page */
+        int[] pgnoChild = {0};            /* Page number of the new child page */
+        SqlJetBtreeShared pBt = pRoot.pBt;    /* The BTree */
 
-    	  assert( pRoot.nOverflow>0 );
-    	  assert( mutex_held(pBt.mutex) );
+        assert (pRoot.nOverflow > 0);
+        assert (mutex_held(pBt.mutex));
 
     	  /* Make pRoot, the root page of the b-tree, writable. Allocate a new
     	  ** page that will become the new right-child of pPage. Copy the contents
     	  ** of the node stored on pRoot into the new child page.
     	  */
-    	  pRoot.pDbPage.write();
-    	  try{
-    		  pChild = pBt.allocatePage(pgnoChild, pRoot.pgno, false);
-    		  pRoot.copyNodeContent(pChild);
-    	      if( pBt.autoVacuum ){
-    	    	  pBt.ptrmapPut(pgnoChild[0], SqlJetBtreeShared.PTRMAP_BTREE, pRoot.pgno);
-    	      }
-    	  } catch(SqlJetException e) {
-    	    SqlJetMemPage.releasePage(pChild);
-    	    throw e;
-    	  }
-    	  assert( pChild.pDbPage.isWriteable() );
-    	  assert( pRoot.pDbPage.isWriteable() );
-    	  assert( pChild.nCell==pRoot.nCell );
+        pRoot.pDbPage.write();
+        try {
+            pChild = pBt.allocatePage(pgnoChild, pRoot.pgno, false);
+            pRoot.copyNodeContent(pChild);
+            if (pBt.autoVacuum) {
+                pBt.ptrmapPut(pgnoChild[0], SqlJetBtreeShared.PTRMAP_BTREE, pRoot.pgno);
+            }
+        } catch (SqlJetException e) {
+            SqlJetMemPage.releasePage(pChild);
+            throw e;
+        }
+        assert (pChild.pDbPage.isWriteable());
+        assert (pRoot.pDbPage.isWriteable());
+        assert (pChild.nCell == pRoot.nCell);
 
-    	  TRACE("BALANCE: copy root %d into %d\n", pRoot.pgno, pChild.pgno);
+        TRACE("BALANCE: copy root %d into %d\n", pRoot.pgno, pChild.pgno);
 
     	  /* Copy the overflow cells from pRoot to pChild */
-    	  memcpy(pChild.aOvfl, pRoot.aOvfl, pRoot.nOverflow);
-    	  pChild.nOverflow = pRoot.nOverflow;
+        memcpy(pChild.aOvfl, pRoot.aOvfl, pRoot.nOverflow);
+        pChild.nOverflow = pRoot.nOverflow;
 
     	  /* Zero the contents of pRoot. Then install pChild as the right-child. */
-    	  pRoot.zeroPage(SqlJetUtility.getUnsignedByte(pChild.aData, 0) & ~SqlJetMemPage.PTF_LEAF);
-    	  SqlJetUtility.put4byte(pRoot.aData.getMoved(pRoot.hdrOffset+8), pgnoChild[0]);
+        pRoot.zeroPage(SqlJetUtility.getUnsignedByte(pChild.aData, 0) & ~SqlJetMemPage.PTF_LEAF);
+        SqlJetUtility.put4byte(pRoot.aData.getMoved(pRoot.hdrOffset + 8), pgnoChild[0]);
 
-    	  return pChild;
+        return pChild;
     }
 
     /**
@@ -1747,7 +1765,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * byte[], int, int, boolean)
      */
     public void insert(ISqlJetMemoryPointer pKey, long nKey, ISqlJetMemoryPointer pData, int nData, int zero,
-            boolean bias) throws SqlJetException {
+                       boolean bias) throws SqlJetException {
 
         final SqlJetBtreeCursor pCur = this;
 
@@ -1892,7 +1910,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     /**
      * Move the cursor down to the left-most leaf entry beneath the entry to
      * which it is currently pointing.
-     *
+     * <p/>
      * The left-most leaf is the one with the smallest key - the first in
      * ascending order.
      *
@@ -1917,7 +1935,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * moveToLeftmost() and moveToRightmost(). moveToLeftmost() finds the
      * left-most entry beneath the *entry* whereas moveToRightmost() finds the
      * right-most entry beneath the *page*.
-     *
+     * <p/>
      * The right-most entry is the one with the largest key - the last key in
      * ascending order.
      *
@@ -2024,13 +2042,12 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 
     /**
      * Move the cursor up to the parent page.
-     *
+     * <p/>
      * pCur->idx is set to the cell index that contains the pointer to the page
      * we are coming from. If we are coming from the right-most child page then
      * pCur->idx is set to one more than the largest cell index.
      *
      * @throws SqlJetException
-     *
      */
     private void moveToParent() throws SqlJetException {
         final SqlJetBtreeCursor pCur = this;
@@ -2169,43 +2186,36 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * entry that the pCur cursor is pointing to. If the eOp parameter is 0,
      * this is a read operation (data copied into buffer pBuf). If it is
      * non-zero, a write (data copied from buffer pBuf).
-     *
+     * <p/>
      * A total of "amt" bytes are read or written beginning at "offset". Data is
      * read to or from the buffer pBuf.
-     *
+     * <p/>
      * This routine does not make a distinction between key and data. It just
      * reads or writes bytes from the payload area. Data might appear on the
      * main page or be scattered out on multiple overflow pages.
-     *
+     * <p/>
      * If the BtCursor.isIncrblobHandle flag is set, and the current cursor
      * entry uses one or more overflow pages, this function allocates space for
      * and lazily popluates the overflow page-list cache array
      * (BtCursor.aOverflow). Subsequent calls use this cache to make seeking to
      * the supplied offset more efficient.
-     *
+     * <p/>
      * Once an overflow page-list cache has been allocated, it may be
      * invalidated if some other cursor writes to the same table, or if the
      * cursor is moved to a different row. Additionally, in auto-vacuum mode,
      * the following events may invalidate an overflow page-list cache.
-     *
+     * <p/>
      * <ul>
      * <li>An incremental vacuum</li>
      * <li>A commit in auto_vacuum="full" mode</li>
      * <li>Creating a table (may require moving an overflow page)</li>
      * </ul>
      *
-     *
-     * @param offset
-     *            Begin reading this far into payload
-     * @param amt
-     *            Read this many bytes
-     * @param buf
-     *            Write the bytes into this buffer
-     * @param skipKey
-     *            offset begins at data if this is true
-     * @param eOp
-     *            false to read. true to write
-     *
+     * @param offset  Begin reading this far into payload
+     * @param amt     Read this many bytes
+     * @param buf     Write the bytes into this buffer
+     * @param skipKey offset begins at data if this is true
+     * @param eOp     false to read. true to write
      * @throws SqlJetException
      */
     private void accessPayload(int offset, int amt, ISqlJetMemoryPointer pBuf, int skipKey, boolean eOp)
@@ -2303,7 +2313,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
                     if (pCur.aOverflow != null && pCur.aOverflow[iIdx + 1] != 0) {
                         nextPage = pCur.aOverflow[iIdx + 1];
                     } else {
-                        int[] pNextPage = { nextPage };
+                        int[] pNextPage = {nextPage};
                         pBt.getOverflowPage(nextPage, null, pNextPage);
                         nextPage = pNextPage[0];
                     }
@@ -2339,28 +2349,22 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
 
     /**
      * Copy data from a buffer to a page, or from a page to a buffer.
-     *
+     * <p/>
      * pPayload is a pointer to data stored on database page pDbPage. If
      * argument eOp is false, then nByte bytes of data are copied from pPayload
      * to the buffer pointed at by pBuf. If eOp is true, then
      * sqlite3PagerWrite() is called on pDbPage and nByte bytes of data are
      * copied from the buffer pBuf to pPayload.
      *
-     * @param pPayload
-     *            Pointer to page data
-     * @param pBuf
-     *            Pointer to buffer
-     * @param nByte
-     *            Number of bytes to copy
-     * @param eOp
-     *            false -> copy from page, true -> copy to page
-     * @param pDbPage
-     *            Page containing pPayload
-     *
+     * @param pPayload Pointer to page data
+     * @param pBuf     Pointer to buffer
+     * @param nByte    Number of bytes to copy
+     * @param eOp      false -> copy from page, true -> copy to page
+     * @param pDbPage  Page containing pPayload
      * @throws SqlJetException
      */
     private void copyPayload(ISqlJetMemoryPointer pPayload, int payloadOffset, ISqlJetMemoryPointer pBuf,
-            int bufOffset, int nByte, boolean eOp, ISqlJetPage pDbPage) throws SqlJetException {
+                             int bufOffset, int nByte, boolean eOp, ISqlJetPage pDbPage) throws SqlJetException {
         if (eOp) {
             /* Copy data from buffer to page (a write operation) */
             pDbPage.write();
@@ -2499,7 +2503,6 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
     /**
      * Save the current cursor position in the variables BtCursor.nKey and
      * BtCursor.pKey. The cursor's state is set to CURSOR_REQUIRESEEK.
-     *
      */
     public boolean saveCursorPosition() throws SqlJetException {
 
@@ -2546,7 +2549,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * @see org.tmatesoft.sqljet.core.ISqlJetBtreeCursor#enterCursor()
      */
     public void enterCursor() {
-        if(pBtree!=null) {
+        if (pBtree != null) {
             pBtree.enter();
         }
     }
@@ -2557,7 +2560,7 @@ public class SqlJetBtreeCursor extends SqlJetCloneable implements ISqlJetBtreeCu
      * @see org.tmatesoft.sqljet.core.ISqlJetBtreeCursor#leaveCursor()
      */
     public void leaveCursor() {
-        if(pBtree!=null) {
+        if (pBtree != null) {
             pBtree.leave();
         }
     }

@@ -1,7 +1,7 @@
 /**
  * SqlJetPagerState.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -21,28 +21,28 @@ import org.tmatesoft.sqljet.core.internal.SqlJetLockType;
 
 /**
  * The page cache as a whole is always in one of the following states:
- * 
+ * <p/>
  * PAGER_UNLOCK The page cache is not currently reading or writing the database
  * file. There is no data held in memory. This is the initial state.
- * 
+ * <p/>
  * PAGER_SHARED The page cache is reading the database. Writing is not
  * permitted. There can be multiple readers accessing the same database file at
  * the same time.
- * 
+ * <p/>
  * PAGER_RESERVED This process has reserved the database for writing but has not
  * yet made any changes. Only one process at a time can reserve the database.
  * The original database file has not been modified so other processes may still
  * be reading the on-disk database file.
- * 
+ * <p/>
  * PAGER_EXCLUSIVE The page cache is writing the database. Access is exclusive.
  * No other processes or threads can be reading or writing while one process is
  * writing.
- * 
+ * <p/>
  * PAGER_SYNCED The pager moves to this state from PAGER_EXCLUSIVE after all
  * dirty pages have been written to the database file and the file has been
  * synced to disk. All that remains to do is to remove or truncate the journal
  * file and the transaction will be committed.
- * 
+ * <p/>
  * The page cache comes up in PAGER_UNLOCK. The first time a sqlite3PagerGet()
  * occurs, the state transitions to PAGER_SHARED. After all pages have been
  * released using sqlite_page_unref(), the state transitions back to
@@ -56,10 +56,9 @@ import org.tmatesoft.sqljet.core.internal.SqlJetLockType;
  * sqlite3PagerRollback() or sqlite3PagerCommitPhaseTwo(), the state can go back
  * to PAGER_SHARED, or it can stay at PAGER_EXCLUSIVE if we are in exclusive
  * access mode.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public enum SqlJetPagerState {
 
@@ -86,7 +85,7 @@ public enum SqlJetPagerState {
     }
 
     /**
-     * 
+     *
      */
     private SqlJetPagerState(final SqlJetLockType lockType) {
         this.lockType = lockType;

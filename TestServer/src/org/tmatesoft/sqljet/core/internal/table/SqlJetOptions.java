@@ -31,7 +31,6 @@ import org.tmatesoft.sqljet.core.table.ISqlJetOptions;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetOptions implements ISqlJetOptions {
 
@@ -91,10 +90,10 @@ public class SqlJetOptions implements ISqlJetOptions {
         this.btree = btree;
         this.dbHandle = dbHandle;
         if (readSchemaCookie() == 0) {
-            try{
+            try {
                 initMeta();
-            } catch(SqlJetException e) {
-                if(SqlJetErrorCode.READONLY!=e.getErrorCode()) {
+            } catch (SqlJetException e) {
+                if (SqlJetErrorCode.READONLY != e.getErrorCode()) {
                     throw e;
                 }
                 // we can't init meta on read-only file ...
@@ -107,9 +106,9 @@ public class SqlJetOptions implements ISqlJetOptions {
 
     /**
      * Get the database meta information.
-     *
+     * <p/>
      * Meta values are as follows:
-     *
+     * <p/>
      * <table border="1">
      * <tr>
      * <td>meta[1]</td>
@@ -142,7 +141,6 @@ public class SqlJetOptions implements ISqlJetOptions {
      * </table>
      *
      * @throws SqlJetException
-     *
      */
     private void readMeta() throws SqlJetException {
         schemaCookie = readSchemaCookie();
@@ -167,17 +165,17 @@ public class SqlJetOptions implements ISqlJetOptions {
 
     private SqlJetEncoding readEncoding() throws SqlJetException {
         switch (btree.getMeta(ENCODING)) {
-        case 0:
-            if (readSchemaCookie() != 0)
+            case 0:
+                if (readSchemaCookie() != 0)
+                    throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+            case 1:
+                return SqlJetEncoding.UTF8;
+            case 2:
+                return SqlJetEncoding.UTF16LE;
+            case 3:
+                return SqlJetEncoding.UTF16BE;
+            default:
                 throw new SqlJetException(SqlJetErrorCode.CORRUPT);
-        case 1:
-            return SqlJetEncoding.UTF8;
-        case 2:
-            return SqlJetEncoding.UTF16LE;
-        case 3:
-            return SqlJetEncoding.UTF16BE;
-        default:
-            throw new SqlJetException(SqlJetErrorCode.CORRUPT);
         }
     }
 
@@ -234,11 +232,11 @@ public class SqlJetOptions implements ISqlJetOptions {
     }
 
     public boolean isLegacyFileFormat() throws SqlJetException {
-        return fileFormat==ISqlJetLimits.SQLJET_MIN_FILE_FORMAT;
+        return fileFormat == ISqlJetLimits.SQLJET_MIN_FILE_FORMAT;
     }
 
     public void setLegacyFileFormat(boolean flag) throws SqlJetException {
-        fileFormat=flag?ISqlJetLimits.SQLJET_MIN_FILE_FORMAT:ISqlJetLimits.SQLJET_MAX_FILE_FORMAT;
+        fileFormat = flag ? ISqlJetLimits.SQLJET_MIN_FILE_FORMAT : ISqlJetLimits.SQLJET_MAX_FILE_FORMAT;
     }
 
     public int getUserVersion() throws SqlJetException {
@@ -290,30 +288,31 @@ public class SqlJetOptions implements ISqlJetOptions {
     private void initMeta() throws SqlJetException {
         final boolean inTrans = btree.isInTrans();
         final SqlJetTransactionMode transMode = btree.getTransMode();
-        try{
-        if(!inTrans || transMode!=SqlJetTransactionMode.EXCLUSIVE) {
-            btree.beginTrans(SqlJetTransactionMode.EXCLUSIVE);
-        }
         try {
-            schemaCookie = 1;
-            writeSchemaCookie(schemaCookie);
-            writeFileFormat(fileFormat);
-            writePageCacheSize(pageCacheSize);
-            writeEncoding(encoding);
-            final SqlJetAutoVacuumMode btreeAutoVacuum = btree.getAutoVacuum();
-            autovacuum = SqlJetAutoVacuumMode.NONE != btreeAutoVacuum;
-            incrementalVacuum = SqlJetAutoVacuumMode.INCR == btreeAutoVacuum;
-            writeAutoVacuum(autovacuum);
-            writeIncrementalVacuum(incrementalVacuum);
-            btree.commit();
-        } catch (SqlJetException e) {
-            btree.rollback();
-            throw e;
-        } } finally {
-            if(inTrans && transMode!=null){
-                if(!btree.isInTrans()) {
+            if (!inTrans || transMode != SqlJetTransactionMode.EXCLUSIVE) {
+                btree.beginTrans(SqlJetTransactionMode.EXCLUSIVE);
+            }
+            try {
+                schemaCookie = 1;
+                writeSchemaCookie(schemaCookie);
+                writeFileFormat(fileFormat);
+                writePageCacheSize(pageCacheSize);
+                writeEncoding(encoding);
+                final SqlJetAutoVacuumMode btreeAutoVacuum = btree.getAutoVacuum();
+                autovacuum = SqlJetAutoVacuumMode.NONE != btreeAutoVacuum;
+                incrementalVacuum = SqlJetAutoVacuumMode.INCR == btreeAutoVacuum;
+                writeAutoVacuum(autovacuum);
+                writeIncrementalVacuum(incrementalVacuum);
+                btree.commit();
+            } catch (SqlJetException e) {
+                btree.rollback();
+                throw e;
+            }
+        } finally {
+            if (inTrans && transMode != null) {
+                if (!btree.isInTrans()) {
                     btree.beginTrans(transMode);
-                } else if(btree.getTransMode()!=transMode) {
+                } else if (btree.getTransMode() != transMode) {
                     btree.commit();
                     btree.beginTrans(transMode);
                 }
@@ -327,17 +326,17 @@ public class SqlJetOptions implements ISqlJetOptions {
 
     private void writeEncoding(SqlJetEncoding encoding) throws SqlJetException {
         switch (encoding) {
-        case UTF8:
-            btree.updateMeta(ENCODING, 1);
-            break;
-        case UTF16LE:
-            btree.updateMeta(ENCODING, 2);
-            break;
-        case UTF16BE:
-            btree.updateMeta(ENCODING, 3);
-            break;
-        default:
-            throw new SqlJetException(SqlJetErrorCode.CORRUPT);
+            case UTF8:
+                btree.updateMeta(ENCODING, 1);
+                break;
+            case UTF16LE:
+                btree.updateMeta(ENCODING, 2);
+                break;
+            case UTF16BE:
+                btree.updateMeta(ENCODING, 3);
+                break;
+            default:
+                throw new SqlJetException(SqlJetErrorCode.CORRUPT);
         }
     }
 

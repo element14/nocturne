@@ -1,7 +1,7 @@
 /**
  * SqlJetMemoryPointer.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,16 +17,15 @@
  */
 package org.tmatesoft.sqljet.core.internal.memory;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryBuffer;
 import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public final class SqlJetMemoryPointer implements ISqlJetMemoryPointer {
 
@@ -35,7 +34,7 @@ public final class SqlJetMemoryPointer implements ISqlJetMemoryPointer {
     private int limit;
 
     /**
-     * 
+     *
      */
     public SqlJetMemoryPointer(ISqlJetMemoryBuffer buffer, int pointer) {
         assert (buffer != null);
@@ -683,15 +682,16 @@ public final class SqlJetMemoryPointer implements ISqlJetMemoryPointer {
     final public void limit(int n) {
         this.limit = n;
     }
+
     final public int getLimit() {
         return this.limit;
     }
-    
+
     final public ISqlJetMemoryPointer getIdentic() {
-    	return new SqlJetMemoryPointer(buffer, pointer);
+        return new SqlJetMemoryPointer(buffer, pointer);
     }
-    
+
     public ISqlJetMemoryPointer getMoved(int count) {
-    	return new SqlJetMemoryPointer(buffer, pointer + count, limit);
+        return new SqlJetMemoryPointer(buffer, pointer + count, limit);
     }
 }

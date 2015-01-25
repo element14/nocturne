@@ -1,7 +1,7 @@
 /**
  * SqlJetVdbeMemFlags.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -20,29 +20,42 @@ package org.tmatesoft.sqljet.core.internal.vdbe;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public enum SqlJetVdbeMemFlags {
 
-    /** Value is NULL */
+    /**
+     * Value is NULL
+     */
     Null, // 0x0001
 
-    /** Value is a string */
+    /**
+     * Value is a string
+     */
     Str, // 0x0002
 
-    /** Value is an integer */
+    /**
+     * Value is an integer
+     */
     Int, // 0x0004
 
-    /** Value is a real number */
+    /**
+     * Value is a real number
+     */
     Real, // 0x0008
 
-    /** Value is a BLOB */
+    /**
+     * Value is a BLOB
+     */
     Blob, // 0x0010
 
-    /** Value is a RowSet object */
+    /**
+     * Value is a RowSet object
+     */
     RowSet, // 0x0020
 
-    /** Mask of type bits */
+    /**
+     * Mask of type bits
+     */
     TypeMask, // 0x00ff
 
     /*
@@ -52,22 +65,34 @@ public enum SqlJetVdbeMemFlags {
      * or \u0000 terminated
      */
 
-    /** String rep is nul terminated */
+    /**
+     * String rep is nul terminated
+     */
     Term, // 0x0200
 
-    /** Need to call sqliteFree() on Mem.z */
+    /**
+     * Need to call sqliteFree() on Mem.z
+     */
     Dyn, // 0x0400
 
-    /** Mem.z points to a static string */
+    /**
+     * Mem.z points to a static string
+     */
     Static, // 0x0800
 
-    /** Mem.z points to an ephemeral string */
+    /**
+     * Mem.z points to an ephemeral string
+     */
     Ephem, // 0x1000
 
-    /** Mem.z points to an agg function context */
+    /**
+     * Mem.z points to an agg function context
+     */
     Agg, // 0x2000
 
-    /** Mem.i contains count of 0s appended to blob */
+    /**
+     * Mem.i contains count of 0s appended to blob
+     */
     Zero
     // 0x4000
 

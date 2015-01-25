@@ -1,7 +1,7 @@
 /**
  * SqlJetMapDb.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,12 +17,6 @@
  */
 package org.tmatesoft.sqljet.core.map;
 
-import java.io.File;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import org.tmatesoft.sqljet.core.SqlJetErrorCode;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.SqlJetTransactionMode;
@@ -36,10 +30,15 @@ import org.tmatesoft.sqljet.core.table.engine.ISqlJetEngineSynchronized;
 import org.tmatesoft.sqljet.core.table.engine.ISqlJetEngineTransaction;
 import org.tmatesoft.sqljet.core.table.engine.SqlJetEngine;
 
+import java.io.File;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetMapDb extends SqlJetEngine {
 
@@ -51,25 +50,23 @@ public class SqlJetMapDb extends SqlJetEngine {
     public static final File IN_MEMORY = new File(ISqlJetPager.MEMORY_DB);
 
     /**
-     * 
+     *
      */
     public static final String MODULE_NAME = "sqljetmap";
 
     /**
-     * 
+     *
      */
     private static final String MAP_EXISTS = "Map '%s' exists";
 
     /**
-     * 
+     *
      */
     private volatile Map<String, SqlJetMapDef> mapDefs;
 
     /**
-     * @param file
-     *            database file.
-     * @param writable
-     *            true if caller needs write access to the database.
+     * @param file     database file.
+     * @param writable true if caller needs write access to the database.
      */
     public SqlJetMapDb(File file, boolean writable) {
         super(file, writable);
@@ -82,10 +79,8 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param mode
-     *            mode in which to run transaction.
-     * @param transaction
-     *            transaction to run.
+     * @param mode        mode in which to run transaction.
+     * @param transaction transaction to run.
      * @return result of {@link ISqlJetMapTransaction#run(SqlJetMapDb)} call.
      */
     public Object runTransaction(final SqlJetTransactionMode mode, final ISqlJetMapTransaction transaction)
@@ -99,8 +94,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param transaction
-     *            to run.
+     * @param transaction to run.
      * @return result of {@link ISqlJetMapTransaction#run(SqlJetMapDb)} call.
      */
     public Object runWriteTransaction(final ISqlJetMapTransaction transaction) throws SqlJetException {
@@ -108,8 +102,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param transaction
-     *            transaction to run.
+     * @param transaction transaction to run.
      * @return result of {@link ISqlJetMapTransaction#run(SqlJetMapDb)} call.
      */
     public Object runReadTransaction(final ISqlJetMapTransaction transaction) throws SqlJetException {
@@ -117,8 +110,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param transaction
-     *            transaction to run.
+     * @param transaction transaction to run.
      * @return result of {@link ISqlJetMapTransaction#run(SqlJetMapDb)} call.
      */
     public Object runSynchronized(final ISqlJetMapTransaction transaction) throws SqlJetException {
@@ -130,7 +122,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * 
+     *
      */
     private Map<String, SqlJetMapDef> getMapDefs() {
         if (mapDefs == null) {
@@ -156,7 +148,6 @@ public class SqlJetMapDb extends SqlJetEngine {
 
     /**
      * @throws SqlJetException
-     * 
      */
     private void readMapDefs() throws SqlJetException {
         final SqlJetSchema schema = getSchemaInternal();
@@ -171,8 +162,8 @@ public class SqlJetMapDb extends SqlJetEngine {
                         final SqlJetMapDef mapTableDef = new SqlJetMapDef(name, vtable, indexDef);
                         getMapDefs().put(name, mapTableDef);
                     } else {
-                        throw new SqlJetException(SqlJetErrorCode.CORRUPT, 
-                                String.format("Map '%s' does not have index",name));
+                        throw new SqlJetException(SqlJetErrorCode.CORRUPT,
+                                String.format("Map '%s' does not have index", name));
                     }
                 }
             }
@@ -194,8 +185,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param mapName
-     *            name of the map to get definition for.
+     * @param mapName name of the map to get definition for.
      * @return definition of the map with the specified name.
      */
     public ISqlJetMapDef getMapDef(final String mapName) throws SqlJetException {
@@ -207,8 +197,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param mapName
-     *            name of the map to created.
+     * @param mapName name of the map to created.
      * @return map that has been created.
      */
     public ISqlJetMapDef createMap(final String mapName) throws SqlJetException {
@@ -241,8 +230,7 @@ public class SqlJetMapDb extends SqlJetEngine {
     }
 
     /**
-     * @param mapName
-     *            name of the map to get.
+     * @param mapName name of the map to get.
      * @return map table with the name specified.
      */
     public ISqlJetMap getMap(final String mapName) throws SqlJetException {

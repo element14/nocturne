@@ -17,6 +17,12 @@
  */
 package org.tmatesoft.sqljet.core.internal;
 
+import org.tmatesoft.sqljet.core.*;
+import org.tmatesoft.sqljet.core.internal.memory.SqlJetByteBuffer;
+import org.tmatesoft.sqljet.core.internal.memory.SqlJetMemoryManager;
+import org.tmatesoft.sqljet.core.table.SqlJetScope;
+import org.tmatesoft.sqljet.core.table.SqlJetScope.SqlJetScopeBound;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -26,21 +32,9 @@ import java.util.EnumSet;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import org.tmatesoft.sqljet.core.ISqlJetMutex;
-import org.tmatesoft.sqljet.core.SqlJetEncoding;
-import org.tmatesoft.sqljet.core.SqlJetError;
-import org.tmatesoft.sqljet.core.SqlJetErrorCode;
-import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.SqlJetLogDefinitions;
-import org.tmatesoft.sqljet.core.internal.memory.SqlJetByteBuffer;
-import org.tmatesoft.sqljet.core.internal.memory.SqlJetMemoryManager;
-import org.tmatesoft.sqljet.core.table.SqlJetScope;
-import org.tmatesoft.sqljet.core.table.SqlJetScope.SqlJetScopeBound;
-
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public final class SqlJetUtility {
 
@@ -96,7 +90,6 @@ public final class SqlJetUtility {
     }
 
     /**
-     *
      * @param buf
      * @return
      */
@@ -271,7 +264,7 @@ public final class SqlJetUtility {
     }
 
     public static final void memcpy(ISqlJetMemoryPointer dest, int dstPos, ISqlJetMemoryPointer src, int srcPos,
-            int length) {
+                                    int length) {
         dest.copyFrom(dstPos, src, srcPos, length);
     }
 
@@ -294,7 +287,6 @@ public final class SqlJetUtility {
      * @param dest
      * @param srcPos
      * @param length
-     *
      * @throws SqlJetException
      */
     private static final void memcpy(SqlJetCloneable[] src, int srcPos, SqlJetCloneable[] dest, int dstPos, int length)
@@ -479,7 +471,7 @@ public final class SqlJetUtility {
      * Write a 64-bit variable-length integer to memory starting at p[0]. The
      * length of data write will be between 1 and 9 bytes. The number of bytes
      * written is returned.
-     *
+     * <p/>
      * A variable-length integer consists of the lower 7 bits of each byte for
      * all bytes that have the 8th bit set and one byte with the 8th bit clear.
      * Except, if we get to the 9th byte, it stores the full 8 bits and is the
@@ -744,12 +736,12 @@ public final class SqlJetUtility {
             buf.getBytes(bytes);
             try {
                 final String s = new String(bytes, enc.getCharsetName());
-                for(int i=0;i<s.length();i++){
-                	if(s.charAt(i)=='\0'){
-                		return s.substring(0, i);
-                	}
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) == '\0') {
+                        return s.substring(0, i);
+                    }
                 }
-				return s;
+                return s;
             } catch (UnsupportedEncodingException e) {
                 throw new SqlJetException(SqlJetErrorCode.MISUSE, "Unknown charset " + enc.name());
             }
@@ -1070,13 +1062,13 @@ public final class SqlJetUtility {
      * Return TRUE if z is a pure numeric string. Return FALSE and leave realnum
      * unchanged if the string contains any character which is not part of a
      * number.
-     *
+     * <p/>
      * If the string is pure numeric, set realnum to TRUE if the string contains
      * the '.' character or an "E+000" style exponentiation suffix. Otherwise
      * set realnum to FALSE. Note that just becaue realnum is false does not
      * mean that the number can be successfully converted into an integer - it
      * might be too big.
-     *
+     * <p/>
      * An empty string is considered non-numeric.
      *
      * @param s
@@ -1124,14 +1116,14 @@ public final class SqlJetUtility {
     public static ISqlJetMemoryPointer fromByteBuffer(ByteBuffer b) {
         return new SqlJetByteBuffer(b).getPointer(0);
     }
-    
+
     public static ISqlJetMemoryPointer getMoved(ISqlJetMemoryPointer preceding, ISqlJetMemoryPointer ptr, int offset) {
         if (ptr.getPointer() + offset >= 0) {
             return ptr.getMoved(offset);
         }
-        
-        assert(preceding != null);
-        
+
+        assert (preceding != null);
+
         int getFromPreceding = -(ptr.getPointer() + offset);
         int ptrLength = ptr.getLimit() - ptr.getPointer();
         int precedingLength = preceding.getLimit() - preceding.getPointer();

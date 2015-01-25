@@ -1,7 +1,7 @@
 /**
  * ISqlJetRecord.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,8 +17,6 @@
  */
 package org.tmatesoft.sqljet.core.internal.table;
 
-import java.util.List;
-
 import org.tmatesoft.sqljet.core.SqlJetEncoding;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.ISqlJetBtreeCursor;
@@ -26,13 +24,14 @@ import org.tmatesoft.sqljet.core.internal.ISqlJetMemoryPointer;
 import org.tmatesoft.sqljet.core.internal.ISqlJetReleasable;
 import org.tmatesoft.sqljet.core.internal.ISqlJetVdbeMem;
 
+import java.util.List;
+
 /**
  * Parses current record in {@link ISqlJetBtreeCursor} and allow acces to
  * fields.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetBtreeRecord extends ISqlJetReleasable {
 

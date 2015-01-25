@@ -1,7 +1,7 @@
 /**
  * ISqlJetMemoryManager.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -20,10 +20,9 @@ package org.tmatesoft.sqljet.core.internal;
 /**
  * Default implementation of SQLJet's memory manager. It allows allocate memory
  * chunk {@link ISqlJetMemoryBuffer}.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetMemoryManager {
 
@@ -34,14 +33,14 @@ public interface ISqlJetMemoryManager {
 
     /**
      * Get buffers implementation type which is used by default.
-     * 
+     *
      * @return
      */
     SqlJetMemoryBufferType getDefaultBufferType();
 
     /**
      * Get buffers implementation which is used by default.
-     * 
+     *
      * @param bufferType
      */
     void setDefaultBufferType(SqlJetMemoryBufferType bufferType);
@@ -49,9 +48,8 @@ public interface ISqlJetMemoryManager {
     /**
      * Allocates memory chunk {@link ISqlJetMemoryBuffer} using default buffer
      * type.
-     * 
-     * @param size
-     *            size of buffer in bytes
+     *
+     * @param size size of buffer in bytes
      * @return allocated buffer
      */
     ISqlJetMemoryBuffer allocate(int size);
@@ -66,9 +64,8 @@ public interface ISqlJetMemoryManager {
     /**
      * Allocates memory chunk {@link ISqlJetMemoryBuffer} using default buffer
      * type.
-     * 
-     * @param size
-     *            size of buffer in bytes
+     *
+     * @param size size of buffer in bytes
      * @return allocated buffer
      */
     ISqlJetMemoryPointer allocatePtr(int size);
@@ -79,12 +76,11 @@ public interface ISqlJetMemoryManager {
      * @return
      */
     ISqlJetMemoryPointer allocatePtr(int size, SqlJetMemoryBufferType bufferType);
-    
+
     /**
      * Fries memory.
-     * 
-     * @param buffer
-     *            buff
+     *
+     * @param buffer buff
      */
     void free(ISqlJetMemoryBuffer buffer);
 

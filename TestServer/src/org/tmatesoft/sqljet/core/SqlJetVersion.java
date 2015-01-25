@@ -1,7 +1,7 @@
 /**
  * SqlJetVersion.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -23,13 +23,12 @@ import java.util.Properties;
 
 /**
  * SQLJet's version.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public class SqlJetVersion {
-    
+
     private SqlJetVersion() {
     }
 
@@ -51,7 +50,7 @@ public class SqlJetVersion {
 
     /**
      * Get SqlJet version as a String.
-     * 
+     *
      * @return SqlJet library version in form MAJOR.MINOT.MICRO-QUALIFIER_BUILD_NUMBER
      */
     public static String getVersionString() {
@@ -65,17 +64,17 @@ public class SqlJetVersion {
         if (getVersionQualifier() != null) {
             version.append('.');
             version.append(getVersionQualifier());
-        }        
+        }
         if (getBuildNumberString() != null) {
             version.append('_');
             version.append(getBuildNumberString());
-        } 
+        }
         return version.toString();
     }
 
     /**
      * Get SQLJet's major version.
-     * 
+     *
      * @return major version.
      */
     public static int getMajorVersion() {
@@ -90,7 +89,7 @@ public class SqlJetVersion {
 
     /**
      * Get SQLJet's minor version.
-     * 
+     *
      * @return minor version.
      */
     public static int getMinorVersion() {
@@ -105,7 +104,7 @@ public class SqlJetVersion {
 
     /**
      * Get SQLJet's micro version.
-     * 
+     *
      * @return micro version.
      */
     public static int getMicroVersion() {
@@ -120,7 +119,7 @@ public class SqlJetVersion {
 
     /**
      * Get SQLJet's version qualifier.
-     * 
+     *
      * @return version qualifier.
      */
     public static String getVersionQualifier() {
@@ -130,7 +129,7 @@ public class SqlJetVersion {
 
     /**
      * Get SQLJet's build number.
-     * 
+     *
      * @return build number.
      */
     public static long getBuildNumber() {
@@ -145,7 +144,7 @@ public class SqlJetVersion {
 
     /**
      * Get SQLJet's build number as String.
-     * 
+     *
      * @return build number string.
      */
     public static String getBuildNumberString() {

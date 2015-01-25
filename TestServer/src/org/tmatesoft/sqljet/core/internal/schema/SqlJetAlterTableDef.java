@@ -27,7 +27,6 @@ import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDef;
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetAlterTableDef {
 
@@ -47,7 +46,7 @@ public class SqlJetAlterTableDef {
      */
     public SqlJetAlterTableDef(ParserRuleReturnScope parsedSql) throws SqlJetException {
         this.parsedSql = parsedSql;
-        final CommonTree ast = (CommonTree)parsedSql.getTree();
+        final CommonTree ast = (CommonTree) parsedSql.getTree();
         final int childCount = ast.getChildCount();
         if (childCount < 5) {
             throw new SqlJetException(SqlJetErrorCode.MISUSE, INVALID_ALTER_TABLE_STATEMENT);
@@ -111,12 +110,12 @@ public class SqlJetAlterTableDef {
     }
 
     public String getTableQuotedName() {
-		return tableQuotedName;
-	}
+        return tableQuotedName;
+    }
 
     public String getNewTableQuotedName() {
-		return newTableQuotedName;
-	}
+        return newTableQuotedName;
+    }
 
     /**
      * @return

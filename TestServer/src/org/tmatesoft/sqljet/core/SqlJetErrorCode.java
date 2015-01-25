@@ -1,7 +1,7 @@
 /**
  * SqlJetErrorCode.java
  * Copyright (C) 2008 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -19,94 +19,147 @@ package org.tmatesoft.sqljet.core;
 
 /**
  * SqlJet error codes.
- * 
+ *
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public enum SqlJetErrorCode {
 
-    /** SQL error or missing database */
+    /**
+     * SQL error or missing database
+     */
     ERROR,
-    
-    /** Internal logic error in SQLite */
+
+    /**
+     * Internal logic error in SQLite
+     */
     INTERNAL,
-    
-    /** Internal logic error in SQLite */
+
+    /**
+     * Internal logic error in SQLite
+     */
     PERM,
-    
-    /** Callback routine requested an abort */    
+
+    /**
+     * Callback routine requested an abort
+     */
     ABORT,
-    
-    /** The database file is locked */
+
+    /**
+     * The database file is locked
+     */
     BUSY,
-    
-    /** A table in the database is locked */
+
+    /**
+     * A table in the database is locked
+     */
     LOCKED,
-    
-    /** A malloc() failed */
+
+    /**
+     * A malloc() failed
+     */
     NOMEM,
-    
-    /** Attempt to write a readonly database */
+
+    /**
+     * Attempt to write a readonly database
+     */
     READONLY,
-    
-    /** Operation terminated by sqlite3_interrupt()*/
+
+    /**
+     * Operation terminated by sqlite3_interrupt()
+     */
     INTERRUPT,
-    
-    /** Some kind of disk I/O error occurred */
+
+    /**
+     * Some kind of disk I/O error occurred
+     */
     IOERR,
-    
-    /** The database disk image is malformed */
+
+    /**
+     * The database disk image is malformed
+     */
     CORRUPT,
-    
-    /** NOT USED. Table or record not found */
+
+    /**
+     * NOT USED. Table or record not found
+     */
     NOTFOUND,
-    
-    /** Insertion failed because database is full */
+
+    /**
+     * Insertion failed because database is full
+     */
     FULL,
-    
-    /** Unable to open the database file */
+
+    /**
+     * Unable to open the database file
+     */
     CANTOPEN,
-    
-    /** NOT USED. Database lock protocol error */
+
+    /**
+     * NOT USED. Database lock protocol error
+     */
     PROTOCOL,
-    
-    /** Database is empty */
+
+    /**
+     * Database is empty
+     */
     EMPTY,
-    
-    /** The database schema changed */
+
+    /**
+     * The database schema changed
+     */
     SCHEMA,
-    
-    /** String or BLOB exceeds size limit */
+
+    /**
+     * String or BLOB exceeds size limit
+     */
     TOOBIG,
-    
-    /** Abort due to constraint violation */
+
+    /**
+     * Abort due to constraint violation
+     */
     CONSTRAINT,
-    
-    /** Data type mismatch */
+
+    /**
+     * Data type mismatch
+     */
     MISMATCH,
-    
-    /** Library used incorrectly */
+
+    /**
+     * Library used incorrectly
+     */
     MISUSE,
-    
-    /** Uses OS features not supported on host */
+
+    /**
+     * Uses OS features not supported on host
+     */
     NOLFS,
-    
-    /** Authorization denied */
+
+    /**
+     * Authorization denied
+     */
     AUTH,
-    
-    /** Auxiliary database format error */
+
+    /**
+     * Auxiliary database format error
+     */
     FORMAT,
-    
-    /** 2nd parameter to sqlite3_bind out of range */
+
+    /**
+     * 2nd parameter to sqlite3_bind out of range
+     */
     RANGE,
-    
-    /** File opened that is not a database file */
+
+    /**
+     * File opened that is not a database file
+     */
     NOTADB,
-    
+
     DONE,
-    
-    /** Bad parameter value in function call wich impossible to execute */
+
+    /**
+     * Bad parameter value in function call wich impossible to execute
+     */
     BAD_PARAMETER
 
 }

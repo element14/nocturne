@@ -13,10 +13,6 @@
  */
 package org.tmatesoft.sqljet.core.internal.schema;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.antlr.runtime.tree.CommonTree;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.internal.lang.SqlParser;
@@ -24,6 +20,10 @@ import org.tmatesoft.sqljet.core.schema.ISqlJetColumnConstraint;
 import org.tmatesoft.sqljet.core.schema.ISqlJetColumnDef;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTypeDef;
 import org.tmatesoft.sqljet.core.schema.SqlJetTypeAffinity;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author TMate Software Ltd.
@@ -85,7 +85,7 @@ public class SqlJetColumnDef implements ISqlJetColumnDef {
     }
 
     public String getQuotedName() {
-    	return quotedName;
+        return quotedName;
     }
 
     public ISqlJetTypeDef getType() {

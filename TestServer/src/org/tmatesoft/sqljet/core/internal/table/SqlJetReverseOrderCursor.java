@@ -17,18 +17,17 @@
  */
 package org.tmatesoft.sqljet.core.internal.table;
 
-import java.io.InputStream;
-import java.util.Map;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.SqlJetValueType;
 import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
 import org.tmatesoft.sqljet.core.table.ISqlJetCursor;
 
+import java.io.InputStream;
+import java.util.Map;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- *
  */
 public class SqlJetReverseOrderCursor implements ISqlJetCursor {
 

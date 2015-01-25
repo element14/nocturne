@@ -1,7 +1,7 @@
 /**
  * ISqlJetBtreeDataTable.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,44 +17,43 @@
  */
 package org.tmatesoft.sqljet.core.internal.table;
 
-import java.util.Map;
-
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.schema.ISqlJetIndexDef;
 import org.tmatesoft.sqljet.core.schema.ISqlJetTableDef;
 import org.tmatesoft.sqljet.core.schema.SqlJetConflictAction;
 
+import java.util.Map;
+
 /**
  * @author TMate Software Ltd.
  * @author Sergey Scherbina (sergey.scherbina@gmail.com)
- * 
  */
 public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Get table's schema definition.
-     * 
+     *
      * @return
      */
     ISqlJetTableDef getDefinition();
 
     /**
      * Get definitions of table's indexes.
-     * 
+     *
      * @return
      */
     Map<String, ISqlJetIndexDef> getIndexDefinitions();
 
     /**
      * Get indexes which are related with table.
-     * 
+     *
      * @return
      */
     Map<String, ISqlJetBtreeIndexTable> getIndexesTables();
 
     /**
      * Go to record with given rowID. Return boolean to indicate success.
-     * 
+     *
      * @param rowId
      * @return
      * @throws SqlJetException
@@ -63,7 +62,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Get current rowID.
-     * 
+     *
      * @return
      * @throws SqlJetException
      */
@@ -71,7 +70,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Write an new entry into the table.
-     * 
+     *
      * @param values
      * @throws SqlJetException
      */
@@ -79,7 +78,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Update an entry in the table by rowId.
-     * 
+     *
      * @param rowId
      * @param values
      * @throws SqlJetException
@@ -88,7 +87,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Update the current entry in the table.
-     * 
+     *
      * @param values
      * @throws SqlJetException
      */
@@ -96,7 +95,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Update the rowId and values an entry in the table by rowId.
-     * 
+     *
      * @param rowId
      * @param values
      * @throws SqlJetException
@@ -105,15 +104,15 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Update the rowId and values in current entry in the table.
-     * 
+     *
      * @param values
      * @throws SqlJetException
      */
     long updateCurrentWithRowId(SqlJetConflictAction onConflict, long newRowId, Object... values) throws SqlJetException;
-    
+
     /**
      * Delete record by row's ID.
-     * 
+     *
      * @param rowId
      * @throws SqlJetException
      */
@@ -121,14 +120,14 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Delete curent record.
-     * 
+     *
      * @throws SqlJetException
      */
     void delete() throws SqlJetException;
 
     /**
      * Check the current record is equal to key using definition of index.
-     * 
+     *
      * @param indexName
      * @param key
      * @return
@@ -138,7 +137,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Get name of index which has been auto-created for primary key.
-     * 
+     *
      * @return the primaryKeyIndex
      */
     String getPrimaryKeyIndex();
@@ -147,7 +146,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
      * Locate record which using index by key. Key is values for fields which
      * are defined in index. If record is found then returns true. If next is
      * true then locate record by next entry in index for key.
-     * 
+     *
      * @param indexName
      * @param next
      * @param key
@@ -158,7 +157,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
 
     /**
      * Insert record by values by names of fields.
-     * 
+     *
      * @param values
      * @return
      * @throws SqlJetException
@@ -188,7 +187,7 @@ public interface ISqlJetBtreeDataTable extends ISqlJetBtreeTable {
      * @param rowId
      * @param values
      * @return
-     * @throws SqlJetException 
+     * @throws SqlJetException
      */
     long insertWithRowId(SqlJetConflictAction onConflict, long rowId, Object[] values) throws SqlJetException;
 

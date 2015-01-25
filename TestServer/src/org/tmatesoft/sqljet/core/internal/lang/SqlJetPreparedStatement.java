@@ -1,7 +1,7 @@
 /**
  * SqlJetPreparedStatement.java
  * Copyright (C) 2009-2013 TMate Software Ltd
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -17,8 +17,6 @@
  */
 package org.tmatesoft.sqljet.core.internal.lang;
 
-import java.io.InputStream;
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -31,6 +29,8 @@ import org.tmatesoft.sqljet.core.internal.table.SqlJetPragmasHandler;
 import org.tmatesoft.sqljet.core.table.ISqlJetCursor;
 import org.tmatesoft.sqljet.core.table.ISqlJetTable;
 import org.tmatesoft.sqljet.core.table.SqlJetDb;
+
+import java.io.InputStream;
 
 /**
  * @author TMate Software Ltd.
@@ -103,7 +103,7 @@ public class SqlJetPreparedStatement {
 
     /**
      * Executes the statement or advances to the next row of the query results.
-     * 
+     *
      * @returns true if query results are available
      */
     public boolean step() throws SqlJetException {
