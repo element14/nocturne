@@ -189,7 +189,7 @@ public class MockServer implements Container {
 
             db.beginTransaction(SqlJetTransactionMode.WRITE);
             ISqlJetTable table = db.getTable("nocturne_users");
-            table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode);
+            table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode, "REQUESTED");
             db.close();
 
             //body.println("{" + getJsonString("key", "value") + "}");
