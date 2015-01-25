@@ -199,7 +199,7 @@ public class MockServer implements Container {
             db.beginTransaction(SqlJetTransactionMode.WRITE);
             ISqlJetTable table = db.getTable("nocturne_users");
             table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode, "ACCEPTED");
-            db.close();
+            db.commit();
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
@@ -261,7 +261,7 @@ public class MockServer implements Container {
                 db.beginTransaction(SqlJetTransactionMode.WRITE);
                 ISqlJetTable table = db.getTable("nocturne_user_connect");
                 table.insert(user1_email, user1_role, user2_email, user2_role, status);
-                db.close();
+                db.commit();
 
                 String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
                 respStr += jsonStr.substring(1, jsonStr.length() - 2);
