@@ -1,1 +1,1 @@
-include ':mobile', ':TestServer', ':wear'
+include ':mobile', ':wear'

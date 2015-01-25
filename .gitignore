@@ -39,5 +39,9 @@ Android/.gradle/*/taskArtifacts
 local.properties
 
 *~
-Android/TestServer/simple-5.1.6/
+TestServer/simple-5.1.6/
+TestServer/out
+TestServer/build
+TestServer/mockserver.db
+TestServer/nocturne-mocserver.log
 

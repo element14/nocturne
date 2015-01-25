@@ -198,7 +198,7 @@ public class MockServer implements Container {
 
             db.beginTransaction(SqlJetTransactionMode.WRITE);
             ISqlJetTable table = db.getTable("nocturne_users");
-            table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode, "ACCEPTED");
+            table.insert(username, name_first, name_last, email, phone_mobile, phone_home, addr_line1, addr_line2, addr_line3, postcode, "REGISTERED");
             db.commit();
 
             //body.println("{" + getJsonString("key", "value") + "}");
@@ -279,9 +279,9 @@ public class MockServer implements Container {
 
     private void handleRequestGetConnectedUsers(final Request request, final PrintStream body) {
         try {
-            db.beginTransaction(SqlJetTransactionMode.WRITE);
+            db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
             ISqlJetTable table = db.getTable("nocturne_user_connect");
-            ISqlJetCursor cursor = table.order("user1_email");
+            ISqlJetCursor cursor = table.open();
             long rowCount = cursor.getRowCount();
 
             String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": {\"user_connections\":";
@@ -302,10 +302,8 @@ public class MockServer implements Container {
             }
             body.println(respStr);
             cursor.close();
-            db.commit();
         } catch (Exception e) {
             logger.error(e.getClass().getName() + ": handleRequestGetConnectedUsers() ", e);
-            System.exit(0);
         }
     }
 
@@ -334,7 +332,8 @@ public class MockServer implements Container {
                 issetup = true;
             }
         } catch (Exception e) {
-            logger.error(e.getClass().getName() + ": isDbSetup() ", e);
+            //logger.error(e.getClass().getName() + ": isDbSetup() ", e);
+            logger.info("isDbSetup() DB not setup yet");
         }
         return issetup;
     }
