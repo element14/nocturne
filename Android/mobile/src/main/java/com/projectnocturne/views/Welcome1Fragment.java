@@ -17,9 +17,12 @@
  */
 package com.projectnocturne.views;
 
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,17 +41,20 @@ import com.percolate.caffeine.ViewUtils;
 import com.projectnocturne.MainActivity;
 import com.projectnocturne.NocturneApplication;
 import com.projectnocturne.R;
+import com.projectnocturne.SettingsActivity;
 import com.projectnocturne.datamodel.DbMetadata;
 import com.projectnocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.RESTResponseMsg;
 import com.projectnocturne.datamodel.UserDb;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 public class Welcome1Fragment extends NocturneFragment {
 
     public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + "::";
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
@@ -56,6 +62,8 @@ public class Welcome1Fragment extends NocturneFragment {
             txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
             final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
             if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
+                serverConnectionTask.stopRunning();
+                serverConnectionTask.cancel(true);
                 NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
                 NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
                 ((MainActivity) getActivity()).showScreen();
@@ -70,7 +78,6 @@ public class Welcome1Fragment extends NocturneFragment {
             }
         }
     };
-
     TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void afterTextChanged(final Editable s) {
@@ -86,7 +93,8 @@ public class Welcome1Fragment extends NocturneFragment {
         public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
         }
     };
-
+    ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
+    private TextView txtWelcomeScr1StatusItem1Value;
     private Button btnSubscribe;
     private boolean readyFragment;
     private EditText txtWelcomeScr1EmailAddress;
@@ -123,6 +131,7 @@ public class Welcome1Fragment extends NocturneFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_welcome_1, container, false);
 
+        txtWelcomeScr1StatusItem1Value = ViewUtils.findViewById(v, R.id.welcomeScr1StatusItem1_value);
         txtWelcomeScr1PersonNameFirst = ViewUtils.findViewById(v, R.id.welcomeScr1PersonNameFirst);
         txtWelcomeScr1PersonNameLast = ViewUtils.findViewById(v, R.id.welcomeScr1PersonNameLast);
         txtWelcomeScr1MobilePhoneNbr = ViewUtils.findViewById(v, R.id.welcomeScr1MobilePhoneNbr);
@@ -166,7 +175,6 @@ public class Welcome1Fragment extends NocturneFragment {
         return v;
     }
 
-
     /*
      * (non-Javadoc)
      *
@@ -205,6 +213,74 @@ public class Welcome1Fragment extends NocturneFragment {
             txtWelcomeScr1EmailAddress.setText(userDbObj.getEmail1());
         } else {
             userDbObj = new UserDb();
+        }
+        serverConnectionTask.execute();
+    }
+
+    private class ServerConnectionAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
+        private boolean continueRunning = true;
+
+        @Override
+        protected Boolean doInBackground(Void[] params) {
+            boolean connected = false;
+            while (continueRunning) {
+                connected = false;
+                if (Welcome1Fragment.this.isAdded()) {
+                    try {
+                        int timeout = 1000;
+                        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
+
+                        NocturneApplication.logMessage(Log.DEBUG, Status1Fragment.LOG_TAG + "doInBackground() testing connection to server : " + serverAddr);
+
+                        URL serverURL = new URL(serverAddr);
+                        URLConnection urlconn = serverURL.openConnection();
+                        urlconn.setConnectTimeout(timeout);
+                        urlconn.connect();
+                        connected = true;
+                    } catch (IOException e) {
+                        NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + Status1Fragment.LOG_TAG + "doInBackground()", e);
+                    } catch (IllegalStateException e) {
+                        NocturneApplication.logMessage(Log.ERROR, Status1Fragment.LOG_TAG + "doInBackground()", e);
+                    }
+                }
+                publishProgress(connected);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                }
+            }
+            return connected;
+        }
+
+        public void stopRunning() {
+            continueRunning = false;
+        }
+
+        @Override
+        protected void onProgressUpdate(final Boolean... values) {
+            if (Welcome1Fragment.this.isAdded()) {
+                if (values[0]) {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean connected) {
+            if (Welcome1Fragment.this.isAdded()) {
+                if (connected) {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
         }
     }
 }

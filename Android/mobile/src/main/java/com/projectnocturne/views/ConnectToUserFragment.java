@@ -17,6 +17,7 @@
  */
 package com.projectnocturne.views;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -86,7 +87,8 @@ public class ConnectToUserFragment extends NocturneFragment {
                     NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
                     usrCnctDb.setStatus(UserConnectionStatus.REQUEST_ACCEPTED.toString());
                     NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
-                    ((MainActivity) getActivity()).showScreen();
+                    Activity parentActivity=getActivity();
+                    ((MainActivity) parentActivity).showScreen();
 
                 } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
                     NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");

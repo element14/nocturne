@@ -84,6 +84,7 @@ public final class SpringRestTask extends AsyncTask<Object, String, RESTResponse
         final RequestMethod reqMthd = RequestMethod.valueOf(params[0].toString());
         uri = params[1].toString();
         url = getServerAddress(ctx) + uri;
+        NocturneApplication.d(LOG_TAG + "doInBackground() sending request to ["+uri+"]");
 
         RESTResponseMsg retStr = null;
         if (uri.equals(URI_USERS_REGISTER)) {

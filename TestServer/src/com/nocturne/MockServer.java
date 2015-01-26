@@ -160,7 +160,6 @@ public class MockServer implements Container {
         try {
             jsonStr = request.getContent();
 
-            //FIXME : parse request message
             JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr); //get "user" object
 
             String username = userObj.get("username").toString();
@@ -203,7 +202,9 @@ public class MockServer implements Container {
 
             //body.println("{" + getJsonString("key", "value") + "}");
             //body.println("{\"RESTResponseMsg\": {\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}}");
-            body.println("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+            String respStr = ("{\"request\":\"/users/register\",\"status\":\"success\",\"message\": \"User registered\"}");
+            logger.info("handleRequestUserRegister() sending response : " + respStr);
+            body.println(respStr);
         } catch (IOException e) {
             logger.error("handleRequestUserRegister() Exception : ", e);
             body.println("{\"request\":\"/users/register\",\"status\":\"failed\",\"message\": \"getting JSON from http request failed\"}");
@@ -233,6 +234,7 @@ public class MockServer implements Container {
             String jsonStr = null;
             try {
                 jsonStr = request.getContent();
+                logger.info("handleRequestUserConnect() received request : " + jsonStr);
 
                 //FIXME : parse request message
                 JSONObject userObj = (JSONObject) JSONValue.parse(jsonStr);
@@ -264,8 +266,9 @@ public class MockServer implements Container {
                 db.commit();
 
                 String respStr = "{\"request\":\"/users/connect\",\"status\":\"success\",\"message\": \"User connection registered\"";
-                respStr += jsonStr.substring(1, jsonStr.length() - 2);
+                respStr += ","+jsonStr.substring(1, jsonStr.length() - 1);
                 respStr += "}";
+                logger.info("handleRequestUserConnect() sending response : " + respStr);
                 body.println(respStr);
             } catch (IOException e) {
                 logger.error("handleRequestUserConnect() Exception : ", e);
@@ -300,8 +303,9 @@ public class MockServer implements Container {
                 respStr += "}}";
                 respStr.replace("}{", "},{");
             }
-            body.println(respStr);
             cursor.close();
+            logger.info("handleRequestGetConnectedUsers() sending response : " + respStr);
+            body.println(respStr);
         } catch (Exception e) {
             logger.error(e.getClass().getName() + ": handleRequestGetConnectedUsers() ", e);
         }

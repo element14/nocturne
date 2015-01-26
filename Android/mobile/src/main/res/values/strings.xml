@@ -19,11 +19,11 @@
     <string name="pref_bed_sensor_pol_interval_description">Sensor will be polled every: "%1$s" seconds</string>
 
     <!-- Preferences-Advanced -->
-    <string name="pref_server_address_default">192.168.1.155</string>
+    <string name="pref_server_address_default">82.33.73.172</string>
     <string name="pref_server_address">Server Address</string>
     <string name="pref_server_address_description">Server Address is: "%1$s"</string>
     <string name="pref_server_port">Server Port Number</string>
-    <string name="pref_server_port_default">8888</string>
+    <string name="pref_server_port_default">9999</string>
     <string name="pref_server_port_description">Server Port is: "%1$s"</string>
 
     <!-- Welcome Screen -->

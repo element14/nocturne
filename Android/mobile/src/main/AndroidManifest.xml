@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.projectnocturne" >
+<manifest
+    package="com.projectnocturne"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
-        android:required="true" />
+        android:required="true"/>
 
     <application
         android:name=".NocturneApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <!--
                 action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_CONNECTED"/>
@@ -36,68 +37,68 @@
                 <action android:name="com.projectnocturne.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED"/
                 -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"/>
         <activity
             android:name=".views.HelpActivity"
-            android:label="@string/title_activity_help" />
+            android:label="@string/title_activity_help"/>
 
         <!-- this is the Service that polls the SensorTag -->
         <service
             android:name=".services.SensorTagService"
-            android:exported="false" />
+            android:exported="false"/>
 
         <!-- sets up the scheduled alarm at boot -->
         <receiver
             android:name=".services.BootReceiver"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name=".alarmreceivers.BedAlarmReceiver"
-            android:enabled="true" />
+            android:enabled="true"/>
 
         <provider
             android:name=".contentprovider.NocturneSensorReadingContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneSensorReadingContentProvider"
-            android:exported="false" />
+            android:exported="false"/>
         <provider
             android:name=".contentprovider.NocturneUserContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserContentProvider"
-            android:exported="false" />
+            android:exported="false"/>
         <provider
             android:name=".contentprovider.NocturneUserConnectContentProvider"
             android:authorities="com.projectnocturne.contentprovider.NocturneUserConnectContentProvider"
-            android:exported="false" />
+            android:exported="false"/>
 
         <activity
             android:name=".views.ConnectionRequestedActivity"
-            android:label="@string/title_activity_connection_request" >
+            android:label="@string/title_activity_connection_request">
         </activity>
         <activity
             android:name=".views.ConnectToUserActivity"
-            android:label="@string/title_activity_connect_to_user" >
+            android:label="@string/title_activity_connect_to_user">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <service
             android:name=".services.BedSensorIntentService"
-            android:exported="false" >
+            android:exported="false">
         </service>
         <service
             android:name=".services.BedSensorBleService"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
         </service>
     </application>
 
