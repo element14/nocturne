@@ -29,7 +29,7 @@
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
         <mkdir dir="${jar.dir}/settings"/>
-	<copy file="log4j2.xml" tofile="${jar.dir}/settings/log4j2.xml"/>
+	    <copy file="log4j2.xml" tofile="${jar.dir}/settings/log4j2.xml"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>

@@ -88,7 +88,8 @@ public class ConnectToUserFragment extends NocturneFragment {
                     usrCnctDb.setStatus(UserConnectionStatus.REQUEST_ACCEPTED.toString());
                     NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
                     Activity parentActivity=getActivity();
-                    ((MainActivity) parentActivity).showScreen();
+                    Activity ppAct=parentActivity.getParent();
+                    ((MainActivity) ppAct).showScreen();
 
                 } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
                     NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
