@@ -45,6 +45,27 @@ import com.projectnocturne.datamodel.UserDb;
 import java.util.List;
 
 public class ConnectToUserFragment extends NocturneFragment {
+    OnUsersConnectedListener mCallback;
+
+    // Container Activity must implement this interface
+    public interface OnUsersConnectedListener {
+        public void usersConnected();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnUsersConnectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 
     private final String LOG_TAG = ConnectToUserFragment.class.getSimpleName() + "::";
     public TextView txtErrorMsg;
@@ -87,9 +108,8 @@ public class ConnectToUserFragment extends NocturneFragment {
                     NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
                     usrCnctDb.setStatus(UserConnectionStatus.REQUEST_ACCEPTED.toString());
                     NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctDb);
-                    Activity parentActivity=getActivity();
-                    Activity ppAct=parentActivity.getParent();
-                    ((MainActivity) ppAct).showScreen();
+                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() calling parent activity finish()");
+                    mCallback.usersConnected();
 
                 } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
                     NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");

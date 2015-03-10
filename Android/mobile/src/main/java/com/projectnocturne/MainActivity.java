@@ -22,10 +22,20 @@ import com.projectnocturne.views.Welcome1Fragment;
 public class MainActivity extends Activity {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName() + "::";
+    private static final int ACTIVITY_CHILD = 8194;
 
     private NocturneApplication myApp = null;
     private Status1Fragment status1Fragment = null;
     private Welcome1Fragment welcome1Fragment = null;
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+
+        if ( requestCode==ACTIVITY_CHILD){
+            showScreen();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +108,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.action_connect:
                 final Intent cnctReq = new Intent(this, ConnectToUserActivity.class);
-                startActivity(cnctReq);
+                startActivityForResult(cnctReq, ACTIVITY_CHILD);
                 break;
             case R.id.action_help:
                 final Intent help = new Intent(this, HelpActivity.class);
