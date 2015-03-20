@@ -1,11 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".StatusActivityFragment">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/statusScr1Heading1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/statusScr1Heading1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/statusScr1Heading2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/statusScr1Heading1"
+        android:gravity="center_horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/statusScr1Heading2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/statusScr1Instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/statusScr1Heading2"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:text="@string/statusScr1Instructions" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/statusScr1Instructions"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:paddingLeft="15dp"
+        android:text="@string/statusScr1StatusItem1" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem1_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/statusScr1StatusItem1"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/statusScr1StatusItem1_value"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/statusScr1StatusItem1"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="15dp"
+        android:text="@string/statusScr1StatusItem2" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem2_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/statusScr1StatusItem2"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/statusScr1StatusItem2_value"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/statusScr1StatusItem1"
+        android:layout_below="@+id/statusScr1StatusItem2"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="15dp"
+        android:text="@string/statusScr1StatusItem3" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem3_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/statusScr1StatusItem3"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/statusScr1StatusItem3_value"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/statusScr1StatusItem3"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:checked="true"
+        android:paddingLeft="15dp"
+        android:text="@string/statusScr1StatusItem4" />
+
+    <TextView
+        android:id="@+id/statusScr1StatusItem4_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/statusScr1StatusItem4"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/statusScr1StatusItem4_value"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/statusScr1Status_connectedto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/statusScr1Status_alertButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/statusScr1StatusItem4_value" />
+
+    <Button
+        android:id="@+id/statusScr1Status_alertButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/statusScr1Status_alertButton" />
 
 </RelativeLayout>

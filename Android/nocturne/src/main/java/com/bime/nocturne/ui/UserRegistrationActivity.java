@@ -1,24 +1,28 @@
-package com.bime.nocturne;
+package com.bime.nocturne.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bime.nocturne.R;
 
-public class StatusActivity extends ActionBarActivity {
+import org.androidannotations.annotations.EActivity;
+
+@EActivity
+public class UserRegistrationActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status);
+        setContentView(R.layout.activity_user_registration);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_status, menu);
+        getMenuInflater().inflate(R.menu.menu_user_registration, menu);
         return true;
     }
 

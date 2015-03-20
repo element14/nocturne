@@ -1,5 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Nocturne</string>
-    <string name="hello_world">Hello world!</string>
+
+    <string name="app_name">ProjectNocturne</string>
+    <string name="title_activity_welcome1">Welcome1Activity</string>
+    <string name="title_status">Status</string>
+    <string name="title_connect">Connect</string>
+    <string name="title_connection_requests">Connection Requests</string>
+
+    <!-- Preferences -->
+    <string name="pref_activity_title">Preferences</string>
+    <string name="pref_nickname_title">Name to show</string>
+    <string name="pref_nickname_default">MrNobody</string>
+    <string name="pref_nickname_description">you will be known as "%1$s"</string>
+    <string name="pref_enable_sensortag_polling_title">Enable Bed Sensor Polling</string>
+    <string name="pref_enable_sensortag_polling_description">Enable Bed Sensor Polling</string>
+    <string name="pref_bed_sensor_pol_interval_title">Polling Interval (secs)</string>
+    <string name="pref_bed_sensor_pol_interval_default">5</string>
+    <string name="pref_bed_sensor_pol_interval_description">Sensor will be polled every: "%1$s" seconds</string>
+
+    <!-- Preferences-Advanced -->
+    <string name="pref_server_address_default">192.168.1.218</string>
+    <string name="pref_server_address">Server Address</string>
+    <string name="pref_server_address_description">Server Address is: "%1$s"</string>
+    <string name="pref_server_port">Server Port Number</string>
+    <string name="pref_server_port_default">9090</string>
+    <string name="pref_server_port_description">Server Port is: "%1$s"</string>
+
+    <!-- Welcome Screen -->
+    <string name="welcomeScr1Heading1">Welcome To</string>
+    <string name="welcomeScr1Heading2">Project Nocturne</string>
+    <string name="welcomeScr1Instructions">To get started please enter your details below and click on the button below</string>
+    <string name="welcomeScr1PersonNameFirst">First Name</string>
+    <string name="welcomeScr1PersonNameLast">Last Name</string>
+    <string name="welcomeScr1MobilePhoneNbr">Mobile Phone Number</string>
+    <string name="welcomeScr1HomePhoneNbr">Home Phone Number</string>
+    <string name="welcomeScr1EmailAddr">Email Address</string>
+    <string name="welcomeScr1BtnSubscribe">Subscribe</string>
+
+    <!-- Welcome Screen 2 -->
+    <string name="welcomeScr2Heading1"></string>
+    <string name="welcomeScr2Heading2">Thank You</string>
+    <string name="welcomeScr2Instructions">Please check your email and follow the instructions given in it</string>
+    <string name="welcomeScr2BtnContinue">Continue</string>
+
+    <!-- Status Screen 1 -->
+    <string name="statusScr1Heading1">Hello &lt;b>%1$s&lt;/b></string>
+    <string name="statusScr1Heading2">Status</string>
+    <string name="statusScr1Instructions">If any of the items below are red, please contact your caregiver for advise</string>
+    <string name="statusScr1StatusItem1">Cloud Connection</string>
+    <string name="statusScr1StatusItem1_value">Good/Bad</string>
+    <string name="statusScr1StatusItem2">Carers</string>
+    <string name="statusScr1StatusItem2_value">Good/Bad</string>
+    <string name="statusScr1StatusItem3">Details Entered</string>
+    <string name="statusScr1StatusItem3_value">Good/Bad</string>
+    <string name="statusScr1StatusItem4">Bed Sensor Connection</string>
+    <string name="statusScr1StatusItem4_value">Good/Bad</string>
+    <string name="statusScr1BtnContinue">Continue</string>
+    <string name="statusScr1Status_alertButton">Alert Carer</string>
+
+    <!-- Patient Screen 1 -->
+    <string name="patientScr2Heading1"></string>
+
+    <!-- Caregiver Screen 1 -->
+    <string name="caregiverScr2Heading1"></string>
+
+    <!-- Alert Detected Screen -->
+    <string name="alert_detected_Heading1">Alert X</string>
+    <string name="alert_detected_Heading2">Detected</string>
+    <string name="alert_detected_OkayQuestion">Are You Okay ?</string>
+    <string name="alert_detected_BtnOkay">  Yes\nI\'m Okay  </string>
+    <string name="alert_detected_BtnNotOkay">No\nPlease Send Alert\nTo Carers</string>
+
+    <!-- Alert Carer Screen -->
+    <string name="alert_carer_Heading1">Alert X From</string>
+    <string name="alert_carer_Heading2">&lt;Patient Name><Patient /></string>
+    <string name="alert_carer_OkayQuestion">Respond ?</string>
+    <string name="alert_carer_BtnOkay">  Yes  </string>
+    <string name="alert_carer_BtnNotOkay">No</string>
+
+    <!-- Connect Users Screen -->
+    <string name="connect_user_Heading1">Connect</string>
+    <string name="connect_user_Heading2">Please enter the email address of</string>
+    <string name="connect_user_Heading3">the person you wish to connect to</string>
+    <string name="connect_user_email">Email@Address</string>
+    <string name="connect_user_switch_carer">As Carer</string>
+    <string name="connect_user_switch_patient">As Cared For</string>
+    <string name="connect_user_button_connect">Connect</string>
+    <string name="connect_user_sending">Sending</string>
+    <string name="connect_user_sent">Sent</string>
+
+    <!-- Connection requested Screen -->
+    <string name="connect_req_Heading1">User X</string>
+    <string name="connect_req_Heading2">has requested to connect\nto you as a</string>
+    <string name="connect_req_Heading3">Accept?</string>
+    <string name="connect_req_connection">Carer/Patient</string>
+    <string name="connect_req_BtnOkay">Yes</string>
+    <string name="connect_req_BtnNotOkay">No</string>
+
+    <!-- BLE example code strings -->
+    <string name="ble_please_enable">Please Enable Bluetooth</string>
+    <string name="ble_not_supported">BLE is not supported</string>
+    <string name="label_data">Data:</string>
+    <string name="label_device_address">Device address:</string>
+    <string name="label_state">State:</string>
+    <string name="no_data">No data</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="notconnected">Not Connected</string>
+    <string name="good">Good</string>
+    <string name="bad">Bad</string>
+    <string name="title_devices">BLE Device Scan</string>
+    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
+    <string name="unknown_device">Unknown device</string>
+    <string name="unknown_characteristic">Unknown characteristic</string>
+    <string name="unknown_service">Unknown service</string>
+
+    <!-- Menu items -->
+    <string name="action_connect">Connect to User</string>
+    <string name="action_disconnect">Disconnect</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_stop">Stop</string>
     <string name="action_settings">Settings</string>
+    <string name="action_help">Help</string>
+    <string name="title_activity_connection_request">Connection Requested</string>
+    <string name="title_activity_connect_to_user">Connect To User</string>
+    <string name="title_activity_user_connect_request">UserConnectRequestActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_user_registration">UserRegistrationActivity</string>
+
 </resources>

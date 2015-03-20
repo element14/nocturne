@@ -30,8 +30,8 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.bime.nocturne.datamodel.DataModel;
-import com.bime.nocturne.services.ServerCommsService;
 
+import org.androidannotations.annotations.EApplication;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -41,6 +41,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
+@EApplication
 public final class NocturneApplication extends Application {
     public static final String LOG_TAG = "ProjectNocturne";
 
@@ -57,8 +58,11 @@ public final class NocturneApplication extends Application {
     public static final String simpleDateFmtStrView = "dd-MMM-yyyy";
     public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
     public static final String simpleDateFmtStrDb = "yyyyMMdd";
+    
     private static NocturneApplication singleton;
+
     private DataModel dataModel = null;
+
     private ServerCommsService svrCommsService;
 
     public static void d(final String msg) {
