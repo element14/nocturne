@@ -7,10 +7,14 @@ import android.view.MenuItem;
 
 import com.projectnocturne.R;
 
-public class ConnectToUserActivity extends Activity {
+public class ConnectToUserActivity extends Activity implements ConnectToUserFragment.OnUsersConnectedListener {
     private final String LOG_TAG = ConnectToUserActivity.class.getSimpleName() + "::";
 
     private ConnectToUserFragment cnnctFrgmnt = new ConnectToUserFragment();
+
+    public void usersConnected(){
+        this.finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
