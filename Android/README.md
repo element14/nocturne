@@ -58,4 +58,5 @@ TestServer
 
 Android App
 ----
- * Spring RestTemplate - http://spring.io/guides/gs/consuming-rest-android/
+ * RetroFit - http://square.github.io/retrofit/
+ * Realm    - http://realm.io/
