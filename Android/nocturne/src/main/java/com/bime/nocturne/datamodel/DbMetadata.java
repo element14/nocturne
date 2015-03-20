@@ -29,11 +29,7 @@ import io.realm.RealmObject;
 /**
  * @author andy
  */
-public class DbMetadata  extends RealmObject {
-    public static final String DATABASE_TABLE_NAME = "dbmetadata";
-    public static final String FIELD_NAME_DBMETADATA_REGISTRATION_STATUS = "registration_status";
-    public static final String FIELD_NAME_DBMETADATA_TIMESTAMP = "db_timestamp";
-    public static final String FIELD_NAME_DBMETADATA_VERSION = "db_version";
+public class DbMetadata  extends NocturneObject {
     public static final int RegistrationStatus_ACCEPTED = 63353;
     public static final int RegistrationStatus_DENIED = 63354;
     private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
@@ -42,55 +38,6 @@ public class DbMetadata  extends RealmObject {
     public String version = "";
 
     public DbMetadata() {
-    }
-
-    public DbMetadata(final Cursor results) {
-        timestamp = results.getLong(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
-        version = results.getString(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_VERSION));
-        setRegistrationStatus(results.getInt(results.getColumnIndex(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
-        setLastUpdated(results.getString(results.getColumnIndex(AbstractDataObj.FIELD_NAME_LAST_UPDATED)));
-        setUniqueIdentifier(results.getInt(results.getColumnIndex(BaseColumns._ID)));
-    }
-
-    public DbMetadata(final HashMap<String, String> aRow) {
-        super(aRow);
-        version = aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_VERSION);
-        timestamp = Long.parseLong(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP));
-        setRegistrationStatus(Integer.parseInt(aRow.get(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS)));
-    }
-
-    @Override
-    public ContentValues getContentValues() {
-        final ContentValues map = super.getContentValues();
-        map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, version);
-        map.put(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, timestamp);
-        map.put(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, registrationStatus.ordinal());
-        return map;
-    }
-
-    @Override
-    public SparseArray<ArrayList<String>> getFields() {
-        final SparseArray<ArrayList<String>> fields = super.getFields();
-        int x = fields.size();
-        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_VERSION, "VARCHAR(255) NOT NULL"));
-        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_TIMESTAMP, "LONG"));
-        fields.put(x++, getArrayList(DbMetadata.FIELD_NAME_DBMETADATA_REGISTRATION_STATUS, "LONG"));
-        return fields;
-    }
-
-    @Override
-    public String getSqlUpdateFromV001() {
-        return null;
-    }
-
-    @Override
-    public String getSqlUpdateFromV002() {
-        return null;
-    }
-
-    @Override
-    public String getTableName() {
-        return DbMetadata.DATABASE_TABLE_NAME;
     }
 
     public void setRegistrationStatus(final int newValue) {

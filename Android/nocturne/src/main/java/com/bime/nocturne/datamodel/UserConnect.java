@@ -17,7 +17,7 @@
 package com.bime.nocturne.datamodel;
 
 
-public final class UserConnect {
+public final class UserConnect extends NocturneObject {
 
     public String user1_email;
     public String user2_email;

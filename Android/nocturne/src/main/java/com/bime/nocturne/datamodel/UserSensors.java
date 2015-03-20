@@ -17,7 +17,7 @@
 package com.bime.nocturne.datamodel;
 
 
-public class UserSensors {
+public class UserSensors extends NocturneObject {
     public long sensor_timeperiod_id;
     public long user_id;
 

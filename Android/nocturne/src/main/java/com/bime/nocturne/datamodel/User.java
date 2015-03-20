@@ -22,61 +22,32 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
-@JsonIgnoreProperties(ignoreUnknown = true)
-public final class User {
+public final class User extends NocturneObject {
 
-    @JsonProperty("addr_line1")
     protected String addr_line1 = "";
 
-    @JsonProperty("addr_line2")
     protected String addr_line2 = "";
 
-    @JsonProperty("addr_line3")
     protected String addr_line3 = "";
 
-    @JsonProperty("email1")
     protected String email1 = "";
 
-    @JsonProperty("name_first")
     protected String name_first = "";
 
-    @JsonProperty("name_last")
     protected String name_last = "";
 
-    @JsonProperty("phone_home")
     protected String phone_home = "";
 
-    @JsonProperty("phone_mbl")
     protected String phone_mbl = "";
 
-    @JsonProperty("postcode")
     protected String postcode = "";
 
-    @JsonProperty("status")
     protected String status = "";
 
-    @JsonProperty("username")
     protected String username = "";
 
     public User() {
         super();
-    }
-
-    /**
-     * @param results
-     */
-    public User(final Cursor results) {
-        username = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_USERNAME));
-        status = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_STATUS));
-        name_first = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_first));
-        name_last = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_name_last));
-        email1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_email1));
-        phone_mbl = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
-        phone_home = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_phone_mbl));
-        addr_line1 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line1));
-        addr_line2 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line2));
-        addr_line3 = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_addr_line3));
-        postcode = results.getString(results.getColumnIndex(UserDb.FIELD_NAME_postcode));
     }
 
     /**

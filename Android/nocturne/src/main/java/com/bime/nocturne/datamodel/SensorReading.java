@@ -16,7 +16,9 @@
  */
 package com.projectnocturne.datamodel;
 
-public final class SensorReading {
+import com.bime.nocturne.datamodel.NocturneObject;
+
+public final class SensorReading extends NocturneObject {
 
     public String sensor_id;
     public String sensor_reading_time;

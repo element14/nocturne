@@ -24,7 +24,7 @@ import android.os.Parcelable;
  * <p/>
  * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
  */
-public final class RESTResponseMsg extends RealmObject implements Parcelable {
+public final class RESTResponseMsg extends NocturneObject implements Parcelable {
 
     public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
         @Override

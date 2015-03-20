@@ -16,7 +16,7 @@
  */
 package com.bime.nocturne.datamodel;
 
-public final class UserCondition {
+public final class UserCondition extends NocturneObject {
     public long condition_id;
     public long user_id;
 

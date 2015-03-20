@@ -17,7 +17,7 @@
 package com.bime.nocturne.datamodel;
 
 
-public class SensorTimePeriods {
+public class SensorTimePeriods extends NocturneObject {
 
     public String sensor_alert_time;
     public long sensor_id;
