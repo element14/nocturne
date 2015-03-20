@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".StatusActivity"
+            android:name=".ui.StatusActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +44,25 @@
             android:name=".ui.UserRegistrationActivity"
             android:label="@string/title_activity_user_registration" >
         </activity>
+
+        <provider
+            android:name=".contentprovider.NocturneSensorReadingContentProvider"
+            android:authorities="/sensor"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+        <provider
+            android:name=".contentprovider.NocturneUserContentProvider"
+            android:authorities="/user"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+        <provider
+            android:name=".contentprovider.NocturneUserConnectContentProvider"
+            android:authorities="/user_connect"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>

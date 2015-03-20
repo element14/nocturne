@@ -58,7 +58,7 @@ public final class NocturneApplication extends Application {
     public static final String simpleDateFmtStrView = "dd-MMM-yyyy";
     public static final DateTimeFormatter simpleDateFmt = DateTimeFormat.forPattern("yyyyMMdd");
     public static final String simpleDateFmtStrDb = "yyyyMMdd";
-    
+
     private static NocturneApplication singleton;
 
     private DataModel dataModel = null;
