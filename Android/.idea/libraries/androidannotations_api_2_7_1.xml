@@ -4,8 +4,6 @@
       <root url="jar://$PROJECT_DIR$/mobile/libs/androidannotations-api-2.7.1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.androidannotations/androidannotations-api/2.7.1/49c9a5ffc043e001fcce99a3602364d9e63cf2d/androidannotations-api-2.7.1-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
