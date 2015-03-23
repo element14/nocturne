@@ -18,8 +18,6 @@ package com.bime.nocturne.datamodel;
 
 import android.database.Cursor;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
 public final class User extends NocturneObject {

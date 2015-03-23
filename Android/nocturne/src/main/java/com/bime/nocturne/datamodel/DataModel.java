@@ -20,18 +20,10 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.bime.nocturne.NocturneApplication;
-import com.bime.nocturne.contentprovider.NocturneSensorReadingContentProvider;
-import com.bime.nocturne.contentprovider.NocturneUserConnectContentProvider;
-import com.bime.nocturne.contentprovider.NocturneUserContentProvider;
 import com.bime.nocturne.datamodel.DbMetadata.RegistrationStatus;
-import com.bime.nocturne.db.NocturneDatabaseHelper;
-import com.bime.nocturne.views.NocturneFragment;
 import com.projectnocturne.datamodel.SensorReading;
 
 import org.joda.time.DateTime;
@@ -42,6 +34,8 @@ import java.util.List;
 import java.util.Observable;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public final class DataModel extends Observable {
     private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
@@ -81,25 +75,13 @@ private Realm realm=null;
     private DbMetadata getDbMetadata() {
         DbMetadata dbMetaDta = null;
 
-        final String selectionSql = null;
-        final String[] selectionArgs = null;
-        final String groupBy = null;
-        final String having = null;
-        final String orderBy = null;
-        final Cursor results = db.query(DbMetadata.DATABASE_TABLE_NAME, null, selectionSql, selectionArgs, groupBy, having, orderBy);
+// Build the query looking at all users:
+        RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
 
-        if (results.getCount() > 0) {
-            results.moveToFirst();
-            dbMetaDta = new DbMetadata(results);
-        }
-        results.close();
-        if (dbMetaDta == null) {
-            dbMetaDta = new DbMetadata();
-            dbMetaDta.lastUpdated = new DateTime().toString(NocturneApplication.simpleDateFmtStrDb);
-            db.insert(DbMetadata.DATABASE_TABLE_NAME, null, dbMetaDta.getContentValues());
-            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "getDbMetadata() new metadata object created");
-        }
-        return dbMetaDta;
+// Execute the query:
+        RealmResults<DbMetadata> result1 = query.findAll();
+
+        return result1.first();
     }
 
     public RegistrationStatus getRegistrationStatus() {

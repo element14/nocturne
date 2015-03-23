@@ -63,7 +63,7 @@ public final class NocturneApplication extends Application {
 
     private DataModel dataModel = null;
 
-    private ServerCommsService svrCommsService;
+    private erverCommsService svrCommsService;
 
     public static void d(final String msg) {
         Log.d(LOG_TAG, msg);
