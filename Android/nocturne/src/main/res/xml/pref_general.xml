@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="pref_enable_sensortag_polling"
+        android:title="@string/pref_enable_sensortag_polling_title"
+        android:summary="@string/pref_enable_sensortag_polling_description"
+        android:defaultValue="true" />
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_bed_sensor_pol_interval_default"
+        android:key="pref_bed_sensor_pol_interval"
+        android:singleLine="true"
+        android:title="@string/pref_bed_sensor_pol_interval_title"
+    android:summary="@string/pref_bed_sensor_pol_interval_description" />
+
+    <PreferenceCategory android:title="Advanced" >
+        <EditTextPreference
+            android:defaultValue="@string/pref_server_address_default"
+            android:key="pref_server_address"
+            android:singleLine="true"
+            android:title="@string/pref_server_address" />
+        <EditTextPreference
+            android:defaultValue="@string/pref_server_port_default"
+            android:key="pref_server_port"
+            android:singleLine="true"
+            android:title="@string/pref_server_port" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

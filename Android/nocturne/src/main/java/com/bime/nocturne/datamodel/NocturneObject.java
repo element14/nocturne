@@ -1,5 +1,7 @@
 package com.bime.nocturne.datamodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.joda.time.DateTime;
 
 import io.realm.RealmObject;
@@ -11,7 +13,9 @@ import io.realm.annotations.PrimaryKey;
 public class NocturneObject extends RealmObject {
 
     @PrimaryKey
-    protected int uniqueId;
+    @SerializedName("id")
+    protected String uniqueId = "";
+
     protected DateTime created;
     protected DateTime lastupdated;
 }

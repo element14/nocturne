@@ -3,7 +3,7 @@ Project Nocturne TestServer
 
 REST functions provided:
 
-*
+* 
 *
 *
 *

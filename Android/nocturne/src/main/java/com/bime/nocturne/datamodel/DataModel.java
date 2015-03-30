@@ -100,17 +100,29 @@ private Realm realm=null;
         return usrCnctDb;
     }
 
-    public User getUser(final int userId) {
 
-    }
+    public User getUser(final String uuid) {
+        User dbObj = null;
 
-    public User getUser(final String username) {
+// Build the query looking at all users:
+        RealmQuery<User> query = realm.where(User.class);
+        query.equalTo("uniqueId", uuid);
 
+// Execute the query:
+        RealmResults<User> result1 = query.findAll();
+
+        return result1.first();
     }
 
     public List<User> getUsers() {
         final List<User> users = new ArrayList<User>();
 
+
+// Build the query looking at all users:
+        RealmQuery<User> query = realm.where(User.class);
+
+// Execute the query:
+        RealmResults<User> result1 = query.findAll();
 
         return users;
     }
