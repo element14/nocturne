@@ -87,6 +87,9 @@ public final class User extends RealmObject {
     private String phone_mbl = "";
     private String postcode = "";
     private String status = "";
+    
+    private RealmList<UserCondition> conditions;
+    private RealmList<UserConnect> connections;
 
     public User() {
         super();
