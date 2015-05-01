@@ -16,20 +16,10 @@
  */
 package com.bime.nocturne.datamodel;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.provider.BaseColumns;
-import android.util.SparseArray;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import io.realm.RealmObject;
-
 /**
  * @author andy
  */
-public class DbMetadata  extends NocturneObject {
+public class DbMetadata extends NocturneObject {
     public static final int RegistrationStatus_ACCEPTED = 63353;
     public static final int RegistrationStatus_DENIED = 63354;
     private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";

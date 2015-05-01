@@ -1,8 +1,8 @@
 package com.bime.nocturne;
 
 import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -21,6 +21,10 @@ public class NetworkIntentService extends IntentService {
     // TODO: Rename parameters
     private static final String EXTRA_PARAM1 = "uk.co.droidinactu.listtest.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "uk.co.droidinactu.listtest.extra.PARAM2";
+
+    public NetworkIntentService() {
+        super("NetworkIntentService");
+    }
 
     /**
      * Starts this service to perform action Foo with the given parameters. If
@@ -65,10 +69,6 @@ public class NetworkIntentService extends IntentService {
         intent.putExtra(EXTRA_PARAM1, param1);
         intent.putExtra(EXTRA_PARAM2, param2);
         context.startService(intent);
-    }
-
-    public NetworkIntentService() {
-        super("NetworkIntentService");
     }
 
     @Override

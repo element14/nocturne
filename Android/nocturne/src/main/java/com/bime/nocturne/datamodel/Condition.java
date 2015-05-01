@@ -17,8 +17,6 @@
 package com.bime.nocturne.datamodel;
 
 
-import io.realm.RealmObject;
-
 public final class Condition extends NocturneObject {
 
     public String condition_desc;

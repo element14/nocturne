@@ -17,11 +17,6 @@
 package com.bime.nocturne.datamodel;
 
 import android.support.annotation.NonNull;
-import android.database.Cursor;
-import com.google.gson.annotations.SerializedName;
-
-import io.realm.annotations.PrimaryKey;
-
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
 public final class User extends NocturneObject {
@@ -40,9 +35,11 @@ public final class User extends NocturneObject {
     public User() {
         super();
     }
+
     public User(@NonNull final String username) {
-        super();this.email1=username;
-        this.uniqueId=username;
+        super();
+        this.email1 = username;
+        this.uniqueId = username;
     }
 
     /**

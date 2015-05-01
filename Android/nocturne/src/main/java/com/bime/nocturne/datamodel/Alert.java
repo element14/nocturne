@@ -16,8 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-import io.realm.RealmObject;
-
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
 public final class Alert extends NocturneObject {
 

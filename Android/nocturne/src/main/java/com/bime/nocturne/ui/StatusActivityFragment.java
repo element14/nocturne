@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.androidannotations.annotations.EFragment;
-
 import com.bime.nocturne.R;
+
+import org.androidannotations.annotations.EFragment;
 
 
 /**

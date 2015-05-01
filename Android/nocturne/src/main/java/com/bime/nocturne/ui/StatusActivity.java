@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.androidannotations.annotations.EActivity;
-
-
 import com.bime.nocturne.R;
+
+import org.androidannotations.annotations.EActivity;
 
 @EActivity
 public class StatusActivity extends Activity {

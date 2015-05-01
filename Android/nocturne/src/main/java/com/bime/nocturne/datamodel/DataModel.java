@@ -16,17 +16,12 @@
  */
 package com.bime.nocturne.datamodel;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.SensorReading;
-
-import org.joda.time.DateTime;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,15 +36,19 @@ public final class DataModel extends Observable {
     private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
     private static DataModel instance = null;
     private Context ctx;
-private Realm realm=null;
+    private Realm realm = null;
 
     private DataModel() {
-        if ( realm==null){realm = Realm.getInstance(ctx);}
+        if (realm == null) {
+            realm = Realm.getInstance(ctx);
+        }
     }
 
     public static DataModel getInstance(final Context ctx) {
         instance.ctx = ctx;
-        if ( instance==null){instance = new DataModel();}
+        if (instance == null) {
+            instance = new DataModel();
+        }
         return instance;
     }
 
@@ -74,13 +73,8 @@ private Realm realm=null;
 
     private DbMetadata getDbMetadata() {
         DbMetadata dbMetaDta = null;
-
-// Build the query looking at all users:
         RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
-
-// Execute the query:
         RealmResults<DbMetadata> result1 = query.findAll();
-
         return result1.first();
     }
 
@@ -89,9 +83,12 @@ private Realm realm=null;
         return dbMetaDta.registrationStatus;
     }
 
-    public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
+    public void setRegistrationStatus(final RegistrationStatus aRegStat) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
 
+        realm.beginTransaction();
+        RegistrationStatus regStatus = realm.copyToRealm(aRegStat);
+        realm.commitTransaction();
     }
 
     public UserConnect setUserConnection(final UserConnect usrCnctDb) {

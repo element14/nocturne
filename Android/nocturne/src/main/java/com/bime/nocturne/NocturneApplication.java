@@ -75,9 +75,11 @@ public final class NocturneApplication extends Application {
     public static void d(final String msg) {
         Log.d(LOG_TAG, msg);
     }
+
     public static void e(final String msg) {
         Log.e(LOG_TAG, msg);
     }
+
     public static void e(final String msg, final Throwable thr) {
         Log.e(LOG_TAG, msg, thr);
     }
@@ -127,72 +129,6 @@ public final class NocturneApplication extends Application {
 
     public static void wtf(final String msg) {
         Log.wtf(LOG_TAG, msg);
-    }
-
-    protected Drawable getAppImage(final String packageName) {
-        try {
-            return getPackageManager().getApplicationIcon(packageName);
-        } catch (final NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Bitmap getApplicationImage() {
-        return BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-    }
-
-    public String getApplicationName() {
-        return this.getString(R.string.app_name);
-    }
-
-    public String getAppSdCardPathDir() {
-        final File extDir = Environment.getExternalStorageDirectory();
-        return extDir.getPath() + File.separator + getApplicationName() + File.separator;
-    }
-
-//	public String getAppVersion(final String packageName) {
-//		String verName = "unknown";
-//		try {
-//			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
-//			verName = pInfo.versionName;
-//		} catch (final NameNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return verName;
-//	}
-
-    public int getAppVersionNbr() {
-        return this.getAppVersionNbr("com.projectnocturne");
-    }
-
-    protected int getAppVersionNbr(final String packageName) {
-        int verName = -1;
-        try {
-            final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
-            verName = pInfo.versionCode;
-        } catch (final NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return verName;
-    }
-
-    public DataModel getDataModel() {
-        return dataModel;
-    }
-
-    public String getEmailAddr() {
-        final Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
-        final Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
-        for (final Account account : accounts) {
-            if (emailPattern.matcher(account.name).matches()) {
-                final String possibleEmail = account.name;
-                if (possibleEmail.endsWith("googlemail.com") || possibleEmail.endsWith("gmail.com")) {
-                    return possibleEmail;
-                }
-            }
-        }
-        return null;
     }
 
     /**
@@ -256,6 +192,7 @@ public final class NocturneApplication extends Application {
         } // for now eat exceptions
         return "";
     }
+
     /**
      * Load UTF8withBOM or any ansi text file.
      *
@@ -288,6 +225,18 @@ public final class NocturneApplication extends Application {
             }
         }
     }
+
+//	public String getAppVersion(final String packageName) {
+//		String verName = "unknown";
+//		try {
+//			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+//			verName = pInfo.versionName;
+//		} catch (final NameNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		return verName;
+//	}
+
     /**
      * Returns MAC address of the given interface name.
      *
@@ -319,6 +268,62 @@ public final class NocturneApplication extends Application {
             return null;
         }*/
     }
+
+    protected Drawable getAppImage(final String packageName) {
+        try {
+            return getPackageManager().getApplicationIcon(packageName);
+        } catch (final NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Bitmap getApplicationImage() {
+        return BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+    }
+
+    public String getApplicationName() {
+        return this.getString(R.string.app_name);
+    }
+
+    public String getAppSdCardPathDir() {
+        final File extDir = Environment.getExternalStorageDirectory();
+        return extDir.getPath() + File.separator + getApplicationName() + File.separator;
+    }
+
+    public int getAppVersionNbr() {
+        return this.getAppVersionNbr("com.projectnocturne");
+    }
+
+    protected int getAppVersionNbr(final String packageName) {
+        int verName = -1;
+        try {
+            final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+            verName = pInfo.versionCode;
+        } catch (final NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
+    }
+
+    public DataModel getDataModel() {
+        return dataModel;
+    }
+
+    public String getEmailAddr() {
+        final Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+        final Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+        for (final Account account : accounts) {
+            if (emailPattern.matcher(account.name).matches()) {
+                final String possibleEmail = account.name;
+                if (possibleEmail.endsWith("googlemail.com") || possibleEmail.endsWith("gmail.com")) {
+                    return possibleEmail;
+                }
+            }
+        }
+        return null;
+    }
+
     /*
      * (non-Javadoc)
      *

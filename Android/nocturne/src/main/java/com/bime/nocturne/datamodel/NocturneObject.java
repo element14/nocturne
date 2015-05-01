@@ -15,7 +15,30 @@ public class NocturneObject extends RealmObject {
     @PrimaryKey
     @SerializedName("id")
     protected String uniqueId = "";
-
     protected DateTime created;
     protected DateTime lastupdated;
+
+    public DateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(DateTime created) {
+        this.created = created;
+    }
+
+    public DateTime getLastupdated() {
+        return lastupdated;
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdated = lastupdated;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 }

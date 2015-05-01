@@ -164,7 +164,9 @@ public class SettingsActivity extends PreferenceActivity {
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onIsMultiPane() {
         return isXLargeTablet(this);
