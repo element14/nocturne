@@ -17,21 +17,73 @@
 package com.bime.nocturne.datamodel;
 
 
-public class SensorTimePeriods extends NocturneObject {
+import com.google.gson.annotations.SerializedName;
 
-    public String sensor_alert_time;
-    public long sensor_id;
-    public String sensor_value_expected;
-    public String sensor_warn_time;
-    public String start_time;
-    public String stop_time;
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class SensorTimePeriods extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private String createdStr;
+    private String lastupdatedStr;
+
+    public String getCreatedStr() {
+        return createdStr;
+    }
+
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
+    }
+
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
+
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
+    }
+
+    public DateTime getCreated() {
+        return DateTime.parse(createdStr);
+    }
+
+    public void setCreated(DateTime created) {
+        this.createdStr = created.toString();
+    }
+
+    public DateTime getLastupdated() {
+        return DateTime.parse(lastupdatedStr);
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdatedStr = lastupdated.toString();
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+
+
+
+    private String sensor_alert_time;
+    private long sensor_id;
+    private String sensor_value_expected;
+    private String sensor_warn_time;
+    private String start_time;
+    private String stop_time;
 
     public SensorTimePeriods() {
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
 
 }

@@ -17,13 +17,50 @@
 package com.bime.nocturne.datamodel;
 
 
-public final class UserConnect extends NocturneObject {
+import com.google.gson.annotations.SerializedName;
 
-    public String user1_email;
-    public String user2_email;
-    public String user1_role;
-    public String user2_role;
-    public String status;
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public final class UserConnect extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private DateTime created;
+    private DateTime lastupdated;
+
+    public DateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(DateTime created) {
+        this.created = created;
+    }
+
+    public DateTime getLastupdated() {
+        return lastupdated;
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdated = lastupdated;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+    private String user1_email;
+    private String user2_email;
+    private String user1_role;
+    private String user2_role;
+    private String status;
 
     public UserConnect() {
     }

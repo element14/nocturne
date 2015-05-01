@@ -9,7 +9,7 @@ import com.bime.nocturne.R;
 
 import org.androidannotations.annotations.EActivity;
 
-@EActivity
+
 public class UserRegistrationActivity extends Activity {
 
     @Override

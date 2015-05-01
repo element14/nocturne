@@ -49,7 +49,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-@EApplication
+
 public final class NocturneApplication extends Application {
     public static final String LOG_TAG = "ProjectNocturne";
 

@@ -86,9 +86,6 @@ public final class DataModel extends Observable {
     public void setRegistrationStatus(final RegistrationStatus aRegStat) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
 
-        realm.beginTransaction();
-        RegistrationStatus regStatus = realm.copyToRealm(aRegStat);
-        realm.commitTransaction();
     }
 
     public UserConnect setUserConnection(final UserConnect usrCnctDb) {

@@ -16,9 +16,63 @@
  */
 package com.projectnocturne.datamodel;
 
-import com.bime.nocturne.datamodel.NocturneObject;
+import com.google.gson.annotations.SerializedName;
 
-public final class SensorReading extends NocturneObject {
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public final class SensorReading extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private String createdStr;
+    private String lastupdatedStr;
+
+    public String getCreatedStr() {
+        return createdStr;
+    }
+
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
+    }
+
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
+
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
+    }
+
+    public DateTime getCreated() {
+        return DateTime.parse(createdStr);
+    }
+
+    public void setCreated(DateTime created) {
+        this.createdStr = created.toString();
+    }
+
+    public DateTime getLastupdated() {
+        return DateTime.parse(lastupdatedStr);
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdatedStr = lastupdated.toString();
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+
+
 
     public String sensor_id;
     public String sensor_reading_time;
@@ -27,8 +81,4 @@ public final class SensorReading extends NocturneObject {
     public SensorReading() {
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
 }

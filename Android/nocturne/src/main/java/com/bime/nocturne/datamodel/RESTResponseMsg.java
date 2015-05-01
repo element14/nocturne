@@ -19,12 +19,19 @@ package com.bime.nocturne.datamodel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * {"response": {"request":"/users/register","status":"success","message": "User registered"}}
  * <p/>
  * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
  */
-public final class RESTResponseMsg extends NocturneObject implements Parcelable {
+public final class RESTResponseMsg extends RealmObject implements Parcelable {
 
     public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
         @Override
@@ -37,16 +44,58 @@ public final class RESTResponseMsg extends NocturneObject implements Parcelable 
             return new RESTResponseMsg[size];
         }
     };
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private String createdStr;
+    private String lastupdatedStr;
 
-    protected String id = "";
+    public String getCreatedStr() {
+        return createdStr;
+    }
 
-    protected String content = "";
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
+    }
 
-    protected String message = "";
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
 
-    protected String request = "";
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
+    }
 
-    protected String status = "";
+    public DateTime getCreated() {
+        return DateTime.parse(createdStr);
+    }
+
+    public void setCreated(DateTime created) {
+        this.createdStr = created.toString();
+    }
+
+    public DateTime getLastupdated() {
+        return DateTime.parse(lastupdatedStr);
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdatedStr = lastupdated.toString();
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+
+    private String id = "";
+    private String content = "";
+    private String message = "";
+    private String request = "";
+    private String status = "";
 
     public RESTResponseMsg() {
         super();

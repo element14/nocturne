@@ -18,19 +18,75 @@ package com.bime.nocturne.datamodel;
 
 import android.support.annotation.NonNull;
 
-//if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
-public final class User extends NocturneObject {
+import com.google.gson.annotations.SerializedName;
 
-    protected String addr_line1 = "";
-    protected String addr_line2 = "";
-    protected String addr_line3 = "";
-    protected String email1 = "";
-    protected String name_first = "";
-    protected String name_last = "";
-    protected String phone_home = "";
-    protected String phone_mbl = "";
-    protected String postcode = "";
-    protected String status = "";
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+//if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
+public final class User extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private String createdStr;
+    private String lastupdatedStr;
+
+    public String getCreatedStr() {
+        return createdStr;
+    }
+
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
+    }
+
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
+
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
+    }
+
+    public DateTime getCreated() {
+        return DateTime.parse(createdStr);
+    }
+
+    public void setCreated(DateTime created) {
+        this.createdStr = created.toString();
+    }
+
+    public DateTime getLastupdated() {
+        return DateTime.parse(lastupdatedStr);
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdatedStr = lastupdated.toString();
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+
+
+
+    private String addr_line1 = "";
+    private String addr_line2 = "";
+    private String addr_line3 = "";
+    private String email1 = "";
+    private String name_first = "";
+    private String name_last = "";
+    private String phone_home = "";
+    private String phone_mbl = "";
+    private String postcode = "";
+    private String status = "";
 
     public User() {
         super();

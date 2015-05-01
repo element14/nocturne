@@ -16,17 +16,69 @@
  */
 package com.bime.nocturne.datamodel;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
-public final class Alert extends NocturneObject {
+public final class Alert extends RealmObject {
+
+    @PrimaryKey
+    @SerializedName("id")
+    private String uniqueId = "";
+    private String createdStr;
+    private String lastupdatedStr;
+
+    public String getCreatedStr() {
+        return createdStr;
+    }
+
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
+    }
+
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
+
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
+    }
+
+    public DateTime getCreated() {
+        return DateTime.parse(createdStr);
+    }
+
+    public void setCreated(DateTime created) {
+        this.createdStr = created.toString();
+    }
+
+    public DateTime getLastupdated() {
+        return DateTime.parse(lastupdatedStr);
+    }
+
+    public void setLastupdated(DateTime lastupdated) {
+        this.lastupdatedStr = lastupdated.toString();
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+
+
 
     public String alert_desc;
-
     public String alert_name;
-
     public String response;
-
     public boolean response_sent = false;
-
     public long user_Id;
 
     public Alert() {
@@ -103,8 +155,4 @@ public final class Alert extends NocturneObject {
         this.response_sent = response_sent;
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
 }
