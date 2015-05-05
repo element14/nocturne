@@ -6,6 +6,17 @@ android {
     compileSdkVersion 19
     buildToolsVersion "22.0.1"
 
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
     defaultConfig {
         applicationId "com.bime.nocturne"
         minSdkVersion 19
@@ -40,4 +51,5 @@ dependencies {
     compile 'io.realm:realm-android:0.80.0'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    compile 'com.percolate:caffeine:0.3.3'
 }
