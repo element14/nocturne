@@ -31,9 +31,9 @@ public class DbMetadata extends RealmObject {
     public static final int RegistrationStatus_ACCEPTED = 63353;
     public static final int RegistrationStatus_DENIED = 63354;
     private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
-    public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
-    public long timestamp = 0;
-    public String version = "";
+    private RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
+    private long timestamp = 0;
+    private String version = "";
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
@@ -46,7 +46,6 @@ public class DbMetadata extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -54,26 +53,23 @@ public class DbMetadata extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -106,11 +102,6 @@ public class DbMetadata extends RealmObject {
         registrationStatus = aRegStatus;
     }
 
-    @Override
-    public String toString() {
-        return null;
-    }
-
     public enum RegistrationStatus {
         NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
     }
@@ -119,4 +110,27 @@ public class DbMetadata extends RealmObject {
         REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
     }
 
+    public static String getLOG_TAG() {
+        return LOG_TAG;
+    }
+
+    public RegistrationStatus getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(final long pTimestamp) {
+        timestamp = pTimestamp;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(final String pVersion) {
+        version = pVersion;
+    }
 }

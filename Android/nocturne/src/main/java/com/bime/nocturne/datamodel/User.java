@@ -71,21 +71,19 @@ public final class User extends RealmObject {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -235,12 +233,19 @@ public final class User extends RealmObject {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email1 + '\'' +
-                ", name_first='" + name_first + '\'' +
-                ", name_last='" + name_last + '\'' +
-                '}';
+    public RealmList<UserCondition> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(final RealmList<UserCondition> pConditions) {
+        conditions = pConditions;
+    }
+
+    public RealmList<UserConnect> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(final RealmList<UserConnect> pConnections) {
+        connections = pConnections;
     }
 }

@@ -39,34 +39,29 @@ public final class UserCondition extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
-
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -76,4 +71,19 @@ public final class UserCondition extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public long getCondition_id() {
+        return condition_id;
+    }
+
+    public void setCondition_id(final long pCondition_id) {
+        condition_id = pCondition_id;
+    }
+
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(final long pUser_id) {
+        user_id = pUser_id;
+    }
 }

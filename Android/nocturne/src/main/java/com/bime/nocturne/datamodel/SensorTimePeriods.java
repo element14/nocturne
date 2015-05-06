@@ -44,7 +44,6 @@ public class SensorTimePeriods extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -52,26 +51,23 @@ public class SensorTimePeriods extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -81,5 +77,51 @@ public class SensorTimePeriods extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public String getSensor_alert_time() {
+        return sensor_alert_time;
+    }
 
+    public void setSensor_alert_time(final String pSensor_alert_time) {
+        sensor_alert_time = pSensor_alert_time;
+    }
+
+    public long getSensor_id() {
+        return sensor_id;
+    }
+
+    public void setSensor_id(final long pSensor_id) {
+        sensor_id = pSensor_id;
+    }
+
+    public String getSensor_value_expected() {
+        return sensor_value_expected;
+    }
+
+    public void setSensor_value_expected(final String pSensor_value_expected) {
+        sensor_value_expected = pSensor_value_expected;
+    }
+
+    public String getSensor_warn_time() {
+        return sensor_warn_time;
+    }
+
+    public void setSensor_warn_time(final String pSensor_warn_time) {
+        sensor_warn_time = pSensor_warn_time;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(final String pStart_time) {
+        start_time = pStart_time;
+    }
+
+    public String getStop_time() {
+        return stop_time;
+    }
+
+    public void setStop_time(final String pStop_time) {
+        stop_time = pStop_time;
+    }
 }

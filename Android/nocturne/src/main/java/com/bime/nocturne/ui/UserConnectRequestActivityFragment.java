@@ -13,7 +13,6 @@ import org.androidannotations.annotations.EFragment;
 /**
  * A placeholder fragment containing a simple view.
  */
-@EFragment
 public class UserConnectRequestActivityFragment extends Fragment {
 
     public UserConnectRequestActivityFragment() {

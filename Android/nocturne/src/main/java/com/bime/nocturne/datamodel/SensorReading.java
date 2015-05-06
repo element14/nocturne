@@ -25,9 +25,9 @@ import io.realm.annotations.PrimaryKey;
 
 public final class SensorReading extends RealmObject {
 
-    public String sensor_id;
-    public String sensor_reading_time;
-    public String sensor_value;
+    private String sensor_id;
+    private String sensor_reading_time;
+    private String sensor_value;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
@@ -40,7 +40,6 @@ public final class SensorReading extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -48,26 +47,24 @@ public final class SensorReading extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -77,4 +74,27 @@ public final class SensorReading extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public String getSensor_id() {
+        return sensor_id;
+    }
+
+    public void setSensor_id(final String pSensor_id) {
+        sensor_id = pSensor_id;
+    }
+
+    public String getSensor_reading_time() {
+        return sensor_reading_time;
+    }
+
+    public void setSensor_reading_time(final String pSensor_reading_time) {
+        sensor_reading_time = pSensor_reading_time;
+    }
+
+    public String getSensor_value() {
+        return sensor_value;
+    }
+
+    public void setSensor_value(final String pSensor_value) {
+        sensor_value = pSensor_value;
+    }
 }

@@ -68,7 +68,7 @@ public interface RetrofitNetworkService {
      * @param cb
      */
     @GET("/users/connect/user_email={useremail}")
-    void getconnections(@Path("useremail") String useremail, Callback<List<UserConnect>> cb);
+    void getConnections(@Path("useremail") String useremail, Callback<List<UserConnect>> cb);
 
     /**
      * Send an alert

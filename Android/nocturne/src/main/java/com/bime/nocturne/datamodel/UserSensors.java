@@ -39,7 +39,6 @@ public class UserSensors extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -47,26 +46,23 @@ public class UserSensors extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreatedDate(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;

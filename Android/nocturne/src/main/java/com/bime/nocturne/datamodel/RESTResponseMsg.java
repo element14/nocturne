@@ -31,19 +31,8 @@ import io.realm.annotations.PrimaryKey;
  * <p/>
  * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
  */
-public final class RESTResponseMsg extends RealmObject implements Parcelable {
+public final class RESTResponseMsg extends RealmObject  {
 
-    public static final Parcelable.Creator<RESTResponseMsg> CREATOR = new Parcelable.Creator<RESTResponseMsg>() {
-        @Override
-        public RESTResponseMsg createFromParcel(final Parcel in) {
-            return new RESTResponseMsg(in);
-        }
-
-        @Override
-        public RESTResponseMsg[] newArray(final int size) {
-            return new RESTResponseMsg[size];
-        }
-    };
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
@@ -57,14 +46,6 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
 
     public RESTResponseMsg() {
         super();
-    }
-
-    private RESTResponseMsg(final Parcel in) {
-        id = in.readString();
-        content = in.readString();
-        request = in.readString();
-        status = in.readString();
-        message = in.readString();
     }
 
     public String getCreatedStr() {
@@ -83,21 +64,19 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -107,30 +86,6 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
         this.uniqueId = uniqueId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.os.Parcelable#describeContents()
-     */
-    @Override
-    public int describeContents() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-     */
-    @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        dest.writeString(id);
-        dest.writeString(content);
-        dest.writeString(request);
-        dest.writeString(status);
-        dest.writeString(message);
-    }
 
     /**
      * @return the message
@@ -167,14 +122,23 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
+    public String getId() {
+        return id;
+    }
 
-        String tmpStr = "[id=\"" + id + "\"]";
-        tmpStr += " [content=\"" + content + "\"]";
-        tmpStr += " [message=\"" + message + "\"]";
-        tmpStr += " [request=\"" + request + "\"]";
-        tmpStr += " [status=\"" + status + "\"]";
-        return tmpStr;
+    public void setId(final String pId) {
+        id = pId;
+    }
+
+    public void setContent(final String pContent) {
+        content = pContent;
+    }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(final String pRequest) {
+        request = pRequest;
     }
 }

@@ -25,29 +25,31 @@ import com.bime.nocturne.datamodel.User;
 import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
-import org.androidannotations.annotations.EFragment;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-@EFragment
 public class UserRegistrationActivityFragment extends Fragment {
     public static final String LOG_TAG = UserRegistrationActivityFragment.class.getSimpleName() + "::";
     private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
     private TextView txtWelcomeScr1StatusItem1Value;
     private Button btnSubscribe;
-    private boolean readyFragment;
+    private boolean readyFragment=false;
     private EditText txtWelcomeScr1EmailAddress;
     private EditText txtWelcomeScr1HomePhoneNbr;
     private EditText txtWelcomeScr1MobilePhoneNbr;
     private EditText txtWelcomeScr1PersonNameFirst;
     private EditText txtWelcomeScr1PersonNameLast;
-    TextWatcher textChangedWtchr = new TextWatcher() {
+    private TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
             // TODO Auto-generated method stub
@@ -124,7 +126,36 @@ public class UserRegistrationActivityFragment extends Fragment {
             userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
         }
         RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
-        netSvc.createUser(userObj, callback);
+        netSvc.createUser(userObj, new Callback<User>() {
+            @Override
+            public void success(User userObj, Response response) {
+                // Successful request, do something with the retrieved messages
+                NocturneApplication.d(LOG_TAG + "createUser callback");  if (isAdded()) {
+                //FIXME :
+                txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
+//                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+//                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
+//                    serverConnectionTask.stopRunning();
+//                    serverConnectionTask.cancel(true);
+//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
+//                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+//                    ((MainActivity) getActivity()).showScreen();
+//
+//                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
+//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
+//                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(DbMetadata.RegistrationStatus.REQUEST_DENIED);
+//                    txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
+//                    txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
+//                    txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+//                    txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+//                }
+            }}
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                // Failed request
+            }
+        });
     }
 
     public void update() {

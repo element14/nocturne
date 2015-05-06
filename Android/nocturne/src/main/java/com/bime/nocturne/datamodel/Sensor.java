@@ -25,8 +25,8 @@ import io.realm.annotations.PrimaryKey;
 
 public final class Sensor extends RealmObject {
 
-    public String sensor_desc;
-    public String sensor_name;
+    private String sensor_desc;
+    private String sensor_name;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
@@ -39,7 +39,6 @@ public final class Sensor extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -47,26 +46,23 @@ public final class Sensor extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -76,4 +72,19 @@ public final class Sensor extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public String getSensor_desc() {
+        return sensor_desc;
+    }
+
+    public void setSensor_desc(final String pSensor_desc) {
+        sensor_desc = pSensor_desc;
+    }
+
+    public String getSensor_name() {
+        return sensor_name;
+    }
+
+    public void setSensor_name(final String pSensor_name) {
+        sensor_name = pSensor_name;
+    }
 }

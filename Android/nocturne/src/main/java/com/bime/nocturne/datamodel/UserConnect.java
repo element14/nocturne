@@ -29,8 +29,8 @@ public final class UserConnect extends RealmObject {
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
-    private DateTime created;
-    private DateTime lastupdated;
+    private String createdStr;
+    private String lastupdatedStr;
     private String user1_email;
     private String user2_email;
     private String user1_role;
@@ -40,22 +40,33 @@ public final class UserConnect extends RealmObject {
     public UserConnect() {
     }
 
-    public DateTime getCreated() {
-        return created;
+    public String getCreatedStr() {
+        return createdStr;
+    }
+    public void setCreatedStr(String createdStr) {
+        this.createdStr = createdStr;
     }
 
-    public void setCreated(DateTime created) {
-        this.created = created;
+    public String getLastupdatedStr() {
+        return lastupdatedStr;
+    }
+    public void setLastupdatedStr(String lastupdatedStr) {
+        this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getLastupdated() {
-        return lastupdated;
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdated = lastupdated;
-    }
-
+    //    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
     public String getUniqueId() {
         return uniqueId;
     }

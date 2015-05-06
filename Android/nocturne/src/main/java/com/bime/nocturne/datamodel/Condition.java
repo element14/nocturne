@@ -26,8 +26,8 @@ import io.realm.annotations.PrimaryKey;
 
 public final class Condition extends RealmObject {
 
-    public String condition_desc;
-    public String condition_name;
+    private String condition_desc;
+    private String condition_name;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
@@ -40,7 +40,6 @@ public final class Condition extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
-
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -48,26 +47,23 @@ public final class Condition extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
-
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-    public DateTime getCreated() {
-        return DateTime.parse(createdStr);
-    }
-
-    public void setCreated(DateTime created) {
-        this.createdStr = created.toString();
-    }
-
-    public DateTime getLastupdated() {
-        return DateTime.parse(lastupdatedStr);
-    }
-
-    public void setLastupdated(DateTime lastupdated) {
-        this.lastupdatedStr = lastupdated.toString();
-    }
+//    public DateTime getCreated() {
+//        return DateTime.parse(createdStr);
+//    }
+//    public void setCreated(DateTime created) {
+//        this.createdStr = created.toString();
+//    }
+//
+//    public DateTime getLastupdated() {
+//        return DateTime.parse(lastupdatedStr);
+//    }
+//    public void setLastupdated(DateTime lastupdated) {
+//        this.lastupdatedStr = lastupdated.toString();
+//    }
 
     public String getUniqueId() {
         return uniqueId;
@@ -77,4 +73,19 @@ public final class Condition extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public String getCondition_desc() {
+        return condition_desc;
+    }
+
+    public void setCondition_desc(final String pCondition_desc) {
+        condition_desc = pCondition_desc;
+    }
+
+    public String getCondition_name() {
+        return condition_name;
+    }
+
+    public void setCondition_name(final String pCondition_name) {
+        condition_name = pCondition_name;
+    }
 }

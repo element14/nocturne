@@ -3,8 +3,6 @@ package com.bime.nocturne.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,7 +16,8 @@ import android.widget.ToggleButton;
 
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
-import com.bime.nocturne.datamodel.DbMetadata;
+import com.bime.nocturne.RetrofitNetworkInterface;
+import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserConnect;
 import com.percolate.caffeine.MiscUtils;
@@ -27,19 +26,21 @@ import org.androidannotations.annotations.EFragment;
 
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-@EFragment
 public class ConnectToUserActivityFragment extends Fragment {
-    public static final String LOG_TAG = ConnectToUserActivityFragment.class.getSimpleName() + "::";
     private final String LOG_TAG = ConnectToUserActivityFragment.class.getSimpleName() + "::";
-    public TextView txtErrorMsg;
-    public EditText txtEmailAddr;
-    public ToggleButton swtchCarer;
-    OnUsersConnectedListener mCallback;
-    private Button btnConnect;
-    private TextWatcher textChangedWtchr = new TextWatcher() {
+    private  TextView txtErrorMsg;
+    private  EditText txtEmailAddr;
+    private  ToggleButton swtchCarer;
+    private OnUsersConnectedListener mCallback;
+    private  Button btnConnect;
+    private  TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
             // TODO Auto-generated method stub
@@ -57,36 +58,7 @@ public class ConnectToUserActivityFragment extends Fragment {
     private boolean readyFragment;
     private User userObj;
     private UserConnect usrCnctObj = null;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message msg) {
-            NocturneApplication.d(LOG_TAG + "handleMessage()");
-            txtErrorMsg.setVisibility(View.INVISIBLE);
-            if (usrCnctObj == null) {
-                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() Invalid");
-                usrCnctObj.setStatus(UserConnectionStatus.REQUEST_DENIED.toString());
-                NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctObj);
-                txtErrorMsg.setText("Invalid");
-                txtErrorMsg.setVisibility(View.VISIBLE);
-            } else {
-                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
-                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
-                    usrCnctObj.setStatus(UserConnectionStatus.REQUEST_ACCEPTED.toString());
-                    NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctObj);
-                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() calling parent activity finish()");
-                    mCallback.usersConnected();
 
-                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
-                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
-                    usrCnctObj.setStatus(UserConnectionStatus.REQUEST_DENIED.toString());
-                    NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctObj);
-                    txtErrorMsg.setText(rspnsMsg.getMessage());
-                    txtErrorMsg.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    };
     public ConnectToUserActivityFragment() {
     }
 
@@ -133,7 +105,7 @@ public class ConnectToUserActivityFragment extends Fragment {
         txtErrorMsg.setVisibility(View.INVISIBLE);
         usrCnctObj = new UserConnect();
         if (swtchCarer.isChecked()) {
-            usrCnctObj.setUser1_email(txtEmailAddr.getText().toString();
+            usrCnctObj.setUser1_email(txtEmailAddr.getText().toString());
             usrCnctObj.setUser1_role("PATIENT");
             usrCnctObj.setUser2_email(usrCnctObj.getUser1_email());
             usrCnctObj.setUser2_role("CARER");
@@ -144,7 +116,28 @@ public class ConnectToUserActivityFragment extends Fragment {
             usrCnctObj.setUser2_role("PATIENT");
         }
         usrCnctObj = NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctObj);
-        NocturneApplication.getInstance().getServerComms().sendConnectToUserMessage(getActivity(), handler, usrCnctObj);
+
+        RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
+        netSvc.userConnect(usrCnctObj, new Callback<UserConnect>() {
+            @Override
+            public void success(UserConnect userConn, Response response) {
+                // Successful request, do something with the retrieved
+                NocturneApplication.d(LOG_TAG + "getconnections callback");
+                if (isAdded()) {
+                //FIXME : parse json response and populate listview
+//                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+//                if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
+//
+//                } else {
+//
+//                }
+            }}
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                // Failed request
+            }
+        });
     }
 
     public void update() {
