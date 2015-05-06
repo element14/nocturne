@@ -31,7 +31,7 @@ import io.realm.annotations.PrimaryKey;
  * <p/>
  * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
  */
-public final class RESTResponseMsg extends RealmObject  {
+public class RESTResponseMsg extends RealmObject  {
 
     @PrimaryKey
     @SerializedName("id")

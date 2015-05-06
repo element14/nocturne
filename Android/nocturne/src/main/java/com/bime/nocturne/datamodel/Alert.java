@@ -24,7 +24,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
-public final class Alert extends RealmObject {
+public class Alert extends RealmObject {
 
     private String alert_desc;
     private String alert_name;

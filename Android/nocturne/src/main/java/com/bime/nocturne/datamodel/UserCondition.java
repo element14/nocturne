@@ -23,7 +23,7 @@ import org.joda.time.DateTime;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public final class UserCondition extends RealmObject {
+public class UserCondition extends RealmObject {
 
     @PrimaryKey
     @SerializedName("id")

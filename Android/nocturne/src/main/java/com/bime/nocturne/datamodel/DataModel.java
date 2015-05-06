@@ -20,7 +20,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bime.nocturne.NocturneApplication;
-import com.bime.nocturne.datamodel.DbMetadata.RegistrationStatus;
 import com.projectnocturne.datamodel.SensorReading;
 
 import java.sql.SQLException;
@@ -73,7 +72,17 @@ public final class DataModel extends Observable {
 
     public RegistrationStatus getRegistrationStatus() {
         final DbMetadata dbMetaDta = getDbMetadata();
-        return dbMetaDta.registrationStatus;
+        switch (dbMetaDta.getRegistrationStatus()) {
+            case 0:
+                return RegistrationStatus.NOT_STARTED;
+            case 1:
+                return RegistrationStatus.REQUEST_ACCEPTED;
+            case 2:
+                return RegistrationStatus.REQUEST_DENIED;
+            case 3:
+                return RegistrationStatus.REQUEST_SENT;
+        }
+                return RegistrationStatus.NOT_STARTED;
     }
 
     private DbMetadata getDbMetadata() {
@@ -86,6 +95,17 @@ public final class DataModel extends Observable {
     public void setRegistrationStatus(final RegistrationStatus aRegStat) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
 
+        RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
+        RealmResults<DbMetadata> result1 = query.findAll();
+
+        DbMetadata dbmd=result1.first();
+
+        switch (aRegStat){
+            case NOT_STARTED:dbmd.setRegistrationStatus(0);
+            case REQUEST_ACCEPTED:dbmd.setRegistrationStatus(1);
+            case REQUEST_DENIED:dbmd.setRegistrationStatus(2);
+            case REQUEST_SENT:dbmd.setRegistrationStatus(3);
+        }
     }
 
     public UserConnect setUserConnection(final UserConnect usrCnctDb) {

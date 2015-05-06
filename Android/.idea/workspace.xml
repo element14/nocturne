@@ -98,17 +98,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DbMetadata.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DbMetadata.java">
+      <file leaf-file-name="UserSensors.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40248448">
-              <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.22147001">
+              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -1803,7 +1810,6 @@
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/ui/StatusActivity.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/ui/UserConnectRequestActivity.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/NocturneObject.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java" />
         <option value="$PROJECT_DIR$/nocturne/build.gradle" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/RetrofitNetworkInterface.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/AlertResponse.java" />
@@ -1813,17 +1819,20 @@
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/ui/UserConnectRequestActivityFragment.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/ui/UserRegistrationActivityFragment.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/NetworkIntentService.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserCondition.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/User.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DbMetadata.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserConnect.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RESTResponseMsg.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Sensor.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorReading.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Alert.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Condition.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorTimePeriods.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RegistrationStatus.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DbMetadata.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java" />
+        <option value="$PROJECT_DIR$/nocturne/build/generated/source/apt/debug/io/realm/UserConditionRealmProxy.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserCondition.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserConnect.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/User.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorReading.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Sensor.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RESTResponseMsg.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Condition.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Alert.java" />
       </list>
     </option>
   </component>
@@ -2554,17 +2563,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1919" y="0" width="1922" height="1201" extended-state="1" />
+    <frame x="1919" y="0" width="1922" height="1201" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987747" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21583413" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21583413" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2575,16 +2585,15 @@
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Code Iris" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout>
@@ -2605,22 +2614,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nocturne/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/ui/StatusActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2854,14 +2847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55705994">
-          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mobile/src/main/java/com/projectnocturne/views/Status1Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26112187">
@@ -2954,138 +2939,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java">
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23975155">
-          <caret line="31" column="34" selection-start-line="29" selection-start-column="33" selection-end-line="31" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserConnect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25714287">
-          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="55" selection-start-line="82" selection-start-column="55" selection-end-line="82" selection-end-column="55" />
           <folding>
-            <element signature="e#2228#2229#0" expanded="true" />
-            <element signature="e#2262#2263#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserCondition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6968944">
-          <caret line="73" column="35" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
           <folding>
-            <element signature="e#2165#2166#0" expanded="true" />
+            <element signature="e#2124#2125#0" expanded="true" />
+            <element signature="e#2159#2160#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Sensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84347826">
-          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
-          <folding>
-            <element signature="e#2161#2162#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-            <element signature="e#2264#2265#0" expanded="true" />
-            <element signature="e#2302#2303#0" expanded="true" />
-            <element signature="e#2336#2337#0" expanded="true" />
-            <element signature="e#2397#2398#0" expanded="true" />
-            <element signature="e#2439#2440#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RESTResponseMsg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84347826">
-          <caret line="124" column="27" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="27" />
-          <folding>
-            <element signature="e#3141#3142#0" expanded="true" />
-            <element signature="e#3184#3185#0" expanded="true" />
-            <element signature="e#3208#3209#0" expanded="true" />
-            <element signature="e#3261#3262#0" expanded="true" />
-            <element signature="e#3295#3296#0" expanded="true" />
-            <element signature="e#3329#3330#0" expanded="true" />
-            <element signature="e#3359#3360#0" expanded="true" />
-            <element signature="e#3412#3413#0" expanded="true" />
-            <element signature="e#3446#3447#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/User.java">
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserConnect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="235" column="53" selection-start-line="235" selection-start-column="53" selection-end-line="235" selection-end-column="53" />
-          <folding>
-            <element signature="e#5573#5574#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorReading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41863355">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Alert.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.310559">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="2" selection-end-line="69" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.20889749">
+          <caret line="32" column="25" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Condition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53664595">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="2" selection-end-line="65" selection-end-column="7" />
-          <folding>
-            <element signature="e#2141#2142#0" expanded="true" />
-            <element signature="e#2178#2179#0" expanded="true" />
-            <element signature="e#2334#2335#0" expanded="true" />
-            <element signature="e#2371#2372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorTimePeriods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84347826">
-          <caret line="79" column="42" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
-          <folding>
-            <element signature="e#2330#2331#0" expanded="true" />
-            <element signature="e#2491#2492#0" expanded="true" />
-            <element signature="e#2523#2524#0" expanded="true" />
-            <element signature="e#2578#2579#0" expanded="true" />
-            <element signature="e#2616#2617#0" expanded="true" />
-            <element signature="e#2664#2665#0" expanded="true" />
-            <element signature="e#2708#2709#0" expanded="true" />
-            <element signature="e#2894#2895#0" expanded="true" />
-            <element signature="e#2933#2934#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
-            <element signature="e#3185#3186#0" expanded="true" />
-            <element signature="e#3225#3226#0" expanded="true" />
-            <element signature="e#3261#3262#0" expanded="true" />
-            <element signature="e#3293#3294#0" expanded="true" />
-            <element signature="e#3350#3351#0" expanded="true" />
-            <element signature="e#3388#3389#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.017408123">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DbMetadata.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40248448">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.6789168">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RegistrationStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10444874">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RESTResponseMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17408124">
+          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Sensor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08704062">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorReading.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08704062">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorTimePeriods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#2290#2291#0" expanded="true" />
+            <element signature="e#2330#2331#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10444874">
+          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+          <folding>
+            <element signature="e#5534#5535#0" expanded="true" />
+            <element signature="e#5567#5568#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22147001">
+          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding />
         </state>
       </provider>

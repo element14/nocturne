@@ -27,7 +27,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
-public final class User extends RealmObject {
+public class User extends RealmObject {
 
     @PrimaryKey
     @SerializedName("id")

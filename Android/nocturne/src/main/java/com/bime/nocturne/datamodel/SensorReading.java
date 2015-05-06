@@ -23,7 +23,7 @@ import org.joda.time.DateTime;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public final class SensorReading extends RealmObject {
+public class SensorReading extends RealmObject {
 
     private String sensor_id;
     private String sensor_reading_time;

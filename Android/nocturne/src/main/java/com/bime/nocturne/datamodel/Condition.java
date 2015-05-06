@@ -16,7 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -24,7 +23,7 @@ import org.joda.time.DateTime;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public final class Condition extends RealmObject {
+public class Condition extends RealmObject {
 
     private String condition_desc;
     private String condition_name;

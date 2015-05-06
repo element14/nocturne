@@ -28,10 +28,10 @@ import io.realm.annotations.PrimaryKey;
  */
 public class DbMetadata extends RealmObject {
 
-    public static final int RegistrationStatus_ACCEPTED = 63353;
-    public static final int RegistrationStatus_DENIED = 63354;
+    //public static final int RegistrationStatus_ACCEPTED = 63353;
+    //public static final int RegistrationStatus_DENIED = 63354;
     private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
-    private RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
+    private int registrationStatus = 0;
     private long timestamp = 0;
     private String version = "";
     @PrimaryKey
@@ -57,19 +57,10 @@ public class DbMetadata extends RealmObject {
         this.lastupdatedStr = lastupdatedStr;
     }
 
-//    public DateTime getCreated() {
-//        return DateTime.parse(createdStr);
-//    }
-//    public void setCreated(DateTime created) {
-//        this.createdStr = created.toString();
-//    }
-//
-//    public DateTime getLastupdated() {
-//        return DateTime.parse(lastupdatedStr);
-//    }
-//    public void setLastupdated(DateTime lastupdated) {
-//        this.lastupdatedStr = lastupdated.toString();
-//    }
+//    public DateTime getCreated() {return DateTime.parse(createdStr);}
+//    public void setCreated(DateTime created) {this.createdStr = created.toString();}
+//    public DateTime getLastupdated() {return DateTime.parse(lastupdatedStr);}
+//    public void setLastupdated(DateTime lastupdated) {this.lastupdatedStr = lastupdated.toString();}
 
     public String getUniqueId() {
         return uniqueId;
@@ -79,43 +70,14 @@ public class DbMetadata extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
-    public void setRegistrationStatus(final int newValue) {
-        switch (newValue) {
-            case 0:
-                registrationStatus = RegistrationStatus.NOT_STARTED;
-                break;
-            case 1:
-                registrationStatus = RegistrationStatus.REQUEST_ACCEPTED;
-                break;
-            case 2:
-                registrationStatus = RegistrationStatus.REQUEST_DENIED;
-                break;
-            case 3:
-                registrationStatus = RegistrationStatus.REQUEST_SENT;
-                break;
-            default:
-                registrationStatus = RegistrationStatus.NOT_STARTED;
-        }
-    }
-
-    public void setRegistrationStatus(final RegistrationStatus aRegStatus) {
+    public void setRegistrationStatus(final int aRegStatus) {
         registrationStatus = aRegStatus;
     }
+ public int getRegistrationStatus() {        return registrationStatus;    }
 
-    public enum RegistrationStatus {
-        NOT_STARTED, REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
-    }
 
     public enum UserConnectionStatus {
         REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
-    }
-
-    public static String getLOG_TAG() {
-        return LOG_TAG;
-    }
-
-    public RegistrationStatus getRegistrationStatus() {
-        return registrationStatus;
     }
 
     public long getTimestamp() {
