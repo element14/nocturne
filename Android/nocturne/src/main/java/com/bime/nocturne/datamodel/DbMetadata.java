@@ -18,8 +18,6 @@ package com.bime.nocturne.datamodel;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -46,6 +44,7 @@ public class DbMetadata extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
+
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -53,6 +52,7 @@ public class DbMetadata extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
+
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
@@ -70,14 +70,12 @@ public class DbMetadata extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
+    public int getRegistrationStatus() {
+        return registrationStatus;
+    }
+
     public void setRegistrationStatus(final int aRegStatus) {
         registrationStatus = aRegStatus;
-    }
- public int getRegistrationStatus() {        return registrationStatus;    }
-
-
-    public enum UserConnectionStatus {
-        REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
     }
 
     public long getTimestamp() {
@@ -94,5 +92,9 @@ public class DbMetadata extends RealmObject {
 
     public void setVersion(final String pVersion) {
         version = pVersion;
+    }
+
+    public enum UserConnectionStatus {
+        REQUEST_ACCEPTED, REQUEST_DENIED, REQUEST_SENT;
     }
 }

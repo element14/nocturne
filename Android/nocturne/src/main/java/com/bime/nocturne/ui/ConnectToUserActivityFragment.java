@@ -22,8 +22,6 @@ import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserConnect;
 import com.percolate.caffeine.MiscUtils;
 
-import org.androidannotations.annotations.EFragment;
-
 import java.util.List;
 
 import retrofit.Callback;
@@ -35,12 +33,12 @@ import retrofit.client.Response;
  */
 public class ConnectToUserActivityFragment extends Fragment {
     private final String LOG_TAG = ConnectToUserActivityFragment.class.getSimpleName() + "::";
-    private  TextView txtErrorMsg;
-    private  EditText txtEmailAddr;
-    private  ToggleButton swtchCarer;
+    private TextView txtErrorMsg;
+    private EditText txtEmailAddr;
+    private ToggleButton swtchCarer;
     private OnUsersConnectedListener mCallback;
-    private  Button btnConnect;
-    private  TextWatcher textChangedWtchr = new TextWatcher() {
+    private Button btnConnect;
+    private TextWatcher textChangedWtchr = new TextWatcher() {
         @Override
         public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
             // TODO Auto-generated method stub
@@ -124,14 +122,15 @@ public class ConnectToUserActivityFragment extends Fragment {
                 // Successful request, do something with the retrieved
                 NocturneApplication.d(LOG_TAG + "getconnections callback");
                 if (isAdded()) {
-                //FIXME : parse json response and populate listview
+                    //FIXME : parse json response and populate listview
 //                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
 //                if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
 //
 //                } else {
 //
 //                }
-            }}
+                }
+            }
 
             @Override
             public void failure(RetrofitError retrofitError) {

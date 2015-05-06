@@ -98,12 +98,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserSensors.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserSensors.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22147001">
-              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataModel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.83558995">
+              <caret line="133" column="15" selection-start-line="133" selection-start-column="15" selection-end-line="133" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2731#2732#0" expanded="true" />
+                <element signature="e#2795#2796#0" expanded="true" />
+                <element signature="e#4512#4513#0" expanded="true" />
+                <element signature="e#4593#4594#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1823,7 +1841,6 @@
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/SensorTimePeriods.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RegistrationStatus.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DbMetadata.java" />
-        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java" />
         <option value="$PROJECT_DIR$/nocturne/build/generated/source/apt/debug/io/realm/UserConditionRealmProxy.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserCondition.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserConnect.java" />
@@ -1833,6 +1850,7 @@
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/RESTResponseMsg.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Condition.java" />
         <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/Alert.java" />
+        <option value="$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java" />
       </list>
     </option>
   </component>
@@ -2614,14 +2632,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/NocturneApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2890,18 +2900,18 @@
         <state vertical-scroll-proportion="-0.875731">
           <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#1799:2308" expanded="false" />
-            <element signature="e#4422#5295#0" expanded="true" />
-            <element signature="e#5294#5295#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="class#1800:2309" expanded="false" />
+            <element signature="e#4424#5297#0" expanded="true" />
+            <element signature="e#5296#5297#0" expanded="true" />
             <element signature="method#update#0;class#UserRegistrationActivityFragment#0" expanded="false" />
             <element signature="class#ServerConnectionAsyncTask#0;class#UserRegistrationActivityFragment#0" expanded="false" />
-            <element signature="e#11409#11453#0" expanded="true" />
-            <element signature="e#11663#11710#0" expanded="true" />
-            <element signature="e#12121#12165#0" expanded="true" />
-            <element signature="e#12375#12422#0" expanded="true" />
-            <element signature="e#12623#12624#0" expanded="true" />
-            <element signature="e#12670#12671#0" expanded="true" />
+            <element signature="e#11451#11495#0" expanded="true" />
+            <element signature="e#11705#11752#0" expanded="true" />
+            <element signature="e#12163#12207#0" expanded="true" />
+            <element signature="e#12417#12464#0" expanded="true" />
+            <element signature="e#12665#12666#0" expanded="true" />
+            <element signature="e#12712#12713#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2911,12 +2921,12 @@
         <state vertical-scroll-proportion="0.18421052">
           <caret line="45" column="3" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
           <folding>
-            <element signature="e#4909#4962#0" expanded="true" />
+            <element signature="e#4662#4715#0" expanded="true" />
             <element signature="class#ServerConnectionAsyncTask#0;class#StatusActivityFragment#0" expanded="false" />
-            <element signature="e#8229#8273#0" expanded="true" />
-            <element signature="e#8481#8528#0" expanded="true" />
-            <element signature="e#8924#8968#0" expanded="true" />
-            <element signature="e#9176#9223#0" expanded="true" />
+            <element signature="e#8593#8637#0" expanded="true" />
+            <element signature="e#8845#8892#0" expanded="true" />
+            <element signature="e#7895#7939#0" expanded="false" />
+            <element signature="e#8147#8194#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2934,17 +2944,7 @@
         <state vertical-scroll-proportion="-0.7923977">
           <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="55" selection-start-line="82" selection-start-column="55" selection-end-line="82" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2954,8 +2954,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
           <folding>
-            <element signature="e#2124#2125#0" expanded="true" />
-            <element signature="e#2159#2160#0" expanded="true" />
+            <element signature="e#2095#2096#0" expanded="true" />
+            <element signature="e#2130#2131#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3029,8 +3029,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2290#2291#0" expanded="true" />
-            <element signature="e#2330#2331#0" expanded="true" />
+            <element signature="e#2260#2261#0" expanded="true" />
+            <element signature="e#2300#2301#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3040,17 +3040,49 @@
         <state vertical-scroll-proportion="0.10444874">
           <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
           <folding>
-            <element signature="e#5534#5535#0" expanded="true" />
-            <element signature="e#5567#5568#0" expanded="true" />
+            <element signature="e#5504#5505#0" expanded="true" />
+            <element signature="e#5537#5538#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/UserSensors.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22147001">
-          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android/sdk/sources/android-19/java/util/AbstractList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24371374">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android/0.80.1/9759bf4fd8fcac34c1f71f41fb598abda308c696/realm-android-0.80.1-sources.jar!/io/realm/RealmResults.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3326886">
+          <caret line="54" column="65" selection-start-line="54" selection-start-column="65" selection-end-line="54" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nocturne/src/main/java/com/bime/nocturne/datamodel/DataModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.83558995">
+          <caret line="133" column="15" selection-start-line="133" selection-start-column="15" selection-end-line="133" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2731#2732#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
+            <element signature="e#4512#4513#0" expanded="true" />
+            <element signature="e#4593#4594#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

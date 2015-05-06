@@ -4,12 +4,10 @@ import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,13 +21,9 @@ import com.bime.nocturne.R;
 import com.bime.nocturne.RetrofitNetworkInterface;
 import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
-import com.bime.nocturne.datamodel.DbMetadata;
-import com.bime.nocturne.datamodel.RESTResponseMsg;
 import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserConnect;
 import com.percolate.caffeine.ViewUtils;
-
-import org.androidannotations.annotations.EFragment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -134,12 +128,13 @@ public class StatusActivityFragment extends Fragment {
 //                } else {
 //
 //                }
-                }}
-
-                @Override
-                public void failure (RetrofitError retrofitError){
-                    // Failed request
                 }
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                // Failed request
+            }
         });
     }
 
@@ -177,8 +172,17 @@ public class StatusActivityFragment extends Fragment {
             return connected;
         }
 
-        public void stopRunning(){
-            continueRunning=false;
+        @Override
+        protected void onPostExecute(final Boolean connected) {
+            if (StatusActivityFragment.this.isAdded()) {
+                if (connected) {
+                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
         }
 
         @Override
@@ -194,17 +198,8 @@ public class StatusActivityFragment extends Fragment {
             }
         }
 
-        @Override
-        protected void onPostExecute(final Boolean connected) {
-            if (StatusActivityFragment.this.isAdded()) {
-                if (connected) {
-                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
-                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                } else {
-                    txtStatusScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
-                    txtStatusScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-                }
-            }
+        public void stopRunning() {
+            continueRunning = false;
         }
     }
 

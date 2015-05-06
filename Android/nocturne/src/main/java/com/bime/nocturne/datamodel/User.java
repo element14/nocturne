@@ -20,8 +20,6 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -46,9 +44,11 @@ public class User extends RealmObject {
     private String status = "";
     private RealmList<UserCondition> conditions;
     private RealmList<UserConnect> connections;
+
     public User() {
         super();
     }
+
     public User(@NonNull final String username) {
         super();
         this.email1 = username;

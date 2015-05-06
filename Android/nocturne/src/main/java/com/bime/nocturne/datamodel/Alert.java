@@ -18,8 +18,6 @@ package com.bime.nocturne.datamodel;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -44,6 +42,7 @@ public class Alert extends RealmObject {
     public String getCreatedStr() {
         return createdStr;
     }
+
     public void setCreatedStr(String createdStr) {
         this.createdStr = createdStr;
     }
@@ -51,6 +50,7 @@ public class Alert extends RealmObject {
     public String getLastupdatedStr() {
         return lastupdatedStr;
     }
+
     public void setLastupdatedStr(String lastupdatedStr) {
         this.lastupdatedStr = lastupdatedStr;
     }
@@ -72,6 +72,7 @@ public class Alert extends RealmObject {
     public String getUniqueId() {
         return uniqueId;
     }
+
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }

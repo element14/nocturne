@@ -16,12 +16,7 @@
  */
 package com.bime.nocturne.datamodel;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
-
-import org.joda.time.DateTime;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -31,7 +26,7 @@ import io.realm.annotations.PrimaryKey;
  * <p/>
  * if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
  */
-public class RESTResponseMsg extends RealmObject  {
+public class RESTResponseMsg extends RealmObject {
 
     @PrimaryKey
     @SerializedName("id")
@@ -108,6 +103,10 @@ public class RESTResponseMsg extends RealmObject  {
         return content;
     }
 
+    public void setContent(final String pContent) {
+        content = pContent;
+    }
+
     /**
      * @return the status
      */
@@ -128,10 +127,6 @@ public class RESTResponseMsg extends RealmObject  {
 
     public void setId(final String pId) {
         id = pId;
-    }
-
-    public void setContent(final String pContent) {
-        content = pContent;
     }
 
     public String getRequest() {

@@ -25,7 +25,6 @@ import com.bime.nocturne.datamodel.User;
 import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -43,7 +42,7 @@ public class UserRegistrationActivityFragment extends Fragment {
     private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
     private TextView txtWelcomeScr1StatusItem1Value;
     private Button btnSubscribe;
-    private boolean readyFragment=false;
+    private boolean readyFragment = false;
     private EditText txtWelcomeScr1EmailAddress;
     private EditText txtWelcomeScr1HomePhoneNbr;
     private EditText txtWelcomeScr1MobilePhoneNbr;
@@ -68,6 +67,7 @@ public class UserRegistrationActivityFragment extends Fragment {
     private TextView txtWelcomeScr1ErrorMessage;
     private ProgressBar txtWelcomeScr1Progress;
     private TextView txtWelcomeScr1ErrorMessageDetail;
+
     public UserRegistrationActivityFragment() {
     }
 
@@ -130,9 +130,10 @@ public class UserRegistrationActivityFragment extends Fragment {
             @Override
             public void success(User userObj, Response response) {
                 // Successful request, do something with the retrieved messages
-                NocturneApplication.d(LOG_TAG + "createUser callback");  if (isAdded()) {
-                //FIXME :
-                txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
+                NocturneApplication.d(LOG_TAG + "createUser callback");
+                if (isAdded()) {
+                    //FIXME :
+                    txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
 //                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
 //                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
 //                    serverConnectionTask.stopRunning();
@@ -149,7 +150,8 @@ public class UserRegistrationActivityFragment extends Fragment {
 //                    txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
 //                    txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
 //                }
-            }}
+                }
+            }
 
             @Override
             public void failure(RetrofitError retrofitError) {

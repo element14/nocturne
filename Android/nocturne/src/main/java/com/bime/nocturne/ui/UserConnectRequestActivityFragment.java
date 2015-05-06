@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 
 import com.bime.nocturne.R;
 
-import org.androidannotations.annotations.EFragment;
-
 /**
  * A placeholder fragment containing a simple view.
  */

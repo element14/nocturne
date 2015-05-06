@@ -82,14 +82,11 @@ public final class DataModel extends Observable {
             case 3:
                 return RegistrationStatus.REQUEST_SENT;
         }
-                return RegistrationStatus.NOT_STARTED;
+        return RegistrationStatus.NOT_STARTED;
     }
 
     private DbMetadata getDbMetadata() {
-        DbMetadata dbMetaDta = null;
-        RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
-        RealmResults<DbMetadata> result1 = query.findAll();
-        return result1.first();
+        return realm.where(DbMetadata.class).findFirst();
     }
 
     public void setRegistrationStatus(final RegistrationStatus aRegStat) {
@@ -98,13 +95,21 @@ public final class DataModel extends Observable {
         RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
         RealmResults<DbMetadata> result1 = query.findAll();
 
-        DbMetadata dbmd=result1.first();
+        DbMetadata dbmd = result1.first();
 
-        switch (aRegStat){
-            case NOT_STARTED:dbmd.setRegistrationStatus(0);
-            case REQUEST_ACCEPTED:dbmd.setRegistrationStatus(1);
-            case REQUEST_DENIED:dbmd.setRegistrationStatus(2);
-            case REQUEST_SENT:dbmd.setRegistrationStatus(3);
+        switch (aRegStat) {
+            case REQUEST_ACCEPTED:
+                dbmd.setRegistrationStatus(1);
+                break;
+            case REQUEST_DENIED:
+                dbmd.setRegistrationStatus(2);
+                break;
+            case REQUEST_SENT:
+                dbmd.setRegistrationStatus(3);
+                break;
+            case NOT_STARTED:
+            default:
+                dbmd.setRegistrationStatus(0);
         }
     }
 
@@ -116,28 +121,20 @@ public final class DataModel extends Observable {
 
 
     public User getUser(final String uuid) {
-        User dbObj = null;
-
-// Build the query looking at all users:
-        RealmQuery<User> query = realm.where(User.class);
-        query.equalTo("uniqueId", uuid);
-
-// Execute the query:
-        RealmResults<User> result1 = query.findAll();
-
-        return result1.first();
+        return realm.where(User.class).equalTo("uniqueId", uuid).findFirst();
     }
 
     public List<User> getUsers() {
         final List<User> users = new ArrayList<User>();
 
-
 // Build the query looking at all users:
         RealmQuery<User> query = realm.where(User.class);
 
 // Execute the query:
         RealmResults<User> result1 = query.findAll();
-
+        for (User u : result1) {
+            users.add(u);
+        }
         return users;
     }
 
@@ -147,7 +144,6 @@ public final class DataModel extends Observable {
 
     @Override
     public void notifyObservers() {
-
     }
 
     public void shutdown() {
@@ -164,9 +160,4 @@ public final class DataModel extends Observable {
         return itm;
     }
 
-    public List<UserConnect> getUsersConnected(User userDbObj) {
-        final List<UserConnect> userConnections = new ArrayList<UserConnect>();
-
-        return userConnections;
-    }
 }
