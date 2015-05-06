@@ -35,7 +35,6 @@ public class RetrofitNetworkInterface {
                     .registerTypeAdapter(Date.class, new DateTypeAdapter())
                     .create();
 
-
             final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(ctx);
             final String serverAddr = "http://"
                     + settings

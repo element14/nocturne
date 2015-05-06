@@ -48,7 +48,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'joda-time:joda-time:2.6'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'io.realm:realm-android:0.80.0'
+    compile 'io.realm:realm-android:0.80.1'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.percolate:caffeine:0.3.3'

@@ -71,16 +71,16 @@ public final class DataModel extends Observable {
 
     }
 
+    public RegistrationStatus getRegistrationStatus() {
+        final DbMetadata dbMetaDta = getDbMetadata();
+        return dbMetaDta.registrationStatus;
+    }
+
     private DbMetadata getDbMetadata() {
         DbMetadata dbMetaDta = null;
         RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
         RealmResults<DbMetadata> result1 = query.findAll();
         return result1.first();
-    }
-
-    public RegistrationStatus getRegistrationStatus() {
-        final DbMetadata dbMetaDta = getDbMetadata();
-        return dbMetaDta.registrationStatus;
     }
 
     public void setRegistrationStatus(final RegistrationStatus aRegStat) {

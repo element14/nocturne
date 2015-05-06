@@ -26,11 +26,16 @@ import io.realm.annotations.PrimaryKey;
 
 public final class Condition extends RealmObject {
 
+    public String condition_desc;
+    public String condition_name;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+
+    public Condition() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -70,15 +75,6 @@ public final class Condition extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-
-    public String condition_desc;
-    public String condition_name;
-
-    public Condition() {
     }
 
 }

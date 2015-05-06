@@ -30,6 +30,11 @@ public final class UserCondition extends RealmObject {
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+    private long condition_id;
+    private long user_id;
+
+    public UserCondition() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -69,14 +74,6 @@ public final class UserCondition extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-    private long condition_id;
-    private long user_id;
-
-    public UserCondition() {
     }
 
 }

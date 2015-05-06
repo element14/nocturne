@@ -31,6 +31,15 @@ public class SensorTimePeriods extends RealmObject {
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+    private String sensor_alert_time;
+    private long sensor_id;
+    private String sensor_value_expected;
+    private String sensor_warn_time;
+    private String start_time;
+    private String stop_time;
+
+    public SensorTimePeriods() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -70,19 +79,6 @@ public class SensorTimePeriods extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-
-    private String sensor_alert_time;
-    private long sensor_id;
-    private String sensor_value_expected;
-    private String sensor_warn_time;
-    private String start_time;
-    private String stop_time;
-
-    public SensorTimePeriods() {
     }
 
 

@@ -26,11 +26,20 @@ import io.realm.annotations.PrimaryKey;
 //if ignoreUnknown is false, Jackson would throw an exception if we don't parse all fields
 public final class Alert extends RealmObject {
 
+    public String alert_desc;
+    public String alert_name;
+    public String response;
+    public boolean response_sent = false;
+    public long user_Id;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+
+    public Alert() {
+        // TODO Auto-generated constructor stub
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -70,19 +79,6 @@ public final class Alert extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-
-    public String alert_desc;
-    public String alert_name;
-    public String response;
-    public boolean response_sent = false;
-    public long user_Id;
-
-    public Alert() {
-        // TODO Auto-generated constructor stub
     }
 
     /**

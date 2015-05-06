@@ -34,6 +34,26 @@ public final class User extends RealmObject {
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+    private String addr_line1 = "";
+    private String addr_line2 = "";
+    private String addr_line3 = "";
+    private String email1 = "";
+    private String name_first = "";
+    private String name_last = "";
+    private String phone_home = "";
+    private String phone_mbl = "";
+    private String postcode = "";
+    private String status = "";
+    private RealmList<UserCondition> conditions;
+    private RealmList<UserConnect> connections;
+    public User() {
+        super();
+    }
+    public User(@NonNull final String username) {
+        super();
+        this.email1 = username;
+        this.uniqueId = username;
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -73,33 +93,6 @@ public final class User extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-
-    private String addr_line1 = "";
-    private String addr_line2 = "";
-    private String addr_line3 = "";
-    private String email1 = "";
-    private String name_first = "";
-    private String name_last = "";
-    private String phone_home = "";
-    private String phone_mbl = "";
-    private String postcode = "";
-    private String status = "";
-    
-    private RealmList<UserCondition> conditions;
-    private RealmList<UserConnect> connections;
-
-    public User() {
-        super();
-    }
-
-    public User(@NonNull final String username) {
-        super();
-        this.email1 = username;
-        this.uniqueId = username;
     }
 
     /**

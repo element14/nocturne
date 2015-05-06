@@ -10,10 +10,9 @@
  * reproduced in any material form, either wholly or in part, and the contents
  * of the document or any method or technique available there from, must not be
  * disclosed to any other person whomsoever.
- *  </p><p>
- *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * </p><p>
+ * <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- *
  */
 package com.projectnocturne.views;
 
@@ -55,6 +54,34 @@ import java.util.List;
 public class Welcome1Fragment extends NocturneFragment {
 
     public static final String LOG_TAG = Welcome1Fragment.class.getSimpleName() + "::";
+    ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
+    private TextView txtWelcomeScr1StatusItem1Value;
+    private Button btnSubscribe;
+    private boolean readyFragment;
+    private EditText txtWelcomeScr1EmailAddress;
+    private EditText txtWelcomeScr1HomePhoneNbr;
+    private EditText txtWelcomeScr1MobilePhoneNbr;
+    private EditText txtWelcomeScr1PersonNameFirst;
+    private EditText txtWelcomeScr1PersonNameLast;
+    TextWatcher textChangedWtchr = new TextWatcher() {
+        @Override
+        public void afterTextChanged(final Editable s) {
+            Welcome1Fragment.this.enableSubscribeButton();
+        }
+
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+        }
+    };
+    private UserDb userDbObj = null;
+    private TextView txtWelcomeScr1ErrorMessage;
+    private ProgressBar txtWelcomeScr1Progress;
+    private TextView txtWelcomeScr1ErrorMessageDetail;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
@@ -78,34 +105,6 @@ public class Welcome1Fragment extends NocturneFragment {
             }
         }
     };
-    TextWatcher textChangedWtchr = new TextWatcher() {
-        @Override
-        public void afterTextChanged(final Editable s) {
-            Welcome1Fragment.this.enableSubscribeButton();
-        }
-
-        @Override
-        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-        }
-    };
-    ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
-    private TextView txtWelcomeScr1StatusItem1Value;
-    private Button btnSubscribe;
-    private boolean readyFragment;
-    private EditText txtWelcomeScr1EmailAddress;
-    private EditText txtWelcomeScr1HomePhoneNbr;
-    private EditText txtWelcomeScr1MobilePhoneNbr;
-    private EditText txtWelcomeScr1PersonNameFirst;
-    private EditText txtWelcomeScr1PersonNameLast;
-    private UserDb userDbObj = null;
-    private TextView txtWelcomeScr1ErrorMessage;
-    private ProgressBar txtWelcomeScr1Progress;
-    private TextView txtWelcomeScr1ErrorMessageDetail;
 
     private void enableSubscribeButton() {
         if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 &&

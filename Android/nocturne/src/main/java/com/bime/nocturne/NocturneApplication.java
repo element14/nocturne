@@ -31,7 +31,6 @@ import android.util.Patterns;
 
 import com.bime.nocturne.datamodel.DataModel;
 
-import org.androidannotations.annotations.EApplication;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -92,29 +91,6 @@ public final class NocturneApplication extends Application {
         Log.i(LOG_TAG, msg);
     }
 
-    public static void logMessage(final int lvl, final String msg) {
-        switch (lvl) {
-            case Log.VERBOSE:
-                Log.v(LOG_TAG, msg);
-                break;
-            case Log.DEBUG:
-                Log.d(LOG_TAG, msg);
-                break;
-            case Log.INFO:
-                Log.i(LOG_TAG, msg);
-                break;
-            case Log.WARN:
-                Log.w(LOG_TAG, msg);
-                break;
-            case Log.ERROR:
-                Log.e(LOG_TAG, msg);
-                break;
-            case Log.ASSERT:
-                Log.wtf(LOG_TAG, msg);
-                break;
-        }
-    }
-
     public static void logMessage(final int lvl, final String msg, final Throwable thr) {
         Log.e(LOG_TAG, msg, thr);
     }
@@ -141,7 +117,9 @@ public final class NocturneApplication extends Application {
         StringBuilder sbuf = new StringBuilder();
         for (int idx = 0; idx < bytes.length; idx++) {
             int intVal = bytes[idx] & 0xff;
-            if (intVal < 0x10) sbuf.append("0");
+            if (intVal < 0x10) {
+                sbuf.append("0");
+            }
             sbuf.append(Integer.toHexString(intVal).toUpperCase());
         }
         return sbuf.toString();
@@ -177,8 +155,9 @@ public final class NocturneApplication extends Application {
                         String sAddr = addr.getHostAddress().toUpperCase();
                         boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
                         if (useIPv4) {
-                            if (isIPv4)
+                            if (isIPv4) {
                                 return sAddr;
+                            }
                         } else {
                             if (!isIPv4) {
                                 int delim = sAddr.indexOf('%'); // drop ip6 port suffix
@@ -226,17 +205,6 @@ public final class NocturneApplication extends Application {
         }
     }
 
-//	public String getAppVersion(final String packageName) {
-//		String verName = "unknown";
-//		try {
-//			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
-//			verName = pInfo.versionName;
-//		} catch (final NameNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		return verName;
-//	}
-
     /**
      * Returns MAC address of the given interface name.
      *
@@ -248,14 +216,21 @@ public final class NocturneApplication extends Application {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface intf : interfaces) {
                 if (interfaceName != null) {
-                    if (!intf.getName().equalsIgnoreCase(interfaceName)) continue;
+                    if (!intf.getName().equalsIgnoreCase(interfaceName)) {
+                        continue;
+                    }
                 }
                 byte[] mac = intf.getHardwareAddress();
-                if (mac == null) return "";
+                if (mac == null) {
+                    return "";
+                }
                 StringBuilder buf = new StringBuilder();
-                for (int idx = 0; idx < mac.length; idx++)
+                for (int idx = 0; idx < mac.length; idx++) {
                     buf.append(String.format("%02X:", mac[idx]));
-                if (buf.length() > 0) buf.deleteCharAt(buf.length() - 1);
+                }
+                if (buf.length() > 0) {
+                    buf.deleteCharAt(buf.length() - 1);
+                }
                 return buf.toString();
             }
         } catch (Exception ex) {
@@ -268,6 +243,17 @@ public final class NocturneApplication extends Application {
             return null;
         }*/
     }
+
+//	public String getAppVersion(final String packageName) {
+//		String verName = "unknown";
+//		try {
+//			final PackageInfo pInfo = getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+//			verName = pInfo.versionName;
+//		} catch (final NameNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		return verName;
+//	}
 
     protected Drawable getAppImage(final String packageName) {
         try {
@@ -282,13 +268,13 @@ public final class NocturneApplication extends Application {
         return BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
     }
 
-    public String getApplicationName() {
-        return this.getString(R.string.app_name);
-    }
-
     public String getAppSdCardPathDir() {
         final File extDir = Environment.getExternalStorageDirectory();
         return extDir.getPath() + File.separator + getApplicationName() + File.separator;
+    }
+
+    public String getApplicationName() {
+        return this.getString(R.string.app_name);
     }
 
     public int getAppVersionNbr() {
@@ -339,6 +325,29 @@ public final class NocturneApplication extends Application {
             dataModel.initialise(this);
         } catch (final SQLException ex) {
             Log.wtf(LOG_TAG, "Exception initialising DB: ", ex);
+        }
+    }
+
+    public static void logMessage(final int lvl, final String msg) {
+        switch (lvl) {
+            case Log.VERBOSE:
+                Log.v(LOG_TAG, msg);
+                break;
+            case Log.DEBUG:
+                Log.d(LOG_TAG, msg);
+                break;
+            case Log.INFO:
+                Log.i(LOG_TAG, msg);
+                break;
+            case Log.WARN:
+                Log.w(LOG_TAG, msg);
+                break;
+            case Log.ERROR:
+                Log.e(LOG_TAG, msg);
+                break;
+            case Log.ASSERT:
+                Log.wtf(LOG_TAG, msg);
+                break;
         }
     }
 

@@ -17,9 +17,10 @@
 package com.bime.nocturne.datamodel;
 
 import com.google.gson.annotations.SerializedName;
+
 import org.joda.time.DateTime;
+
 import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 public class UserSensors extends RealmObject {
@@ -29,6 +30,11 @@ public class UserSensors extends RealmObject {
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+    private long sensor_timeperiod_id;
+    private long user_id;
+
+    public UserSensors() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -70,10 +76,6 @@ public class UserSensors extends RealmObject {
         this.uniqueId = uniqueId;
     }
 
-
-    private long sensor_timeperiod_id;
-    private long user_id;
-
     public long getSensor_timeperiod_id() {
         return sensor_timeperiod_id;
     }
@@ -88,9 +90,6 @@ public class UserSensors extends RealmObject {
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
-    }
-
-    public UserSensors() {
     }
 
 }

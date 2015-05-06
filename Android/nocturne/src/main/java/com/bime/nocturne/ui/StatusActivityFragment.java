@@ -16,6 +16,7 @@ import org.androidannotations.annotations.EFragment;
  */
 @EFragment
 public class StatusActivityFragment extends Fragment {
+    public static final String LOG_TAG = StatusActivityFragment.class.getSimpleName() + "::";
 
     public StatusActivityFragment() {
     }

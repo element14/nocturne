@@ -7,8 +7,6 @@ import android.view.MenuItem;
 
 import com.bime.nocturne.R;
 
-import org.androidannotations.annotations.EActivity;
-
 
 public class StatusActivity extends Activity {
 

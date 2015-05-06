@@ -1,7 +1,10 @@
 package com.bime.nocturne.ui;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,13 +17,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bime.nocturne.NocturneApplication;
-import com.percolate.caffeine.MiscUtils;
 import com.bime.nocturne.R;
+import com.bime.nocturne.RetrofitNetworkInterface;
+import com.bime.nocturne.RetrofitNetworkService;
+import com.bime.nocturne.SettingsActivity;
 import com.bime.nocturne.datamodel.User;
+import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
 import org.androidannotations.annotations.EFragment;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 /**
@@ -29,7 +38,34 @@ import java.util.List;
 @EFragment
 public class UserRegistrationActivityFragment extends Fragment {
     public static final String LOG_TAG = UserRegistrationActivityFragment.class.getSimpleName() + "::";
+    private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
+    private TextView txtWelcomeScr1StatusItem1Value;
+    private Button btnSubscribe;
+    private boolean readyFragment;
+    private EditText txtWelcomeScr1EmailAddress;
+    private EditText txtWelcomeScr1HomePhoneNbr;
+    private EditText txtWelcomeScr1MobilePhoneNbr;
+    private EditText txtWelcomeScr1PersonNameFirst;
+    private EditText txtWelcomeScr1PersonNameLast;
+    TextWatcher textChangedWtchr = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+            // TODO Auto-generated method stub
+        }
 
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+        }
+
+        @Override
+        public void afterTextChanged(final Editable s) {
+            UserRegistrationActivityFragment.this.enableSubscribeButton();
+        }
+    };
+    private User userObj = null;
+    private TextView txtWelcomeScr1ErrorMessage;
+    private ProgressBar txtWelcomeScr1Progress;
+    private TextView txtWelcomeScr1ErrorMessageDetail;
     public UserRegistrationActivityFragment() {
     }
 
@@ -66,12 +102,12 @@ public class UserRegistrationActivityFragment extends Fragment {
                 txtWelcomeScr1ErrorMessage.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1ErrorMessageDetail.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1Progress.setVisibility(View.VISIBLE);
-                userDbObj.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
-                userDbObj.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
-                userDbObj.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
-                userDbObj.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
-                userDbObj.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
-                UserRegistrationActivityFragment.this.sendRegistrationMessage(userDbObj);
+                userObj.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
+                userObj.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
+                userObj.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
+                userObj.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
+                userObj.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
+                UserRegistrationActivityFragment.this.sendRegistrationMessage(userObj);
             }
         });
         readyFragment = true;
@@ -80,14 +116,15 @@ public class UserRegistrationActivityFragment extends Fragment {
         this.update();
         return v;
     }
+
     protected void sendRegistrationMessage(final User usr) {
         if (usr.getUniqueId() == "") {
-            userDbObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
+            userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
         } else {
-            userDbObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
+            userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
         }
-        //NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_SENT);
-        NocturneApplication.getInstance().getServerComms().sendSubscriptionMessage(getActivity(), handler, usr);
+        RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
+        netSvc.createUser(userObj, callback);
     }
 
     public void update() {
@@ -98,47 +135,17 @@ public class UserRegistrationActivityFragment extends Fragment {
         NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
         final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
-            userDbObj = users.get(0);
-            txtWelcomeScr1PersonNameFirst.setText(userDbObj.getName_first());
-            txtWelcomeScr1PersonNameLast.setText(userDbObj.getName_last());
-            txtWelcomeScr1MobilePhoneNbr.setText(userDbObj.getPhone_mbl());
-            txtWelcomeScr1HomePhoneNbr.setText(userDbObj.getPhone_home());
-            txtWelcomeScr1EmailAddress.setText(userDbObj.getEmail1());
+            userObj = users.get(0);
+            txtWelcomeScr1PersonNameFirst.setText(userObj.getName_first());
+            txtWelcomeScr1PersonNameLast.setText(userObj.getName_last());
+            txtWelcomeScr1MobilePhoneNbr.setText(userObj.getPhone_mbl());
+            txtWelcomeScr1HomePhoneNbr.setText(userObj.getPhone_home());
+            txtWelcomeScr1EmailAddress.setText(userObj.getEmail1());
         } else {
-            userDbObj = new User();
+            userObj = new User();
         }
         serverConnectionTask.execute();
     }
-
-
-    TextWatcher textChangedWtchr = new TextWatcher() {
-        @Override
-        public void afterTextChanged(final Editable s) {
-            UserRegistrationActivityFragment.this.enableSubscribeButton();
-        }
-
-        @Override
-        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-        }
-    };
-
-    private TextView txtWelcomeScr1StatusItem1Value;
-    private Button btnSubscribe;
-    private boolean readyFragment;
-    private EditText txtWelcomeScr1EmailAddress;
-    private EditText txtWelcomeScr1HomePhoneNbr;
-    private EditText txtWelcomeScr1MobilePhoneNbr;
-    private EditText txtWelcomeScr1PersonNameFirst;
-    private EditText txtWelcomeScr1PersonNameLast;
-    private User userDbObj = null;
-    private TextView txtWelcomeScr1ErrorMessage;
-    private ProgressBar txtWelcomeScr1Progress;
-    private TextView txtWelcomeScr1ErrorMessageDetail;
 
     private void enableSubscribeButton() {
         if (txtWelcomeScr1PersonNameFirst.getText().length() > 0 &&
@@ -150,6 +157,73 @@ public class UserRegistrationActivityFragment extends Fragment {
             btnSubscribe.setEnabled(true);
         } else {
             btnSubscribe.setEnabled(false);
+        }
+    }
+
+    private class ServerConnectionAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
+        private boolean continueRunning = true;
+
+        @Override
+        protected Boolean doInBackground(Void[] params) {
+            boolean connected = false;
+            while (continueRunning) {
+                connected = false;
+                if (UserRegistrationActivityFragment.this.isAdded()) {
+                    try {
+                        int timeout = 1000;
+                        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
+
+                        NocturneApplication.logMessage(Log.DEBUG, UserRegistrationActivityFragment.LOG_TAG + "doInBackground() testing connection to server : " + serverAddr);
+
+                        URL serverURL = new URL(serverAddr);
+                        URLConnection urlconn = serverURL.openConnection();
+                        urlconn.setConnectTimeout(timeout);
+                        urlconn.connect();
+                        connected = true;
+                    } catch (IOException e) {
+                        NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + UserRegistrationActivityFragment.LOG_TAG + "doInBackground()", e);
+                    } catch (IllegalStateException e) {
+                        NocturneApplication.logMessage(Log.ERROR, UserRegistrationActivityFragment.LOG_TAG + "doInBackground()", e);
+                    }
+                }
+                publishProgress(connected);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                }
+            }
+            return connected;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean connected) {
+            if (UserRegistrationActivityFragment.this.isAdded()) {
+                if (connected) {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(final Boolean... values) {
+            if (UserRegistrationActivityFragment.this.isAdded()) {
+                if (values[0]) {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.connected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                } else {
+                    txtWelcomeScr1StatusItem1Value.setText(getResources().getString(R.string.notconnected));
+                    txtWelcomeScr1StatusItem1Value.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }
+        }
+
+        public void stopRunning() {
+            continueRunning = false;
         }
     }
 }

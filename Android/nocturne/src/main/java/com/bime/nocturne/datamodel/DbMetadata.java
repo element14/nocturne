@@ -21,7 +21,6 @@ import com.google.gson.annotations.SerializedName;
 import org.joda.time.DateTime;
 
 import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -29,11 +28,20 @@ import io.realm.annotations.PrimaryKey;
  */
 public class DbMetadata extends RealmObject {
 
+    public static final int RegistrationStatus_ACCEPTED = 63353;
+    public static final int RegistrationStatus_DENIED = 63354;
+    private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
+    public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
+    public long timestamp = 0;
+    public String version = "";
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+
+    public DbMetadata() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -73,17 +81,6 @@ public class DbMetadata extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-    public static final int RegistrationStatus_ACCEPTED = 63353;
-    public static final int RegistrationStatus_DENIED = 63354;
-    private static final String LOG_TAG = DbMetadata.class.getSimpleName() + "::";
-    public RegistrationStatus registrationStatus = RegistrationStatus.NOT_STARTED;
-    public long timestamp = 0;
-    public String version = "";
-
-    public DbMetadata() {
     }
 
     public void setRegistrationStatus(final int newValue) {

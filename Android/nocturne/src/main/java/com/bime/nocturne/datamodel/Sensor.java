@@ -25,11 +25,16 @@ import io.realm.annotations.PrimaryKey;
 
 public final class Sensor extends RealmObject {
 
+    public String sensor_desc;
+    public String sensor_name;
     @PrimaryKey
     @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+
+    public Sensor() {
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -69,15 +74,6 @@ public final class Sensor extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-
-
-
-    public String sensor_desc;
-    public String sensor_name;
-
-    public Sensor() {
     }
 
 }

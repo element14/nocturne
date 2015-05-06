@@ -49,6 +49,23 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
+    private String id = "";
+    private String content = "";
+    private String message = "";
+    private String request = "";
+    private String status = "";
+
+    public RESTResponseMsg() {
+        super();
+    }
+
+    private RESTResponseMsg(final Parcel in) {
+        id = in.readString();
+        content = in.readString();
+        request = in.readString();
+        status = in.readString();
+        message = in.readString();
+    }
 
     public String getCreatedStr() {
         return createdStr;
@@ -90,25 +107,6 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
         this.uniqueId = uniqueId;
     }
 
-
-    private String id = "";
-    private String content = "";
-    private String message = "";
-    private String request = "";
-    private String status = "";
-
-    public RESTResponseMsg() {
-        super();
-    }
-
-    private RESTResponseMsg(final Parcel in) {
-        id = in.readString();
-        content = in.readString();
-        request = in.readString();
-        status = in.readString();
-        message = in.readString();
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -118,6 +116,20 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
     public int describeContents() {
         // TODO Auto-generated method stub
         return 0;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+     */
+    @Override
+    public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeString(id);
+        dest.writeString(content);
+        dest.writeString(request);
+        dest.writeString(status);
+        dest.writeString(message);
     }
 
     /**
@@ -164,19 +176,5 @@ public final class RESTResponseMsg extends RealmObject implements Parcelable {
         tmpStr += " [request=\"" + request + "\"]";
         tmpStr += " [status=\"" + status + "\"]";
         return tmpStr;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-     */
-    @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
-        dest.writeString(id);
-        dest.writeString(content);
-        dest.writeString(request);
-        dest.writeString(status);
-        dest.writeString(message);
     }
 }
