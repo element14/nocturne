@@ -10,10 +10,9 @@
  * reproduced in any material form, either wholly or in part, and the contents
  * of the document or any method or technique available there from, must not be
  * disclosed to any other person whomsoever.
- *  </p><p>
- *  <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
+ * </p><p>
+ * <b><i>Copyright 2013-2014 Bath Institute of Medical Engineering.</i></b>
  * --------------------------------------------------------------------------
- *
  */
 package com.projectnocturne.datamodel;
 
@@ -43,7 +42,7 @@ import java.util.Observable;
 
 public final class DataModel extends Observable {
     private static final String LOG_TAG = DataModel.class.getSimpleName() + "::";
-    private static DataModel instance = new DataModel();
+    private static DataModel instance = null;
     private final List<NocturneFragment> myObservers = new ArrayList<NocturneFragment>();
     private Context ctx;
 
@@ -54,8 +53,11 @@ public final class DataModel extends Observable {
     }
 
     public static DataModel getInstance(final Context ctx) {
+        if (instance == null) {
+            instance = new DataModel();
+        }
         instance.ctx = ctx;
-        return DataModel.instance;
+        return instance;
     }
 
     public SensorReadingDb addSensorReading(final SensorReadingDb itm) {
@@ -94,6 +96,11 @@ public final class DataModel extends Observable {
         }
     }
 
+    public RegistrationStatus getRegistrationStatus() {
+        final DbMetadata dbMetaDta = getDbMetadata();
+        return dbMetaDta.registrationStatus;
+    }
+
     private DbMetadata getDbMetadata() {
         DbMetadata dbMetaDta = null;
 
@@ -118,11 +125,6 @@ public final class DataModel extends Observable {
         return dbMetaDta;
     }
 
-    public RegistrationStatus getRegistrationStatus() {
-        final DbMetadata dbMetaDta = getDbMetadata();
-        return dbMetaDta.registrationStatus;
-    }
-
     public void setRegistrationStatus(final RegistrationStatus aRequestSent) {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "setRegistrationStatus()");
         final DbMetadata metadata = getDbMetadata();
@@ -136,6 +138,16 @@ public final class DataModel extends Observable {
             notifyObservers();
         } catch (final Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        // NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
+        // "notifyObservers() notifying [" + myObservers.size() +
+        // "] observers");
+        for (final NocturneFragment a : myObservers) {
+            a.update(DataModel.instance, a);
         }
     }
 
@@ -235,16 +247,6 @@ public final class DataModel extends Observable {
         db = databaseHelper.getWritableDatabase();
         final String logMsg = LOG_TAG + "initialise() db object " + (db == null ? "NOT" : "") + " created";
         NocturneApplication.logMessage(Log.DEBUG, logMsg);
-    }
-
-    @Override
-    public void notifyObservers() {
-        // NocturneApplication.logMessage(Log.DEBUG, LOG_TAG +
-        // "notifyObservers() notifying [" + myObservers.size() +
-        // "] observers");
-        for (final NocturneFragment a : myObservers) {
-            a.update(DataModel.instance, a);
-        }
     }
 
     public void shutdown() {

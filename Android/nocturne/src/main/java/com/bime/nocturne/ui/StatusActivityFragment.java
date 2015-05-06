@@ -154,6 +154,7 @@ public class StatusActivityFragment extends Fragment {
                         final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
                         URL serverURL = new URL(serverAddr);
                         URLConnection urlconn = serverURL.openConnection();
+                        NocturneApplication.logMessage(Log.DEBUG, NocturneApplication.LOG_TAG + StatusActivityFragment.LOG_TAG + " looking for server : "+urlconn.getURL().toString());
                         urlconn.setConnectTimeout(timeout);
                         urlconn.connect();
                         connected = true;

@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -38,16 +39,13 @@ public final class DataModel extends Observable {
     private Realm realm = null;
 
     private DataModel() {
-        if (realm == null) {
-            realm = Realm.getInstance(ctx);
-        }
     }
 
     public static DataModel getInstance(final Context ctx) {
-        instance.ctx = ctx;
         if (instance == null) {
             instance = new DataModel();
         }
+        instance.ctx = ctx;
         return instance;
     }
 
@@ -59,6 +57,7 @@ public final class DataModel extends Observable {
     }
 
     public User addUser(User itm) {
+        itm.setUniqueId(UUID.randomUUID().toString());
         realm.beginTransaction();
         User realmUser = realm.copyToRealm(itm);
         realm.commitTransaction();
@@ -140,6 +139,9 @@ public final class DataModel extends Observable {
 
     public void initialise(final Context ctx) throws SQLException {
         NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "initialise()");
+        if (realm == null) {
+            realm = Realm.getInstance(ctx);
+        }
     }
 
     @Override
@@ -155,9 +157,10 @@ public final class DataModel extends Observable {
      * @return
      */
     public User updateUser(final User itm) {
-        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "updateUser()");
-
-        return itm;
+        realm.beginTransaction();
+        User realmUser = realm.copyToRealm(itm);
+        realm.commitTransaction();
+        return realmUser;
     }
 
 }
