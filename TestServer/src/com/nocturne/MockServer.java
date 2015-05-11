@@ -60,8 +60,7 @@ public class MockServer implements Container {
     private static final String DB_NAME = "./mockserver.db";
     private SqlJetDb db = null;
 
-    public static void main(final String[] list) throws Exception {
-        logger.entry();
+    public static void main(final String[] list) throws Exception {  
         logger.info("MockServer::main() starting");
 
         final MockServer mockSvr = new MockServer();
@@ -73,7 +72,6 @@ public class MockServer implements Container {
 
         socketConnection.connect(address);
         logger.info("started listening on [" + address.toString() + "]");
-        logger.exit();
     }
 
     private String getJsonString(final String key, final String value) {
@@ -82,7 +80,6 @@ public class MockServer implements Container {
 
     @Override
     public void handle(final Request request, final Response response) {
-        logger.entry();
         logger.info("MockServer::handle() starting");
         PrintStream body = null;
         try {
@@ -146,7 +143,6 @@ public class MockServer implements Container {
                 body.close();
             }
         }
-        logger.exit();
     }
 
     /**
@@ -154,7 +150,7 @@ public class MockServer implements Container {
      * @param body
      */
     private void handleRequestUserRegister(final Request request, final PrintStream body) {
-        logger.info("handleRequestUserRegister()");
+        logger.info("MockServer::handleRequestUserRegister() starting");
 
         String jsonStr = null;
         try {
@@ -219,7 +215,7 @@ public class MockServer implements Container {
      * @param body
      */
     private void handleRequestUserConnect(final Request request, final PrintStream body) {
-        logger.info("handleRequestUserConnect()");
+        logger.info("MockServer::handleRequestUserConnect() starting");
 
         Query reqQry = request.getQuery();
         String user_email = null;
@@ -281,6 +277,7 @@ public class MockServer implements Container {
     }
 
     private void handleRequestGetConnectedUsers(final Request request, final PrintStream body) {
+        logger.info("MockServer::handleRequestGetConnectedUsers() starting");
         try {
             db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
             ISqlJetTable table = db.getTable("nocturne_user_connect");
@@ -312,7 +309,7 @@ public class MockServer implements Container {
     }
 
     public void dbInitialise() {
-        logger.info("dbInitialise()");
+        logger.info("MockServer::dbInitialise() starting");
         try {
             dbOpenConnection();
             if (!isDbSetup()) {
@@ -327,7 +324,7 @@ public class MockServer implements Container {
     }
 
     public boolean isDbSetup() {
-        logger.info("isDbSetup()");
+        logger.info("MockServer::isDbSetup() starting");
         boolean issetup = false;
         try {
             db.beginTransaction(SqlJetTransactionMode.READ_ONLY);
@@ -343,7 +340,7 @@ public class MockServer implements Container {
     }
 
     private void dbCreate() {
-        logger.info("dbOpenConnection()");
+        logger.info("MockServer::dbCreate() starting");
         try {
             File dbFile = new File(DB_NAME);
             boolean deleted = dbFile.delete();
@@ -363,7 +360,7 @@ public class MockServer implements Container {
     }
 
     private void dbOpenConnection() {
-        logger.info("dbOpenConnection()");
+        logger.info("MockServer::dbOpenConnection() starting");
         if (db == null) {
             try {
                 File dbFile = new File(DB_NAME);
@@ -376,6 +373,7 @@ public class MockServer implements Container {
     }
 
     private void dbCloseConnection() {
+        logger.info("MockServer::dbCloseConnection() starting");
         try {
             if (db != null) {
                 db.close();
@@ -386,7 +384,7 @@ public class MockServer implements Container {
     }
 
     private void dbCreateTables() {
-        logger.info("dbCreateTables()");
+        logger.info("MockServer::dbCreateTables() starting");
         try {
             db.beginTransaction(SqlJetTransactionMode.WRITE);
 
@@ -464,6 +462,7 @@ public class MockServer implements Container {
     }
 
     private void dbCreateDummyData() {
+        logger.info("MockServer::dbCreateDummyData() starting");
         try {
             db.beginTransaction(SqlJetTransactionMode.WRITE);
             ISqlJetTable tblNocturneUsers = db.getTable("nocturne_users");

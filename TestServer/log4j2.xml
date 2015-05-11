@@ -12,7 +12,7 @@
     <Loggers>
         <root level="debug">
             <appender-ref ref="Console" level="info"/>
-            <appender-ref ref="NocturneLog" level="info"/>
+            <appender-ref ref="NocturneLog" level="all"/>
         </root>
     </Loggers>
 </Configuration>

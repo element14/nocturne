@@ -215,9 +215,9 @@ public class UserRegistrationActivityFragment extends Fragment {
                         urlconn.connect();
                         connected = true;
                     } catch (IOException e) {
-                        NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + UserRegistrationActivityFragment.LOG_TAG + "doInBackground()", e);
+                        NocturneApplication.logMessage(Log.ERROR, UserRegistrationActivityFragment.LOG_TAG + "doInBackground() IOException", e);
                     } catch (IllegalStateException e) {
-                        NocturneApplication.logMessage(Log.ERROR, UserRegistrationActivityFragment.LOG_TAG + "doInBackground()", e);
+                        NocturneApplication.logMessage(Log.ERROR, UserRegistrationActivityFragment.LOG_TAG + "doInBackground() IllegalStateException", e);
                     }
                 }
                 publishProgress(connected);

@@ -41,7 +41,6 @@ import retrofit.client.Response;
 public class StatusActivityFragment extends Fragment {
     public static final String LOG_TAG = StatusActivityFragment.class.getSimpleName() + "::";
 
-
     private boolean readyFragment;
     private TextView txtStatusScr1Heading1;
     private TextView txtStatusScr1Heading2;
@@ -91,9 +90,9 @@ public class StatusActivityFragment extends Fragment {
 //        mStatusIntentFilter = new IntentFilter(SensorTagService.ACTION_GATT_DISCONNECTED);
 //        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mSensorTagStateReceiver, mStatusIntentFilter);
 
-        readyFragment = true;
-
         setHasOptionsMenu(true);
+
+        readyFragment = true;
         update();
         return v;
     }
@@ -114,28 +113,31 @@ public class StatusActivityFragment extends Fragment {
         }
         new ServerConnectionAsyncTask().execute();
 
-        RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
-        netSvc.getConnections(userObj.getEmail1(), new Callback<List<UserConnect>>() {
-            @Override
-            public void success(List<UserConnect> userConns, Response response) {
-                // Successful request, do something with the retrieved
-                NocturneApplication.d(LOG_TAG + "getconnections callback");
-                if (isAdded()) {
-                    //FIXME : parse json response and populate listview
+        if (userObj != null) {
+            RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
+            netSvc.getConnections(userObj.getEmail1(), new Callback<List<UserConnect>>() {
+                @Override
+                public void success(List<UserConnect> userConns, Response response) {
+                    // Successful request, do something with the retrieved
+                    NocturneApplication.d(LOG_TAG + "getconnections callback success");
+                    if (isAdded()) {
+                        //FIXME : parse json response and populate listview
 //                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
 //                if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
 //
 //                } else {
 //
 //                }
+                    }
                 }
-            }
 
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                // Failed request
-            }
-        });
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                    // Failed request
+                    NocturneApplication.d(LOG_TAG + "getconnections callback failure");
+                }
+            });
+        }
     }
 
 
@@ -154,12 +156,12 @@ public class StatusActivityFragment extends Fragment {
                         final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
                         URL serverURL = new URL(serverAddr);
                         URLConnection urlconn = serverURL.openConnection();
-                        NocturneApplication.logMessage(Log.DEBUG, NocturneApplication.LOG_TAG + StatusActivityFragment.LOG_TAG + " looking for server : "+urlconn.getURL().toString());
+                        NocturneApplication.logMessage(Log.DEBUG, StatusActivityFragment.LOG_TAG + " looking for server : " + urlconn.getURL().toString());
                         urlconn.setConnectTimeout(timeout);
                         urlconn.connect();
                         connected = true;
                     } catch (IOException e) {
-                        NocturneApplication.logMessage(Log.ERROR, NocturneApplication.LOG_TAG + StatusActivityFragment.LOG_TAG + "update()", e);
+                        NocturneApplication.logMessage(Log.ERROR, StatusActivityFragment.LOG_TAG + "update()", e);
                     } catch (IllegalStateException e) {
                         NocturneApplication.logMessage(Log.ERROR, StatusActivityFragment.LOG_TAG + "update()", e);
                     }
