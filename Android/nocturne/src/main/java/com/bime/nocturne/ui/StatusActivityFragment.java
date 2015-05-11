@@ -104,6 +104,9 @@ public class StatusActivityFragment extends Fragment {
         }
         Log.i(NocturneApplication.LOG_TAG, StatusActivityFragment.LOG_TAG + "update() ready");
         userObj = null;
+
+        new ServerConnectionAsyncTask().execute();
+
         final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userObj = users.get(0);
@@ -111,7 +114,6 @@ public class StatusActivityFragment extends Fragment {
             CharSequence styledText = Html.fromHtml(text);
             txtStatusScr1Heading1.setText(styledText);
         }
-        new ServerConnectionAsyncTask().execute();
 
         if (userObj != null) {
             RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
@@ -119,7 +121,7 @@ public class StatusActivityFragment extends Fragment {
                 @Override
                 public void success(List<UserConnect> userConns, Response response) {
                     // Successful request, do something with the retrieved
-                    NocturneApplication.d(LOG_TAG + "getconnections callback success");
+                    NocturneApplication.d(LOG_TAG + "getConnections callback success");
                     if (isAdded()) {
                         //FIXME : parse json response and populate listview
 //                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
@@ -134,12 +136,15 @@ public class StatusActivityFragment extends Fragment {
                 @Override
                 public void failure(RetrofitError retrofitError) {
                     // Failed request
-                    NocturneApplication.d(LOG_TAG + "getconnections callback failure");
+                    NocturneApplication.d(LOG_TAG + "getConnections callback failure");
                 }
             });
+        }else{
+            // Show user registration screen
+            Intent i= new Intent(getActivity(), UserRegistrationActivity.class);
+            startActivity(i);
         }
     }
-
 
     private class ServerConnectionAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         private boolean continueRunning = true;
