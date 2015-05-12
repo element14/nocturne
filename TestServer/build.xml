@@ -1,17 +1,15 @@
 <project name="MockServer" basedir="." default="main">
 
-    <property name="jdk.home.1.8" value="~/jdk1.8.0_33"/>
+    <property name="jdk.home.1.8" value="~/jdk1.8.0_40"/>
     <property name="lib.dir" value="lib"/>
-
     <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
 
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
 
     <property name="main-class" value="com.nocturne.MockServer"/>
-
-    <property name="lib.dir" value="lib"/>
 
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -30,17 +28,29 @@
         <mkdir dir="${jar.dir}"/>
         <mkdir dir="${jar.dir}/settings"/>
 	    <copy file="log4j2.xml" tofile="${jar.dir}/settings/log4j2.xml"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <manifest>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar">
+			<fileset dir="${classes.dir}"/>
+			<archives>
+				<zips>
+					<fileset dir="lib" includes="**/*.jar"/>
+				</zips>
+			</archives>
+			<manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
-                <attribute name="Class-Path" value="settings/"/>
+                <attribute name="Class-Path" value="./"/>
+                
+				<attribute name="Built-By" value="${user.name}"/>
+				<!-- Information about the program itself -->
+				<attribute name="Implementation-Vendor" value="BIME"/>
+				<attribute name="Implementation-Title" value="Project Nocturne"/>
+				<attribute name="Implementation-Version" value="0.1.0"/>
             </manifest>
         </jar>
     </target>
 
     <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
-            <jvmarg value="-Xdebug -Dlog4j.configurationFile=./log4j2.xml"/>
+            <jvmarg value="-Dlog4j.configurationFile=${jar.dir}/settings/log4j2.xml"/>
             <classpath>
                 <path refid="classpath"/>
                 <path location="${jar.dir}/${ant.project.name}.jar"/>
@@ -50,6 +60,6 @@
 
     <target name="clean-build" depends="clean,jar"/>
 
-    <target name="main" depends="clean,run"/>
+    <target name="main" depends="clean-build"/>
 
 </project>

@@ -105,8 +105,6 @@ public class StatusActivityFragment extends Fragment {
         Log.i(NocturneApplication.LOG_TAG, StatusActivityFragment.LOG_TAG + "update() ready");
         userObj = null;
 
-        new ServerConnectionAsyncTask().execute();
-
         final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userObj = users.get(0);
@@ -116,6 +114,8 @@ public class StatusActivityFragment extends Fragment {
         }
 
         if (userObj != null) {
+            serverConnectionTask.execute();
+
             RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
             netSvc.getConnections(userObj.getEmail1(), new Callback<List<UserConnect>>() {
                 @Override
@@ -139,12 +139,14 @@ public class StatusActivityFragment extends Fragment {
                     NocturneApplication.d(LOG_TAG + "getConnections callback failure");
                 }
             });
-        }else{
+        } else {
             // Show user registration screen
-            Intent i= new Intent(getActivity(), UserRegistrationActivity.class);
+            Intent i = new Intent(getActivity(), UserRegistrationActivity.class);
             startActivity(i);
         }
     }
+
+    private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
 
     private class ServerConnectionAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         private boolean continueRunning = true;
@@ -152,6 +154,7 @@ public class StatusActivityFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void[] params) {
             boolean connected = false;
+            publishProgress(connected);
             while (continueRunning) {
                 connected = false;
                 if (StatusActivityFragment.this.isAdded()) {

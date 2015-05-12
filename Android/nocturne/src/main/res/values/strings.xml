@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ProjectNocturne</string>
-    <string name="title_activity_welcome1">Welcome1Activity</string>
+    <string name="app_name">Nocturne</string>
+    <string name="title_activity_welcome1">Register</string>
     <string name="title_status">Status</string>
     <string name="title_connect">Connect</string>
     <string name="title_connection_requests">Connection Requests</string>

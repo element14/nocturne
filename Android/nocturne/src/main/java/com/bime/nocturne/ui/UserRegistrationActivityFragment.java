@@ -120,6 +120,7 @@ public class UserRegistrationActivityFragment extends Fragment {
     }
 
     protected void sendRegistrationMessage(final User usr) {
+        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage()");
         if (usr.getUniqueId() == "") {
             userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
         } else {
@@ -198,12 +199,14 @@ public class UserRegistrationActivityFragment extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void[] params) {
+            NocturneApplication.logMessage(Log.DEBUG, UserRegistrationActivityFragment.LOG_TAG + "doInBackground()");
             boolean connected = false;
+            publishProgress(connected);
             while (continueRunning) {
                 connected = false;
                 if (UserRegistrationActivityFragment.this.isAdded()) {
                     try {
-                        int timeout = 1000;
+                        int timeout = 750;
                         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                         final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
 
