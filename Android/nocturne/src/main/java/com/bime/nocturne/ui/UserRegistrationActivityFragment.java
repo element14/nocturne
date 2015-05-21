@@ -16,31 +16,27 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
 import com.bime.nocturne.RetrofitNetworkInterface;
 import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
-import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserDb;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.bind.DateTypeAdapter;
 import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
 import java.util.List;
 
-import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.converter.GsonConverter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -139,6 +135,40 @@ public class UserRegistrationActivityFragment extends Fragment {
             userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
         }
 
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String url = "http://"
+                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                + ":"
+                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                + "/";
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        NocturneApplication.e(LOG_TAG + "sendRegistrationMessage callback() Response is: " + response.substring(0, 500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NocturneApplication.e(LOG_TAG + "sendRegistrationMessage callback() failed " + error.toString());
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    protected void sendRegistrationMessage2(final UserDb usr) {
+        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage()");
+
+        if (usr.getUniqueId() == "") {
+            userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
+        } else {
+            userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
+        }
+
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
         final String serverAddr = "http://"
                 + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
@@ -158,41 +188,41 @@ public class UserRegistrationActivityFragment extends Fragment {
 //                .build();
 //        retrofitNetService = restAdaptor.create(RetrofitNetworkService.class);
 
-        retrofitNetService =RetrofitNetworkInterface.getService(getActivity());
-        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage() calling REST API on ["+serverAddr+"]");
-        retrofitNetService.createUser(User.fromDbObj(userObj), new Callback<User>() {
-            @Override
-            public void success(User userObj, Response response) {
-                // Successful request, do something with the retrieved messages
-                NocturneApplication.d(LOG_TAG + "createUser callback()");
-                if (isAdded()) {
-                    //FIXME :
-                    txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
-//                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-//                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
-//                    serverConnectionTask.stopRunning();
-//                    serverConnectionTask.cancel(true);
-//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
-//                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
-//                    ((MainActivity) getActivity()).showScreen();
-//
-//                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
-//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
-//                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(DbMetadata.RegistrationStatus.REQUEST_DENIED);
-//                    txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
-//                    txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
-//                    txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
-//                    txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+        retrofitNetService = RetrofitNetworkInterface.getService(getActivity());
+        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage() calling REST API on [" + serverAddr + "]");
+//        retrofitNetService.createUser(User.fromDbObj(userObj), new Callback<User>() {
+//            @Override
+//            public void success(User userObj, Response response) {
+//                // Successful request, do something with the retrieved messages
+//                NocturneApplication.d(LOG_TAG + "createUser callback()");
+//                if (isAdded()) {
+//                    //FIXME :
+//                    txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
+////                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
+////                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
+////                    serverConnectionTask.stopRunning();
+////                    serverConnectionTask.cancel(true);
+////                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
+////                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+////                    ((MainActivity) getActivity()).showScreen();
+////
+////                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
+////                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
+////                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(DbMetadata.RegistrationStatus.REQUEST_DENIED);
+////                    txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
+////                    txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
+////                    txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+////                    txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+////                }
 //                }
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                // Failed request
-                NocturneApplication.e(LOG_TAG + "createUser callback() failed " + retrofitError.toString());
-            }
-        });
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError retrofitError) {
+//                // Failed request
+//                NocturneApplication.e(LOG_TAG + "createUser callback() failed " + retrofitError.toString());
+//            }
+//        });
     }
 
     public void update() {

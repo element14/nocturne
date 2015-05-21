@@ -1,5 +1,0 @@
-Testsuite: org.simpleframework.transport.BufferWrapperTest
-Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.004 sec
-
-Testcase: testOrder took 0.002 sec
-Testcase: testZeroLength took 0 sec
