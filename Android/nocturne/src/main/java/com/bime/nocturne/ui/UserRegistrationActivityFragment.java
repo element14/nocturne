@@ -22,17 +22,25 @@ import com.bime.nocturne.RetrofitNetworkInterface;
 import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
 import com.bime.nocturne.datamodel.User;
+import com.bime.nocturne.datamodel.UserDb;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.bind.DateTypeAdapter;
 import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
+import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -63,7 +71,7 @@ public class UserRegistrationActivityFragment extends Fragment {
             UserRegistrationActivityFragment.this.enableSubscribeButton();
         }
     };
-    private User userObj = null;
+    private UserDb userObj = null;
     private TextView txtWelcomeScr1ErrorMessage;
     private ProgressBar txtWelcomeScr1Progress;
     private TextView txtWelcomeScr1ErrorMessageDetail;
@@ -104,10 +112,10 @@ public class UserRegistrationActivityFragment extends Fragment {
                 txtWelcomeScr1ErrorMessage.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1ErrorMessageDetail.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1Progress.setVisibility(View.VISIBLE);
-                userObj.setName_first(txtWelcomeScr1PersonNameFirst.getText().toString());
-                userObj.setName_last(txtWelcomeScr1PersonNameLast.getText().toString());
-                userObj.setPhone_mbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
-                userObj.setPhone_home(txtWelcomeScr1HomePhoneNbr.getText().toString());
+                userObj.setNameFirst(txtWelcomeScr1PersonNameFirst.getText().toString());
+                userObj.setNameLast(txtWelcomeScr1PersonNameLast.getText().toString());
+                userObj.setPhoneMbl(txtWelcomeScr1MobilePhoneNbr.getText().toString());
+                userObj.setPhoneHome(txtWelcomeScr1HomePhoneNbr.getText().toString());
                 userObj.setEmail1(txtWelcomeScr1EmailAddress.getText().toString());
                 UserRegistrationActivityFragment.this.sendRegistrationMessage(userObj);
             }
@@ -119,15 +127,40 @@ public class UserRegistrationActivityFragment extends Fragment {
         return v;
     }
 
-    protected void sendRegistrationMessage(final User usr) {
+    private static RestAdapter restAdaptor = null;
+    private static RetrofitNetworkService retrofitNetService = null;
+
+    protected void sendRegistrationMessage(final UserDb usr) {
         NocturneApplication.d(LOG_TAG + "sendRegistrationMessage()");
+
         if (usr.getUniqueId() == "") {
             userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
         } else {
             userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
         }
-        RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
-        netSvc.createUser(userObj, new Callback<User>() {
+
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String serverAddr = "http://"
+                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                + ":"
+                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                + "/";
+
+//        restAdaptor = new RestAdapter.Builder()
+//                .setEndpoint(serverAddr)
+//                .setLogLevel(RestAdapter.LogLevel.FULL)
+//                .setLog(new RestAdapter.Log() {
+//                    @Override
+//                    public void log(String msg) {
+//                        NocturneApplication.d(LOG_TAG + "RetroFit :: " + msg);
+//                    }
+//                })
+//                .build();
+//        retrofitNetService = restAdaptor.create(RetrofitNetworkService.class);
+
+        retrofitNetService =RetrofitNetworkInterface.getService(getActivity());
+        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage() calling REST API on ["+serverAddr+"]");
+        retrofitNetService.createUser(User.fromDbObj(userObj), new Callback<User>() {
             @Override
             public void success(User userObj, Response response) {
                 // Successful request, do something with the retrieved messages
@@ -157,7 +190,7 @@ public class UserRegistrationActivityFragment extends Fragment {
             @Override
             public void failure(RetrofitError retrofitError) {
                 // Failed request
-                NocturneApplication.e(LOG_TAG + "createUser callback() failed");
+                NocturneApplication.e(LOG_TAG + "createUser callback() failed " + retrofitError.toString());
             }
         });
     }
@@ -168,18 +201,19 @@ public class UserRegistrationActivityFragment extends Fragment {
             return;
         }
         NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
-        final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
+        final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userObj = users.get(0);
-            txtWelcomeScr1PersonNameFirst.setText(userObj.getName_first());
-            txtWelcomeScr1PersonNameLast.setText(userObj.getName_last());
-            txtWelcomeScr1MobilePhoneNbr.setText(userObj.getPhone_mbl());
-            txtWelcomeScr1HomePhoneNbr.setText(userObj.getPhone_home());
+            txtWelcomeScr1PersonNameFirst.setText(userObj.getNameFirst());
+            txtWelcomeScr1PersonNameLast.setText(userObj.getNameLast());
+            txtWelcomeScr1MobilePhoneNbr.setText(userObj.getPhoneMbl());
+            txtWelcomeScr1HomePhoneNbr.setText(userObj.getPhoneHome());
             txtWelcomeScr1EmailAddress.setText(userObj.getEmail1());
         } else {
-            userObj = new User();
+            userObj = new UserDb();
         }
         serverConnectionTask.execute();
+        enableSubscribeButton();
     }
 
     private void enableSubscribeButton() {
@@ -211,7 +245,7 @@ public class UserRegistrationActivityFragment extends Fragment {
                         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
                         final String serverAddr = "http://" + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT) + ":" + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT) + "/";
 
-                        NocturneApplication.logMessage(Log.DEBUG, UserRegistrationActivityFragment.LOG_TAG + "doInBackground() testing connection to server : " + serverAddr);
+                        // NocturneApplication.logMessage(Log.DEBUG, UserRegistrationActivityFragment.LOG_TAG + "doInBackground() testing connection to server : " + serverAddr);
 
                         URL serverURL = new URL(serverAddr);
                         URLConnection urlconn = serverURL.openConnection();

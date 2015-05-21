@@ -56,10 +56,10 @@ public final class DataModel extends Observable {
         return realmUser;
     }
 
-    public User addUser(User itm) {
+    public UserDb addUser(UserDb itm) {
         itm.setUniqueId(UUID.randomUUID().toString());
         realm.beginTransaction();
-        User realmUser = realm.copyToRealm(itm);
+        UserDb realmUser = realm.copyToRealm(itm);
         realm.commitTransaction();
         return realmUser;
     }
@@ -119,19 +119,19 @@ public final class DataModel extends Observable {
     }
 
 
-    public User getUser(final String uuid) {
-        return realm.where(User.class).equalTo("uniqueId", uuid).findFirst();
+    public UserDb getUser(final String uuid) {
+        return realm.where(UserDb.class).equalTo("uniqueId", uuid).findFirst();
     }
 
-    public List<User> getUsers() {
-        final List<User> users = new ArrayList<User>();
+    public List<UserDb> getUsers() {
+        final List<UserDb> users = new ArrayList<UserDb>();
 
 // Build the query looking at all users:
-        RealmQuery<User> query = realm.where(User.class);
+        RealmQuery<UserDb> query = realm.where(UserDb.class);
 
 // Execute the query:
-        RealmResults<User> result1 = query.findAll();
-        for (User u : result1) {
+        RealmResults<UserDb> result1 = query.findAll();
+        for (UserDb u : result1) {
             users.add(u);
         }
         return users;
@@ -156,9 +156,9 @@ public final class DataModel extends Observable {
      * @param itm
      * @return
      */
-    public User updateUser(final User itm) {
+    public UserDb updateUser(final UserDb itm) {
         realm.beginTransaction();
-        User realmUser = realm.copyToRealm(itm);
+        UserDb realmUser = realm.copyToRealm(itm);
         realm.commitTransaction();
         return realmUser;
     }

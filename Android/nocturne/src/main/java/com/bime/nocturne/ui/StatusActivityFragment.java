@@ -23,6 +23,7 @@ import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
 import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserConnect;
+import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.ViewUtils;
 
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class StatusActivityFragment extends Fragment {
     private TextView txtStatusScr1StatusItem4;
     private TextView txtStatusScr1StatusItem4Value;
     private ListView txtStatusScr1StatusConnectedTo;
-    private User userObj;
+    private UserDb userObj;
 
     public StatusActivityFragment() {
     }
@@ -105,10 +106,10 @@ public class StatusActivityFragment extends Fragment {
         Log.i(NocturneApplication.LOG_TAG, StatusActivityFragment.LOG_TAG + "update() ready");
         userObj = null;
 
-        final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
+        final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userObj = users.get(0);
-            String text = String.format(getResources().getString(R.string.statusScr1Heading1), userObj.getName_first() + " " + userObj.getName_last());
+            String text = String.format(getResources().getString(R.string.statusScr1Heading1), userObj.getNameFirst() + " " + userObj.getNameLast());
             CharSequence styledText = Html.fromHtml(text);
             txtStatusScr1Heading1.setText(styledText);
         }

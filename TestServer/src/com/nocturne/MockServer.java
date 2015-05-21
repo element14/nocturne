@@ -129,7 +129,6 @@ public class MockServer implements Container {
                     handleRequestUserConnect(request, body);
                 }
             }
-
             //body.println("Hello World");
 
             logger.info("MockServer() handle() sending response [" + response.toString() + "]");

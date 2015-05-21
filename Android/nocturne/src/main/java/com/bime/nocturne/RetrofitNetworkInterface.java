@@ -18,6 +18,7 @@ import retrofit.converter.GsonConverter;
  * Created by jbi on 18/03/2015.
  */
 public class RetrofitNetworkInterface {
+    public static final String LOG_TAG = RetrofitNetworkInterface.class.getSimpleName() + "::";
 
     private static RestAdapter restAdaptor = null;
     private static RetrofitNetworkService retrofitNetService = null;
@@ -32,6 +33,7 @@ public class RetrofitNetworkInterface {
     private static RestAdapter getAdaptor(Context ctx) {
         if (restAdaptor == null) {
             Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .setPrettyPrinting()
                     .registerTypeAdapter(Date.class, new DateTypeAdapter())
                     .create();
 
@@ -46,6 +48,12 @@ public class RetrofitNetworkInterface {
             restAdaptor = new RestAdapter.Builder()
                     .setEndpoint(serverAddr)
                     .setLogLevel(RestAdapter.LogLevel.FULL)
+                    .setLog(new RestAdapter.Log() {
+                        @Override
+                        public void log(String msg) {
+                            NocturneApplication.d(LOG_TAG + msg);
+                        }
+                    })
                     .setConverter(new GsonConverter(gson))
                     .build();
         }

@@ -99,6 +99,7 @@
                 android:layout_weight=".40"
                 android:ems="10"
                 android:hint="@string/welcomeScr1PersonNameFirst"
+                android:text="Andy"
                 android:inputType="textPersonName">
 
                 <requestFocus/>
@@ -111,6 +112,7 @@
                 android:layout_weight=".60"
                 android:ems="10"
                 android:hint="@string/welcomeScr1PersonNameLast"
+                android:text="Aspell-Clark"
                 android:inputType="textPersonName"></EditText>
         </LinearLayout>
 
@@ -123,6 +125,7 @@
             android:layout_below="@+id/welcomeScr1PersonNameLayout"
             android:ems="10"
             android:hint="@string/welcomeScr1MobilePhoneNbr"
+            android:text="07986 277 250"
             android:inputType="phone"/>
 
         <EditText
@@ -134,6 +137,7 @@
             android:layout_below="@+id/welcomeScr1MobilePhoneNbr"
             android:ems="10"
             android:hint="@string/welcomeScr1HomePhoneNbr"
+            android:text="01173 771 206"
             android:inputType="phone"/>
 
         <EditText
@@ -145,6 +149,7 @@
             android:layout_below="@+id/welcomeScr1HomePhoneNbr"
             android:ems="10"
             android:hint="@string/welcomeScr1EmailAddr"
+            android:text="andyaspellclark@gmail.com"
             android:inputType="textEmailAddress"/>
 
         <ProgressBar

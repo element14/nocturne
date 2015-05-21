@@ -20,6 +20,7 @@ import com.bime.nocturne.RetrofitNetworkInterface;
 import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserConnect;
+import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.MiscUtils;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ConnectToUserActivityFragment extends Fragment {
         }
     };
     private boolean readyFragment;
-    private User userObj;
+    private UserDb userObj;
     private UserConnect usrCnctObj = null;
 
     public ConnectToUserActivityFragment() {
@@ -145,11 +146,11 @@ public class ConnectToUserActivityFragment extends Fragment {
             return;
         }
         NocturneApplication.logMessage(Log.INFO, LOG_TAG + "update() ready");
-        final List<User> users = NocturneApplication.getInstance().getDataModel().getUsers();
+        final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
         if (users.size() == 1) {
             userObj = users.get(0);
         } else {
-            userObj = new User();
+            userObj = new UserDb();
         }
     }
 
