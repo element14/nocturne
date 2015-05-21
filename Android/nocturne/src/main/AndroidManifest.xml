@@ -48,24 +48,6 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
 
-        <provider
-            android:name=".contentprovider.NocturneSensorReadingContentProvider"
-            android:authorities="sensor"
-            android:enabled="true"
-            android:exported="true">
-        </provider>
-        <provider
-            android:name=".contentprovider.NocturneUserContentProvider"
-            android:authorities="user"
-            android:enabled="true"
-            android:exported="true">
-        </provider>
-        <provider
-            android:name=".contentprovider.NocturneUserConnectContentProvider"
-            android:authorities="user_connect"
-            android:enabled="true"
-            android:exported="true">
-        </provider>
     </application>
 
 </manifest>

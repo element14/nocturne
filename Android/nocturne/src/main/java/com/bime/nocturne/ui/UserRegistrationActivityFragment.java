@@ -131,7 +131,7 @@ public class UserRegistrationActivityFragment extends Fragment {
             @Override
             public void success(User userObj, Response response) {
                 // Successful request, do something with the retrieved messages
-                NocturneApplication.d(LOG_TAG + "createUser callback");
+                NocturneApplication.d(LOG_TAG + "createUser callback()");
                 if (isAdded()) {
                     //FIXME :
                     txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
@@ -139,12 +139,12 @@ public class UserRegistrationActivityFragment extends Fragment {
 //                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
 //                    serverConnectionTask.stopRunning();
 //                    serverConnectionTask.cancel(true);
-//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_ACCEPTED");
+//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
 //                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
 //                    ((MainActivity) getActivity()).showScreen();
 //
 //                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
-//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "handleMessage() RegistrationStatus_DENIED");
+//                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
 //                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(DbMetadata.RegistrationStatus.REQUEST_DENIED);
 //                    txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
 //                    txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
@@ -157,6 +157,7 @@ public class UserRegistrationActivityFragment extends Fragment {
             @Override
             public void failure(RetrofitError retrofitError) {
                 // Failed request
+                NocturneApplication.e(LOG_TAG + "createUser callback() failed");
             }
         });
     }
