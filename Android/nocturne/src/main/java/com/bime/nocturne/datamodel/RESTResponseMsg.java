@@ -16,8 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -29,7 +27,6 @@ import io.realm.annotations.PrimaryKey;
 public class RESTResponseMsg extends RealmObject {
 
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;

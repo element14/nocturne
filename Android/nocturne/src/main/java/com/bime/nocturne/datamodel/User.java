@@ -16,6 +16,9 @@
  */
 package com.bime.nocturne.datamodel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class User {
@@ -52,5 +55,25 @@ public class User {
         u.postcode = pUserObj.getPostcode();
         u.status = pUserObj.getStatus();
         return u;
+    }
+
+    public static JSONObject getJsonObj(final UserDb pUserObj) {
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("username", pUserObj.getEmail1());
+            jsonObject.put("addr_line1", pUserObj.getAddrLine1());
+            jsonObject.put("addr_line2", pUserObj.getAddrLine2());
+            jsonObject.put("addr_line3", pUserObj.getAddrLine3());
+            jsonObject.put("email", pUserObj.getEmail1());
+            jsonObject.put("name_last", pUserObj.getNameFirst());
+            jsonObject.put("name_first", pUserObj.getNameLast());
+            jsonObject.put("phone_home", pUserObj.getPhoneHome());
+            jsonObject.put("phone_mbl", pUserObj.getPhoneMbl());
+            jsonObject.put("postcode", pUserObj.getPostcode());
+            jsonObject.put("status", pUserObj.getStatus());
+        } catch (JSONException e) {
+            // handle exception
+        }
+        return jsonObject;
     }
 }

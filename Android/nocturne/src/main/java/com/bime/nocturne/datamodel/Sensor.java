@@ -16,8 +16,6 @@
  */
 package com.projectnocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -26,7 +24,6 @@ public class Sensor extends RealmObject {
     private String sensor_desc;
     private String sensor_name;
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;

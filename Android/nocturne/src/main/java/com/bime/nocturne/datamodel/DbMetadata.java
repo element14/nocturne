@@ -16,8 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -33,7 +31,6 @@ public class DbMetadata extends RealmObject {
     private long timestamp = 0;
     private String version = "";
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;

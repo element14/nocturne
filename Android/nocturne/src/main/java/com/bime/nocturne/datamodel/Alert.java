@@ -16,8 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -30,7 +28,6 @@ public class Alert extends RealmObject {
     private boolean response_sent = false;
     private long user_Id;
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;

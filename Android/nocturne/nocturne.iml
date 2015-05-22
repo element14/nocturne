@@ -88,15 +88,13 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="caffeine-0.3.3" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.0" level="project" />
     <orderEntry type="library" exported="" name="joda-time-2.6" level="project" />
     <orderEntry type="library" exported="" name="androidannotations-api-3.2" level="project" />
-    <orderEntry type="library" exported="" name="volley" level="project" />
     <orderEntry type="library" exported="" name="realm-android-0.80.1" level="project" />
     <orderEntry type="library" exported="" name="annotations-12.0" level="project" />
-    <orderEntry type="library" exported="" name="retrofit-1.9.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
+    <orderEntry type="module" module-name="volley" exported="" />
   </component>
 </module>

@@ -18,11 +18,7 @@ import android.widget.TextView;
 
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
-import com.bime.nocturne.RetrofitNetworkInterface;
-import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
-import com.bime.nocturne.datamodel.User;
-import com.bime.nocturne.datamodel.UserConnect;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.ViewUtils;
 
@@ -30,10 +26,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 
 /**
@@ -55,6 +47,7 @@ public class StatusActivityFragment extends Fragment {
     private TextView txtStatusScr1StatusItem4Value;
     private ListView txtStatusScr1StatusConnectedTo;
     private UserDb userObj;
+    private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
 
     public StatusActivityFragment() {
     }
@@ -117,37 +110,14 @@ public class StatusActivityFragment extends Fragment {
         if (userObj != null) {
             serverConnectionTask.execute();
 
-            RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
-            netSvc.getConnections(userObj.getEmail1(), new Callback<List<UserConnect>>() {
-                @Override
-                public void success(List<UserConnect> userConns, Response response) {
-                    // Successful request, do something with the retrieved
-                    NocturneApplication.d(LOG_TAG + "getConnections callback success");
-                    if (isAdded()) {
-                        //FIXME : parse json response and populate listview
-//                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-//                if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
-//
-//                } else {
-//
-//                }
-                    }
-                }
+            //FIXME : get users connections
 
-                @Override
-                public void failure(RetrofitError retrofitError) {
-                    // Failed request
-                    NocturneApplication.d(LOG_TAG + "getConnections callback failure");
-                }
-            });
         } else {
             // Show user registration screen
             Intent i = new Intent(getActivity(), UserRegistrationActivity.class);
             startActivity(i);
         }
     }
-
-    private ServerConnectionAsyncTask serverConnectionTask = new ServerConnectionAsyncTask();
 
     private class ServerConnectionAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         private boolean continueRunning = true;

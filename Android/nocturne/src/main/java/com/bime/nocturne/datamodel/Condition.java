@@ -16,8 +16,6 @@
  */
 package com.bime.nocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -26,7 +24,6 @@ public class Condition extends RealmObject {
     private String condition_desc;
     private String condition_name;
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;

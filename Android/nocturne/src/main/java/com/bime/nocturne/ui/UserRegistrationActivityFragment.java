@@ -16,27 +16,29 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
-import com.bime.nocturne.RetrofitNetworkInterface;
-import com.bime.nocturne.RetrofitNetworkService;
 import com.bime.nocturne.SettingsActivity;
+import com.bime.nocturne.datamodel.RegistrationStatus;
+import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.MiscUtils;
 import com.percolate.caffeine.ViewUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.List;
-
-import retrofit.RestAdapter;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -105,6 +107,7 @@ public class UserRegistrationActivityFragment extends Fragment {
         btnSubscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                btnSubscribe.setEnabled(false);
                 txtWelcomeScr1ErrorMessage.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1ErrorMessageDetail.setVisibility(View.INVISIBLE);
                 txtWelcomeScr1Progress.setVisibility(View.VISIBLE);
@@ -123,106 +126,9 @@ public class UserRegistrationActivityFragment extends Fragment {
         return v;
     }
 
-    private static RestAdapter restAdaptor = null;
-    private static RetrofitNetworkService retrofitNetService = null;
-
     protected void sendRegistrationMessage(final UserDb usr) {
         NocturneApplication.d(LOG_TAG + "sendRegistrationMessage()");
-
-        if (usr.getUniqueId() == "") {
-            userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
-        } else {
-            userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
-        }
-
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final String url = "http://"
-                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
-                + ":"
-                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
-                + "/";
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        NocturneApplication.e(LOG_TAG + "sendRegistrationMessage callback() Response is: " + response.substring(0, 500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NocturneApplication.e(LOG_TAG + "sendRegistrationMessage callback() failed " + error.toString());
-            }
-        });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
-
-    protected void sendRegistrationMessage2(final UserDb usr) {
-        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage()");
-
-        if (usr.getUniqueId() == "") {
-            userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
-        } else {
-            userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
-        }
-
-        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final String serverAddr = "http://"
-                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
-                + ":"
-                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
-                + "/";
-
-//        restAdaptor = new RestAdapter.Builder()
-//                .setEndpoint(serverAddr)
-//                .setLogLevel(RestAdapter.LogLevel.FULL)
-//                .setLog(new RestAdapter.Log() {
-//                    @Override
-//                    public void log(String msg) {
-//                        NocturneApplication.d(LOG_TAG + "RetroFit :: " + msg);
-//                    }
-//                })
-//                .build();
-//        retrofitNetService = restAdaptor.create(RetrofitNetworkService.class);
-
-        retrofitNetService = RetrofitNetworkInterface.getService(getActivity());
-        NocturneApplication.d(LOG_TAG + "sendRegistrationMessage() calling REST API on [" + serverAddr + "]");
-//        retrofitNetService.createUser(User.fromDbObj(userObj), new Callback<User>() {
-//            @Override
-//            public void success(User userObj, Response response) {
-//                // Successful request, do something with the retrieved messages
-//                NocturneApplication.d(LOG_TAG + "createUser callback()");
-//                if (isAdded()) {
-//                    //FIXME :
-//                    txtWelcomeScr1Progress.setVisibility(View.INVISIBLE);
-////                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-////                if (msg.what == DbMetadata.RegistrationStatus_ACCEPTED) {
-////                    serverConnectionTask.stopRunning();
-////                    serverConnectionTask.cancel(true);
-////                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
-////                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
-////                    ((MainActivity) getActivity()).showScreen();
-////
-////                } else if (msg.what == DbMetadata.RegistrationStatus_DENIED) {
-////                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
-////                    NocturneApplication.getInstance().getDataModel().setRegistrationStatus(DbMetadata.RegistrationStatus.REQUEST_DENIED);
-////                    txtWelcomeScr1ErrorMessage.setText(rspnsMsg.getMessage());
-////                    txtWelcomeScr1ErrorMessageDetail.setText(rspnsMsg.getContent());
-////                    txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
-////                    txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
-////                }
-//                }
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                // Failed request
-//                NocturneApplication.e(LOG_TAG + "createUser callback() failed " + retrofitError.toString());
-//            }
-//        });
+        sendRegistrationMessageVolley(usr);
     }
 
     public void update() {
@@ -244,6 +150,96 @@ public class UserRegistrationActivityFragment extends Fragment {
         }
         serverConnectionTask.execute();
         enableSubscribeButton();
+    }
+
+    protected void sendRegistrationMessageVolley(final UserDb usr) {
+        NocturneApplication.d(LOG_TAG + "sendRegistrationMessageVolley()");
+
+        if (usr.getUniqueId() == "") {
+            userObj = NocturneApplication.getInstance().getDataModel().addUser(usr);
+        } else {
+            userObj = NocturneApplication.getInstance().getDataModel().updateUser(usr);
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String url = "http://"
+                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                + ":"
+                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                + "/users/register";
+
+        final JSONObject jsonObject = User.getJsonObj(userObj);
+        JsonObjectRequest putRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, url, jsonObject,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Response", response.toString());
+                        try {
+                            String req = response.getString("request");
+                            String stat = response.getString("status");
+                            String msg = response.getString("message");
+
+                            if (stat.equalsIgnoreCase("success")) {
+                                serverConnectionTask.stopRunning();
+                                Thread.sleep(1000);
+                                serverConnectionTask.cancel(true);
+                                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
+                                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+                                getActivity().finish();
+
+                            } else {
+                                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
+                                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+                                txtWelcomeScr1ErrorMessage.setText(msg);
+                                txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+                                txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+                                enableSubscribeButton();
+                            }
+                        } catch (JSONException e) {
+                            NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "createUser callback() JSON Exception", e);
+                            NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+                            txtWelcomeScr1ErrorMessage.setText("Error with Server Response");
+                            txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+                            txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+                            enableSubscribeButton();
+                        } catch (InterruptedException e) {
+                            NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "Exception stopping ServerConnectionAsyncTask", e);
+                        }
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "createUser callback() Error.Response : " + error.toString());
+                        NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+                        txtWelcomeScr1ErrorMessage.setText("Error with Server Response");
+                        txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+                        txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+                        enableSubscribeButton();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                try {
+                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "getBody() : " + jsonObject.toString());
+                    return jsonObject.toString().getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+
+        queue.add(putRequest);
     }
 
     private void enableSubscribeButton() {
@@ -268,6 +264,9 @@ public class UserRegistrationActivityFragment extends Fragment {
             boolean connected = false;
             publishProgress(connected);
             while (continueRunning) {
+                if (isCancelled()) {
+                    break;
+                }
                 connected = false;
                 if (UserRegistrationActivityFragment.this.isAdded()) {
                     try {
@@ -280,6 +279,9 @@ public class UserRegistrationActivityFragment extends Fragment {
                         URL serverURL = new URL(serverAddr);
                         URLConnection urlconn = serverURL.openConnection();
                         urlconn.setConnectTimeout(timeout);
+                        if (isCancelled()) {
+                            break;
+                        }
                         urlconn.connect();
                         connected = true;
                     } catch (IOException e) {
@@ -290,7 +292,13 @@ public class UserRegistrationActivityFragment extends Fragment {
                 }
                 publishProgress(connected);
                 try {
+                    if (isCancelled()) {
+                        break;
+                    }
                     Thread.sleep(10000);
+                    if (isCancelled()) {
+                        break;
+                    }
                 } catch (InterruptedException e) {
                 }
             }
@@ -325,6 +333,7 @@ public class UserRegistrationActivityFragment extends Fragment {
 
         public void stopRunning() {
             continueRunning = false;
+            cancel(true);
         }
     }
 }

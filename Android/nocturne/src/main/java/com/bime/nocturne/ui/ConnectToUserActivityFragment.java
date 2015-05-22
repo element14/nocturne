@@ -2,7 +2,9 @@ package com.bime.nocturne.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,20 +16,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
-import com.bime.nocturne.RetrofitNetworkInterface;
-import com.bime.nocturne.RetrofitNetworkService;
-import com.bime.nocturne.datamodel.User;
+import com.bime.nocturne.SettingsActivity;
+import com.bime.nocturne.datamodel.RegistrationStatus;
 import com.bime.nocturne.datamodel.UserConnect;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.MiscUtils;
 
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -101,6 +108,7 @@ public class ConnectToUserActivityFragment extends Fragment {
     }
 
     protected void sendConnectMessage() {
+        NocturneApplication.d(LOG_TAG + "sendConnectMessage()");
         txtErrorMsg.setVisibility(View.INVISIBLE);
         usrCnctObj = new UserConnect();
         if (swtchCarer.isChecked()) {
@@ -116,28 +124,80 @@ public class ConnectToUserActivityFragment extends Fragment {
         }
         usrCnctObj = NocturneApplication.getInstance().getDataModel().setUserConnection(usrCnctObj);
 
-        RetrofitNetworkService netSvc = RetrofitNetworkInterface.getService(getActivity());
-        netSvc.userConnect(usrCnctObj, new Callback<UserConnect>() {
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String url = "http://"
+                + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                + ":"
+                + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                + "/users/connect";
+
+        final JSONObject jsonObject = UserConnect.getJsonObj(usrCnctObj);
+        JsonObjectRequest putRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, url, jsonObject,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Response", response.toString());
+                        try {
+                            String req = response.getString("request");
+                            String stat = response.getString("status");
+                            String msg = response.getString("message");
+
+                            if (stat.equalsIgnoreCase("success")) {
+                                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
+                                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_ACCEPTED);
+                                getActivity().finish();
+
+                            } else {
+                                NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
+                                NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+//                                txtWelcomeScr1ErrorMessage.setText(msg);
+//                                txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+//                                txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+//                                enableSubscribeButton();
+                            }
+                        } catch (JSONException e) {
+                            NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "createUser callback() JSON Exception", e);
+                            NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+//                            txtWelcomeScr1ErrorMessage.setText("Error with Server Response");
+//                            txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+//                            txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+//                            enableSubscribeButton();
+                        }
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "createUser callback() Error.Response : " + error.toString());
+                        NocturneApplication.getInstance().getDataModel().setRegistrationStatus(RegistrationStatus.REQUEST_DENIED);
+//                        txtWelcomeScr1ErrorMessage.setText("Error with Server Response");
+//                        txtWelcomeScr1ErrorMessage.setVisibility(View.VISIBLE);
+//                        txtWelcomeScr1ErrorMessageDetail.setVisibility(View.VISIBLE);
+//                        enableSubscribeButton();
+                    }
+                }) {
             @Override
-            public void success(UserConnect userConn, Response response) {
-                // Successful request, do something with the retrieved
-                NocturneApplication.d(LOG_TAG + "getconnections callback");
-                if (isAdded()) {
-                    //FIXME : parse json response and populate listview
-//                final RESTResponseMsg rspnsMsg = msg.getData().getParcelable("RESTResponseMsg");
-//                if (msg.what == SpringRestTask.REST_REQUEST_SUCCESS) {
-//
-//                } else {
-//
-//                }
-                }
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                return headers;
             }
 
             @Override
-            public void failure(RetrofitError retrofitError) {
-                // Failed request
+            public byte[] getBody() {
+                try {
+                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "getBody() : " + jsonObject.toString());
+                    return jsonObject.toString().getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-        });
+        };
+
+        queue.add(putRequest);
     }
 
     public void update() {

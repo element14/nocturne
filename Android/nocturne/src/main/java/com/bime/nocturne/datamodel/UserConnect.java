@@ -16,7 +16,8 @@
  */
 package com.bime.nocturne.datamodel;
 
-import com.google.gson.annotations.SerializedName;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -24,7 +25,6 @@ import io.realm.annotations.PrimaryKey;
 public class UserConnect extends RealmObject {
 
     @PrimaryKey
-    @SerializedName("id")
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
@@ -35,6 +35,51 @@ public class UserConnect extends RealmObject {
     private String status;
 
     public UserConnect() {
+    }
+
+    public static JSONObject getJsonObj(final UserConnect pUsrCnctObj) {
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("user1_email", pUsrCnctObj.getUser1_email());
+            jsonObject.put("user1_role", pUsrCnctObj.getUser1_role());
+            jsonObject.put("user2_email", pUsrCnctObj.getUser2_email());
+            jsonObject.put("user2_role", pUsrCnctObj.getUser2_role());
+        } catch (JSONException e) {
+            // handle exception
+        }
+        return jsonObject;
+    }
+
+    public String getUser1_email() {
+        return user1_email;
+    }
+
+    public void setUser1_email(String user1_email) {
+        this.user1_email = user1_email;
+    }
+
+    public String getUser1_role() {
+        return user1_role;
+    }
+
+    public String getUser2_email() {
+        return user2_email;
+    }
+
+    public void setUser2_email(String user2_email) {
+        this.user2_email = user2_email;
+    }
+
+    public String getUser2_role() {
+        return user2_role;
+    }
+
+    public void setUser2_role(String user2_role) {
+        this.user2_role = user2_role;
+    }
+
+    public void setUser1_role(String user1_role) {
+        this.user1_role = user1_role;
     }
 
     public String getCreatedStr() {
@@ -72,38 +117,6 @@ public class UserConnect extends RealmObject {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
-    }
-
-    public String getUser1_email() {
-        return user1_email;
-    }
-
-    public void setUser1_email(String user1_email) {
-        this.user1_email = user1_email;
-    }
-
-    public String getUser2_email() {
-        return user2_email;
-    }
-
-    public void setUser2_email(String user2_email) {
-        this.user2_email = user2_email;
-    }
-
-    public String getUser1_role() {
-        return user1_role;
-    }
-
-    public void setUser1_role(String user1_role) {
-        this.user1_role = user1_role;
-    }
-
-    public String getUser2_role() {
-        return user2_role;
-    }
-
-    public void setUser2_role(String user2_role) {
-        this.user2_role = user2_role;
     }
 
     public String getStatus() {
