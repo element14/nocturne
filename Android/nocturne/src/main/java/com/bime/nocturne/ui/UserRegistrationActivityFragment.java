@@ -176,7 +176,7 @@ public class UserRegistrationActivityFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Response", response.toString());
+                        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "UserRegistration Response : " + response.toString());
                         try {
                             String req = response.getString("request");
                             String stat = response.getString("status");

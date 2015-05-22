@@ -94,8 +94,13 @@ public final class DataModel extends Observable {
         RealmQuery<DbMetadata> query = realm.where(DbMetadata.class);
         RealmResults<DbMetadata> result1 = query.findAll();
 
-        DbMetadata dbmd = result1.first();
-
+        realm.beginTransaction();
+        DbMetadata dbmd = new DbMetadata();
+        if (result1.size() > 0) {
+            dbmd = result1.first();
+        } else {
+            dbmd = realm.copyToRealm(new DbMetadata());
+        }
         switch (aRegStat) {
             case REQUEST_ACCEPTED:
                 dbmd.setRegistrationStatus(1);
@@ -110,6 +115,8 @@ public final class DataModel extends Observable {
             default:
                 dbmd.setRegistrationStatus(0);
         }
+        //dbmd = realm.copyToRealmOrUpdate(new DbMetadata());
+        realm.commitTransaction();
     }
 
     public UserConnect setUserConnection(final UserConnect usrCnctDb) {
@@ -158,7 +165,7 @@ public final class DataModel extends Observable {
      */
     public UserDb updateUser(final UserDb itm) {
         realm.beginTransaction();
-        UserDb realmUser = realm.copyToRealm(itm);
+        UserDb realmUser = realm.copyToRealmOrUpdate(itm);
         realm.commitTransaction();
         return realmUser;
     }

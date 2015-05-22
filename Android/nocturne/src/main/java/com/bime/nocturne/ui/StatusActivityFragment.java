@@ -102,10 +102,10 @@ public class StatusActivityFragment extends Fragment {
 
     public void update() {
         if (!readyFragment) {
-            Log.i(NocturneApplication.LOG_TAG, StatusActivityFragment.LOG_TAG + "update() not ready");
+            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "update() not ready");
             return;
         }
-        Log.i(NocturneApplication.LOG_TAG, StatusActivityFragment.LOG_TAG + "update() ready");
+        NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "update() ready");
         userObj = null;
 
         final List<UserDb> users = NocturneApplication.getInstance().getDataModel().getUsers();
@@ -134,7 +134,7 @@ public class StatusActivityFragment extends Fragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("Response", response.toString());
+                            NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "GetConnectedUsers : Response : " + response.toString());
                             try {
                                 String req = response.getString("request");
                                 String stat = response.getString("status");
@@ -173,6 +173,9 @@ public class StatusActivityFragment extends Fragment {
             boolean connected = false;
             publishProgress(connected);
             while (continueRunning) {
+                if (isCancelled()) {
+                    break;
+                }
                 connected = false;
                 if (StatusActivityFragment.this.isAdded()) {
                     try {
@@ -183,6 +186,9 @@ public class StatusActivityFragment extends Fragment {
                         URLConnection urlconn = serverURL.openConnection();
                         NocturneApplication.logMessage(Log.DEBUG, StatusActivityFragment.LOG_TAG + " looking for server : " + urlconn.getURL().toString());
                         urlconn.setConnectTimeout(timeout);
+                        if (isCancelled()) {
+                            break;
+                        }
                         urlconn.connect();
                         connected = true;
                     } catch (IOException e) {
@@ -190,10 +196,19 @@ public class StatusActivityFragment extends Fragment {
                     } catch (IllegalStateException e) {
                         NocturneApplication.logMessage(Log.ERROR, StatusActivityFragment.LOG_TAG + "update()", e);
                     }
+                    if (isCancelled()) {
+                        break;
+                    }
                 }
                 publishProgress(connected);
                 try {
+                    if (isCancelled()) {
+                        break;
+                    }
                     Thread.sleep(10000);
+                    if (isCancelled()) {
+                        break;
+                    }
                 } catch (InterruptedException e) {
                 }
             }
@@ -228,6 +243,7 @@ public class StatusActivityFragment extends Fragment {
 
         public void stopRunning() {
             continueRunning = false;
+            cancel(true);
         }
     }
 
@@ -243,13 +259,13 @@ public class StatusActivityFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
 //            if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_GATT_CONNECTED)) {
 //                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.connected));
-//                Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_CONNECTED");
+//                NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_CONNECTED");
 //            } else if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_GATT_DISCONNECTED)) {
 //                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.notconnected));
-//                Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_DISCONNECTED");
+//              NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_GATT_DISCONNECTED");
 //            } else if (intent.getAction().equalsIgnoreCase(SensorTagService.ACTION_DATA_AVAILABLE)) {
 //                txtStatusScr1StatusItem4Value.setText(getResources().getString(R.string.connected));
-//                Log.i(NocturneApplication.LOG_TAG, Status1Fragment.LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_DATA_AVAILABLE");
+//             NocturneApplication.logMessage(Log.DEBUG, LOG_TAG + "SensorTagStatusReceiver::onReceive() ACTION_DATA_AVAILABLE");
 //            }
         }
     }
