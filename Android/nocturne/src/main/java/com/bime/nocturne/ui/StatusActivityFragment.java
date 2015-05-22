@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
 import com.bime.nocturne.SettingsActivity;
+import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.ViewUtils;
 

@@ -25,6 +25,7 @@ import com.bime.nocturne.R;
 import com.bime.nocturne.SettingsActivity;
 import com.bime.nocturne.datamodel.RegistrationStatus;
 import com.bime.nocturne.datamodel.UserConnect;
+import com.bime.nocturne.datamodel.User;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.MiscUtils;
 

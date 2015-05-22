@@ -22,7 +22,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class User {
-
     private String uniqueId = "";
     private String createdStr;
     private String lastupdatedStr;
@@ -57,7 +56,7 @@ public class User {
         return u;
     }
 
-    public static JSONObject getJsonObj(final UserDb pUserObj) {
+    public static JSONObject toJsonObj(final UserDb pUserObj) {
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("username", pUserObj.getEmail1());

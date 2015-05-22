@@ -171,7 +171,7 @@ public class UserRegistrationActivityFragment extends Fragment {
                 + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
                 + "/users/register";
 
-        final JSONObject jsonObject = User.getJsonObj(userObj);
+        final JSONObject jsonObject = User.toJsonObj(userObj);
         JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
