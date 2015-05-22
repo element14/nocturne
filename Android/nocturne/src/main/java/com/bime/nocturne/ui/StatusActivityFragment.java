@@ -16,11 +16,20 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bime.nocturne.NocturneApplication;
 import com.bime.nocturne.R;
 import com.bime.nocturne.SettingsActivity;
 import com.bime.nocturne.datamodel.UserDb;
 import com.percolate.caffeine.ViewUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -111,6 +120,43 @@ public class StatusActivityFragment extends Fragment {
             serverConnectionTask.execute();
 
             //FIXME : get users connections
+
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            final String url = "http://"
+                    + settings.getString(SettingsActivity.PREF_SERVER_ADDRESS, SettingsActivity.PREF_SERVER_ADDRESS_DEFAULT)
+                    + ":"
+                    + settings.getString(SettingsActivity.PREF_SERVER_PORT, SettingsActivity.PREF_SERVER_PORT_DEFAULT)
+                    + "/users/connect/user_email=" + userObj.getEmail1();
+
+            JSONObject response = new JSONObject();
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("Response", response.toString());
+                            try {
+                                String req = response.getString("request");
+                                String stat = response.getString("status");
+                                String msg = response.getString("message");
+
+                                if (stat.equalsIgnoreCase("success")) {
+                                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_ACCEPTED");
+
+                                } else {
+                                    NocturneApplication.logMessage(Log.INFO, LOG_TAG + "createUser callback() RegistrationStatus_DENIED");
+                                }
+                            } catch (JSONException e) {
+                                NocturneApplication.logMessage(Log.ERROR, LOG_TAG + "createUser callback() JSON Exception", e);
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    NocturneApplication.logMessage(Log.ERROR, LOG_TAG + " get connections Error: " + error.getMessage());
+                }
+            });
+            queue.add(req);
 
         } else {
             // Show user registration screen
