@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>BedSensor/CC2541DK-Sensor</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>273</Column0><Column1>16</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1395</ColumnWidth1><ColumnWidth2>372</ColumnWidth2><ColumnWidth3>93</ColumnWidth3></Build>
+    <Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1861</ColumnWidth1></Debug-Log><TerminalIO/><Find-in-Files><ColumnWidth0>664</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>1138</ColumnWidth2></Find-in-Files></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-28899-11081</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>BedSensor</ExpandedNode><ExpandedNode>BedSensor/APP</ExpandedNode><ExpandedNode>BedSensor/PROFILES</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-27331-11110</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-15595-30408</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-12275-1425</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab></Tabs>
+        
+      <SelectedTab>2</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source\SensorTag.c</Filename><XPos>0</XPos><YPos>110</YPos><SelStart>4858</SelStart><SelEnd>4858</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\Components\hal\include\hal_led.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>2132</SelStart><SelEnd>2132</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\Components\osal\include\comdef.h</Filename><XPos>0</XPos><YPos>30</YPos><SelStart>2506</SelStart><SelEnd>2506</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\Profiles\SensorProfile\bedservice.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1961</SelStart><SelEnd>1961</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\BLE-CC254x-1.3.1\Projects\ble\SoftEdgeSensorTag\Source\SensorTag_Main.c</Filename><XPos>0</XPos><YPos>55</YPos><SelStart>3543</SelStart><SelEnd>3543</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\Components\hal\target\CC2541ST\hal_bed.c</Filename><XPos>0</XPos><YPos>82</YPos><SelStart>4940</SelStart><SelEnd>4940</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\Components\hal\target\CC2541ST\hal_bed.h</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>3266</SelStart><SelEnd>3266</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-012aab10><key>iaridepm.enu1</key></Toolbar-012aab10></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>792</Bottom><Right>353</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>193424</sizeHorzCY><sizeVertCX>184896</sizeVertCX><sizeVertCY>767892</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>200</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>193424</sizeHorzCY><sizeVertCX>104167</sizeVertCX><sizeVertCY>193424</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
